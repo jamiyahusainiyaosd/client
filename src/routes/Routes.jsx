@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
-import Home from "../pages/Home";
 import About from "../pages/About";
-import ContactUs from "../pages/ContactUs";
+import AcademicDetail from "../pages/academicDetails";
 import Academics from "../pages/Academics";
-import Teachers from "../pages/Teachers";
 import Admission from "../pages/Admission";
+import ContactUs from "../pages/ContactUs";
+import Home from "../pages/Home";
 import Notice from "../pages/Notice";
+import NoticeDetail from "../pages/noticeDetails";
+import Teachers from "../pages/Teachers";
 
 const Routes = createBrowserRouter([
   {
@@ -26,20 +28,28 @@ const Routes = createBrowserRouter([
         element: <ContactUs />,
       },
       {
-        path: "/academic",
+        path: "/academics",
         element: <Academics />,
       },
       {
-        path: "/teachers",
+        path: "/academics/:id",
+        element: <AcademicDetail />,
+      },
+      {
+        path: "/teacher",
         element: <Teachers />,
       },
       {
-        path: "/admission",
+        path: "/admissions",
         element: <Admission />,
       },
       {
-        path: "/notice",
+        path: "/notices",
         element: <Notice />,
+      },
+      {
+        path: "/notices/:id",
+        element: <NoticeDetail />,
       },
     ],
   },

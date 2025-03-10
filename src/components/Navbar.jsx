@@ -1,33 +1,37 @@
+import { Menu, X } from "lucide-react";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import navItems from "../constants/navItems.contants";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="text-white py-4">
-      <div className="max-w-[1144px] mx-auto px-4 flex justify-between items-center">
-        <h1 className="text-2xl md:text-3xl font-extrabold whitespace-nowrap">
-          জামিয়া হুসাইনিয়া মাদ্রাসা
-        </h1>
+    <nav className="text-white py-3" style={{ backgroundColor: '#111' }}>
+      <div className="container max-w-screen-xl mx-auto px-2 gap-1 py-3 flex items-center justify-between">
+        <h1 className="md:text-3xl font-bold whitespace-nowrap">জামিয়া হুসাইনিয়া মাদ্রাসা</h1>
 
         {/* Mobile Menu Button */}
-        <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <sapn className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        </sapn>
 
         {/* Navbar Links */}
         <ul
-          className={`lg:flex gap-4 items-center ${
-            isOpen ? "block" : "hidden"
-          } absolute lg:static top-16 left-0 w-full bg-gray-900 lg:bg-transparent text-center lg:text-left lg:w-auto lg:p-0 p-4 z-50`}
+          className={`lg:flex gap-1 whitespace-nowrap items-center absolute lg:static top-16 left-0 right-0 w-full bg-gray-900 lg:bg-transparent text-center lg:text-left lg:w-auto lg:p-0 p-4 z-50 transition-all duration-300 ease-in-out ${isOpen ? "flex flex-col gap-2" : "hidden"
+            }`}
         >
-          {navItems.map((item) => (
-            <li className="text-xl font-bold">
+          {[
+            { to: "/", label: "হোম" },
+            { to: "/about", label: "মাদ্রাসা সম্পর্কে" },
+            { to: "/contact", label: "যোগাযোগ" },
+            { to: "/academics", label: "একাডেমিক" },
+            { to: "/teacher", label: "শিক্ষকবৃন্দ" },
+            { to: "/admissions", label: "ভর্তি" },
+            { to: "/notices", label: "নোটিশ" },
+          ].map((item, index) => (
+            <li key={index} className="text-lg">
               <NavLink
-                to={item.path}
+                to={item.to}
                 className={({ isActive }) =>
                   isActive
                     ? "block py-2 px-4 lg:inline font-bold !bg-blue-600 hover:border-2 hover:!bg-transparent hover:border-white border-b-2 rounded-[8px] border-white"
