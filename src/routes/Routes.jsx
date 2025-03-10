@@ -28,27 +28,27 @@ const Routes = createBrowserRouter([
         element: <ContactUs />,
       },
       {
-        path: "/academics",
+        path: "/academic",
         element: <Academics />,
       },
       {
-        path: "/academics/:id",
+        path: "/academic/:id",
         element: <AcademicDetail />,
       },
       {
-        path: "/teacher",
+        path: "/teachers",
         element: <Teachers />,
       },
       {
-        path: "/admissions",
+        path: "/admission",
         element: <Admission />,
       },
       {
-        path: "/notices",
+        path: "/notice",
         element: <Notice />,
       },
       {
-        path: "/notices/:id",
+        path: "/notice/:id",
         element: <NoticeDetail />,
       },
     ],

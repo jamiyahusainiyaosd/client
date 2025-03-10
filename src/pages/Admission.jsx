@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaBookOpen, FaCheckCircle } from "react-icons/fa";
 import { baseUrl } from "../constants/env.constants";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import PageTitle from "../utils/PageTitle";
 
 const Admission = () => {
   const [admissions, setAdmissions] = useState([]);
@@ -37,11 +37,7 @@ const Admission = () => {
 
   return (
     <>
-      <HelmetProvider>
-        <Helmet>
-          <title>ভর্তি</title>
-        </Helmet>
-      </HelmetProvider>
+      <PageTitle key={"admissionPage"} title={"Admission"} />
       <section className="max-w-[1144px] w-[95%] mx-auto py-8">
         <br />
         <div className="p-6 rounded-lg shadow-2xl mb-8">
@@ -152,10 +148,11 @@ const Admission = () => {
                     <td className="border p-10">{item.admission_end_date}</td>
                     <td className="border p-10">{item.required_documents}</td>
                     <td
-                      className={`border p-10 ${item.seat_availability
+                      className={`border p-10 ${
+                        item.seat_availability
                           ? "bg-green-800 text-white"
                           : "bg-red-800 text-white"
-                        }`}
+                      }`}
                     >
                       {item.seat_availability ? "খালি আছে" : "খালি নেই"}
                     </td>

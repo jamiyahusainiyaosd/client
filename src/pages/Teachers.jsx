@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../constants/env.constants";
 import avaterImage from "/avater.png";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import PageTitle from "../utils/PageTitle";
 
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString("en-US");
@@ -50,11 +50,7 @@ const Teachers = () => {
 
   return (
     <>
-      <HelmetProvider>
-        <Helmet>
-          <title>শিক্ষকবৃন্দ</title>
-        </Helmet>
-      </HelmetProvider>
+      <PageTitle key={"teachersPage"} title={"Teachers"} />
       <section className="max-w-[1144px] w-[95%] mx-auto py-8">
         <h2 className="text-2xl font-semibold mb-4 text-center text-blue-600">
           আমাদের শিক্ষকবৃন্দ
@@ -68,9 +64,33 @@ const Teachers = () => {
               </h1>
             </div>
             <div className="mt-6">
-              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
-                <circle cx="50" cy="50" r="45" stroke="#3498db" strokeWidth="5" fill="none" />
-                <circle cx="50" cy="50" r="45" stroke="#2ecc71" strokeWidth="5" fill="none" strokeDasharray="283" strokeDashoffset="75" transform="rotate(-90 50 50)" className="animate-spin" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100"
+                height="100"
+                viewBox="0 0 100 100"
+                fill="none"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#3498db"
+                  strokeWidth="5"
+                  fill="none"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#2ecc71"
+                  strokeWidth="5"
+                  fill="none"
+                  strokeDasharray="283"
+                  strokeDashoffset="75"
+                  transform="rotate(-90 50 50)"
+                  className="animate-spin"
+                />
               </svg>
             </div>
           </div>

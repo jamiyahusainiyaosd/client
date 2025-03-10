@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseUrl } from "../constants/env.constants";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import PageTitle from "../utils/PageTitle";
 
 const AcademicDetail = () => {
   const { id } = useParams();
@@ -15,7 +15,7 @@ const AcademicDetail = () => {
     const fetchClassDetail = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${baseUrl}/academics/${id}/`, {
+        const response = await fetch(`${baseUrl}/academics/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -50,16 +50,12 @@ const AcademicDetail = () => {
   }, [id, setError]);
 
   const backAcademic = () => {
-    navigate("/academics");
+    navigate("/academic/");
   };
 
   return (
     <>
-      <HelmetProvider>
-        <Helmet>
-          <title>একাডেমিক বিস্তারিত</title>
-        </Helmet>
-      </HelmetProvider>
+      <PageTitle key={"academicPage"} title={"Academic"} />
       <div className="max-w-[1144px] w-[95%] mx-auto py-8">
         {loading ? (
           <div className="flex flex-col justify-center items-center">
@@ -69,9 +65,33 @@ const AcademicDetail = () => {
               </h1>
             </div>
             <div className="mt-6">
-              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
-                <circle cx="50" cy="50" r="45" stroke="#3498db" strokeWidth="5" fill="none" />
-                <circle cx="50" cy="50" r="45" stroke="#2ecc71" strokeWidth="5" fill="none" strokeDasharray="283" strokeDashoffset="75" transform="rotate(-90 50 50)" className="animate-spin" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100"
+                height="100"
+                viewBox="0 0 100 100"
+                fill="none"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#3498db"
+                  strokeWidth="5"
+                  fill="none"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#2ecc71"
+                  strokeWidth="5"
+                  fill="none"
+                  strokeDasharray="283"
+                  strokeDashoffset="75"
+                  transform="rotate(-90 50 50)"
+                  className="animate-spin"
+                />
               </svg>
             </div>
           </div>

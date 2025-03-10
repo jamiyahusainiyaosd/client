@@ -24,10 +24,10 @@ const Navbar = () => {
             { to: "/", label: "হোম" },
             { to: "/about", label: "মাদ্রাসা সম্পর্কে" },
             { to: "/contact", label: "যোগাযোগ" },
-            { to: "/academics", label: "একাডেমিক" },
-            { to: "/teacher", label: "শিক্ষকবৃন্দ" },
-            { to: "/admissions", label: "ভর্তি" },
-            { to: "/notices", label: "নোটিশ" },
+            { to: "/academic", label: "একাডেমিক" },
+            { to: "/teachers", label: "শিক্ষকবৃন্দ" },
+            { to: "/admission", label: "ভর্তি" },
+            { to: "/notice", label: "নোটিশ" },
           ].map((item, index) => (
             <li key={index} className="text-lg">
               <NavLink
