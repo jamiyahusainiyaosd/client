@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseUrl } from "../constants/env.constants";
+import PageTitle from "../utils/PageTitle";
 
 const NoticeDetail = () => {
   const { id } = useParams();
