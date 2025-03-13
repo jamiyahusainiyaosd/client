@@ -14,8 +14,8 @@ const About = () => {
   return (
     <>
       <PageTitle key={"aboutPage"} title={"About"} />
-      <section className="max-w-[1144px] w-[95%] mx-auto py-8">
-        <h2 className="text-2xl font-bold text-center mb-6 whitespace-nowrap">
+      <section className="max-w-[1144px] w-[95%] mx-auto mt-28">
+        <h2 className="text-2xl font-bold text-center mb-8 whitespace-nowrap">
           মাদ্রাসার সম্পর্কে বিস্তারিত
         </h2>
 

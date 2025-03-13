@@ -1,14 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
 import About from "../pages/About";
-import AcademicDetail from "../pages/academicDetails";
+import AcademicDetailPage from "../pages/AcademicDetailsPage";
 import Academics from "../pages/Academics";
-import Admission from "../pages/Admission";
 import ContactUs from "../pages/ContactUs";
 import Home from "../pages/Home";
-import Notice from "../pages/Notice";
-import NoticeDetail from "../pages/noticeDetails";
-import Teachers from "../pages/Teachers";
+import NoticePage from "../pages/NoticePage";
+import NoticeDetailsPage from "../pages/NoticeDetailsPage";
+import TeachersPage from "../pages/TeachersPage";
+import AdmissionPage from "../pages/AdmissionPage";
+import PhotoGallery from "../pages/photoGallery";
+import VideoGallery from "../pages/VideoGallery";
+import BookIntroduction from "../pages/BookIntroduction";
 
 const Routes = createBrowserRouter([
   {
@@ -33,23 +36,35 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/academic/:id",
-        element: <AcademicDetail />,
+        element: <AcademicDetailPage />,
       },
       {
         path: "/teachers",
-        element: <Teachers />,
+        element: <TeachersPage />,
       },
       {
         path: "/admission",
-        element: <Admission />,
+        element: <AdmissionPage />,
       },
       {
         path: "/notice",
-        element: <Notice />,
+        element: <NoticePage />,
       },
       {
         path: "/notice/:id",
-        element: <NoticeDetail />,
+        element: <NoticeDetailsPage />,
+      },
+      {
+        path: "/photo-gallery",
+        element: <PhotoGallery />,
+      },
+      {
+        path: "/video-gallery",
+        element: <VideoGallery />,
+      },
+      {
+        path: "/book-introduction",
+        element: <BookIntroduction />,
       },
     ],
   },

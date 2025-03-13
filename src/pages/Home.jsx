@@ -13,7 +13,7 @@ const Home = () => {
       <section>
         <div className="max-w-[1144px] w-[95%] mx-auto">
           <ImageSlider />
-          <div className="bg-gradient-to-r from-green-500 to-blue-500 p-2 rounded-lg">
+          <div className="bg-gradient-to-r from-green-500 to-blue-500 p-2 mt-10 rounded-lg">
             <Marquee />
           </div>
           <div className="flex flex-col md:flex-row md:px-3 lg:px-0  gap-4 md:gap-8 w-full mb-5 pt-10">

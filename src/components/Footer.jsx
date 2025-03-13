@@ -4,23 +4,26 @@ import qrCodeImage from '/qr-code.png';
 
 const Footer = () => {
     return (
-        <footer className="p-2 text-white py-4" style={{ backgroundColor: '#111' }}>
+        <footer className="p-2 text-white py-8 mt-10" style={{ backgroundColor: '#111' }}>
             <div className="max-w-[1144px] w-[95%] mx-auto container grid grid-cols-1 sm:grid-cols-4  text-center">
                 {/* Services Section */}
                 <span className="flex flex-col items-center">
                     <h6 className="text-lg font-semibold mb-3">গুরুত্বপূর্ণ লিংকসমূহ</h6>
                     <ul className="space-y-2">
                         <li>
-                            <a href="https://bmeb.gov.bd/" className="hover:text-gray-400 underline" target="_blank">বাংলাদেশ মাদ্রাসা শিক্ষা বোর্ড</a>
+                            <a href="https://www.wifaqbd.org/" className="hover:text-gray-400 underline" target="_blank">বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ</a>
                         </li>
                         <li>
-                            <a href="https://dme.gov.bd/" className="hover:text-gray-400 underline" target="_blank">বাংলাদেশ মাদ্রাসা শিক্ষা অধিদপ্তর</a>
+                            <a href="https://mibd.org/" className="hover:text-gray-400 underline" target="_blank">মুআসসাসা ইলমিয়্যাহ বাংলাদেশ</a>
                         </li>
                         <li>
-                            <a href="http://iau.edu.bd/" className="hover:text-gray-400 underline" target="_blank">ইসলামি আরবি বিশ্ববিদ্যালয়</a>
+                            <a href="https://www.alkawsar.com/bn/" className="hover:text-gray-400 underline" target="_blank">মাসিক আল কাউসার</a>
                         </li>
                         <li>
-                            <a href="https://moedu.portal.gov.bd/" className="hover:text-gray-400 underline" target="_blank">বাংলাদেশ শিক্ষা মন্ত্রনালয়</a>
+                            <a href="https://ilmdrive.com/risalatul-islam-bd/" className="hover:text-gray-400 underline" target="_blank">রিসালাতুল ইসলাম বাংলাদেশ</a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/@RisalatulIslamBD/playlists" className="hover:text-gray-400 underline" target="_blank">রিসালাতুল ইসলাম বাংলাদেশ, ইউটিউব</a>
                         </li>
                     </ul>
                 </span>
@@ -60,7 +63,7 @@ const Footer = () => {
             {/* Footer Bottom */}
             <div className="mt-8 text-center border-t border-gray-700 pt-4">
                 <p className="text-gray-400 text-sm">
-                    &copy; {new Date().getFullYear()} Hussainiya Madrasha Developd By <a target="_blank" className="underline font-bold" href="https://nazmus-shakib.netlify.app/">Nazmus Shakib</a> & <a target="_blank" className="underline font-bold" href="https://abdullah00001.github.io/abdullah-portfolio/">Abdullah Bin Omar Chudhary</a>
+                    &copy; {new Date().getFullYear()} জামিয়া হুসাইনিয়া | ওয়েব সাইট বিকাশ করেছেন <a target="_blank" className="underline font-bold" href="https://nazmus-shakib.netlify.app/">নাজমুস সাকিব</a> & <a className="font-bold">আব্দুল্লাহ বিন ওমর চৌধুরী</a>
                 </p>
             </div>
         </footer>

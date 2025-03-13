@@ -5,22 +5,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { baseUrl } from "../../../constants/env.constants";
-
-const fetchSliderImages = async () => {
-  const response = await fetch(`${baseUrl}/images`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch images");
-  }
-  return response.json();
-};
+import homeService from "../services/home.services";
+import { useMemo } from "react";
 
 const ImageSlider = () => {
   const { data, error, isError, isPending } = useQuery({
     queryKey: ["sliderImage"],
-    queryFn: fetchSliderImages,
+    queryFn: homeService.getSliderImage,
   });
-
+  const refinedData = useMemo(() => data?.data, [data]);
   if (isPending)
     return (
       <section className="flex justify-center py-10">
@@ -38,12 +31,22 @@ const ImageSlider = () => {
     );
 
   return (
-    <section className="py-6">
+    <section className="mt-28">
       <div className="w-full max-w-6xl mx-auto">
-        <Swiper modules={[Navigation, Pagination, Autoplay]} navigation pagination={{ clickable: true }} autoplay={{ delay: 4000, disableOnInteraction: false }} className="custom-swiper rounded-lg">
-          {data?.map((image, index) => (
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          className="custom-swiper rounded-lg"
+        >
+          {refinedData?.map((image, index) => (
             <SwiperSlide key={index} className="flex justify-center">
-              <img src={image.img} alt={`Slide image ${index + 1}`} className="w-full h-[300px] md:h-[350px] lg:h-[400px] shadow-2xl object-cover" />
+              <img
+                src={image.img}
+                alt={`Slide image ${index + 1}`}
+                className="w-full h-[300px] md:h-[350px] lg:h-[400px] shadow-2xl object-cover"
+              />
             </SwiperSlide>
           ))}
         </Swiper>
