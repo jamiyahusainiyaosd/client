@@ -6,7 +6,7 @@ import admissionService from "../features/admission/services/admission.services"
 import Admission from "../features/admission/components/Admission";
 
 const AdmissionPage = () => {
-  const [page, setPage] = useState(null);
+  const [page, setPage] = useState(1);
   const { isPending, data, isError, error } = useQuery({
     queryKey: ["admissions", page],
     queryFn: () => admissionService.getAll(page),
