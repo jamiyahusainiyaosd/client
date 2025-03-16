@@ -2,16 +2,19 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
 import About from "../pages/About";
 import AcademicDetailPage from "../pages/AcademicDetailsPage";
-import Academics from "../pages/Academics";
+import AcademicsPage from "../pages/AcademicsPage";
+import AdmissionPage from "../pages/AdmissionPage";
+import BookIntroductionPage from "../pages/BookIntroductionPage";
 import ContactUs from "../pages/ContactUs";
 import Home from "../pages/Home";
-import NoticePage from "../pages/NoticePage";
 import NoticeDetailsPage from "../pages/NoticeDetailsPage";
+import NoticePage from "../pages/NoticePage";
+import PhotoGalleryPage from "../pages/photoGalleryPage";
+import ResultsPage from "../pages/ResultsPage";
 import TeachersPage from "../pages/TeachersPage";
-import AdmissionPage from "../pages/AdmissionPage";
-import PhotoGallery from "../pages/photoGallery";
-import VideoGallery from "../pages/VideoGallery";
-import BookIntroduction from "../pages/BookIntroduction";
+import VideoGalleryPage from "../pages/VideoGalleryPage";
+import ResultsDetailsPage from '../pages/ResultsDetailsPage';
+import FinancialReport from "../pages/FinancialReport";
 
 const Routes = createBrowserRouter([
   {
@@ -32,7 +35,7 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/academic",
-        element: <Academics />,
+        element: <AcademicsPage />,
       },
       {
         path: "/academic/:id",
@@ -56,15 +59,27 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/photo-gallery",
-        element: <PhotoGallery />,
+        element: <PhotoGalleryPage />,
       },
       {
         path: "/video-gallery",
-        element: <VideoGallery />,
+        element: <VideoGalleryPage />,
       },
       {
         path: "/book-introduction",
-        element: <BookIntroduction />,
+        element: <BookIntroductionPage />,
+      },
+      {
+        path: "/results",
+        element: <ResultsPage />,
+      },
+      {
+        path: "/results/:id",
+        element: <ResultsDetailsPage />,
+      },
+      {
+        path: "/financial-report",
+        element: <FinancialReport />,
       },
     ],
   },

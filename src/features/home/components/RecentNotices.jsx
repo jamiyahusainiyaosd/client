@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-
 import React, { useMemo } from "react";
 import { ClockLoader } from "react-spinners";
 import homeService from "../services/home.services";
@@ -28,12 +27,7 @@ const RecentNotices = () => {
 
         {!isPending &&
           refinedData?.map(({ id, title, created_at }) => (
-            <RecentNotice
-              key={id}
-              created_at={created_at}
-              id={id}
-              title={title}
-            />
+            <RecentNotice key={id} created_at={created_at} id={id} title={title} />
           ))}
       </ul>
     </section>

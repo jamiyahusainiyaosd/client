@@ -6,7 +6,7 @@ import Error from "../../../components/Error";
 import NoDataFound from "../../../components/NoDataFound";
 import Notice from "./Notice";
 const Notices = () => {
-  const { isPending, data, isError, error } = useQuery({
+  const { isPending, data, isError } = useQuery({
     queryKey: ["notices"],
     queryFn: noticeService.getAll,
   });

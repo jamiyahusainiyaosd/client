@@ -40,10 +40,7 @@ const ContactUsRightDiv = () => {
   return (
     <>
       <div className="w-full md:w-1/2 border-1 rounded-2xl">
-        <Toaster
-          containerClassName="contactPageToaster"
-          position="top-center"
-        />
+        <Toaster containerClassName="contactPageToaster" position="top-center" />
         <ContactUsForm handleSubmit={handleSubmit} isPending={isPending} />
       </div>
     </>

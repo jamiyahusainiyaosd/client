@@ -4,6 +4,7 @@ import PageTitle from "../utils/PageTitle";
 import { useQuery } from "@tanstack/react-query";
 import admissionService from "../features/admission/services/admission.services";
 import Admission from "../features/admission/components/Admission";
+import Loader from "../components/Loader";
 
 const AdmissionPage = () => {
   const [page, setPage] = useState(1);
@@ -59,42 +60,8 @@ const AdmissionPage = () => {
         )}
 
         {isPending ? (
-          <div className="flex flex-col justify-center items-center">
-            <div className="text-center">
-              <h1 className="text-2xl font-bold" style={{ color: "red" }}>
-                পেজ লোড হচ্ছে অপেক্ষা করুন...
-              </h1>
-            </div>
-            <div className="mt-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="100"
-                height="100"
-                viewBox="0 0 100 100"
-                fill="none"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  stroke="#3498db"
-                  strokeWidth="5"
-                  fill="none"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  stroke="#2ecc71"
-                  strokeWidth="5"
-                  fill="none"
-                  strokeDasharray="283"
-                  strokeDashoffset="75"
-                  transform="rotate(-90 50 50)"
-                  className="animate-spin"
-                />
-              </svg>
-            </div>
+          <div>
+            <Loader />
           </div>
         ) : (
           <div className="overflow-x-auto mt-8">
@@ -102,12 +69,14 @@ const AdmissionPage = () => {
               <thead>
                 <tr className="text-left">
                   <th className="border p-5">শ্রেণী</th>
+                  <th className="border p-5">ক্লাস লেভেল</th>
+                  <th className="border p-5 whitespace-nowrap">
+                    ফর্ম ফি
+                  </th>
                   <th className="border p-5 whitespace-nowrap">
                     নতুন ভর্তি ফি
                   </th>
-                  <th className="border p-5 whitespace-nowrap">
-                    পুরনো ভর্তি ফি
-                  </th>
+                  <th className="border p-5 whitespace-nowrap">পুরনো ভর্তি ফি</th>
                   <th className="border p-5 whitespace-nowrap">নতুন মোট ফি</th>
                   <th className="border p-5 whitespace-nowrap">পুরনো মোট ফি</th>
                   <th className="border p-5 whitespace-nowrap">অতিরিক্ত ফি</th>
@@ -118,34 +87,15 @@ const AdmissionPage = () => {
                     দরকারি ডকুমেন্ট
                   </th>
                   <th className="border p-5 whitespace-nowrap">সিটের অবস্থা</th>
+                  <th className="border p-5 whitespace-nowrap">এড করার তারিখ</th>
+                  <th className="border p-5 whitespace-nowrap">আপডেট করার তারিখ</th>
                 </tr>
               </thead>
               <tbody>
                 {refinedData?.map(
-                  ({
-                    id,
-                    ClassName,
-                    new_admission_fee,
-                    old_admission_fee,
-                    new_total_fee,
-                    old_total_fee,
-                    additional_fee,
-                    admission_end_date,
-                    required_documents,
-                    seat_availability,
+                  ({ id, ClassName, class_level, form_fee, new_admission_fee, old_admission_fee, new_total_fee, old_total_fee, additional_fee, monthly_fee, admission_start_date, admission_end_date, required_documents, seat_availability, admission_created, admission_updated,
                   }) => (
-                    <Admission
-                      ClassName={ClassName}
-                      additional_fee={additional_fee}
-                      admission_end_date={admission_end_date}
-                      new_admission_fee={new_admission_fee}
-                      new_total_fee={new_total_fee}
-                      old_admission_fee={old_admission_fee}
-                      old_total_fee={old_total_fee}
-                      required_documents={required_documents}
-                      key={id}
-                      seat_availability={seat_availability}
-                    />
+                    <Admission key={id} ClassName={ClassName} class_level={class_level} form_fee={form_fee} new_admission_fee={new_admission_fee} old_admission_fee={old_admission_fee} new_total_fee={new_total_fee} old_total_fee={old_total_fee} additional_fee={additional_fee} monthly_fee={monthly_fee} admission_start_date={admission_start_date} admission_end_date={admission_end_date} required_documents={required_documents} seat_availability={seat_availability} admission_created={admission_created} admission_updated={admission_updated} />
                   )
                 )}
               </tbody>
@@ -155,20 +105,8 @@ const AdmissionPage = () => {
 
         {/* Pagination */}
         <div className="flex justify-between mt-8 gap-5">
-          <button
-            onClick={handlePrev}
-            disabled={!hasPrev}
-            className={`button1 ${!hasPrev && "opacity-50 cursor-not-allowed"}`}
-          >
-            🔙 পূর্ববর্তী পাতা
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={!hasNext}
-            className={`button1 ${!hasNext && "opacity-50 cursor-not-allowed"}`}
-          >
-            পরবর্তী পাতা ➡️
-          </button>
+          <button onClick={handlePrev} disabled={!hasPrev} className={`${!hasPrev && "opacity-50 cursor-not-allowed"}`}>🔙 পূর্ববর্তী পাতা</button>
+          <button onClick={handleNext} disabled={!hasNext} className={`button1 ${!hasNext && "opacity-50 cursor-not-allowed"}`}>পরবর্তী পাতা ➡️</button>
         </div>
       </section>
     </>

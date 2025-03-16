@@ -4,14 +4,14 @@ import { FaStar } from "react-icons/fa";
 
 const FirstLooksInfo = () => {
   return (
-    <section>
-      <div className="p-6 rounded-lg shadow-2xl mb-8">
+    <section className="p-4">
+      <div className="p-4 rounded-lg shadow-2xl">
         <h3 className="text-2xl font-semibold flex items-center mb-4">
           <FaStar className="mr-2" /> এক নজরে জামিয়া হুসাইনিয়া
         </h3>
-        <ul className="list-disc list-inside">
+        <ul className="space-y-3">
           {aboutData.overview.map((item, index) => (
-            <ol key={index} className="mt-2">
+            <li key={index} className="mt-2">
               <strong>
                 {item.icon} {item.label}:{" "}
               </strong>
@@ -22,9 +22,9 @@ const FirstLooksInfo = () => {
                   ))}
                 </ul>
               ) : (
-                item.value
+                <span>{item.value}</span>
               )}
-            </ol>
+            </li>
           ))}
         </ul>
       </div>

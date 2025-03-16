@@ -1,15 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Time from '../../../utils/formateData';
 
-const AcademicDetail = ({
-  className,
-  classTitle,
-  classSetCount,
-  classStudentCount,
-  classDescription,
-  createdAt,
-  updatedAt,
-}) => {
+const AcademicDetail = ({ className, classTitle, classSetCount, classStudentCount, classDescription, createdAt, updatedAt, }) => {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate("/academic");
@@ -32,13 +25,11 @@ const AcademicDetail = ({
           <span className="font-medium"> 👨‍🎓 ছাত্র সংখ্যা:</span>{" "}
           {classStudentCount}
         </p>
-        <p className="text-sm sm:text-base mt-2">
-          🗓️ <span className="font-medium">এড করার তারিখ:</span>{" "}
-          {new Date(createdAt).toLocaleDateString("bn-BD")}
+        <p className="text-base font-medium text-gray-600">
+          🗓️ {Time(createdAt)}
         </p>
-        <p className="text-sm sm:text-base">
-          🗓️ <span className="font-medium">আপডেট করার তারিখ:</span>{" "}
-          {new Date(updatedAt).toLocaleDateString("bn-BD")}
+        <p className="text-base font-medium text-gray-600">
+          🗓️ {Time(updatedAt)}
         </p>
       </div>
 

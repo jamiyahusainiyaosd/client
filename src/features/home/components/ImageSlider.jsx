@@ -33,20 +33,10 @@ const ImageSlider = () => {
   return (
     <section className="mt-28">
       <div className="w-full max-w-6xl mx-auto">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          className="custom-swiper rounded-lg"
-        >
+        <Swiper modules={[Navigation, Pagination, Autoplay]} navigation pagination={{ clickable: true }} autoplay={{ delay: 4000, disableOnInteraction: false }} className="custom-swiper rounded-lg">
           {refinedData?.map((image, index) => (
             <SwiperSlide key={index} className="flex justify-center">
-              <img
-                src={image.img}
-                alt={`Slide image ${index + 1}`}
-                className="w-full h-[300px] md:h-[350px] lg:h-[400px] shadow-2xl object-cover"
-              />
+              <img src={image.img} alt={`Slide image ${index + 1}`} className="w-full h-[300px] md:h-[350px] lg:h-[400px] shadow-2xl object-cover" />
             </SwiperSlide>
           ))}
         </Swiper>

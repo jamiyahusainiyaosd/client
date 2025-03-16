@@ -5,7 +5,7 @@ import { aboutData } from "../../../constants/aboutData";
 const TheWordInfo = () => {
   return (
     <section>
-      <div className="p-6 rounded-lg shadow-2xl">
+      <div className="p-3 rounded-lg shadow-2xl leading-relaxed text-justify">
         <h3 className="text-2xl font-semibold flex items-center mb-4">
           <FaQuoteRight className="mr-2" /> বাণী
         </h3>
@@ -21,4 +21,4 @@ const TheWordInfo = () => {
   );
 };
 
-export default TheWordInfo;
+export default TheWordInfo

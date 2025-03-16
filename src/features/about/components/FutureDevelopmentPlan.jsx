@@ -5,7 +5,7 @@ import { aboutData } from "../../../constants/aboutData";
 const FutureDevelopmentPlan = () => {
   return (
     <section>
-      <div className="p-6 rounded-lg shadow-2xl mb-8">
+      <div className="p-3 rounded-lg shadow-2xl mb-8">
         <h3 className="text-2xl font-semibold flex items-center mb-4">
           <FaCalendarAlt className="mr-2" /> ভবিষ্যৎ উন্নয়ন পরিকল্পনা
         </h3>

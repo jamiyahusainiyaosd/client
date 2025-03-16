@@ -1,9 +1,11 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import noticeService from "../services/notice.services";
-import Loader from "../../../components/Loader";
-import Error from "../../../components/Error";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import Error from "../../../components/Error";
+import Loader from "../../../components/Loader";
+import Time from '../../../utils/formateData';
+import noticeService from "../services/notice.services";
+
 const NoticeDetails = ({ id }) => {
   const navigate = useNavigate();
   const { isPending, data, isError, error } = useQuery({
@@ -19,16 +21,14 @@ const NoticeDetails = ({ id }) => {
       {isPending && <Loader />}
       {!isPending && isError && <Error errorMessage={error.message} />}
       {!isPending && refinedData && (
-        <div className="p-14 border rounded-lg shadow-2xl">
+        <div className="p-3 border rounded-lg shadow-2xl leading-relaxed text-justify">
           <h2 className="text-2xl font-bold">{refinedData.title}</h2>
           <br />
           <p className="text-sm text-gray-500 mt-2">
-            🗓️ প্রকাশের তারিখ:{" "}
-            {new Date(refinedData.created_at).toLocaleDateString("bn-BD")}
+            🗓️ প্রকাশের তারিখ : {Time(refinedData.created_at)}
           </p>
           <p className="text-sm text-gray-500 mt-2">
-            🗓️ আপডেটের তারিখ:{" "}
-            {new Date(refinedData.updated_at).toLocaleDateString("bn-BD")}
+            🗓️ আপডেটের তারিখ : {Time(refinedData.updated_at)}
           </p>
           <p className="mt-4">
             {refinedData.description || "এই নোটিশের বিস্তারিত তথ্য নেই।"}
