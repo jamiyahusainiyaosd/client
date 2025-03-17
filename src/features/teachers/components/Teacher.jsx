@@ -18,7 +18,7 @@ const Teacher = ({
         className="w-24 h-24 rounded-full object-cover mb-4" 
       />
       
-      <h3 className="text-xl font-semibold text-center mb-2">{name}</h3>
+      <h3 className="text-xl font-bold mb-2">{name}</h3>
       <p className="mb-2">🎓 {designation}</p>
       <p className="text-sm mb-2">📞 যোগাযোগ: {phone_number}</p>
       

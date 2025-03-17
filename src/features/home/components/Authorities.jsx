@@ -7,7 +7,7 @@ const Authorities = () => {
     <>
       <div className="flex flex-col items-start justify-start space-y-5">
         {authorityInfo.map((item) => (
-          <Authority key={item.id} educational_qualification={item.educational_qualification} name={item.name} title={item.title} />
+          <Authority key={item.id} name={item.name} title={item.title} />
         ))}
       </div>
     </>

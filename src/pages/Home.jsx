@@ -23,7 +23,7 @@ const Home = () => {
             </div>
             <div className="w-full md:w-[29%] h-full shadow-2xl rounded-lg p-4 space-y-6">
               <h2 className="text-2xl font-semibold text-center mb-4" style={{color:'wheat'}}>
-                মুহতামিম, অত্র জামিয়া
+                প্রিন্সিপাল
               </h2>
               <Authorities />
             </div>

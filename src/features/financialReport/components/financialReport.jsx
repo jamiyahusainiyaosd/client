@@ -41,7 +41,7 @@ const FinancialReport = () => {
     }
 
     if (!reports || reports.length === 0) {
-        return <div className="text-center text-gray-500 text-xl">কোনো প্রতিবেদন প্রকাশ করা হয়নি।</div>;
+        return <div className="text-center text-red-500 text-xl">কোনো প্রতিবেদন প্রকাশ করা হয়নি।</div>;
     }
 
     return (
