@@ -13,7 +13,7 @@ const AllAcademics = () => {
     queryFn: academicsServices.getAllAcademic,
   });
   const handleViewDetails = (id) => {
-    navigate(`/academic/${id}/`);
+    navigate(`/academic/${id}`);
   };
   return (
     <>
