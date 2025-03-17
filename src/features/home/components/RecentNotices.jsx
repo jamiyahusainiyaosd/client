@@ -12,7 +12,7 @@ const RecentNotices = () => {
   const refinedData = useMemo(() => data?.data, [data]);
   return (
     <section className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">
+      <h1 className="text-2xl font-bold mb-4" style={{color:'wheat'}}>
         সাম্প্রতিক নোটিশগুলো
       </h1>
 

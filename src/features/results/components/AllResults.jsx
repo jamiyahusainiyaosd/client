@@ -23,10 +23,10 @@ const AllResults = () => {
         <section>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {results.map((result) => (
-                    <li key={result.id} className="p-4 border rounded-lg leading-8 shadow-2xl">
-                        <h3 className="text-xl font-semibold">{result.studentClassName}</h3>
-                        <p>📅 রেজাল্ট ক্রিয়েটেড : {Time(result.resultCreatedAt)}</p>
-                        <p>📅 রেজাল্ট আপডেটেড : {Time(result.resultUpdatedAt)}</p>
+                    <li key={result.id} className="p-4 border rounded-lg space-y-3 shadow-2xl">
+                        <h3 className="text-xl font-semibold" style={{color:'wheat'}}>{result.studentClassName}</h3>
+                        <p>📅 প্রকাশের তারিখ : {Time(result.resultCreatedAt)}</p>
+                        <p>📅 আপডেটের তারিখ : {Time(result.resultUpdatedAt)}</p>
                         <br />
                         <Link to={`/results/${result.id}`}>
                             <button className="button1">

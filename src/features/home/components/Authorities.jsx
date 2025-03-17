@@ -5,7 +5,7 @@ import Authority from "./Authority";
 const Authorities = () => {
   return (
     <>
-      <div className="flex flex-col items-start justify-start space-y-4">
+      <div className="flex flex-col items-start justify-start space-y-5">
         {authorityInfo.map((item) => (
           <Authority key={item.id} educational_qualification={item.educational_qualification} name={item.name} title={item.title} />
         ))}

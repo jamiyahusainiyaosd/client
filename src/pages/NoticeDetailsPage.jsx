@@ -7,9 +7,9 @@ const NoticeDetailsPage = () => {
   const { id } = useParams();
   return (
     <>
-      <PageTitle key={"noticePage"} title={"Notice Details"} />
+      <PageTitle key={"noticePage"} title={"নোটিশ বিস্তারিত"} />
       <section className="max-w-[800px] w-[95%] mx-auto mt-28">
-        <h1 className="text-2xl font-bold text-center mb-4">
+        <h1 className="text-2xl font-bold text-center mb-4" style={{color:'pink'}}>
           অত্র জামিয়ার বিস্তারিত নোটিশ
         </h1>
         <br />

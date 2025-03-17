@@ -8,9 +8,9 @@ const Notice = ({ title, created_at, id }) => {
     navigate(`/notice/${id}`);
   };
   return (
-    <div className="p-4 border rounded-lg shadow-2xl">
-      <h3 className="text-2xl font-semibold">{title}</h3>
-      <p className="text-base font-medium text-gray-600">
+    <div className="p-4 border rounded-lg space-y-3 shadow-2xl">
+      <h3 className="text-2xl font-semibold" style={{color:'wheat'}}>{title}</h3>
+      <p className="text-base font-medium">
         🗓️ {Time(created_at)}
       </p>
       <button onClick={handleDetails} className="button1 mt-5">

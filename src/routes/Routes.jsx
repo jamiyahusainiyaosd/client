@@ -14,7 +14,7 @@ import ResultsPage from "../pages/ResultsPage";
 import TeachersPage from "../pages/TeachersPage";
 import VideoGalleryPage from "../pages/VideoGalleryPage";
 import ResultsDetailsPage from '../pages/ResultsDetailsPage';
-import FinancialReport from "../pages/FinancialReport";
+import FinancialReportPage from "../pages/FinancialReportPage";
 
 const Routes = createBrowserRouter([
   {
@@ -79,7 +79,7 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/financial-report",
-        element: <FinancialReport />,
+        element: <FinancialReportPage />,
       },
     ],
   },

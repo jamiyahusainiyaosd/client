@@ -26,17 +26,15 @@ const AdmissionPage = () => {
 
   return (
     <>
-      <PageTitle key={"admissionPage"} title={"Admission"} />
+      <PageTitle key={"admissionPage"} title={"ভর্তি"} />
       <section className="max-w-[1144px] w-[95%] mx-auto mt-28">
         <br />
         <div className="p-6 rounded-lg shadow-2xl mb-8">
-          {/* Section Title */}
-          <h3 className="text-2xl font-semibold flex items-center mb-4 text-gray-800">
+          <h3 className="text-2xl font-semibold flex items-center mb-4" style={{ color: 'wheat' }}>
             <FaBookOpen className="text-blue-500 mr-2" /> ভর্তি হওয়ার যোগ্যতা
           </h3>
 
-          {/* Admission List */}
-          <ul className="space-y-3">
+          <ul className="space-y-5">
             {[
               "ভর্তি সংক্রান্ত যেকোনো বিষয়ে মাদ্রাসার কতৃপক্ষের সাথে কথা বলুন।",
               "ভর্তি ফরম ও ভর্তি-সংক্রান্ত অন্যান্য কাগজপত্র মাদ্রাসার অফিস থেকে সংগ্রহ করতে হবে।",
@@ -47,14 +45,10 @@ const AdmissionPage = () => {
               "নতুন ছাত্রদের জন্মসনদের ফটোকপি এবং সকল ছাত্রের ১ কপি ছবি সাথে আনতে হবে।",
               "বর্ডিংয়ের খোরাকির ২০০০/- টাকা প্রতি ইংরেজি মাসের ৫ তারিখের মধ্যে পরিশোধ করতে হবে।",
             ].map((item, index) => (
-              <li key={index} className="flex items-center text-gray-700">
-                <FaCheckCircle className="text-green-500 mr-2" />
-                {item}
-              </li>
-            ))}
+              <li key={index} className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />{item}</li>))}
           </ul>
         </div>
-        <h2 className="text-2xl font-bold text-center">ভর্তি সংক্রান্ত তথ্য</h2>
+        <h2 className="text-2xl font-bold text-center" style={{ color: 'wheat' }}>ভর্তি সংক্রান্ত তথ্য</h2>
         {!isPending && isError && (
           <div className="text-red-800 p-4 rounded mt-4">{error.message}</div>
         )}
@@ -70,12 +64,8 @@ const AdmissionPage = () => {
                 <tr className="text-left">
                   <th className="border p-5">শ্রেণী</th>
                   <th className="border p-5">ক্লাস লেভেল</th>
-                  <th className="border p-5 whitespace-nowrap">
-                    ফর্ম ফি
-                  </th>
-                  <th className="border p-5 whitespace-nowrap">
-                    নতুন ভর্তি ফি
-                  </th>
+                  <th className="border p-5 whitespace-nowrap">ফর্ম ফি</th>
+                  <th className="border p-5 whitespace-nowrap">নতুন ভর্তি ফি</th>
                   <th className="border p-5 whitespace-nowrap">পুরনো ভর্তি ফি</th>
                   <th className="border p-5 whitespace-nowrap">নতুন মোট ফি</th>
                   <th className="border p-5 whitespace-nowrap">পুরনো মোট ফি</th>
@@ -83,12 +73,10 @@ const AdmissionPage = () => {
                   <th className="border p-5 whitespace-nowrap">মাসিক ফি</th>
                   <th className="border p-5 whitespace-nowrap">ভর্তি শুরু</th>
                   <th className="border p-5 whitespace-nowrap">ভর্তি শেষ</th>
-                  <th className="border p-5 whitespace-nowrap">
-                    দরকারি ডকুমেন্ট
-                  </th>
+                  <th className="border p-5 whitespace-nowrap">দরকারি ডকুমেন্ট</th>
                   <th className="border p-5 whitespace-nowrap">সিটের অবস্থা</th>
-                  <th className="border p-5 whitespace-nowrap">এড করার তারিখ</th>
-                  <th className="border p-5 whitespace-nowrap">আপডেট করার তারিখ</th>
+                  <th className="border p-5 whitespace-nowrap">প্রকাশের তারিখ</th>
+                  <th className="border p-5 whitespace-nowrap">আপডেটের তারিখ</th>
                 </tr>
               </thead>
               <tbody>
@@ -103,7 +91,6 @@ const AdmissionPage = () => {
           </div>
         )}
 
-        {/* Pagination */}
         <div className="flex justify-between mt-8 gap-5">
           <button onClick={handlePrev} disabled={!hasPrev} className={`${!hasPrev && "opacity-50 cursor-not-allowed"}`}>🔙 পূর্ববর্তী পাতা</button>
           <button onClick={handleNext} disabled={!hasNext} className={`button1 ${!hasNext && "opacity-50 cursor-not-allowed"}`}>পরবর্তী পাতা ➡️</button>

@@ -4,10 +4,10 @@ import { FaStar } from "react-icons/fa";
 
 const FirstLooksInfo = () => {
   return (
-    <section className="p-4">
-      <div className="p-4 rounded-lg shadow-2xl">
-        <h3 className="text-2xl font-semibold flex items-center mb-4">
-          <FaStar className="mr-2" /> এক নজরে জামিয়া হুসাইনিয়া
+    <section>
+      <div className="p-4 rounded-lg shadow-2xl mb-8">
+        <h3 className="text-2xl font-semibold flex items-center mb-4" style={{color:'wheat'}}>
+          <FaStar className="mr-2 text-blue-400" /> এক নজরে জামিয়া হুসাইনিয়া
         </h3>
         <ul className="space-y-3">
           {aboutData.overview.map((item, index) => (

@@ -9,7 +9,7 @@ const HomeIntro = () => {
         সপ্তাহে ৬ দিন ক্লাস হয় সকাল ৯ টা থেকে দুপুর ১.৩০ মিনিট পর্যন্ত। শুক্রবারে মাদ্রাসার ক্লাস বন্ধ থাকে।
       </li>
     </ul>
-    <div className="max-w-4xl mx-auto w-full p-3 shadow-2xl rounded-lg hover:shadow-2xl transition duration-300 cursor-pointer hover:border-b-2 hover:border-white">
+    <div className="max-w-4xl mx-auto w-full p-3 shadow-2xl rounded-lg hover:shadow-2xl transition duration-300 cursor-pointer hover:border-b-2">
       <h1 className="text-2xl font-semibold mb-6 text-center sm:text-left">
         🏫 জামিয়া হুসাইনিয়া মাদ্রাসা, শায়েস্তাগঞ্জ, হবিগঞ্জ
       </h1>

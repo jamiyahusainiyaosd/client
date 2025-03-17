@@ -4,7 +4,7 @@ import qrCodeImage from '/qr-code.png';
 
 const Footer = () => {
     return (
-        <footer className="p-4 text-white py-8 mt-10" style={{ backgroundColor: '#111' }}>
+        <footer className="p-4 py-8 mt-10" style={{ backgroundColor: '#222' }}>
             <div className="max-w-[1244px] mx-auto w-[100%] justify-items-center container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left">
 
                 {/* Services Section */}
@@ -31,8 +31,8 @@ const Footer = () => {
                     <ul className="space-y-2">
                         <li className="font-bold whitespace-nowrap">ই-মেইল : jamiyahusainiya1@gmail.com</li>
                         <li className="font-bold">মোবাইল নাম্বার: +8801751699909</li>
-                        <li className="font-bold">ব্যাংক একাউন্ট: 3070101040683</li>
-                        <li className="font-bold">BS25-C-0717526 TO BS25-C-0717550</li>
+                        <li className="font-bold">পূবালী ব্যাংক একাউন্ট নাম্বার : 3070101040683</li>
+                        <li className="font-bold">শায়েস্তাগঞ্জ, হবিগঞ্জ ব্রাঞ্চ : BS25-C-0717526 TO BS25-C-0717550</li>
                         <a target="_blank" href="https://www.google.com/maps/place/%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%BE+%E0%A6%B9%E0%A7%81%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%BE+%E0%A6%B6%E0%A6%BE%E0%A7%9F%E0%A7%87%E0%A6%B8%E0%A7%8D%E0%A6%A4%E0%A6%BE%E0%A6%97%E0%A6%9E%E0%A7%8D%E0%A6%9C+%E0%A6%AE%E0%A6%BE%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%B8%E0%A6%BE/">
                             <li className="font-bold underline">শায়েস্তাগঞ্জ হবিগঞ্জ, সিলেট, বাংলাদেশ</li>
                         </a>
@@ -50,12 +50,12 @@ const Footer = () => {
             </div>
 
             {/* Footer Bottom */}
-            <div className="mt-8 text-center border-t border-gray-700 pt-4">
-                <p className="text-gray-400 font-bold text-sm">
+            <div className="mt-8 text-center border-t pt-4">
+                <p className="font-bold text-sm">
                     &copy; {new Date().getFullYear()} জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জ হবিগঞ্জ
                 </p>
                 <br />
-                <p className="text-gray-400 text-sm">
+                <p className="text-sm">
                     ওয়েব সাইট বিকাশ করেছেন <a target="_blank" className="underline font-bold" href="https://nazmus-shakib.netlify.app/">নাজমুস সাকিব</a> & আব্দুল্লাহ বিন ওমর চৌধুরী
                 </p>
             </div>

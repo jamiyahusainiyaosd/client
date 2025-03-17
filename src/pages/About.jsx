@@ -13,9 +13,9 @@ import TheWordInfo from "../features/about/components/TheWordInfo";
 const About = () => {
   return (
     <>
-      <PageTitle key={"aboutPage"} title={"About"} />
+      <PageTitle key={"aboutPage"} title={"মাদ্রাসা সম্পর্কে"} />
       <section className="max-w-[1144px] w-[95%] mx-auto mt-28">
-        <h2 className="text-2xl font-bold text-center mb-8 whitespace-nowrap">
+        <h2 className="text-2xl font-bold text-center mb-8 whitespace-nowrap" style={{color:"pink"}}>
           মাদ্রাসার সম্পর্কে বিস্তারিত
         </h2>
 

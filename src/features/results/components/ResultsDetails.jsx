@@ -41,10 +41,10 @@ const ResultsDetails = () => {
 
     return (
         <section>
-            <div className="p-6 border rounded-lg shadow-xl">
-                <h2 className="text-xl font-semibold">{result.studentClassName}</h2>
-                <p>📅 রেজাল্ট ক্রিয়েটেড : {Time(result.resultCreatedAt)}</p>
-                <p>📅 রেজাল্ট আপডেটেড : {Time(result.resultUpdatedAt)}</p>
+            <div className="p-6 border rounded-lg space-y-3 shadow-xl">
+                <h2 className="text-xl font-semibold" style={{color:'wheat'}}>{result.studentClassName}</h2>
+                <p>📅 প্রকাশের তারিখ : {Time(result.resultCreatedAt)}</p>
+                <p>📅 আপডেটের তারিখ : {Time(result.resultUpdatedAt)}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                     {result.images?.length > 0 ? (
                         result.images.map((image, index) => (

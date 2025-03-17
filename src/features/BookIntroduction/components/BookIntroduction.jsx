@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { baseUrl } from "../../../constants/env.constants";
 import Loader from "../../../components/Loader";
+import { baseUrl } from "../../../constants/env.constants";
 import Time from "../../../utils/formateData";
 
 const fetchBooks = async () => {
@@ -14,7 +14,7 @@ const BookIntroduction = () => {
     const { data: books, isLoading, isError } = useQuery({ queryKey: ["books"], queryFn: fetchBooks });
     const [selectedImage, setSelectedImage] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 8;
+    const itemsPerPage = 4;
 
     useEffect(() => {
         setCurrentPage(0);
@@ -36,18 +36,18 @@ const BookIntroduction = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {currentBooks.map((book) => (
                                 <div key={book.id} className="overflow-hidden border p-4 rounded-xl shadow-2xl relative cursor-pointer space-y-3">
-                                    <h1 className="text-2xl"><b>লেখক ➝</b> {book.authorName}</h1>
+                                    <h1 className="text-2xl" style={{color:'wheat'}}><b>লেখক ➝</b> {book.authorName}</h1>
                                     <h3 className="text-xl"><b>বইয়ের নাম ➝</b> {book.bookTitle}</h3>
                                     <p className="text-sm"><b>যে বিষয়ে বই লিখা ➝</b> {book.bookDescription}</p>
-                                    <p className="text-sm"><b>এড করার তারিখ ➝</b> 🗓️ {Time(book.bookCreatedAt)}</p>
-                                    <p className="text-sm"><b>আপডেট করার তারিখ ➝</b> 🗓️ {Time(book.bookUpdatedAt)}</p>
+                                    <p className="text-sm"><b>প্রকাশের তারিখ ➝</b> 🗓️ {Time(book.bookCreatedAt)}</p>
+                                    <p className="text-sm"><b>আপডেটের তারিখ ➝</b> 🗓️ {Time(book.bookUpdatedAt)}</p>
                                     <img src={book.bookKobarImg} alt={book.bookTitle} className="w-full h-96 transition-transform hover:scale-105 cursor-pointer" onClick={() => setSelectedImage(book.bookKobarImg)} />
                                 </div>
                             ))}
                         </div>
                         <div className="flex justify-center mt-6">
                             <button className={`px-4 py-2 mx-2 rounded-lg ${currentPage === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"} text-white`} onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 0}>◀️ আগের বই</button>
-                            <button className={`px-4 py-2 mx-2 rounded-lg ${currentPage === totalPages - 1 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"} text-white`} onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages - 1}>পরের বই ▶️</button>
+                            <button className={`px-4 button1 py-2 mx-2 rounded-lg ${currentPage === totalPages - 1 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"} text-white`} onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages - 1}>পরের বই ▶️</button>
                         </div>
                     </div>
                 )}

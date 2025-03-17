@@ -21,19 +21,17 @@ const NoticeDetails = ({ id }) => {
       {isPending && <Loader />}
       {!isPending && isError && <Error errorMessage={error.message} />}
       {!isPending && refinedData && (
-        <div className="p-3 border rounded-lg shadow-2xl leading-relaxed text-justify">
-          <h2 className="text-2xl font-bold">{refinedData.title}</h2>
-          <br />
-          <p className="text-sm text-gray-500 mt-2">
+        <div className="p-3 border rounded-lg shadow-2xl space-y-3 text-justify">
+          <h2 className="text-2xl font-bold" style={{color:'wheat'}}>{refinedData.title}</h2>
+          <p className="text-sm mt-2">
             🗓️ প্রকাশের তারিখ : {Time(refinedData.created_at)}
           </p>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm mt-2">
             🗓️ আপডেটের তারিখ : {Time(refinedData.updated_at)}
           </p>
           <p className="mt-4">
             {refinedData.description || "এই নোটিশের বিস্তারিত তথ্য নেই।"}
           </p>
-          <br />
           <button onClick={handleReturn} className="mt-4">
             🔙 ফিরে যান
           </button>

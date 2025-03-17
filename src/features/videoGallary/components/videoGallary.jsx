@@ -53,7 +53,7 @@ const VideoGallary = () => {
                             ◀️ আগের ভিডিও
                         </button>
                         <button
-                            className={`px-4 py-2 mx-2 rounded-lg ${currentPage === totalPages - 1 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"} text-white`}
+                            className={`px-4 py-2 button1 mx-2 rounded-lg ${currentPage === totalPages - 1 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"} text-white`}
                             onClick={() => setCurrentPage(currentPage + 1)}
                             disabled={currentPage === totalPages - 1}
                         >

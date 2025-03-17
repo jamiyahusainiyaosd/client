@@ -8,9 +8,9 @@ const Navbar = () => {
   const [academicDropdown, setAcademicDropdown] = useState(false);
 
   return (
-    <nav className="text-white py-2 fixed top-0 left-0 w-full z-50" style={{ backgroundColor: "#111" }}>
+    <nav className="py-2 fixed top-0 left-0 w-full z-50" style={{ backgroundColor: "#222" }}>
       <div className="container max-w-screen-xl mx-auto px-3 gap-1 py-3 flex items-center justify-between">
-        <h1 className="text-2xl font-bold whitespace-nowrap">জামিয়া হুসাইনিয়া মাদ্রাসা</h1>
+        <h1 className="text-2xl font-bold whitespace-nowrap" style={{color:'pink'}}>জামিয়া হুসাইনিয়া মাদ্রাসা</h1>
 
         {/* Mobile Menu Button */}
         <span className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
