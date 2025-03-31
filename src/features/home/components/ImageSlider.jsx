@@ -16,7 +16,7 @@ const ImageSlider = () => {
   const refinedData = useMemo(() => data?.data, [data]);
   if (isPending)
     return (
-      <section className="flex justify-center py-10">
+      <section className="flex justify-center py-36">
         <ClockLoader color="#4A90E2" size={50} />
       </section>
     );
