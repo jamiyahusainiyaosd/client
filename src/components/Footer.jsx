@@ -56,7 +56,7 @@ const Footer = () => {
                 </p>
                 <br />
                 <p>
-                    ওয়েব সাইট বিকাশ করেছেন <a target="_blank" className="underline font-bold text-cyan-300 hover:text-cyan-400" href="https://nazmus-shakib.netlify.app/">নাজমুস সাকিব</a> & <a target="_blank" className="font-bold text-cyan-300 hover:text-cyan-400">আব্দুল্লাহ বিন ওমর চৌধুরী</a>
+                    ওয়েব সাইট বিকাশ করেছেন <a target="_blank" className="underline font-bold text-cyan-300 hover:text-cyan-400" href="https://najmusshakib.netlify.app/">নাজমুস সাকিব</a> & <a target="_blank" className="font-bold text-cyan-300 hover:text-cyan-400">আব্দুল্লাহ বিন ওমর চৌধুরী</a>
                 </p>
             </div>
         </footer>
