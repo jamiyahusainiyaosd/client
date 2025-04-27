@@ -11,7 +11,7 @@ const AimsAndObjectivesInfo = () => {
         </h3>
         <ul className="space-y-3 ml-5">
           {aboutData.goals.map((goal, index) => (
-            <li key={index} className="relative pl-5 text-gray-300 before:absolute before:left-0 before:top-3 before:w-2 before:h-2 before:bg-cyan-400 before:rounded-full">
+            <li key={index} className="relative pl-5 text-gray-300 before:absolute before:left-0 before:top-3 before:w-2 before:h-2 before:bg-cyan-400 before:rounded-full text-justify">
               {goal}
             </li>
           ))}

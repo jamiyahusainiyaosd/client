@@ -18,7 +18,7 @@ const FirstLooksInfo = () => {
               {Array.isArray(item.value) ? (
                 <ul className="mt-2 space-y-2 ml-6">
                   {item.value.map((fund, idx) => (
-                    <li key={idx} className="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-amber-400 before:rounded-full">
+                    <li key={idx} className="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-amber-400 before:rounded-full text-justify">
                       {fund}
                     </li>
                   ))}

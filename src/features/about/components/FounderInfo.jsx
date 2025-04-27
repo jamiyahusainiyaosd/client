@@ -11,7 +11,7 @@ const FounderInfo = () => {
         </h3>
         <div className="p-4 bg-gray-800 rounded-lg">
           <h4 className="text-xl font-semibold text-gray-100">{aboutData.founder.name}</h4>
-          <p className="mt-4 text-gray-300 leading-relaxed">
+          <p className="mt-4 text-gray-300 leading-relaxed text-justify">
             {aboutData.founder.description}
           </p>
         </div>

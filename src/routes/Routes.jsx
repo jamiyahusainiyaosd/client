@@ -6,15 +6,16 @@ import AcademicsPage from "../pages/AcademicsPage";
 import AdmissionPage from "../pages/AdmissionPage";
 import BookIntroductionPage from "../pages/BookIntroductionPage";
 import ContactUs from "../pages/ContactUs";
+import FinancialReportPage from "../pages/FinancialReportPage";
 import Home from "../pages/Home";
 import NoticeDetailsPage from "../pages/NoticeDetailsPage";
 import NoticePage from "../pages/NoticePage";
 import PhotoGalleryPage from "../pages/photoGalleryPage";
+import ResultsDetailsPage from '../pages/ResultsDetailsPage';
 import ResultsPage from "../pages/ResultsPage";
 import TeachersPage from "../pages/TeachersPage";
 import VideoGalleryPage from "../pages/VideoGalleryPage";
-import ResultsDetailsPage from '../pages/ResultsDetailsPage';
-import FinancialReportPage from "../pages/FinancialReportPage";
+import VisitorCounterPage from "../pages/VisitorCounterPage";
 
 const Routes = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ const Routes = createBrowserRouter([
       {
         path: "/financial-report",
         element: <FinancialReportPage />,
+      },
+      {
+        path: "/visitor-counter/123456789",
+        element: <VisitorCounterPage />,
       },
     ],
   },

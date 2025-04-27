@@ -95,7 +95,7 @@ const BookIntroduction = () => {
           </div>
 
           {totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <div className="flex flex-row justify-center gap-4 mt-8">
               <button
                 className={`px-4 py-2 md:px-6 md:py-2 rounded-lg transition-all ${
                   currentPage === 0

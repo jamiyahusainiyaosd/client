@@ -10,8 +10,8 @@ const TheWordInfo = () => {
           <FaQuoteRight className="mr-3" /> বাণী
         </h3>
         <div className="text-gray-300 leading-relaxed space-y-4">
-          <p className="italic">"{aboutData.quote.text}"</p>
-          <p className="italic">"{aboutData.quote.texts}"</p>
+          <p className="italic text-justify">"{aboutData.quote.text}"</p>
+          <p className="italic text-justify">"{aboutData.quote.texts}"</p>
           <p className="text-right text-amber-400 font-semibold">
             — {aboutData.quote.author}
           </p>
