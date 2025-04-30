@@ -8,7 +8,7 @@ const Navbar = () => {
   const [academicDropdown, setAcademicDropdown] = useState(false);
 
   return (
-    <nav className="py-2 fixed top-0 left-0 w-full z-50 bg-gradient-to-r bg-[#000] shadow-lg">
+    <nav className="py-2 fixed top-0 left-0 w-full z-50 bg-gradient-to-r bg-[#222] shadow-lg">
       <div className="container max-w-screen-xl mx-auto px-3 gap-1 py-3 flex items-center justify-between">
         <h1 className="text-2xl whitespace-nowrap text-blue-300">
           জামিয়া হুসাইনিয়া মাদ্রাসা

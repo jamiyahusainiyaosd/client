@@ -4,7 +4,7 @@ import qrCodeImage from '/qr-code.png';
 
 const Footer = () => {
     return (
-        <footer className="p-4 py-10 mt-10 bg-[#000]">
+        <footer className="p-4 py-10 mt-10 bg-[#222]">
             <div className="max-w-[1244px] mx-auto w-[100%] justify-items-center container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left">
 
                 {/* Services Section */}
