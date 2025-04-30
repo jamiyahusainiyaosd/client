@@ -21,8 +21,8 @@ const AcademicDetail = ({
   return (
     <div className="bg-gray-700 mt-22 p-6 rounded-xl shadow-lg border border-gray-600 w-full max-w-2xl">
       <div className="flex items-center gap-4 mb-6">
-        <HiOutlineAcademicCap className="text-cyan-400 text-3xl" />
-        <h1 className="text-2xl font-bold text-cyan-400">{className}</h1>
+        <HiOutlineAcademicCap className="text-3xl" />
+        <h1 className="text-2xl font-bold text-blue-300">{className}</h1>
       </div>
       
       <div className="space-y-6">
@@ -33,7 +33,7 @@ const AcademicDetail = ({
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center gap-3 bg-gray-800 p-4 rounded-lg">
-            <FaChair className="text-amber-400 text-xl" />
+            <FaChair className="text-blue-300 text-xl" />
             <div>
               <p className="text-gray-400 text-sm">আসন সংখ্যা</p>
               <p className="text-gray-100 font-medium">{classSetCount || 'N/A'}</p>
@@ -41,7 +41,7 @@ const AcademicDetail = ({
           </div>
           
           <div className="flex items-center gap-3 bg-gray-800 p-4 rounded-lg">
-            <FaUserGraduate className="text-amber-400 text-xl" />
+            <FaUserGraduate className="text-blue-300 text-xl" />
             <div>
               <p className="text-gray-400 text-sm">ছাত্র সংখ্যা</p>
               <p className="text-gray-100 font-medium">{classStudentCount || 'N/A'}</p>
@@ -51,7 +51,7 @@ const AcademicDetail = ({
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center gap-3 bg-gray-800 p-4 rounded-lg">
-            <FaCalendarAlt className="text-amber-400 text-xl" />
+            <FaCalendarAlt className="text-blue-300 text-xl" />
             <div>
               <p className="text-gray-400 text-sm">এড করার তারিখ</p>
               <p className="text-gray-100 font-medium">{Time(createdAt)}</p>
@@ -59,7 +59,7 @@ const AcademicDetail = ({
           </div>
           
           <div className="flex items-center gap-3 bg-gray-800 p-4 rounded-lg">
-            <FaCalendarAlt className="text-amber-400 text-xl" />
+            <FaCalendarAlt className="text-blue-300 text-xl" />
             <div>
               <p className="text-gray-400 text-sm">আপডেট করার তারিখ</p>
               <p className="text-gray-100 font-medium">{Time(updatedAt)}</p>

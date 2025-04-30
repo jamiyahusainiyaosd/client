@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600&display=swap');
 
 body {
-  background-color: rgb(31, 41, 60);
+  /* background-color: #2C3E55; */
+  background-color: #111;
   color: whitesmoke;
   font-family: 'Noto Sans Bengali', sans-serif;
 }

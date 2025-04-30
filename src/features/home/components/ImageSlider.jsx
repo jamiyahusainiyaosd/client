@@ -46,7 +46,7 @@ const ImageSlider = () => {
               <img
                 src={image.img}
                 alt={`Slide image ${index + 1}`}
-                className="w-full h-[300px] md:h-[350px] lg:h-[400px] shadow-2xl object-cover rounded-lg"
+               className="w-full h-[350px] md:h-[350px] lg:h-[400px] shadow-2xl rounded-lg md:object-fill object-cover"
               />
             </SwiperSlide>
           ))}

@@ -5,7 +5,7 @@ const HomeIntro = () => {
     <section className="max-w-4xl mx-auto px-4 sm:px-6">
       <ul className="mb-10 space-y-5">
         <li className="flex items-start gap-3 leading-relaxed text-justify text-gray-300 bg-gray-800/50 p-4 rounded-lg border border-gray-700 hover:border-cyan-400/30 transition-colors duration-300">
-          <span className="text-2xl text-cyan-400 mt-0.5">👉</span>
+          <span className="text-2xl mt-0.5">👉</span>
           <span className="text-gray-200">
             সপ্তাহে ৬ দিন ক্লাস হয় সকাল ৯ টা থেকে দুপুর ১.৩০ মিনিট পর্যন্ত। শুক্রবারে মাদ্রাসার ক্লাস বন্ধ থাকে।
           </span>
@@ -13,7 +13,7 @@ const HomeIntro = () => {
       </ul>
       
       <div className="w-full p-5 sm:p-7 rounded-xl bg-gradient-to-br from-gray-800/70 via-gray-800/50 to-gray-900/70 border border-gray-700 shadow-2xl hover:shadow-cyan-400/10 transition-all duration-500 group">
-        <h1 className="text-xl sm:text-2xl font-bold mb-7 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+        <h1 className="text-xl sm:text-2xl font-bold mb-7 text-blue-300">
           🏫 জামিয়া হুসাইনিয়া মাদ্রাসা, শায়েস্তাগঞ্জ, হবিগঞ্জ
         </h1>
         

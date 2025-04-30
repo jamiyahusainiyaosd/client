@@ -55,11 +55,11 @@ const ResultsDetails = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div className="flex items-center gap-2 text-gray-300">
-                        <FaCalendarAlt className="text-amber-400" />
+                        <FaCalendarAlt className="text-blue-300" />
                         <span>প্রকাশের তারিখ: {Time(result.resultCreatedAt)}</span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-300">
-                        <FaCalendarAlt className="text-amber-400" />
+                        <FaCalendarAlt className="text-blue-300" />
                         <span>আপডেটের তারিখ: {Time(result.resultUpdatedAt)}</span>
                     </div>
                 </div>

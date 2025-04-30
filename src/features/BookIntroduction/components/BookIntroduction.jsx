@@ -62,22 +62,22 @@ const BookIntroduction = () => {
                 className="bg-gray-700 p-4 md:p-6 rounded-xl shadow-lg border border-gray-600 hover:border-cyan-400 transition-all duration-300 flex flex-col h-full"
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="bg-amber-500 p-3 rounded-lg flex-shrink-0">
-                    <FaBook className="text-white text-xl" />
-                  </div>
+                <div className="bg-gradient-to-br from-blue-500 to-blue-400 p-3 rounded-xl shadow-md">
+                      <FaBook className="text-white text-2xl" />
+                    </div>
                   <div>
                     <h1 className="text-lg md:text-xl font-semibold text-gray-100 line-clamp-2">
                       {book.bookTitle}
                     </h1>
                     <p className="text-gray-300 text-sm md:text-base">
-                      <span className="text-gray-400">লেখক:</span>{" "}
+                      <span className="text-gray-200">লেখক:</span>{" "}
                       {book.authorName}
                     </p>
                   </div>
                 </div>
 
                 <p className="text-gray-300 mb-4 text-sm md:text-base line-clamp-3">
-                  <span className="text-gray-400">বিষয়:</span>{" "}
+                  <span className="text-gray-200">বিষয়:</span>{" "}
                   {book.bookDescription}
                 </p>
 
