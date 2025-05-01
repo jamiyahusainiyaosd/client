@@ -7,7 +7,7 @@ const Authority = ({ name, title }) => {
       <img
         src={avaterImage}
         alt={`${name}'s avatar`}
-        className="w-40 h-40 rounded-full block mx-auto mb-4 border-4 border-cyan-400 object-cover"
+        className="w-40 h-40 rounded-full block mx-auto mb-4 border-4 border-blue-300 object-cover"
       />
       <h3 className="text-lg font-bold text-gray-100 text-center">{name}</h3>
       <p className="text-sm text-center text-gray-400">{title}</p>
