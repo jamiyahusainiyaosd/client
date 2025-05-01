@@ -50,7 +50,7 @@ const Footer = () => {
             </div>
 
             {/* Footer Bottom */}
-            <div className="mt-8 text-center border-t pt-4 border-cyan-800 text-sm text-gray-400">
+            <div className="mt-8 text-center border-t pt-4 border-blue-300 text-sm text-gray-400">
                 <p className="font-bold text-sm text-gray-300">
                     &copy; {new Date().getFullYear()} জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জ, হবিগঞ্জ
                 </p>

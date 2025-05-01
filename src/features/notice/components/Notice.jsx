@@ -1,7 +1,7 @@
 import React from "react";
+import { FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Time from "../../../utils/formateData";
-import { FaCalendarAlt } from "react-icons/fa";
 
 const Notice = ({ title, created_at, id }) => {
   const navigate = useNavigate();
