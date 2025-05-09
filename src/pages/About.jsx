@@ -14,40 +14,42 @@ const About = () => {
   return (
     <>
       <PageTitle key={"aboutPage"} title={"মাদ্রাসা সম্পর্কে"} />
-      <section className="max-w-[1144px] w-[95%] mt-28 mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8 text-blue-300">
-          মাদ্রাসার সম্পর্কে বিস্তারিত
-        </h2>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-36">
+        <div className="text-center mb-16">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 relative inline-block">
+            <span className="relative">
+              মাদ্রাসার সম্পর্কে বিস্তারিত
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 dark:bg-blue-400 transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
+            </span>
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জের ইতিহাস, লক্ষ্য ও ভবিষ্যৎ পরিকল্পনা সম্পর্কে জানুন
+          </p>
+        </div>
 
-        <div className="space-y-8">
-          {/* প্রতিষ্ঠাতা */}
-          <FounderInfo />
+        <div className="space-y-12">
+          <div className="grid md:grid-cols-2 gap-8">
+            <FounderInfo />
+            <IntroductionInfo />
+          </div>
 
-          {/* ভূমিকা */}
-          <IntroductionInfo />
-
-          {/* এক নজরে জামিয়া হুসাইনিয়া */}
           <FirstLooksInfo />
 
-          {/* লক্ষ্য ও উদ্দেশ্য */}
-          <AimsAndObjectivesInfo />
+          <div className="grid md:grid-cols-2 gap-8">
+            <AimsAndObjectivesInfo />
+            <CharacteristicsInfo />
+          </div>
 
-          {/* তারবিয়ত বা ছাত্রগঠন বিভাগ */}
           <DepartmentInfo />
 
-          {/* বৈশিষ্ট্যসমূহ */}
-          <CharacteristicsInfo />
+          <div className="grid md:grid-cols-2 gap-8">
+            <FutureEducationPlan />
+            <FutureDevelopmentPlan />
+          </div>
 
-          {/* ভবিষ্যৎ শিক্ষা পরিকল্পনা */}
-          <FutureEducationPlan />
-
-          {/* ভবিষ্যৎ উন্নয়ন পরিকল্পনা */}
-          <FutureDevelopmentPlan />
-
-          {/* বাণী */}
           <TheWordInfo />
         </div>
-      </section>
+      </div>
     </>
   );
 };

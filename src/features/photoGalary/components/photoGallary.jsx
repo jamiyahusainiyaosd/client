@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FiChevronLeft, FiChevronRight, FiX, FiZoomIn } from "react-icons/fi";
 import Loader from "../../../components/Loader";
+import Pagination from "../../../components/Pagination";
 import { baseUrl } from "../../../constants/env.constants";
 
 const fetchPhotos = async () => {
@@ -9,7 +11,7 @@ const fetchPhotos = async () => {
   return response.data;
 };
 
-const PhotoGallary = () => {
+const PhotoGallery = () => {
   const {
     data: photos,
     isLoading,
@@ -20,8 +22,20 @@ const PhotoGallary = () => {
   });
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const itemsPerPage = 9;
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const totalPages = photos ? Math.ceil(photos.length / itemsPerPage) : 0;
   const currentPhotos = photos
@@ -29,111 +43,136 @@ const PhotoGallary = () => {
     : [];
 
   return (
-    <section className="bg-gray-800 p-4 rounded-xl">
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
       {isLoading ? (
-        <div className="flex justify-center py-12">
+        <div className="flex justify-center py-20">
           <Loader />
         </div>
       ) : isError ? (
-        <div className="bg-red-900/50 text-red-300 p-4 rounded-lg text-center">
+        <div className="bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 dark:border-red-400 text-red-700 dark:text-red-300 p-4 rounded-lg">
           ❌ ফটো লোড করতে সমস্যা হয়েছে!
         </div>
-      ) : photos.length === 0 ? (
-        <div className="bg-yellow-900/50 text-yellow-300 p-4 rounded-lg text-center">
+      ) : photos?.length === 0 ? (
+        <div className="bg-yellow-100 dark:bg-yellow-900/30 border-l-4 border-yellow-500 dark:border-yellow-400 text-yellow-700 dark:text-yellow-300 p-4 rounded-lg">
           ❌ কোনো ছবি পাওয়া যায়নি!
         </div>
       ) : (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentPhotos.map((photo) => (
               <div
                 key={photo.id}
-                className="overflow-hidden rounded-xl shadow-lg relative group cursor-pointer transition-all duration-300 hover:shadow-cyan-500/20"
+                className="group relative overflow-hidden rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 cursor-pointer"
                 onClick={() => setSelectedPhoto(photo)}
               >
-                <img
-                  src={photo.photoImg}
-                  alt={photo.photoTitle}
-                  className="w-full h-64 object-cover rounded-xl transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-xl" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-white font-medium text-lg truncate">
+                <div className="aspect-square overflow-hidden relative">
+                  <img
+                    src={photo.photoImg}
+                    alt={photo.photoTitle}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center bg-black/20 ${
+                      isMobile
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                    } transition-opacity duration-300`}
+                  >
+                    <div className="bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg text-blue-500 dark:text-blue-400">
+                      <FiZoomIn className="text-xl" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                  <h3 className="text-white font-medium truncate translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     {photo.photoTitle}
                   </h3>
-                  <p className="text-gray-300 text-sm">
-                    {photo.photoDate &&
-                      new Date(photo.photoDate).toLocaleDateString()}
-                  </p>
+                  {photo.photoDate && (
+                    <p className="text-gray-300 text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      {new Date(photo.photoDate).toLocaleDateString()}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
           </div>
 
           {totalPages > 1 && (
-            <div className="flex justify-center gap-4 mt-8">
-              <button
-                className={`px-6 py-2 rounded-full transition-all ${
-                  currentPage === 0
-                    ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-                    : "bg-cyan-600 hover:bg-cyan-700 text-white"
-                }`}
-                onClick={() => setCurrentPage(currentPage - 1)}
-                disabled={currentPage === 0}
-              >
-                ◀️ আগের ছবি
-              </button>
-            
-              <button
-                className={`px-6 button1 py-2 rounded-full transition-all ${
-                  currentPage === totalPages - 1
-                    ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-                    : "bg-cyan-600 hover:bg-cyan-700 text-white"
-                }`}
-                onClick={() => setCurrentPage(currentPage + 1)}
-                disabled={currentPage === totalPages - 1}
-              >
-                পরের ছবি ▶️
-              </button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+              items={photos}
+            />
           )}
         </div>
       )}
 
-      {/* Modal for viewing full-size image */}
       {selectedPhoto && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black/90 z-50 p-4"
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedPhoto(null)}
         >
-          <div className="relative max-w-4xl w-full">
-            <a
-              className="absolute  right-0 text-white hover:text-cyan-400 text-2xl"
+          <div className="relative max-w-5xl w-full">
+            <button
+              className="absolute -top-12 right-0 text-white hover:text-blue-500 dark:hover:text-blue-400 text-2xl transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedPhoto(null);
               }}
             >
-              ❌ বন্ধ করুন
-            </a>
-            <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
-              <img
-                src={selectedPhoto.photoImg}
-                alt={selectedPhoto.photoTitle}
-                className="w-full max-h-[80vh] object-contain"
-              />
-              <div className="p-4 bg-gray-900/80">
-                <h3 className="text-xl font-semibold text-white">
+              <FiX className="h-8 w-8" />
+            </button>
+            <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700">
+              <div className="max-h-[70vh] overflow-auto relative">
+                <img
+                  src={selectedPhoto.photoImg}
+                  alt={selectedPhoto.photoTitle}
+                  className="w-full object-contain"
+                />
+                <div className="block">
+                  <button
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-2 md:p-3 rounded-full shadow-lg text-blue-500 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const currentIndex = photos.findIndex(
+                        (p) => p.id === selectedPhoto.id
+                      );
+                      if (currentIndex > 0) {
+                        setSelectedPhoto(photos[currentIndex - 1]);
+                      }
+                    }}
+                  >
+                    <FiChevronLeft className="text-lg md:text-xl" />
+                  </button>
+                  <button
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-2 md:p-3 rounded-full shadow-lg text-blue-500 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const currentIndex = photos.findIndex(
+                        (p) => p.id === selectedPhoto.id
+                      );
+                      if (currentIndex < photos.length - 1) {
+                        setSelectedPhoto(photos[currentIndex + 1]);
+                      }
+                    }}
+                  >
+                    <FiChevronRight className="text-lg md:text-xl" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-6 border-t border-gray-200 dark:border-gray-700">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                   {selectedPhoto.photoTitle}
                 </h3>
                 {selectedPhoto.photoDate && (
-                  <p className="text-gray-400">
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
                     তারিখ:{" "}
                     {new Date(selectedPhoto.photoDate).toLocaleDateString()}
                   </p>
                 )}
                 {selectedPhoto.photoDescription && (
-                  <p className="text-gray-300 mt-2">
+                  <p className="text-gray-700 dark:text-gray-300">
                     {selectedPhoto.photoDescription}
                   </p>
                 )}
@@ -142,8 +181,8 @@ const PhotoGallary = () => {
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 };
 
-export default PhotoGallary;
+export default PhotoGallery;

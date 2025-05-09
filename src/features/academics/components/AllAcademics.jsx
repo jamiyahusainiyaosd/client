@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import academicsServices from "../services/academics.services";
 import Error from "../../../components/Error";
 import NoDataFound from "../../../components/NoDataFound";
 import Loader from "../../../components/Loader";
-import { FaChalkboardTeacher } from "react-icons/fa";
+import { HiOutlineAcademicCap } from "react-icons/hi";
 
 const AllAcademics = () => {
   const { isPending, data, isError } = useQuery({
@@ -17,51 +17,53 @@ const AllAcademics = () => {
     <div className="space-y-8">
       {isPending && (
         <div className="flex justify-center py-16">
-          <Loader size="lg" />
+          <Loader size="lg" variant="pulse" />
         </div>
       )}
 
       {isError && <Error fullWidth />}
 
       {data?.data?.data?.length === 0 ? (
-        <div className="bg-yellow-900/20 border border-yellow-800/50 text-yellow-300 p-6 rounded-xl text-center text-lg shadow-lg">
-          <NoDataFound message="No academic data available" />
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-center">
+          <NoDataFound message="কোনো একাডেমিক ক্লাস পাওয়া যায়নি" />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data?.data?.data
-            ?.sort(
-              (a, b) => new Date(a.class_created) - new Date(b.class_update)
-            )
-            .map((item) => (
-              <div
-                key={item.id}
-                className="group relative bg-gradient-to-br p-6 rounded-2xl shadow-xl bg-gray-700 hover:border-cyan-400/50 transition-all duration-300 cursor-pointer overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full filter blur-3xl"></div>
-
-                <div className="relative flex flex-col h-full">
-                  <div className="flex items-start gap-5 mb-5">
-                    <div className="bg-gradient-to-br from-blue-500 to-blue-400 p-3 rounded-xl shadow-md">
-                      <FaChalkboardTeacher className="text-white text-2xl" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-100">
-                        {item.class_name}
-                      </h3>
-                      <h4 className="text-gray-400 mt-1">{item.class_title}</h4>
-                    </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data?.data?.data?.map((item) => (
+            <Link 
+              key={item.id} 
+              to={`/academic/${item.id}`}
+              className="group relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              
+              <div className="p-6 h-full flex flex-col">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg shadow-md">
+                    <HiOutlineAcademicCap className="text-xl" />
                   </div>
-                  <div className="mt-auto pt-4 border-t border-gray-600">
-                    <Link to={`/academic/${item.id}`}>
-                      <div className="mt-auto border-gray-700/50 group-hover:border-cyan-400/30 transition-colors duration-300">
-                        <button>📄 বিস্তারিত দেখুন</button>
-                      </div>
-                    </Link>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
+                      {item.class_name}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">{item.class_title}</p>
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                  <div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">ছাত্র সংখ্যা</p>
+                    <p className="font-medium text-gray-900 dark:text-white">
+                      {item.student_count || '০'}
+                    </p>
+                  </div>
+                  <div className="text-black dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
+                    বিস্তারিত দেখুন →
                   </div>
                 </div>
               </div>
-            ))}
+            </Link>
+          ))}
         </div>
       )}
     </div>

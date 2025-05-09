@@ -1,28 +1,33 @@
+// Notice.jsx
 import React from "react";
-import { FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Time from "../../../utils/formateData";
+import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 
 const Notice = ({ title, created_at, id }) => {
   const navigate = useNavigate();
-  const handleDetails = () => {
-    navigate(`/notice/${id}`);
-  };
+  const handleDetails = () => navigate(`/notice/${id}`);
+
   return (
-    <div className="p-6 border border-gray-600 rounded-lg shadow-lg bg-gray-700 transition duration-200 space-y-4">
-      <h3 className="text-xl font-semibold text-blue-300">{title}</h3>
-      <p className="text-sm font-medium text-gray-300">
-        <div className="flex items-center gap-2 text-gray-400 text-sm mt-1">
-          <FaCalendarAlt className="text-blue-300" />
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col">
+      <div className="p-6 flex-1">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+          {title}
+        </h3>
+        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+          <FaCalendarAlt className="text-black dark:text-white" />
           <span>{Time(created_at)}</span>
         </div>
-      </p>
-      <button
-        onClick={handleDetails}
-        className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-200 text-white"
-      >
-        📄 বিস্তারিত দেখুন
-      </button>
+      </div>
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        <button
+          onClick={handleDetails}
+          className="w-full flex items-center justify-center gap-2"
+        >
+          বিস্তারিত দেখুন
+          <FaArrowRight />
+        </button>
+      </div>
     </div>
   );
 };

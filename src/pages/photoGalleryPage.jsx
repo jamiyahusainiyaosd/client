@@ -1,17 +1,24 @@
 import React from "react";
 import PageTitle from "../utils/PageTitle";
-import PhotoGallary from "../features/photoGalary/components/photoGallary";
+import PhotoGallery from "../features/photoGalary/components/photoGallary";
 
 const PhotoGalleryPage = () => {
   return (
     <>
       <PageTitle title="ফটো গ্যালারি" />
-      <section className="max-w-6xl w-[95%] mx-auto">
-        <h1 className="text-3xl font-bold text-center mt-28 py-3 text-blue-300">
-          অত্র জামিয়ার পুরাতন ফটো গ্যালারি
-        </h1>
-        <PhotoGallary />
-      </section>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-36">
+        <div className="text-center mb-16">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 relative inline-block">
+            <span className="relative">
+              অত্র জামিয়ার পুরাতন ফটো গ্যালারি
+            </span>
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            জামিয়া হুসাইনিয়ার ঐতিহাসিক মুহূর্তসমূহের একটি সংগ্রহ
+          </p>
+        </div>
+        <PhotoGallery />
+      </div>
     </>
   );
 };

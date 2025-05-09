@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import Loader from "../../../components/Loader";
+import Pagination from "../../../components/Pagination";
 import { baseUrl } from "../../../constants/env.constants";
+import { FiPlay } from "react-icons/fi";
 
 const fetchVideos = async () => {
   const response = await axios.get(`${baseUrl}/gallary/video`);
   return response.data;
 };
 
-const VideoGallary = () => {
+const VideoGallery = () => {
   const {
     data: videos,
     isLoading,
@@ -19,8 +21,9 @@ const VideoGallary = () => {
     queryFn: fetchVideos,
   });
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const itemsPerPage = 4;
-  const [currentPage, setCurrentPage] = React.useState(0);
 
   const totalPages = videos ? Math.ceil(videos.length / itemsPerPage) : 0;
   const currentVideos = videos
@@ -28,17 +31,17 @@ const VideoGallary = () => {
     : [];
 
   return (
-    <section className="bg-gray-800 p-6 rounded-xl">
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
       {isLoading ? (
-        <div className="flex justify-center py-12">
+        <div className="flex justify-center py-20">
           <Loader />
         </div>
       ) : isError ? (
-        <div className="bg-red-900/50 text-red-300 p-4 rounded-lg text-center">
+        <div className="bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 dark:border-red-400 text-red-700 dark:text-red-300 p-4 rounded-lg">
           ❌ ভিডিও লোড করতে সমস্যা হয়েছে!
         </div>
-      ) : videos.length === 0 ? (
-        <div className="bg-yellow-900/50 text-yellow-300 p-4 rounded-lg text-center">
+      ) : videos?.length === 0 ? (
+        <div className="bg-yellow-100 dark:bg-yellow-900/30 border-l-4 border-yellow-500 dark:border-yellow-400 text-yellow-700 dark:text-yellow-300 p-4 rounded-lg">
           ❌ কোনো ভিডিও পাওয়া যায়নি!
         </div>
       ) : (
@@ -47,61 +50,88 @@ const VideoGallary = () => {
             {currentVideos.map((video) => (
               <div
                 key={video.id}
-                className="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-cyan-500/20"
+                className="group relative overflow-hidden rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300"
+                onClick={() => setSelectedVideo(video)}
               >
-                <div className="relative aspect-video">
-                  <video
-                    controls
-                    preload="metadata"
-                    src={video.videoImg}
-                    className="w-full h-full object-cover rounded-xl"
-                    poster={video.thumbnail || ""}
-                  >
-                    আপনার ব্রাউজার ভিডিও প্লে সমর্থন করে না।
-                  </video>
+                <div className="aspect-video relative">
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+                    <div className="bg-white dark:bg-gray-800 p-4 rounded-full shadow-lg text-blue-500 dark:text-blue-400 transform group-hover:scale-110 transition-transform duration-300">
+                      <FiPlay className="text-xl" />
+                    </div>
+                  </div>
                 </div>
-                <small className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-2">
-                  {video.videoTitle}
-                </small>
+                <div className="p-4 bg-white dark:bg-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
+                    {video.videoTitle}
+                  </h3>
+                </div>
               </div>
             ))}
           </div>
 
           {totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
-              <div className="text-gray-400">
-                পৃষ্ঠা {currentPage + 1} / {totalPages}
-              </div>
-              <div className="flex gap-4">
-                <button
-                  className={`px-6 py-2 rounded-full transition-all ${
-                    currentPage === 0
-                      ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-                      : "bg-cyan-600 hover:bg-cyan-700 text-white"
-                  }`}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                  disabled={currentPage === 0}
-                >
-                  ◀️ আগের ভিডিও
-                </button>
-                <button
-                  className={`px-6 py-2 rounded-full transition-all ${
-                    currentPage === totalPages - 1
-                      ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-                      : "bg-cyan-600 hover:bg-cyan-700 text-white"
-                  }`}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                  disabled={currentPage === totalPages - 1}
-                >
-                  পরের ভিডিও ▶️
-                </button>
-              </div>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+              items={videos}
+              itemsPerPage={itemsPerPage}
+            />
           )}
         </div>
       )}
-    </section>
+
+      {selectedVideo && (
+        <div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedVideo(null)}
+        >
+          <div className="relative w-full max-w-4xl">
+            <button
+              className="absolute -top-12 right-0 text-white hover:text-blue-500 dark:hover:text-blue-400 text-2xl transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedVideo(null);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700">
+              <div className="aspect-video w-full">
+                <video
+                  controls
+                  autoPlay
+                  className="w-full h-full"
+                  poster={selectedVideo.thumbnail || ""}
+                >
+                  <source src={selectedVideo.videoImg} type="video/mp4" />
+                  আপনার ব্রাউজার ভিডিও প্লে সমর্থন করে না।
+                </video>
+              </div>
+              <div className="p-6 border-t border-gray-200 dark:border-gray-700">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  {selectedVideo.videoTitle}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default VideoGallary;
+export default VideoGallery;

@@ -14,9 +14,9 @@ const Teachers = () => {
   const refineData = data?.data?.data;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {isPending && (
-        <div className="flex justify-center py-12">
+        <div className="flex justify-center py-20">
           <Loader />
         </div>
       )}

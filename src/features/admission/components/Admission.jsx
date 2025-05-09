@@ -19,30 +19,60 @@ const Admission = ({
   admission_updated,
 }) => {
   return (
-    <tr className="whitespace-nowrap hover:bg-gray-700 transition-colors duration-200">
-      <td className="border p-4 border-gray-600">{ClassName}</td>
-      <td className="border p-4 border-gray-600">{class_level}</td>
-      <td className="border p-4 border-gray-600">{form_fee} টাকা</td>
-      <td className="border p-4 border-gray-600">{new_admission_fee} টাকা</td>
-      <td className="border p-4 border-gray-600">{old_admission_fee} টাকা</td>
-      <td className="border p-4 border-gray-600">{new_total_fee} টাকা</td>
-      <td className="border p-4 border-gray-600">{old_total_fee} টাকা</td>
-      <td className="border p-4 border-gray-600">{additional_fee} টাকা</td>
-      <td className="border p-4 border-gray-600">{monthly_fee} টাকা</td>
-      <td className="border p-4 border-gray-600">{admission_start_date}</td>
-      <td className="border p-4 border-gray-600">{admission_end_date}</td>
-      <td className="border p-4 border-gray-600">{required_documents}</td>
-      <td
-        className={`border p-4 border-gray-600 font-medium ${
-          seat_availability
-            ? "bg-green-800 text-green-100"
-            : "bg-red-800 text-red-100"
-        }`}
-      >
-        {seat_availability ? "খালি আছে" : "খালি নেই"}
+    <tr className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+        {ClassName}
       </td>
-      <td className="border p-4 border-gray-600">{Time(admission_created)}</td>
-      <td className="border p-4 border-gray-600">{Time(admission_updated)}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {class_level}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {form_fee} টাকা
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {new_admission_fee} টাকা
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {old_admission_fee} টাকা
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {new_total_fee} টাকা
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {old_total_fee} টাকা
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {additional_fee} টাকা
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {monthly_fee} টাকা
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {admission_start_date}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {admission_end_date}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {required_documents}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <span
+          className={`px-2 py-1 text-xs font-medium rounded-full ${
+            seat_availability
+              ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100"
+              : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100"
+          }`}
+        >
+          {seat_availability ? "খালি আছে" : "খালি নেই"}
+        </span>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {Time(admission_created)}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+        {Time(admission_updated)}
+      </td>
     </tr>
   );
 };

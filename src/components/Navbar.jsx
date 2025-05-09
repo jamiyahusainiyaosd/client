@@ -1,30 +1,60 @@
-import { ChevronDown, Menu, X } from "lucide-react";
-import React, { useState } from "react";
+import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import NavLogo from "/logo.jpg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [academicDropdown, setAcademicDropdown] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return (
+      savedTheme === "dark" ||
+      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   return (
-    <nav className="py-2 fixed top-0 left-0 w-full z-50 bg-gradient-to-r bg-[#222] shadow-lg">
+    <nav className="py-2 fixed top-0 left-0 w-full z-50 bg-[white] dark:bg-gray-800 shadow-lg transition-colors duration-200">
       <div className="container max-w-screen-xl mx-auto px-3 gap-1 py-3 flex items-center justify-between">
-        <h1 className="text-2xl whitespace-nowrap text-blue-300">
-          জামিয়া হুসাইনিয়া মাদ্রাসা
-        </h1>
+        <img
+          src={NavLogo}
+          alt="NavLogo"
+          className="object-cover w-16 h-16 shadow-2xl rounded-full border border-gray-300 dark:border-gray-600"
+        />
+        <div className="flex items-center gap-4">
+          <button
+            onClick={toggleDarkMode}
+            className="p-2 text-white bg-blue-600 dark:bg-blue-400 rounded-full transition-colors"
+            aria-label={
+              darkMode ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
 
-        <span
-          className="lg:hidden text-rose-100 hover:text-white transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </span>
+          <span
+            className="lg:hidden text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </span>
+        </div>
 
         <ul
           className={`lg:flex gap-1 whitespace-nowrap items-center lg:static lg:bg-transparent text-center lg:text-left lg:w-auto lg:p-0 z-50 transition-all duration-300 ease-in-out ${
             isOpen
-              ? "flex flex-col gap-2 fixed top-16 right-0 w-64 h-full bg-gray-800 p-4 shadow-2xl"
+              ? "flex flex-col gap-2 fixed top-16 right-0 w-64 h-full bg-white dark:bg-gray-900 p-4 shadow-2xl"
               : "hidden"
           }`}
         >
@@ -33,8 +63,8 @@ const Navbar = () => {
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? "block py-2 px-4 font-bold bg-blue-300 text-black rounded-md shadow-md hover:shadow-lg transition-all"
-                  : "block py-2 px-4 text-gray-200 hover:text-white hover:bg-gray-700 hover:rounded-md transition-colors"
+                  ? "block py-2 px-4 font-bold bg-blue-600 dark:bg-blue-400 text-white dark:text-black rounded-md shadow-md hover:shadow-lg transition-all"
+                  : "block py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:rounded-md transition-colors"
               }
               onClick={() => setIsOpen(false)}
             >
@@ -43,7 +73,7 @@ const Navbar = () => {
           </li>
 
           <li
-            className="relative group text-lg"
+            className="relative group text-lg w-full"
             onMouseOver={() =>
               window.innerWidth > 1024 && setDropdownOpen(true)
             }
@@ -54,7 +84,7 @@ const Navbar = () => {
               window.innerWidth <= 1024 && setDropdownOpen(!dropdownOpen)
             }
           >
-            <a className="px-4 transform cursor-pointer flex items-center justify-between text-gray-200 hover:text-white transition-colors">
+            <a className="px-4 transform cursor-pointer flex items-center justify-between text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               মাদ্রাসা সম্পর্কে
               <ChevronDown
                 className={`ml-1 transition-transform ${
@@ -65,11 +95,11 @@ const Navbar = () => {
             </a>
 
             {dropdownOpen && (
-              <ul className="lg:absolute lg:left-0 lg:mt-1 bg-gray-700 text-white shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-600">
+              <ul className="lg:absolute lg:left-0 lg:mt-1 bg-white dark:bg-gray-800 shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-200 dark:border-gray-700">
                 <li>
                   <NavLink
                     to="/about"
-                    className="block px-4 py-2 hover:bg-blue-300 font-bold transition-colors"
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     মাদ্রাসা সম্পর্কে
@@ -78,7 +108,7 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/photo-gallery"
-                    className="block px-4 py-2 hover:bg-blue-300 font-bold transition-colors"
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     ফটো গ্যালারি
@@ -87,7 +117,7 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/video-gallery"
-                    className="block px-4 py-2 hover:bg-blue-300 font-bold transition-colors"
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     ভিডিও গ্যালারি
@@ -96,7 +126,7 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/financial-report"
-                    className="block px-4 py-2 hover:bg-blue-300 font-bold transition-colors"
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     আর্থিক প্রতিবেদন
@@ -111,8 +141,8 @@ const Navbar = () => {
               to="/teachers"
               className={({ isActive }) =>
                 isActive
-                  ? "block py-2 px-4 font-bold bg-blue-300 text-black rounded-md shadow-md hover:shadow-lg transition-all"
-                  : "block py-2 px-4 text-gray-200 hover:text-white hover:bg-gray-700 hover:rounded-md transition-colors"
+                  ? "block py-2 px-4 font-bold bg-blue-600 dark:bg-blue-400 text-white dark:text-black rounded-md shadow-md hover:shadow-lg transition-all"
+                  : "block py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:rounded-md transition-colors"
               }
               onClick={() => setIsOpen(false)}
             >
@@ -125,8 +155,8 @@ const Navbar = () => {
               to="/contact"
               className={({ isActive }) =>
                 isActive
-                  ? "block py-2 px-4 font-bold bg-blue-300 text-black rounded-md shadow-md hover:shadow-lg transition-all"
-                  : "block py-2 px-4 text-gray-200 hover:text-white hover:bg-gray-700 hover:rounded-md transition-colors"
+                  ? "block py-2 px-4 font-bold bg-blue-600 dark:bg-blue-400 text-white dark:text-black rounded-md shadow-md hover:shadow-lg transition-all"
+                  : "block py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:rounded-md transition-colors"
               }
               onClick={() => setIsOpen(false)}
             >
@@ -135,7 +165,7 @@ const Navbar = () => {
           </li>
 
           <li
-            className="relative group text-lg"
+            className="relative group text-lg w-full"
             onMouseOver={() =>
               window.innerWidth > 1024 && setAcademicDropdown(true)
             }
@@ -147,8 +177,8 @@ const Navbar = () => {
               setAcademicDropdown(!academicDropdown)
             }
           >
-            <a className="px-4 transform cursor-pointer flex items-center justify-between text-gray-200 hover:text-white transition-colors">
-              একাডেমিক{" "}
+            <a className="px-4 transform cursor-pointer flex items-center justify-between text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              একাডেমিক
               <ChevronDown
                 className={`ml-1 transition-transform ${
                   academicDropdown ? "rotate-180" : ""
@@ -158,11 +188,11 @@ const Navbar = () => {
             </a>
 
             {academicDropdown && (
-              <ul className="lg:absolute lg:left-0 lg:mt-1 bg-gray-700 text-white shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-600">
+              <ul className="lg:absolute lg:left-0 lg:mt-1 bg-white dark:bg-gray-800 shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-200 dark:border-gray-700">
                 <li>
                   <NavLink
                     to="/academic"
-                    className="block px-4 py-2 hover:bg-blue-300 transition-colors"
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     একাডেমিক
@@ -171,7 +201,7 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/book-introduction"
-                    className="block px-4 py-2 hover:bg-blue-300 transition-colors"
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     বই পরিচিতি
@@ -180,7 +210,7 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/results"
-                    className="block px-4 py-2 hover:bg-blue-300 transition-colors"
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     ফলাফল
@@ -199,8 +229,8 @@ const Navbar = () => {
                 to={item.to}
                 className={({ isActive }) =>
                   isActive
-                    ? "block py-2 px-4 font-bold bg-blue-300 text-black rounded-md shadow-md hover:shadow-lg transition-all"
-                    : "block py-2 px-4 text-gray-200 hover:text-white hover:bg-gray-700 hover:rounded-md transition-colors"
+                    ? "block py-2 px-4 font-bold bg-blue-600 dark:bg-blue-400 text-white dark:text-black rounded-md shadow-md hover:shadow-lg transition-all"
+                    : "block py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:rounded-md transition-colors"
                 }
                 onClick={() => setIsOpen(false)}
               >

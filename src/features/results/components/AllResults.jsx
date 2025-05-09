@@ -3,71 +3,75 @@ import React from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Loader from "../../../components/Loader";
+import Error from "../../../components/Error";
+import NoDataFound from "../../../components/NoDataFound";
 import Time from "../../../utils/formateData";
 import ResultsServices from "../services/results.services";
-import { FaChalkboardTeacher } from "react-icons/fa";
-
-const fetchResults = async () => {
-  const response = await ResultsServices.getAllResults();
-  return response.data.sort(
-    (a, b) => new Date(b.resultCreatedAt) - new Date(a.resultCreatedAt)
-  );
-};
+import { HiOutlineDocumentText } from "react-icons/hi";
 
 const AllResults = () => {
-  const {
-    data: results,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: results, isLoading, isError } = useQuery({
     queryKey: ["results"],
-    queryFn: fetchResults,
+    queryFn: async () => {
+      const response = await ResultsServices.getAllResults();
+      return response.data.sort(
+        (a, b) => new Date(b.resultCreatedAt) - new Date(a.resultCreatedAt)
+      );
+    }
   });
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <div className="flex justify-center py-12">
-        <Loader />
+      <div className="flex justify-center py-20">
+        <Loader size="lg" variant="pulse" />
       </div>
     );
+  }
 
-  if (error)
-    return (
-      <div className="bg-red-900/50 text-red-300 p-4 rounded-lg text-center">
-        ফলাফল লোড করতে সমস্যা হয়েছে!
-      </div>
-    );
+  if (isError) {
+    return <Error message="ফলাফল লোড করতে সমস্যা হয়েছে!" fullWidth />;
+  }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {results.map((result) => (
-        <div
-          key={result.id}
-          className="bg-gray-700 p-6 rounded-xl shadow-lg border border-gray-600 hover:border-blue-300 transition-all duration-300 flex flex-col h-full"
-        >
-          <div className="flex items-start gap-4 mb-4 flex-grow">
-            <div className="bg-gradient-to-br from-blue-500 to-blue-400 p-3 rounded-xl shadow-md">
-              <FaChalkboardTeacher className="text-white text-2xl" />
-            </div>
-            <div>
-              <a className="text-xl font-semibold text-gray-100 hover:text-blue-300 transition-colors duration-200">
-                {result.studentClassName}
-              </a>
-              <div className="flex items-center gap-2 text-gray-400 text-sm mt-1">
-                <FaCalendarAlt className="text-blue-300" />
-                <span>{Time(result.resultCreatedAt)}</span>
-              </div>
-            </div>
-          </div>
-          <div className="mt-auto pt-4 border-t border-gray-600">
-            <Link to={`/results/${result.id}`}>
-              <div className="mt-auto border-gray-700/50 group-hover:border-cyan-400/30 transition-colors duration-300">
-                <button className="button1">📄 বিস্তারিত দেখুন</button>
+    <div className="space-y-6">
+      {results?.length === 0 ? (
+        <div className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-8 text-center">
+          <NoDataFound message="কোনো ফলাফল পাওয়া যায়নি" />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {results?.map((result) => (
+            <Link
+              key={result.id}
+              to={`/results/${result.id}`}
+              className="group relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
+            >
+              <div className="p-6 h-full flex flex-col">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg shadow-md">
+                    <HiOutlineDocumentText className="text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
+                      {result.studentClassName}
+                    </h3>
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mt-1">
+                      <FaCalendarAlt className="text-sm" />
+                      <span className="text-sm">{Time(result.resultCreatedAt)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                  <div className="text-black dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
+                    বিস্তারিত দেখুন →
+                  </div>
+                </div>
               </div>
             </Link>
-          </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };

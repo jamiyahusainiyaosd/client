@@ -25,29 +25,35 @@ const ImageSlider = () => {
   if (isError)
     return (
       <section className="flex justify-center py-10">
-        <div className="bg-red-900/50 text-red-300 w-[90%] max-w-[500px] text-center p-4 rounded-lg">
-          <span>Oops! {error.message}</span>
+        <div className="bg-gradient-to-r from-red-900/50 to-red-800/30 backdrop-blur-sm p-4 rounded-xl border border-red-700/50 shadow-lg">
+          <span className="text-red-100 font-medium">Oops! {error.message}</span>
         </div>
       </section>
     );
 
   return (
-    <section className="mt-32">
-      <div className="w-full">
+    <section className="mt-36">
+      <div className="w-full rounded-2xl overflow-hidden shadow-2xl">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           navigation
           pagination={{ clickable: true }}
           autoplay={{ delay: 4000, disableOnInteraction: false }}
-          className="custom-swiper rounded-lg shadow-2xl"
+          className="custom-swiper"
+          style={{
+            "--swiper-navigation-color": "#4FD1C5",
+            "--swiper-pagination-color": "#4FD1C5",
+          }}
         >
           {refinedData?.map((image, index) => (
             <SwiperSlide key={index} className="flex justify-center">
-              <img
-                src={image.img}
-                alt={`Slide image ${index + 1}`}
-               className="w-full h-[350px] md:h-[350px] lg:h-[400px] shadow-2xl rounded-lg md:object-fill object-cover"
-              />
+              <div className="relative w-full h-[350px] md:h-[350px] lg:h-[400px]">
+                <img
+                  src={image.img}
+                  alt={`Slide image ${index + 1}`}
+                  className="w-full h-full"
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

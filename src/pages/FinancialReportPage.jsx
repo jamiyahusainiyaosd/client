@@ -6,10 +6,18 @@ const FinancialReportPage = () => {
   return (
     <>
       <PageTitle title="আর্থিক প্রতিবেদন" />
-      <section className="max-w-4xl w-[95%] mx-auto mt-28">
-        <h1 className="text-3xl font-bold text-center mb-8 text-blue-300">
-          আর্থিক প্রতিবেদন
-        </h1>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-36">
+        <div className="text-center mb-16">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <span className="relative inline-block">
+              আর্থিক প্রতিবেদন
+            </span>
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            আমাদের মাদ্রাসার স্বচ্ছ ও জবাবদিহিমূলক আর্থিক ব্যবস্থাপনার বিস্তারিত
+            বিবরণ
+          </p>
+        </div>
         <FinancialReport />
       </section>
     </>

@@ -2,18 +2,23 @@ import React from "react";
 import PageTitle from "../utils/PageTitle";
 import Notices from "../features/notice/components/Notices";
 
-const Notice = () => {
+const NoticePage = () => {
   return (
     <>
-      <PageTitle key={"noticePage"} title={"নোটিশ সমূহ"} />
-      <section className="max-w-[1200px] w-[95%] mx-auto mt-28">
-        <h2 className="text-3xl font-bold text-center py-3 text-blue-300">
-          নোটিশ সমূহ
-        </h2>
+      <PageTitle title="নোটিশ সমূহ" />
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-36">
+        <div className="text-center mb-16">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            জামিয়ার নোটিশ সমূহ
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            সকল প্রকার অফিসিয়াল নোটিশ ও বিজ্ঞপ্তি
+          </p>
+        </div>
         <Notices />
       </section>
     </>
   );
 };
 
-export default Notice;
+export default NoticePage;

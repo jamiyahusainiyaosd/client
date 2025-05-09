@@ -10,11 +10,36 @@ import contactFormSchema from "../../../schemas/contact.schemas";
 const ContactUsRightDiv = () => {
   const { payload } = useContactPayload();
   const { setFieldError, resetFieldErrors } = useFieldError();
+  
   const { mutate, isPending } = useMutation({
     mutationKey: ["contactMessage"],
     mutationFn: contactUsService.contactUsPostService,
-    onSuccess: (data) => toast.success(data?.data?.message),
-    onError: (error) => toast.error(error?.message),
+    onSuccess: (data) => {
+      toast.success(data?.data?.message, {
+        style: {
+          background: 'black',
+          color: 'white',
+          border: '1px solid #333'
+        },
+        iconTheme: {
+          primary: 'white',
+          secondary: 'black'
+        }
+      });
+    },
+    onError: (error) => {
+      toast.error(error?.message || "একটি সমস্যা হয়েছে!", {
+        style: {
+          background: 'black',
+          color: 'white',
+          border: '1px solid #333'
+        },
+        iconTheme: {
+          primary: 'white',
+          secondary: 'black'
+        }
+      });
+    },
   });
   
   const handleSubmit = (e) => {
@@ -45,10 +70,13 @@ const ContactUsRightDiv = () => {
         containerClassName="contactPageToaster" 
         position="top-center"
         toastOptions={{
+          duration: 4000,
           style: {
-            background: '#1F2937',
-            color: '#fff',
-            border: '1px solid #374151'
+            background: 'black',
+            color: 'white',
+            border: '1px solid #333',
+            padding: '16px',
+            borderRadius: '12px'
           }
         }}
       />

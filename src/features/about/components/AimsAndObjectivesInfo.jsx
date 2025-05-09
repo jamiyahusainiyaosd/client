@@ -4,20 +4,26 @@ import { aboutData } from "../../../constants/aboutData";
 
 const AimsAndObjectivesInfo = () => {
   return (
-    <section>
-      <div className="bg-gray-700 p-6 rounded-xl shadow-lg border border-gray-600 hover:border-blue-300 transition-all duration-300">
-        <h3 className="text-2xl font-semibold flex items-center mb-6">
-          <FaBullseye className="mr-3" /> <span className="text-blue-300">লক্ষ্য ও উদ্দেশ্য</span>
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 h-full">
+      <div className="flex items-center mb-6">
+        <div className="bg-blue-100 dark:bg-blue-900/20 p-3 rounded-lg mr-4">
+          <FaBullseye className="text-blue-500 dark:text-blue-400 text-xl" />
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+          লক্ষ্য ও উদ্দেশ্য
         </h3>
-        <ul className="space-y-3">
-          {aboutData.goals.map((goal, index) => (
-            <li key={index}>
-              {goal}
-            </li>
-          ))}
-        </ul>
       </div>
-    </section>
+      <ul className="space-y-3">
+        {aboutData.goals.map((goal, index) => (
+          <li
+            key={index}
+            className="text-justify text-gray-700 dark:text-gray-300 before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-blue-500 dark:before:bg-blue-400 before:rounded-full"
+          >
+            {goal}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

@@ -2,15 +2,24 @@ import React from "react";
 
 const Marquee = () => {
   return (
-    <div className="mx-auto bg-blue-300 p-4 rounded-lg shadow-lg">
-     <marquee className="text-white font-medium text-lg md:text-xl py-1"  behavior="scroll"
-        direction="left">
-        <span className="flex text-2xl font-bold items-center gap-2">
-          <span className="text-amber-300">✦</span>
+    <div className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 p-3 rounded-lg shadow-lg overflow-hidden">
+      <div className="animate-marquee whitespace-nowrap">
+        <span className="text-white font-medium text-lg mx-4 inline-flex items-center">
+          <span className="text-yellow-300 mr-2">✦</span>
           জামিয়া হুসাইনিয়া মাদ্রাসায় আপনাকে স্বাগতম
-          <span className="text-amber-300">✦</span>
+          <span className="text-yellow-300 ml-2">✦</span>
         </span>
-      </marquee>
+      </div>
+      <style jsx>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          display: inline-block;
+          animation: marquee 15s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };

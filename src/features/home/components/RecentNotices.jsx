@@ -12,22 +12,26 @@ const RecentNotices = () => {
   const refinedData = useMemo(() => data?.data, [data]);
   
   return (
-    <section className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6 text-blue-300">
-        সাম্প্রতিক নোটিশগুলো
-      </h1>
+    <section className="max-w-4xl mx-auto">
+      <div className="relative group mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white inline-block relative">
+          <span className="absolute -bottom-1 left-0 w-0 h-1 bg-blue-500 dark:bg-blue-400 transition-all duration-500 group-hover:w-full"></span>
+          সাম্প্রতিক নোটিশ
+        </h1>
+        <div className="absolute -bottom-2 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-700"></div>
+      </div>
 
       {isError && (
-        <p className="text-red-300 bg-red-900/30 px-4 py-2 rounded-lg">
-          {error.message}
-        </p>
+        <div className="bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 dark:border-red-400 text-red-700 dark:text-red-300 p-4 mb-6 rounded-r-lg">
+          <p>{error.message}</p>
+        </div>
       )}
 
-      <ul className="grid gap-5 grid-cols-1">
+      <div className="space-y-4">
         {isPending && (
-          <li className="col-span-full flex justify-center py-10">
-            <ClockLoader color="#4FD1C5" size={50} />
-          </li>
+          <div className="flex justify-center py-10">
+            <ClockLoader color="#3B82F6" size={50} />
+          </div>
         )}
 
         {!isPending &&
@@ -39,7 +43,7 @@ const RecentNotices = () => {
               title={title}
             />
           ))}
-      </ul>
+      </div>
     </section>
   );
 };
