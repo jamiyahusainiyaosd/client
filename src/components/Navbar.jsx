@@ -25,7 +25,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="py-2 fixed top-0 left-0 w-full z-50 bg-[white] dark:bg-gray-800 shadow-lg transition-colors duration-200">
+    <nav className="py-2 fixed top-0 left-0 w-full z-50 bg-white dark:bg-gray-800 shadow-lg transition-colors duration-200">
       <div className="container max-w-screen-xl mx-auto px-3 gap-1 py-3 flex items-center justify-between">
         <img
           src={NavLogo}
@@ -44,7 +44,7 @@ const Navbar = () => {
           </button>
 
           <span
-            className="lg:hidden text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="lg:hidden text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -54,7 +54,7 @@ const Navbar = () => {
         <ul
           className={`lg:flex gap-1 whitespace-nowrap items-center lg:static lg:bg-transparent text-center lg:text-left lg:w-auto lg:p-0 z-50 transition-all duration-300 ease-in-out ${
             isOpen
-              ? "flex flex-col gap-2 fixed top-16 right-0 w-64 h-full bg-white dark:bg-gray-900 p-4 shadow-2xl"
+              ? "flex flex-col gap-2 fixed top-16 right-0 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 p-4 shadow-2xl overflow-y-auto"
               : "hidden"
           }`}
         >
@@ -72,68 +72,83 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          <li
+          {/* About Madrasa Dropdown */}
+          <li 
             className="relative group text-lg w-full"
-            onMouseOver={() =>
-              window.innerWidth > 1024 && setDropdownOpen(true)
-            }
-            onMouseOut={() =>
-              window.innerWidth > 1024 && setDropdownOpen(false)
-            }
-            onClick={() =>
-              window.innerWidth <= 1024 && setDropdownOpen(!dropdownOpen)
-            }
+            onMouseEnter={() => window.innerWidth > 1024 && setDropdownOpen(true)}
+            onMouseLeave={() => window.innerWidth > 1024 && setDropdownOpen(false)}
           >
-            <a className="px-4 transform cursor-pointer flex items-center justify-between text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              মাদ্রাসা সম্পর্কে
+            <div 
+              className="flex items-center justify-between px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              onClick={() => {
+                if (window.innerWidth <= 1024) {
+                  setDropdownOpen(!dropdownOpen);
+                }
+              }}
+            >
+              <span>মাদ্রাসা সম্পর্কে</span>
               <ChevronDown
                 className={`ml-1 transition-transform ${
                   dropdownOpen ? "rotate-180" : ""
                 }`}
                 size={16}
               />
-            </a>
+            </div>
 
-            {dropdownOpen && (
-              <ul className="lg:absolute lg:left-0 lg:mt-1 bg-white dark:bg-gray-800 shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-200 dark:border-gray-700">
-                <li>
-                  <NavLink
-                    to="/about"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    মাদ্রাসা সম্পর্কে
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/photo-gallery"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    ফটো গ্যালারি
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/video-gallery"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    ভিডিও গ্যালারি
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/financial-report"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    আর্থিক প্রতিবেদন
-                  </NavLink>
-                </li>
-              </ul>
-            )}
+            <ul
+              className={`lg:absolute lg:left-0 lg:mt-0 bg-white dark:bg-gray-800 shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-200 dark:border-gray-700 ${
+                dropdownOpen ? "block" : "hidden"
+              } lg:group-hover:block`}
+            >
+              <li>
+                <NavLink
+                  to="/about"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setDropdownOpen(false);
+                  }}
+                >
+                  মাদ্রাসা সম্পর্কে
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/photo-gallery"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setDropdownOpen(false);
+                  }}
+                >
+                  ফটো গ্যালারি
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/video-gallery"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setDropdownOpen(false);
+                  }}
+                >
+                  ভিডিও গ্যালারি
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/financial-report"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setDropdownOpen(false);
+                  }}
+                >
+                  আর্থিক প্রতিবেদন
+                </NavLink>
+              </li>
+            </ul>
           </li>
 
           <li className="text-lg w-full">
@@ -164,60 +179,71 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          <li
+          {/* Academic Dropdown */}
+          <li 
             className="relative group text-lg w-full"
-            onMouseOver={() =>
-              window.innerWidth > 1024 && setAcademicDropdown(true)
-            }
-            onMouseOut={() =>
-              window.innerWidth > 1024 && setAcademicDropdown(false)
-            }
-            onClick={() =>
-              window.innerWidth <= 1024 &&
-              setAcademicDropdown(!academicDropdown)
-            }
+            onMouseEnter={() => window.innerWidth > 1024 && setAcademicDropdown(true)}
+            onMouseLeave={() => window.innerWidth > 1024 && setAcademicDropdown(false)}
           >
-            <a className="px-4 transform cursor-pointer flex items-center justify-between text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              একাডেমিক
+            <div 
+              className="flex items-center justify-between px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              onClick={() => {
+                if (window.innerWidth <= 1024) {
+                  setAcademicDropdown(!academicDropdown);
+                }
+              }}
+            >
+              <span>একাডেমিক</span>
               <ChevronDown
                 className={`ml-1 transition-transform ${
                   academicDropdown ? "rotate-180" : ""
                 }`}
                 size={16}
               />
-            </a>
+            </div>
 
-            {academicDropdown && (
-              <ul className="lg:absolute lg:left-0 lg:mt-1 bg-white dark:bg-gray-800 shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-200 dark:border-gray-700">
-                <li>
-                  <NavLink
-                    to="/academic"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    একাডেমিক
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/book-introduction"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    বই পরিচিতি
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/results"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    ফলাফল
-                  </NavLink>
-                </li>
-              </ul>
-            )}
+            <ul
+              className={`lg:absolute lg:left-0 lg:mt-0 bg-white dark:bg-gray-800 shadow-xl rounded-md overflow-hidden lg:w-56 w-full z-50 border border-gray-200 dark:border-gray-700 ${
+                academicDropdown ? "block" : "hidden"
+              } lg:group-hover:block`}
+            >
+              <li>
+                <NavLink
+                  to="/academic"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setAcademicDropdown(false);
+                  }}
+                >
+                  একাডেমিক
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/book-introduction"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setAcademicDropdown(false);
+                  }}
+                >
+                  বই পরিচিতি
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/results"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setAcademicDropdown(false);
+                  }}
+                >
+                  ফলাফল
+                </NavLink>
+              </li>
+            </ul>
           </li>
 
           {[

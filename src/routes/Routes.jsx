@@ -15,7 +15,6 @@ import ResultsDetailsPage from "../pages/ResultsDetailsPage";
 import ResultsPage from "../pages/ResultsPage";
 import TeachersPage from "../pages/TeachersPage";
 import VideoGalleryPage from "../pages/VideoGalleryPage";
-import VisitorCounterPage from "../pages/VisitorCounterPage";
 
 const Routes = createBrowserRouter([
   {
@@ -81,11 +80,7 @@ const Routes = createBrowserRouter([
       {
         path: "/financial-report",
         element: <FinancialReportPage />,
-      },
-      {
-        path: "/visitor-counter/123456789",
-        element: <VisitorCounterPage />,
-      },
+      }
     ],
   },
 ]);

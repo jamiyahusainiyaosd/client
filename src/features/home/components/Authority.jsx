@@ -1,4 +1,3 @@
-import React from "react";
 import avaterImage from "/avater.png";
 
 const Authority = ({ name, title }) => {
