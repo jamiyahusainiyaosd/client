@@ -73,12 +73,16 @@ const Navbar = () => {
           </li>
 
           {/* About Madrasa Dropdown */}
-          <li 
+          <li
             className="relative group text-lg w-full"
-            onMouseEnter={() => window.innerWidth > 1024 && setDropdownOpen(true)}
-            onMouseLeave={() => window.innerWidth > 1024 && setDropdownOpen(false)}
+            onMouseEnter={() =>
+              window.innerWidth > 1024 && setDropdownOpen(true)
+            }
+            onMouseLeave={() =>
+              window.innerWidth > 1024 && setDropdownOpen(false)
+            }
           >
-            <div 
+            <div
               className="flex items-center justify-between px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
               onClick={() => {
                 if (window.innerWidth <= 1024) {
@@ -180,12 +184,16 @@ const Navbar = () => {
           </li>
 
           {/* Academic Dropdown */}
-          <li 
+          <li
             className="relative group text-lg w-full"
-            onMouseEnter={() => window.innerWidth > 1024 && setAcademicDropdown(true)}
-            onMouseLeave={() => window.innerWidth > 1024 && setAcademicDropdown(false)}
+            onMouseEnter={() =>
+              window.innerWidth > 1024 && setAcademicDropdown(true)
+            }
+            onMouseLeave={() =>
+              window.innerWidth > 1024 && setAcademicDropdown(false)
+            }
           >
-            <div 
+            <div
               className="flex items-center justify-between px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
               onClick={() => {
                 if (window.innerWidth <= 1024) {
