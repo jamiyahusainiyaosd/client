@@ -1,11 +1,10 @@
-import React from "react";
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaGithub } from "react-icons/fa";
 import qrCodeImage from "/qr-code.png";
 
 const Footer = () => {
   return (
     <footer className="p-4 py-10 mt-10 bg-white dark:bg-gray-800 transition-colors duration-200">
-      <div className="max-w-[1244px] mx-auto w-[100%] justify-items-center container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left">
+      <div className="max-w-[1244px] mx-auto justify-items-center container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left">
         {/* Services Section */}
         <div className="flex flex-col items-center lg:items-start">
           <h6 className="text-lg font-bold mb-3 text-black dark:text-white">
@@ -110,9 +109,16 @@ const Footer = () => {
             <a
               href="https://www.facebook.com/profile.php?id=61573036155447"
               target="_blank"
-              className="text-4xl text-black dark:text-white hover:opacity-80 transition-opacity"
+              className="text-3xl text-black dark:text-white hover:opacity-80 transition-opacity"
             >
               <FaFacebookF />
+            </a>
+            <a
+              href="https://github.com/jamiyahusainiyaosd"
+              target="_blank"
+              className="text-3xl text-black dark:text-white hover:opacity-80 transition-opacity"
+            >
+              <FaGithub />
             </a>
           </div>
         </div>
@@ -130,17 +136,9 @@ const Footer = () => {
           <a
             target="_blank"
             className="underline font-bold text-black dark:text-white"
-            href="https://najmusshakib.netlify.app/"
+            href="https://najmus-shakib-sand.vercel.app/"
           >
             নাজমুস সাকিব
-          </a>{" "}
-          &{" "}
-          <a
-            target="_blank"
-            href="https://abdullah00001.github.io/abdullah-portfolio/"
-            className="font-bold text-black dark:text-white underline"
-          >
-            আব্দুল্লাহ বিন ওমর চৌধুরী
           </a>
         </p>
       </div>
