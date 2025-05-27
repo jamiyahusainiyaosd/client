@@ -1,5 +1,3 @@
-// NoticeDetailsPage.jsx
-import React from "react";
 import { useParams } from "react-router-dom";
 import PageTitle from "../utils/PageTitle";
 import NoticeDetails from "../features/notice/components/NoticeDetails";

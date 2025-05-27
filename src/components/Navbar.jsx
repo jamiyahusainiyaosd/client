@@ -1,5 +1,5 @@
 import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import NavLogo from "/logo.jpg";
 

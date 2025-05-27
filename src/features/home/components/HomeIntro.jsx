@@ -1,5 +1,3 @@
-import React from "react";
-
 const HomeIntro = () => {
   return (
     <section className="max-w-4xl mx-auto">

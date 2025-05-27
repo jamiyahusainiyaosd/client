@@ -1,4 +1,3 @@
-import React from "react";
 import PageTitle from "../utils/PageTitle";
 import FounderInfo from "../features/about/components/FounderInfo";
 import IntroductionInfo from "../features/about/components/IntroductionInfo";

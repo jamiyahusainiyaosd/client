@@ -1,6 +1,4 @@
-// NoticeDetails.jsx
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { FaArrowLeft, FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Error from "../../../components/Error";

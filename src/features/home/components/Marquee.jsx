@@ -1,5 +1,3 @@
-import React from "react";
-
 const Marquee = () => {
   return (
     <div className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 p-3 rounded-lg shadow-lg overflow-hidden">

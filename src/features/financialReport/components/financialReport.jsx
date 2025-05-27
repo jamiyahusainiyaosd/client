@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaDownload, FaExpand, FaInfoCircle, FaTimes } from "react-icons/fa";
 import { FiCalendar, FiRefreshCw } from "react-icons/fi";
 import Error from "../../../components/Error";

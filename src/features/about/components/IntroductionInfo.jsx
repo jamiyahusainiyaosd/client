@@ -1,4 +1,3 @@
-import React from "react";
 import { aboutData } from "../../../constants/aboutData";
 import { FaBookOpen } from "react-icons/fa";
 

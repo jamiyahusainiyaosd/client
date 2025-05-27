@@ -1,4 +1,3 @@
-import React from "react";
 import ContactUsForm from "./ContactUsForm";
 import { useMutation } from "@tanstack/react-query";
 import toast, { Toaster } from "react-hot-toast";

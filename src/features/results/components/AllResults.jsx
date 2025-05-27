@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Loader from "../../../components/Loader";

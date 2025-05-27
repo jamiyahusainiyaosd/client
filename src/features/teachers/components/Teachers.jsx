@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import teacherService from "../services/teacher.services";
 import Loader from "../../../components/Loader";
 import Error from "../../../components/Error";

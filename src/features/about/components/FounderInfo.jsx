@@ -1,4 +1,3 @@
-import React from "react";
 import { FaUserTie } from "react-icons/fa";
 import { aboutData } from "../../../constants/aboutData";
 

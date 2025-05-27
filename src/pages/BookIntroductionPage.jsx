@@ -1,4 +1,3 @@
-import React from "react";
 import PageTitle from "../utils/PageTitle";
 import BookIntroduction from "../features/BookIntroduction/components/BookIntroduction";
 

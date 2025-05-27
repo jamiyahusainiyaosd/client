@@ -1,4 +1,3 @@
-import React from "react";
 import authorityInfo from "../../../constants/authority.contants";
 import Authority from "./Authority";
 

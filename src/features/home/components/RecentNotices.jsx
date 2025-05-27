@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { ClockLoader } from "react-spinners";
 import homeService from "../services/home.services";
 import RecentNotice from "./RecentNotice";

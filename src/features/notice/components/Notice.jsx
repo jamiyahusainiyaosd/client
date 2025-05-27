@@ -1,5 +1,3 @@
-// Notice.jsx
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import Time from "../../../utils/formateData";
 import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";

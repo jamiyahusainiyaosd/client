@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Loader from "../../../components/Loader";
 import Error from "../../../components/Error";
 import NoDataFound from "../../../components/NoDataFound";

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight, FiX, FiZoomIn } from "react-icons/fi";
 import Loader from "../../../components/Loader";
 import Pagination from "../../../components/Pagination";

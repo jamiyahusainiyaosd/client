@@ -1,4 +1,3 @@
-import React from "react";
 import { FaUsers } from "react-icons/fa";
 import { aboutData } from "../../../constants/aboutData";
 

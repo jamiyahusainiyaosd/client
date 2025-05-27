@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ContactPayloadContext from "../contexts/contactPayload.context";
 
 const ContactPayloadProvider = ({ children }) => {

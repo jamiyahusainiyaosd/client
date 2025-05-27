@@ -1,4 +1,3 @@
-import React from "react";
 import PageTitle from "../utils/PageTitle";
 import ResultsDetails from "../features/results/components/ResultsDetails";
 

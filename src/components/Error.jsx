@@ -1,4 +1,3 @@
-import React from "react";
 import { boxStyles } from "../constants/styles";
 
 const Error = ({ errorMessage }) => {

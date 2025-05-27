@@ -1,4 +1,3 @@
-import React from "react";
 import formateDate from "../../../utils/formateData";
 import avatarImage from "/avater.png";
 import { FaChalkboardTeacher, FaPhone, FaCalendarAlt } from "react-icons/fa";
