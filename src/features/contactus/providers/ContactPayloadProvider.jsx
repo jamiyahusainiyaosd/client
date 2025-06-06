@@ -8,11 +8,20 @@ const ContactPayloadProvider = ({ children }) => {
     phone: "",
     message: "",
   });
+
+  const reset = () => {
+    setPayload({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+  };
+
   return (
-    <ContactPayloadContext.Provider value={{ payload, setPayload }}>
+    <ContactPayloadContext.Provider value={{ payload, setPayload, reset }}>
       {children}
     </ContactPayloadContext.Provider>
   );
 };
-
 export default ContactPayloadProvider;
