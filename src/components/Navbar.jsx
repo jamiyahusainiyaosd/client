@@ -229,18 +229,6 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink
-                  to="/book-introduction"
-                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
-                  onClick={() => {
-                    setIsOpen(false);
-                    setAcademicDropdown(false);
-                  }}
-                >
-                  বই পরিচিতি
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
                   to="/results"
                   className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-400 hover:text-white dark:hover:text-black transition-colors"
                   onClick={() => {

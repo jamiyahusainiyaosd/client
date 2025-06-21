@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   FaArrowLeft,
   FaCalendarAlt,
@@ -91,23 +91,19 @@ const ResultsDetails = () => {
         </p>
       </div>
 
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden">
-        {/* Header */}
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden"> 
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex justify-between items-start">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                 {result.studentClassName}
               </h2>
-              <div className="flex flex-wrap gap-4 mt-2">
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                  <FaCalendarAlt />
-                  <span>প্রকাশ: {Time(result.resultCreatedAt)}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                  <FaCalendarAlt />
-                  <span>আপডেট: {Time(result.resultUpdatedAt)}</span>
-                </div>
+
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                <FaCalendarAlt />
+                <span>   প্রকাশের তারিখ : {Time(
+      result.latest_update || result.resultCreatedAt
+    )}</span>
               </div>
             </div>
           </div>
@@ -121,7 +117,6 @@ const ResultsDetails = () => {
           </button>
         </div>
 
-        {/* Content */}
         <div className="p-6">
           {result.images?.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -143,7 +138,6 @@ const ResultsDetails = () => {
                       className="w-full h-64 object-contain rounded-lg border border-gray-200 dark:border-gray-700"
                     />
 
-                    {/* Image Actions - Show on hover or always on mobile */}
                     {(hoveredImage === index || isMobile) && (
                       <div
                         className={`absolute inset-0 bg-black/50 flex items-center justify-center gap-4 rounded-lg ${
@@ -187,7 +181,6 @@ const ResultsDetails = () => {
         </div>
       </div>
 
-      {/* Image Modal */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
           <div className="relative max-w-6xl w-full h-full flex flex-col">

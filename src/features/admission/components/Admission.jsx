@@ -14,8 +14,6 @@ const Admission = ({
   admission_end_date,
   required_documents,
   seat_availability,
-  admission_created,
-  admission_updated,
 }) => {
   return (
     <tr className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
@@ -65,12 +63,6 @@ const Admission = ({
         >
           {seat_availability ? "খালি আছে" : "খালি নেই"}
         </span>
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {Time(admission_created)}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {Time(admission_updated)}
       </td>
     </tr>
   );

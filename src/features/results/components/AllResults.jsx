@@ -54,10 +54,6 @@ const AllResults = () => {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
                       {result.studentClassName}
                     </h3>
-                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mt-1">
-                      <FaCalendarAlt className="text-sm" />
-                      <span className="text-sm">{Time(result.resultCreatedAt)}</span>
-                    </div>
                   </div>
                 </div>
 

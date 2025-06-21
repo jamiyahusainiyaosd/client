@@ -18,13 +18,13 @@ const Notice = ({ title, created_at, id }) => {
         </div>
       </div>
       <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-        <button
+        <a
           onClick={handleDetails}
           className="w-full flex items-center justify-center gap-2"
         >
           বিস্তারিত দেখুন
           <FaArrowRight />
-        </button>
+        </a>
       </div>
     </div>
   );

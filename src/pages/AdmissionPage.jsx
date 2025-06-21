@@ -6,8 +6,8 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
-import Loader from "../components/Loader";
 import Error from "../components/Error";
+import Loader from "../components/Loader";
 import Admission from "../features/admission/components/Admission";
 import admissionService from "../features/admission/services/admission.services";
 import PageTitle from "../utils/PageTitle";
@@ -98,8 +98,6 @@ const AdmissionPage = () => {
                     "ভর্তি শেষ",
                     "ডকুমেন্ট",
                     "সিটের অবস্থা",
-                    "প্রকাশের তারিখ",
-                    "আপডেটের তারিখ",
                   ].map((header, index) => (
                     <th
                       key={index}

@@ -4,7 +4,6 @@ import About from "../pages/About";
 import AcademicDetailPage from "../pages/AcademicDetailsPage";
 import AcademicsPage from "../pages/AcademicsPage";
 import AdmissionPage from "../pages/AdmissionPage";
-import BookIntroductionPage from "../pages/BookIntroductionPage";
 import ContactUs from "../pages/ContactUs";
 import FinancialReportPage from "../pages/FinancialReportPage";
 import Home from "../pages/Home";
@@ -64,10 +63,6 @@ const Routes = createBrowserRouter([
       {
         path: "/video-gallery",
         element: <VideoGalleryPage />,
-      },
-      {
-        path: "/book-introduction",
-        element: <BookIntroductionPage />,
       },
       {
         path: "/results",

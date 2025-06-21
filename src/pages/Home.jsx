@@ -3,7 +3,6 @@ import HomeIntro from "../features/home/components/HomeIntro";
 import ImageSlider from "../features/home/components/ImageSlider";
 import Marquee from "../features/home/components/Marquee";
 import RecentNotices from "../features/home/components/RecentNotices";
-import VisitorCounter from "../features/VisitorCounter/components/VisitorCounter";
 import PageTitle from "../utils/PageTitle";
 
 const Home = () => {
@@ -30,14 +29,6 @@ const Home = () => {
                   প্রিন্সিপাল
                 </h2>
                 <Authorities />
-              </div>
-            </div>
-            <div>
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm top-24">
-                <h2 className="text-xl font-bold text-center mb-6 text-gray-900 dark:text-white relative pb-2 after:absolute after:bottom-0 after:left-1/4 after:w-1/2 after:h-1 after:bg-blue-500 dark:after:bg-blue-400 after:rounded-full">
-                  ওয়েবসাইট পরিসংখ্যান
-                </h2>
-                <VisitorCounter />
               </div>
             </div>
           </div>

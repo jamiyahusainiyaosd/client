@@ -1,14 +1,11 @@
-import formateDate from "../../../utils/formateData";
+import { FaCalendarAlt, FaChalkboardTeacher, FaPhone } from "react-icons/fa";
 import avatarImage from "/avater.png";
-import { FaChalkboardTeacher, FaPhone, FaCalendarAlt } from "react-icons/fa";
 
 const Teacher = ({
   avatar,
   name,
   designation,
   phone_number,
-  created_at,
-  updated_at,
 }) => {
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 group">
@@ -41,17 +38,6 @@ const Teacher = ({
             <FaPhone className="text-blue-500 dark:text-blue-400" />
           </div>
           <p>{phone_number || "প্রদান করা হয়নি"}</p>
-        </div>
-
-        <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-700 space-y-2">
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <FaCalendarAlt className="text-blue-500 dark:text-blue-400" />
-            <span>যোগদান: {formateDate(created_at)}</span>
-          </div>
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <FaCalendarAlt className="text-blue-500 dark:text-blue-400" />
-            <span>সর্বশেষ আপডেট: {formateDate(updated_at)}</span>
-          </div>
         </div>
       </div>
     </div>

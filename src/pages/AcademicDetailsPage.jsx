@@ -50,7 +50,6 @@ const AcademicDetailPage = () => {
             classStudentCount={refineData?.student_count}
             classSetCount={refineData?.number_seat}
             createdAt={refineData?.class_created}
-            updatedAt={refineData?.class_update}
             classDescription={refineData?.class_description}
           />
         )}

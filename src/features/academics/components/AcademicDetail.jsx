@@ -1,7 +1,7 @@
+import { FaArrowLeft, FaCalendarAlt, FaChair, FaUserGraduate } from "react-icons/fa";
+import { HiOutlineAcademicCap } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import Time from "../../../utils/formateData";
-import { FaChair, FaUserGraduate, FaCalendarAlt, FaArrowLeft } from "react-icons/fa";
-import { HiOutlineAcademicCap } from "react-icons/hi";
 
 const AcademicDetail = ({
   className,
@@ -10,7 +10,6 @@ const AcademicDetail = ({
   classStudentCount,
   classDescription,
   createdAt,
-  updatedAt,
 }) => {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
@@ -76,19 +75,6 @@ const AcademicDetail = ({
               <p className="text-sm text-gray-500 dark:text-gray-400">তৈরির তারিখ</p>
               <p className="text-lg font-medium text-gray-900 dark:text-white">
                 {Time(createdAt)}
-              </p>
-            </div>
-          </div>
-
-          {/* Updated At */}
-          <div className="bg-gray-200 dark:bg-gray-900 p-4 rounded-lg flex items-center gap-4">
-            <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg">
-              <FaCalendarAlt className="text-xl" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">আপডেট তারিখ</p>
-              <p className="text-lg font-medium text-gray-900 dark:text-white">
-                {Time(updatedAt)}
               </p>
             </div>
           </div>
