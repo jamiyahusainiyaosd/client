@@ -3,18 +3,13 @@ import { useMemo, useState } from "react";
 import Error from "../../../components/Error";
 import Loader from "../../../components/Loader";
 import NoDataFound from "../../../components/NoDataFound";
-import Pagination from "../../../components/Pagination"; 
+import Pagination from "../../../components/Pagination";
 import noticeService from "../services/notice.services";
 import Notice from "./Notice";
 
-const toBengaliNumeral = (num) => {
-  const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-  return num.toString().replace(/\d/g, (digit) => bengaliDigits[digit]);
-};
-
 const Notices = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const noticesPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(0);
+  const noticesPerPage = 9;
 
   const { isPending, data, isError, error } = useQuery({
     queryKey: ["notices"],
@@ -24,24 +19,17 @@ const Notices = () => {
   });
 
   const refinedData = useMemo(() => data?.data ?? [], [data]);
-
-  const indexOfLastNotice = currentPage * noticesPerPage;
-  const indexOfFirstNotice = indexOfLastNotice - noticesPerPage;
-  const currentNotices = refinedData.slice(
-    indexOfFirstNotice,
-    indexOfLastNotice
-  );
   const totalPages = Math.ceil(refinedData.length / noticesPerPage);
-
-  const goToNextPage = () =>
-    currentPage < totalPages && setCurrentPage(currentPage + 1);
-  const goToPrevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+  const currentNotices = refinedData.slice(
+    currentPage * noticesPerPage,
+    (currentPage + 1) * noticesPerPage
+  );
 
   return (
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-          মোট নোটিশ: {toBengaliNumeral(refinedData.length)}
+          মোট নোটিশ: {refinedData.length}
         </h2>
       </div>
 
@@ -68,14 +56,12 @@ const Notices = () => {
             ))}
           </div>
 
-          {refinedData.length > noticesPerPage && (
+          {totalPages > 1 && (
             <Pagination
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               totalPages={totalPages}
-              onNext={goToNextPage}
-              onPrev={goToPrevPage}
-              toBengaliNumeral={toBengaliNumeral}
+              items={refinedData} 
             />
           )}
         </>

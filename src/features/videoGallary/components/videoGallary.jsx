@@ -21,7 +21,7 @@ const VideoGallery = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 4;
+  const itemsPerPage = 9;
 
   const totalPages = videos ? Math.ceil(videos.length / itemsPerPage) : 0;
   const currentVideos = videos
