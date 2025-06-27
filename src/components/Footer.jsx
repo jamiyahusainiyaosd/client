@@ -1,11 +1,17 @@
-import { FaFacebookF, FaGithub } from "react-icons/fa";
+import { FaArrowUp, FaFacebookF, FaGithub } from "react-icons/fa";
 import qrCodeImage from "/qr-code.png";
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <footer className="p-4 py-10 mt-10 bg-white dark:bg-gray-800 transition-colors duration-200">
+    <footer className="relative p-4 py-10 mt-10 bg-white dark:bg-gray-800 transition-colors duration-200">
       <div className="max-w-[1244px] mx-auto justify-items-center container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left">
-        {/* Services Section */}
         <div className="flex flex-col items-center lg:items-start">
           <h6 className="text-lg font-bold mb-3 text-black dark:text-white">
             গুরুত্বপূর্ণ লিংকসমূহ
@@ -59,7 +65,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* QR Code Section */}
         <div className="flex flex-col items-center lg:items-start">
           <h6 className="text-lg font-bold mb-3 text-black dark:text-white whitespace-nowrap">
             স্ক্যান করুন
@@ -71,7 +76,6 @@ const Footer = () => {
           />
         </div>
 
-        {/* Contact Section */}
         <div className="flex flex-col items-center lg:items-start">
           <h6 className="text-lg font-bold mb-3 text-black dark:text-white">
             যোগাযোগ
@@ -100,7 +104,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Social Media Section */}
         <div className="flex flex-col items-center lg:items-start">
           <h6 className="text-lg font-bold mb-3 text-black dark:text-white">
             ফলো করুন
@@ -124,7 +127,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Footer Bottom */}
       <div className="mt-8 text-center border-t pt-4 border-black dark:border-white text-sm">
         <p className="font-bold text-sm text-black dark:text-white">
           &copy; {new Date().getFullYear()} জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জ,
@@ -142,6 +144,14 @@ const Footer = () => {
           </a>
         </p>
       </div>
+
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500 transition-all duration-200 shadow-lg z-50"
+        aria-label="Scroll to top"
+      >
+        <FaArrowUp className="text-xl font-bold" />
+      </button>
     </footer>
   );
 };
