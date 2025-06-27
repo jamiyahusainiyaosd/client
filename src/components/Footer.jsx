@@ -144,7 +144,6 @@ const Footer = () => {
           </a>
         </p>
       </div>
-
       <button
         onClick={scrollToTop}
         className="fixed bottom-6 right-6 flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500 transition-all duration-200 shadow-lg z-50"
