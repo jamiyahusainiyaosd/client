@@ -4,7 +4,6 @@ import contactFormSchema from "../../../schemas/contact.schemas";
 import useContactPayload from "../hooks/useContactPayload";
 import useFieldError from "../hooks/UseFieldError";
 import contactUsService from "../services/contactus.service";
-import validateEmail from "../services/emailValidation.service";
 import ContactUsForm from "./ContactUsForm";
 
 const ContactUsRightDiv = () => {
@@ -48,23 +47,10 @@ const ContactUsRightDiv = () => {
         return;
       }
 
-      const emailCheck = await validateEmail(payload.email);
-      console.log("Email validation result:", emailCheck);
-
-      if (!emailCheck?.format_valid || !emailCheck?.smtp_check) {
-        setFieldError("email", "দয়া করে একটি বৈধ ইমেইল ঠিকানা প্রদান করুন");
-        toast.error("আপনার প্রদত্ত ইমেইল ঠিকানাটি বৈধ নয় বা অস্তিত্বহীন");
-        return;
-      }
-
       submitContactForm(payload);
     } catch (error) {
       console.error("Form submission error:", error);
-      toast.error(
-        error?.response?.data?.error?.info
-          ? "ইমেইল যাচাইকরণে ব্যর্থ: দয়া করে পরে আবার চেষ্টা করুন"
-          : "একটি সমস্যা হয়েছে! দয়া করে আবার চেষ্টা করুন"
-      );
+      toast.error("একটি সমস্যা হয়েছে! দয়া করে আবার চেষ্টা করুন");
     }
   };
 
