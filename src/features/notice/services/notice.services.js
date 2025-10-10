@@ -2,22 +2,27 @@ import { AxiosError } from "axios";
 import noticeApi from "../apis/notice.apis";
 
 const noticeService = {
-  getAll: async () => {
+  getAll: async (page = 1) => {
     try {
-      return await noticeApi.findAll();
+      const response = await noticeApi.findAll(page);
+      return response.data;
     } catch (error) {
       if (error instanceof AxiosError) {
         throw error;
       }
+      throw error;
     }
   },
+
   getOne: async (id) => {
     try {
-      return await noticeApi.findOne(id);
+      const response = await noticeApi.findOne(id);
+      return response.data; 
     } catch (error) {
       if (error instanceof AxiosError) {
         throw error;
       }
+      throw error;
     }
   },
 };

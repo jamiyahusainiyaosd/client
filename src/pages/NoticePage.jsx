@@ -1,5 +1,5 @@
-import PageTitle from "../utils/PageTitle";
 import Notices from "../features/notice/components/Notices";
+import PageTitle from "../utils/PageTitle";
 
 const NoticePage = () => {
   return (

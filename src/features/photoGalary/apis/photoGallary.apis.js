@@ -1,8 +1,8 @@
 import axiosClient from "../../../configs/axios.config";
 
 const photoGallaryApi = {
-  findAll: () => {
-    return axiosClient.get("/gallary/photo");
+  findAll: (page = 1) => {
+    return axiosClient.get(`/gallary/photo?page=${page}`);
   }
 };
 

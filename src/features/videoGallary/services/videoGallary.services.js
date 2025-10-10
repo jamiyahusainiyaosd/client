@@ -1,9 +1,10 @@
 import videoGallaryApis from "../apis/videoGallary.apis";
 
 const VideoGallaryServices = {
-    getAllResults: async () => {
+    getAllResults: async (page = 1) => {
         try {
-            return await videoGallaryApis.findAllApi();
+            const response = await videoGallaryApis.findAllApi(page);
+            return response.data;
         } catch (error) {
             if (error instanceof Error) {
                 throw error;

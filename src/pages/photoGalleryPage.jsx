@@ -1,5 +1,5 @@
-import PageTitle from "../utils/PageTitle";
 import PhotoGallery from "../features/photoGalary/components/photoGallary";
+import PageTitle from "../utils/PageTitle";
 
 const PhotoGalleryPage = () => {
   return (

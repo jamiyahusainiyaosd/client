@@ -132,17 +132,6 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জ,
           হবিগঞ্জ
         </p>
-        <br />
-        <p className="text-black dark:text-white">
-          ওয়েব সাইট বিকাশ করেছেন{" "}
-          <a
-            target="_blank"
-            className="underline font-bold text-black dark:text-white"
-            href="https://najmus-shakib-sand.vercel.app/"
-          >
-            নাজমুস সাকিব
-          </a>
-        </p>
       </div>
       <button
         onClick={scrollToTop}

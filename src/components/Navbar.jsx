@@ -72,7 +72,6 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          {/* About Madrasa Dropdown */}
           <li
             className="relative group text-lg w-full"
             onMouseEnter={() =>
@@ -83,7 +82,7 @@ const Navbar = () => {
             }
           >
             <div
-              className="flex items-center justify-between px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              className="flex items-center justify-center px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
               onClick={() => {
                 if (window.innerWidth <= 1024) {
                   setDropdownOpen(!dropdownOpen);
@@ -92,10 +91,10 @@ const Navbar = () => {
             >
               <span>মাদ্রাসা সম্পর্কে</span>
               <ChevronDown
-                className={`ml-1 transition-transform ${
+                className={`ml-1 transition-transform font-bold ${
                   dropdownOpen ? "rotate-180" : ""
                 }`}
-                size={16}
+                size={20}
               />
             </div>
 
@@ -183,7 +182,6 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          {/* Academic Dropdown */}
           <li
             className="relative group text-lg w-full"
             onMouseEnter={() =>
@@ -194,7 +192,7 @@ const Navbar = () => {
             }
           >
             <div
-              className="flex items-center justify-between px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              className="flex items-center justify-center px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
               onClick={() => {
                 if (window.innerWidth <= 1024) {
                   setAcademicDropdown(!academicDropdown);
@@ -203,10 +201,10 @@ const Navbar = () => {
             >
               <span>একাডেমিক</span>
               <ChevronDown
-                className={`ml-1 transition-transform ${
+                className={`ml-1 transition-transform font-bold ${
                   academicDropdown ? "rotate-180" : ""
                 }`}
-                size={16}
+                size={20}
               />
             </div>
 

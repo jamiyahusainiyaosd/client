@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Error from "../../../components/Error";
 import Loader from "../../../components/Loader";
 import NoDataFound from "../../../components/NoDataFound";
@@ -8,28 +8,24 @@ import noticeService from "../services/notice.services";
 import Notice from "./Notice";
 
 const Notices = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const noticesPerPage = 9;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { isPending, data, isError, error } = useQuery({
-    queryKey: ["notices"],
-    queryFn: noticeService.getAll,
+    queryKey: ["notices", currentPage],
+    queryFn: () => noticeService.getAll(currentPage),
     retry: 2,
     staleTime: 60000,
   });
 
-  const refinedData = useMemo(() => data?.data ?? [], [data]);
-  const totalPages = Math.ceil(refinedData.length / noticesPerPage);
-  const currentNotices = refinedData.slice(
-    currentPage * noticesPerPage,
-    (currentPage + 1) * noticesPerPage
-  );
+  const refinedData = data?.results || [];
+  const totalCount = data?.count || 0;
+  const totalPages = Math.ceil(totalCount / 9);
 
   return (
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-          মোট নোটিশ: {refinedData.length}
+          মোট নোটিশ: {totalCount}
         </h2>
       </div>
 
@@ -46,7 +42,7 @@ const Notices = () => {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentNotices.map((notice) => (
+            {refinedData.map((notice) => (
               <Notice
                 key={notice.id}
                 id={notice.id}
@@ -61,7 +57,7 @@ const Notices = () => {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               totalPages={totalPages}
-              items={refinedData} 
+              totalCount={totalCount} 
             />
           )}
         </>

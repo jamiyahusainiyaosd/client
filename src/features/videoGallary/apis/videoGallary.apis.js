@@ -1,8 +1,8 @@
 import axiosClient from "../../../configs/axios.config";
 
 const VideoGallaryApis = {
-    findAllApi: () => {
-        return axiosClient.get("/gallary/video");
+    findAllApi: (page = 1) => {
+        return axiosClient.get(`/gallary/video?page=${page}`);
     },
 };
 

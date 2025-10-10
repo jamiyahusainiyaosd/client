@@ -20,7 +20,7 @@ const Notice = ({ title, created_at, id }) => {
       <div className="p-4 border-t border-gray-200 dark:border-gray-700">
         <a
           onClick={handleDetails}
-          className="w-full flex items-center justify-center gap-2"
+          className="w-full flex gap-2"
         >
           বিস্তারিত দেখুন
           <FaArrowRight />

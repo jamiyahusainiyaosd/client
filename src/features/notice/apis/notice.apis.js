@@ -1,9 +1,10 @@
 import axiosClient from "../../../configs/axios.config";
 
 const noticeApi = {
-  findAll: () => {
-    return axiosClient.get("/notices");
+  findAll: (page = 1) => {
+    return axiosClient.get(`/notices?page=${page}`);
   },
+
   findOne: (id) => {
     return axiosClient.get(`/notices/${id}`);
   },
