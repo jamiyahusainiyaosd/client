@@ -1,44 +1,57 @@
-import { FaCalendarAlt, FaChalkboardTeacher, FaPhone } from "react-icons/fa";
+// src/features/teachers/components/Teacher.jsx
+import { FaChalkboardTeacher, FaPhone } from "react-icons/fa";
 import avatarImage from "/avater.png";
 
-const Teacher = ({
-  avatar,
-  name,
-  designation,
-  phone_number,
-}) => {
+const Teacher = ({ avatar, name, designation, phone_number }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 group">
-      <div className="relative mb-5">
-        <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 opacity-0 group-hover:opacity-20 blur-sm transition-all duration-300"></div>
-        <img
-          src={avatar || avatarImage}
-          alt={name}
-          className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-md mx-auto relative z-10"
-          onError={(e) => {
-            e.target.src = avatarImage;
-          }}
-        />
+    <div
+      className="group relative rounded-3xl p-6 bg-white/90 dark:bg-slate-900/90 
+      border border-emerald-100/70 dark:border-emerald-600/40 
+      shadow-md shadow-emerald-900/10 hover:shadow-emerald-600/40 
+      hover:-translate-y-1 transition-all duration-300"
+    >
+      {/* Avatar */}
+      <div className="relative w-full flex justify-center">
+        <div className="relative">
+          <div
+            className="absolute -inset-1 rounded-full bg-gradient-to-br 
+            from-emerald-400 to-emerald-600 opacity-60 blur transition-all 
+            group-hover:blur-lg group-hover:opacity-90"
+          ></div>
+
+          <img
+            src={avatar || avatarImage}
+            alt={name}
+            className="relative w-32 h-32 rounded-full z-10 border-4 border-white 
+            dark:border-slate-900 object-cover shadow-lg shadow-emerald-900/30"
+            onError={(e) => (e.target.src = avatarImage)}
+          />
+        </div>
       </div>
 
-      <div className="text-center space-y-3">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-          {name}
-        </h3>
+      {/* Name */}
+      <h3
+        className="mt-5 text-xl font-bold text-slate-900 dark:text-white 
+        text-center group-hover:text-emerald-600 dark:group-hover:text-emerald-300 
+        transition-colors"
+      >
+        {name}
+      </h3>
 
-        <div className="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
-          <div className="bg-blue-100 dark:bg-blue-900/20 p-1.5 rounded-lg">
-            <FaChalkboardTeacher className="text-blue-500 dark:text-blue-400" />
-          </div>
-          <p>{designation}</p>
+      {/* Designation */}
+      <div className="mt-3 flex items-center justify-center gap-2 text-slate-700 dark:text-slate-300">
+        <div className="bg-emerald-100 dark:bg-emerald-900/30 p-1.5 rounded-lg">
+          <FaChalkboardTeacher className="text-emerald-600 dark:text-emerald-300" />
         </div>
+        <p className="text-sm">{designation}</p>
+      </div>
 
-        <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400">
-          <div className="bg-blue-100 dark:bg-blue-900/20 p-1.5 rounded-lg">
-            <FaPhone className="text-blue-500 dark:text-blue-400" />
-          </div>
-          <p>{phone_number || "প্রদান করা হয়নি"}</p>
+      {/* Phone */}
+      <div className="mt-1 flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400">
+        <div className="bg-emerald-100 dark:bg-emerald-900/30 p-1.5 rounded-lg">
+          <FaPhone className="text-emerald-600 dark:text-emerald-300" />
         </div>
+        <p className="text-sm">{phone_number || "প্রদান করা হয়নি"}</p>
       </div>
     </div>
   );

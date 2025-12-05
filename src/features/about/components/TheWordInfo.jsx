@@ -1,44 +1,43 @@
+// src/features/about/components/TheWordInfo.jsx
 import { FaQuoteRight } from "react-icons/fa";
 import { aboutData } from "../../../constants/aboutData";
 
 const TheWordInfo = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300">
-      <div className="flex items-center mb-8">
-        <div className="bg-blue-100 dark:bg-blue-900/20 p-3 rounded-lg mr-4">
-          <FaQuoteRight className="text-blue-500 dark:text-blue-400 text-xl" />
+    <section className="rounded-3xl border border-emerald-100/80 bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-900 dark:from-emerald-800 dark:via-emerald-900 dark:to-slate-950 text-emerald-50 shadow-2xl shadow-emerald-950/50 p-6 sm:p-8">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-emerald-50">
+          <FaQuoteRight className="text-xl" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-          বাণী
-        </h3>
+        <div>
+          <h3 className="text-xl md:text-2xl font-bold tracking-tight">বাণী</h3>
+        </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 text-sm md:text-base">
         <div className="relative">
-          <div className="absolute -left-4 top-0 text-4xl text-blue-500 dark:text-blue-400 opacity-20">
-            "
+          <div className="absolute -left-1 -top-4 text-6xl text-emerald-200/30 font-serif select-none">
+            “
           </div>
-          <blockquote className="pl-8 text-lg text-justify italic text-gray-700 dark:text-gray-300">
+          <blockquote className="pl-6 text-justify leading-relaxed">
             {aboutData.quote.text}
           </blockquote>
         </div>
 
         <div className="relative">
-          <div className="absolute -left-4 top-0 text-4xl text-blue-500 dark:text-blue-400 opacity-20">
-            "
+          <div className="absolute -left-1 -top-4 text-6xl text-emerald-200/30 font-serif select-none">
+            “
           </div>
-          <blockquote className="pl-8 text-justify text-lg italic text-gray-700 dark:text-gray-300">
+          <blockquote className="pl-6 text-justify leading-relaxed">
             {aboutData.quote.texts}
           </blockquote>
         </div>
 
-        <div className="text-right">
-          <p className="text-gray-900 dark:text-white font-semibold">
-            — {aboutData.quote.author}
-          </p>
+        <div className="pt-2 text-right">
+          <p className="text-sm font-semibold">— {aboutData.quote.author}</p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,3 +1,4 @@
+// src/features/contactus/components/ContactUsRightDiv.jsx
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import contactFormSchema from "../../../schemas/contact.schemas";
@@ -10,48 +11,32 @@ const ContactUsRightDiv = () => {
   const { setFieldError, resetFieldErrors } = useFieldError();
   const { payload, reset: resetPayload } = useContactPayload();
 
-  const { mutate: submitContactForm, isPending } = useMutation({
+  const { mutate: submitForm, isPending } = useMutation({
     mutationKey: ["contactMessage"],
-    mutationFn: (formData) => contactUsService.contactUsPostService(formData),
-    onSuccess: (response) => {
-      if (typeof resetPayload === "function") {
-        resetPayload();
-      }
-      const successMessage =
-        response?.data?.message ||
-        response?.message ||
-        "বার্তা সফলভাবে পাঠানো হয়েছে!";
-      toast.success(successMessage);
+    mutationFn: contactUsService.contactUsPostService,
+    onSuccess: (res) => {
+      resetPayload();
+      toast.success(res?.data?.message || "বার্তা সফলভাবে পাঠানো হয়েছে!");
     },
-    onError: (error) => {
-      console.error("Submission error:", error);
-      const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        "একটি সমস্যা হয়েছে! দয়া করে আবার চেষ্টা করুন";
-      toast.error(errorMessage);
+    onError: (err) => {
+      toast.error(err?.response?.data?.message || "একটি সমস্যা হয়েছে!");
     },
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     resetFieldErrors();
 
-    try {
-      const validationResult = contactFormSchema.safeParse(payload);
-      if (!validationResult.success) {
-        const { fieldErrors } = validationResult.error.flatten();
-        Object.entries(fieldErrors).forEach(([field, [message]]) => {
-          setFieldError(field, message);
-        });
-        return;
-      }
-
-      submitContactForm(payload);
-    } catch (error) {
-      console.error("Form submission error:", error);
-      toast.error("একটি সমস্যা হয়েছে! দয়া করে আবার চেষ্টা করুন");
+    const validation = contactFormSchema.safeParse(payload);
+    if (!validation.success) {
+      const { fieldErrors } = validation.error.flatten();
+      Object.entries(fieldErrors).forEach(([field, [msg]]) =>
+        setFieldError(field, msg)
+      );
+      return;
     }
+
+    submitForm(payload);
   };
 
   return (

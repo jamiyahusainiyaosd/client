@@ -1,3 +1,4 @@
+// src/features/teachers/components/Teachers.jsx
 import { useQuery } from "@tanstack/react-query";
 import Error from "../../../components/Error";
 import Loader from "../../../components/Loader";
@@ -15,7 +16,7 @@ const Teachers = () => {
   return (
     <div className="space-y-12">
       {isPending && (
-        <div className="flex justify-center py-20">
+        <div className="py-20 flex justify-center">
           <Loader />
         </div>
       )}
@@ -24,15 +25,17 @@ const Teachers = () => {
 
       {refineData && (
         <>
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
-            মোট শিক্ষক :{" "}
-            <span className="text-blue-500 dark:text-blue-400">
+          {/* Count Info */}
+          <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+            মোট শিক্ষক :
+            <span className="text-emerald-600 dark:text-emerald-300 font-bold ml-2">
               {refineData.length}
             </span>{" "}
             জন
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
+          {/* Teacher Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-10">
             {refineData.map((teacher) => (
               <Teacher key={teacher.id} {...teacher} />
             ))}

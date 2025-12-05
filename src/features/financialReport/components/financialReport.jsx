@@ -1,3 +1,4 @@
+// src/features/financialReport/components/financialReport.jsx
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -21,9 +22,7 @@ const handleDownload = async (fileUrl, fileName) => {
     const a = document.createElement("a");
     a.href = url;
     a.download = fileName;
-    document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   } catch (error) {
     console.error("Download failed:", error);
@@ -41,162 +40,144 @@ const FinancialReport = () => {
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [activeTab, setActiveTab] = useState("all");
   const [expandedReport, setExpandedReport] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkIfMobile);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const filteredReports = reports?.filter((report) => {
-    if (activeTab === "all") return true;
-    return report.category === activeTab;
-  });
-
-  if (isLoading) {
+  if (isLoading)
     return (
-      <div className="flex justify-center py-20">
-        <Loader size="lg" variant="pulse" />
+      <div className="py-20 flex justify-center">
+        <Loader size="lg" />
       </div>
     );
-  }
 
-  if (isError) {
-    return <Error message="ডাটা লোড করতে সমস্যা হয়েছে!" />;
-  }
+  if (isError) return <Error message="ডেটা লোড করতে সমস্যা হয়েছে!" />;
 
-  if (!reports || reports.length === 0) {
+  if (!reports?.length)
     return (
-      <div className="text-center py-12">
-        <div className="inline-block p-4 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
-          <FaInfoCircle className="text-2xl text-gray-500 dark:text-gray-400" />
+      <div className="text-center py-14">
+        <div
+          className="inline-flex h-16 w-16 items-center justify-center rounded-full
+        bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300 mb-4"
+        >
+          <FaInfoCircle className="text-2xl" />
         </div>
-        <h3 className="text-xl font-medium text-gray-700 dark:text-gray-300">
+        <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-200">
           কোনো প্রতিবেদন প্রকাশ করা হয়নি
         </h3>
-        <p className="text-gray-500 dark:text-gray-400 mt-2">
-          নতুন প্রতিবেদন প্রকাশিত হলে এখানে দেখানো হবে
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          ভবিষ্যতে নতুন প্রতিবেদন যুক্ত হলে এখানে প্রদর্শিত হবে
         </p>
       </div>
     );
-  }
 
   return (
-    <div className="space-y-8">
-      <div className="flex overflow-x-auto pb-2 scrollbar-hide">
-        <div className="flex space-x-2">
-          {["all"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
-                activeTab === tab
-                  ? "bg-black text-white dark:bg-white dark:text-black"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-              }`}
-            >
-              {tab === "all" && "সকল প্রতিবেদন"}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredReports?.map((report) => (
+    <div className="space-y-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {reports.map((report) => (
           <div
             key={report.id}
-            className={`bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 ${
-              expandedReport === report.id ? "md:col-span-2" : ""
-            }`}
+            className={`rounded-3xl border border-emerald-100/70 dark:border-emerald-600/40 
+              bg-white/90 dark:bg-slate-900/90 shadow-md shadow-emerald-900/10 
+              hover:shadow-emerald-600/40 transition-all duration-300 overflow-hidden ${
+                expandedReport === report.id ? "md:col-span-2" : ""
+              }`}
           >
-            <div className="p-5 border-b border-gray-200 dark:border-gray-700 flex justify-between items-start">
+            {/* Header */}
+            <div className="p-6 border-b border-emerald-100 dark:border-emerald-700 flex justify-between items-start">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white line-clamp-1">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 line-clamp-1">
                   {report.finanicialReportName}
                 </h3>
-                <div className="flex items-center space-x-4 mt-2">
-                  <span className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+
+                {/* Date Info */}
+                <div className="flex items-center gap-4 mt-2 text-sm text-slate-500 dark:text-slate-400">
+                  <span className="flex items-center">
                     <FiCalendar className="mr-1" />
                     {Time(report.finanicialReportCreate)}
                   </span>
-                  {report.finanicialReportUpdate !==
-                    report.finanicialReportCreate && (
-                    <span className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+
+                  {report.finanicialReportCreate !==
+                    report.finanicialReportUpdate && (
+                    <span className="flex items-center">
                       <FiRefreshCw className="mr-1" />
                       {Time(report.finanicialReportUpdate)}
                     </span>
                   )}
                 </div>
               </div>
+
               <button
                 onClick={() =>
                   setExpandedReport(
                     expandedReport === report.id ? null : report.id
                   )
                 }
-                className="p-2 text-gray-500 hover:text-black dark:hover:text-white transition-colors"
-                aria-label={
-                  expandedReport === report.id ? "Collapse" : "Expand"
-                }
+                className="p-2 text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-300 transition"
               >
                 <FaExpand />
               </button>
             </div>
 
-            <div className="p-5">
+            {/* Description */}
+            <div className="p-6">
               <p
-                className={`text-gray-700 dark:text-gray-300 mb-4 ${
+                className={`text-sm text-slate-700 dark:text-slate-300 mb-4 leading-relaxed ${
                   expandedReport === report.id ? "" : "line-clamp-3"
                 }`}
               >
                 {report.finanicialReportDescription}
               </p>
 
-              <div className="relative group">
+              {/* Image */}
+              <div className="relative group rounded-2xl overflow-hidden border border-emerald-100 dark:border-emerald-700">
                 {!isMobile && (
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-end p-4">
+                  <div
+                    className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 
+                  transition-all flex items-end p-4"
+                  >
                     <button
                       onClick={() =>
                         setSelectedImage(report.finanicialReportImage)
                       }
-                      className="text-white bg-black/50 hover:bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm flex items-center transition-all"
+                      className="bg-white/20 backdrop-blur px-4 py-2 rounded-full text-white text-sm"
                     >
                       পূর্ণ স্ক্রিনে দেখুন
                     </button>
                   </div>
                 )}
+
                 <img
-                  className="w-full h-auto rounded-lg cursor-zoom-in border border-gray-200 dark:border-gray-700"
                   src={report.finanicialReportImage}
-                  alt={report.finanicialReportName}
+                  alt="Report"
+                  className="w-full rounded-2xl cursor-pointer"
                   onClick={() => setSelectedImage(report.finanicialReportImage)}
                 />
+
                 {isMobile && (
                   <button
                     onClick={() =>
                       setSelectedImage(report.finanicialReportImage)
                     }
-                    className="mt-2 w-full py-2 bg-black/80 text-white rounded-lg flex items-center justify-center gap-2"
+                    className="mt-3 w-full py-2 bg-emerald-600 text-white rounded-lg"
                   >
-                    <FaExpand /> পূর্ণ স্ক্রিনে দেখুন
+                    পূর্ণ স্ক্রিনে দেখুন
                   </button>
                 )}
               </div>
             </div>
 
-            <div className="p-5 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+            {/* Footer */}
+            <div className="p-6 border-t border-emerald-100 dark:border-emerald-700 flex justify-end">
               <button
-                className="flex items-center space-x-2 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
+                className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 
+                text-white rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all"
                 onClick={() =>
                   handleDownload(
                     report.finanicialReportImage,
@@ -211,20 +192,24 @@ const FinancialReport = () => {
         ))}
       </div>
 
+      {/* Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+        <div
+          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        >
           <div className="relative max-w-6xl w-full max-h-[90vh]">
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors p-2"
-              aria-label="Close"
+              className="absolute -top-12 right-0 text-white text-3xl hover:text-emerald-300 transition"
             >
-              <FaTimes size={24} />
+              <FaTimes />
             </button>
+
             <img
               src={selectedImage}
-              alt="প্রতিবেদন"
-              className="w-full h-full object-contain rounded-lg"
+              alt="Full view"
+              className="w-full h-full object-contain rounded-2xl shadow-2xl"
             />
           </div>
         </div>

@@ -10,27 +10,37 @@ const RecentNotices = () => {
     queryFn: homeService.getLatestNotice,
   });
   const refinedData = useMemo(() => data?.data, [data]);
-  
+
   return (
     <section className="max-w-4xl mx-auto">
-      <div className="relative group mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white inline-block relative">
-          <span className="absolute -bottom-1 left-0 w-0 h-1 bg-blue-500 dark:bg-blue-400 transition-all duration-500 group-hover:w-full"></span>
-          সাম্প্রতিক নোটিশ
-        </h1>
-        <div className="absolute -bottom-2 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-700"></div>
+      <div className="mb-6">
+        <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          লাইভ আপডেট
+        </div>
+        <div className="mt-2 flex items-end justify-between gap-3">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+              সাম্প্রতিক নোটিশ
+            </h1>
+            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">
+              মাদ্রাসার সর্বশেষ নোটিশ ও গুরুত্বপূর্ণ ঘোষণা দেখুন।
+            </p>
+          </div>
+        </div>
+        <div className="mt-3 w-16 h-1 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-300" />
       </div>
 
       {isError && (
-        <div className="bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 dark:border-red-400 text-red-700 dark:text-red-300 p-4 mb-6 rounded-r-lg">
-          <p>{error.message}</p>
+        <div className="mb-6 rounded-2xl border-l-4 border-red-500 bg-red-50/90 px-4 py-3 text-sm text-red-700 dark:bg-red-900/30 dark:text-red-200">
+          নোটিশ লোড করতে সমস্যা হয়েছে: {error.message}
         </div>
       )}
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {isPending && (
           <div className="flex justify-center py-10">
-            <ClockLoader color="#3B82F6" size={50} />
+            <ClockLoader color="#10B981" size={46} />
           </div>
         )}
 
@@ -43,6 +53,12 @@ const RecentNotices = () => {
               title={title}
             />
           ))}
+
+        {!isPending && !refinedData?.length && !isError && (
+          <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-6">
+            এই মুহূর্তে কোনো নোটিশ পাওয়া যায়নি।
+          </p>
+        )}
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+// src/pages/AcademicDetailPage.jsx
 import PageTitle from "../utils/PageTitle";
 import { useQuery } from "@tanstack/react-query";
 import academicsServices from "../features/academics/services/academics.services";
@@ -9,51 +10,64 @@ import NoDataFound from "../components/NoDataFound";
 
 const AcademicDetailPage = () => {
   const { id } = useParams();
-  const { isPending, data, isError } = useQuery({
+
+  const { data, isPending, isError } = useQuery({
     queryKey: [`academicDetail${id}`],
     queryFn: () => academicsServices.getOneAcademic(id),
     enabled: !!id,
   });
-  const refineData = data?.data;
+
+  const info = data?.data;
 
   return (
     <>
       <PageTitle title="একাডেমিক বিস্তারিত" />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-36">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
-            একাডেমিক ক্লাস বিস্তারিত
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            ক্লাস সম্পর্কিত সম্পূর্ণ তথ্য ও বিবরণ
-          </p>
+
+      <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
+        dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20">
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 md:pt-36">
+
+          <div className="text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50">
+              একাডেমিক ক্লাস{" "}
+              <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 
+              bg-clip-text text-transparent">
+                বিস্তারিত
+              </span>
+            </h1>
+            <p className="mt-3 text-slate-600 dark:text-slate-300">
+              ক্লাস সম্পর্কিত সম্পূর্ণ তথ্য ও বিবরণ
+            </p>
+          </div>
+
+          {isPending && (
+            <div className="flex justify-center py-16">
+              <Loader size="lg" />
+            </div>
+          )}
+
+          {isError && <Error fullWidth />}
+
+          {!isPending && !info && (
+            <div className="bg-white/90 dark:bg-slate-900/90 border border-emerald-200 
+              dark:border-emerald-700 p-6 rounded-2xl shadow-xl">
+              <NoDataFound message="কোনো একাডেমিক তথ্য পাওয়া যায়নি" />
+            </div>
+          )}
+
+          {info && (
+            <AcademicDetail
+              className={info.class_name}
+              classTitle={info.class_title}
+              classStudentCount={info.student_count}
+              classSetCount={info.number_seat}
+              createdAt={info.class_created}
+              classDescription={info.class_description}
+            />
+          )}
         </div>
-
-        {isPending && (
-          <div className="flex justify-center py-12">
-            <Loader size="lg" variant="pulse" />
-          </div>
-        )}
-
-        {isError && <Error fullWidth />}
-
-        {!isPending && !refineData && (
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-center">
-            <NoDataFound message="কোনো একাডেমিক তথ্য পাওয়া যায়নি" />
-          </div>
-        )}
-
-        {refineData && (
-          <AcademicDetail
-            className={refineData?.class_name}
-            classTitle={refineData?.class_title}
-            classStudentCount={refineData?.student_count}
-            classSetCount={refineData?.number_seat}
-            createdAt={refineData?.class_created}
-            classDescription={refineData?.class_description}
-          />
-        )}
-      </div>
+      </main>
     </>
   );
 };

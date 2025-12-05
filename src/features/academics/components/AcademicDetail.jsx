@@ -1,4 +1,10 @@
-import { FaArrowLeft, FaCalendarAlt, FaChair, FaUserGraduate } from "react-icons/fa";
+// src/features/academics/components/AcademicDetail.jsx
+import {
+  FaArrowLeft,
+  FaCalendarAlt,
+  FaChair,
+  FaUserGraduate,
+} from "react-icons/fa";
 import { HiOutlineAcademicCap } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import Time from "../../../utils/formateData";
@@ -12,84 +18,107 @@ const AcademicDetail = ({
   createdAt,
 }) => {
   const navigate = useNavigate();
-  const handleBack = () => navigate(-1);
 
   return (
-    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-900 rounded-2xl shadow-lg overflow-hidden transition-all duration-300">
+    <div className="rounded-3xl bg-white/90 dark:bg-slate-900/90 
+      border border-emerald-100/70 dark:border-emerald-700/40 
+      shadow-xl shadow-emerald-900/10 overflow-hidden">
+
       {/* Header */}
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-start gap-4">
-        <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg shadow-md">
+      <div className="flex items-start gap-4 p-6 border-b 
+        border-emerald-100 dark:border-emerald-700">
+
+        <div className="bg-gradient-to-br from-emerald-600 to-emerald-400 
+          text-white p-3 rounded-xl shadow-lg">
           <HiOutlineAcademicCap className="text-2xl" />
         </div>
+
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{className}</h1>
-          <p className="text-gray-600 dark:text-gray-300">{classTitle}</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+            {className}
+          </h1>
+          <p className="text-slate-600 dark:text-slate-300">{classTitle}</p>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6 space-y-6">
-        {/* Description */}
-        <div className="bg-gray-200 dark:bg-gray-900 p-4 rounded-lg">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">বিবরণ</h2>
-          <p className="text-gray-700 dark:text-gray-300 text-justify">{classDescription}</p>
+      {/* Description */}
+      <div className="p-6 space-y-7">
+
+        <div className="bg-emerald-50 dark:bg-slate-800/80 border border-emerald-200 
+          dark:border-emerald-700 p-5 rounded-xl shadow">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-2">
+            বিবরণ
+          </h2>
+          <p className="text-slate-700 dark:text-slate-300 text-justify leading-relaxed">
+            {classDescription}
+          </p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
           {/* Seats */}
-          <div className="bg-gray-200 dark:bg-gray-900 p-4 rounded-lg flex items-center gap-4">
-            <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg">
+          <div className="flex gap-4 items-center bg-white/50 dark:bg-slate-800/70 
+            border border-emerald-100 dark:border-emerald-700 rounded-xl p-5">
+            <div className="bg-gradient-to-br from-emerald-600 to-emerald-400 
+              text-white p-3 rounded-lg shadow">
               <FaChair className="text-xl" />
             </div>
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">আসন সংখ্যা</p>
-              <p className="text-lg font-medium text-gray-900 dark:text-white">
-                {classSetCount || 'প্রযোজ্য নয়'}
+              <p className="text-sm text-slate-500 dark:text-slate-400">আসন সংখ্যা</p>
+              <p className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+                {classSetCount || "প্রযোজ্য নয়"}
               </p>
             </div>
           </div>
 
           {/* Students */}
-          <div className="bg-gray-200 dark:bg-gray-900 p-4 rounded-lg flex items-center gap-4">
-            <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg">
+          <div className="flex gap-4 items-center bg-white/50 dark:bg-slate-800/70 
+            border border-emerald-100 dark:border-emerald-700 rounded-xl p-5">
+            <div className="bg-gradient-to-br from-emerald-600 to-emerald-400 
+              text-white p-3 rounded-lg shadow">
               <FaUserGraduate className="text-xl" />
             </div>
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">ছাত্র সংখ্যা</p>
-              <p className="text-lg font-medium text-gray-900 dark:text-white">
-                {classStudentCount || 'প্রযোজ্য নয়'}
+              <p className="text-sm text-slate-500 dark:text-slate-400">ছাত্র সংখ্যা</p>
+              <p className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+                {classStudentCount || "প্রযোজ্য নয়"}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Dates Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Created At */}
-          <div className="bg-gray-200 dark:bg-gray-900 p-4 rounded-lg flex items-center gap-4">
-            <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg">
-              <FaCalendarAlt className="text-xl" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">তৈরির তারিখ</p>
-              <p className="text-lg font-medium text-gray-900 dark:text-white">
-                {Time(createdAt)}
-              </p>
-            </div>
+        {/* Created At */}
+        <div className="flex gap-4 items-center bg-white/50 dark:bg-slate-800/70 
+          border border-emerald-100 dark:border-emerald-700 rounded-xl p-5">
+          <div className="bg-gradient-to-br from-emerald-600 to-emerald-400 
+            text-white p-3 rounded-lg shadow">
+            <FaCalendarAlt className="text-xl" />
+          </div>
+          <div>
+            <p className="text-sm text-slate-500 dark:text-slate-400">তৈরির তারিখ</p>
+            <p className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+              {Time(createdAt)}
+            </p>
           </div>
         </div>
+
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+      <div className="p-4 border-t border-emerald-100 dark:border-emerald-700 
+        flex justify-end">
+
         <button
-          onClick={handleBack}
-          className="flex items-center gap-2 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
+          onClick={() => navigate(-1)}
+          className="px-5 py-2.5 rounded-full bg-gradient-to-r 
+          from-emerald-600 to-emerald-500 text-white shadow-md 
+          hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2"
         >
           <FaArrowLeft />
           ফিরে যান
         </button>
+
       </div>
     </div>
   );

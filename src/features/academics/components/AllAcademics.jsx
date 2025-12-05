@@ -1,3 +1,4 @@
+// src/features/academics/components/AllAcademics.jsx
 import { useQuery } from "@tanstack/react-query";
 import { HiOutlineAcademicCap } from "react-icons/hi";
 import { Link } from "react-router-dom";
@@ -12,61 +13,75 @@ const AllAcademics = () => {
     queryFn: academicsServices.getAllAcademic,
   });
 
+  const classes = data?.data?.data || [];
+
+  if (isPending)
+    return (
+      <div className="flex justify-center py-16">
+        <Loader size="lg" />
+      </div>
+    );
+
+  if (isError) return <Error fullWidth />;
+
+  if (classes.length === 0)
+    return (
+      <div className="bg-white/90 dark:bg-slate-900/90 shadow-xl rounded-3xl p-6 
+      border border-emerald-100/70 dark:border-emerald-700">
+        <NoDataFound message="কোনো একাডেমিক ক্লাস পাওয়া যায়নি" />
+      </div>
+    );
+
   return (
-    <div className="space-y-8">
-      {isPending && (
-        <div className="flex justify-center py-16">
-          <Loader size="lg" variant="pulse" />
-        </div>
-      )}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      {isError && <Error fullWidth />}
+      {classes
+        ?.sort((a, b) => new Date(b.class_created) - new Date(a.class_created))
+        .map((item) => (
+          <Link
+            key={item.id}
+            to={`/academic/${item.id}`}
+            className="group relative bg-white/90 dark:bg-slate-900/90 
+            border border-emerald-100/70 dark:border-emerald-700/40 
+            rounded-3xl shadow-md shadow-emerald-800/10 hover:shadow-emerald-600/40 
+            transition-all duration-300 p-6 overflow-hidden hover:-translate-y-1"
+          >
+            {/* Glow overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/10 
+              to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-      {data?.data?.data?.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-center">
-          <NoDataFound message="কোনো একাডেমিক ক্লাস পাওয়া যায়নি" />
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data?.data?.data
-            ?.sort((a, b) => new Date(b.class_created) - new Date(a.class_created))
-            ?.map((item) => (
-              <Link 
-                key={item.id} 
-                to={`/academic/${item.id}`}
-                className="group relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                
-                <div className="p-6 h-full flex flex-col">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="bg-black text-white dark:bg-white dark:text-black p-3 rounded-lg shadow-md">
-                      <HiOutlineAcademicCap className="text-xl" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
-                        {item.class_name}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300">{item.class_title}</p>
-                    </div>
-                  </div>
+            {/* Icon + Title */}
+            <div className="flex items-start gap-4 mb-5">
+              <div className="bg-gradient-to-br from-emerald-600 to-emerald-400 text-white 
+                dark:bg-gradient-to-br dark:from-emerald-800 dark:to-emerald-600 
+                p-3 rounded-xl shadow-lg">
+                <HiOutlineAcademicCap className="text-2xl" />
+              </div>
 
-                  <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                    <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">ছাত্র সংখ্যা</p>
-                      <p className="font-medium text-gray-900 dark:text-white">
-                        {item.student_count || '০'}
-                      </p>
-                    </div>
-                    <div className="text-black dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
-                      বিস্তারিত দেখুন →
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-        </div>
-      )}
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 
+                  group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition">
+                  {item.class_name}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">{item.class_title}</p>
+              </div>
+            </div>
+
+            {/* Bottom Content */}
+            <div className="border-t border-slate-200 dark:border-slate-700 pt-4 mt-auto flex justify-between items-center">
+              <div>
+                <p className="text-sm text-slate-500 dark:text-slate-400">ছাত্র সংখ্যা</p>
+                <p className="font-semibold text-slate-900 dark:text-slate-50">
+                  {item.student_count || "০"}
+                </p>
+              </div>
+
+              <p className="text-emerald-600 dark:text-emerald-300 font-medium group-hover:underline">
+                বিস্তারিত →
+              </p>
+            </div>
+          </Link>
+        ))}
     </div>
   );
 };

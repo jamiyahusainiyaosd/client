@@ -1,4 +1,12 @@
-import { FaArrowUp, FaFacebookF, FaGithub } from "react-icons/fa";
+import {
+  FaArrowUp,
+  FaEnvelope,
+  FaFacebookF,
+  FaGithub,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaYoutube,
+} from "react-icons/fa";
 import qrCodeImage from "/qr-code.png";
 
 const Footer = () => {
@@ -10,135 +18,137 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative p-4 py-10 mt-10 bg-white dark:bg-gray-800 transition-colors duration-200">
-      <div className="max-w-[1244px] mx-auto justify-items-center container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left">
-        <div className="flex flex-col items-center lg:items-start">
-          <h6 className="text-lg font-bold mb-3 text-black dark:text-white">
+    <footer className="relative bg-gradient-to-b from-emerald-700 via-emerald-800 to-emerald-900 dark:from-slate-900 dark:via-slate-950 dark:to-black text-emerald-50 pt-5 pb-5">
+      {/* Top Decorative Divider */}
+      <div className="absolute inset-x-0 -top-6 mx-auto w-40 h-1.5 rounded-full bg-emerald-400/60 blur-xl opacity-70"></div>
+
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* Important Links */}
+        <div>
+          <h3 className="text-xl font-bold mb-4 tracking-[0.05em]">
             গুরুত্বপূর্ণ লিংকসমূহ
-          </h6>
+          </h3>
           <ul className="space-y-2 text-sm">
-            <li>
-              <a
-                href="https://www.wifaqbd.org/"
-                className="underline text-black dark:text-white"
-                target="_blank"
-              >
-                বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://mibd.org/"
-                className="underline text-black dark:text-white"
-                target="_blank"
-              >
-                মুআসসাসা ইলমিয়্যাহ বাংলাদেশ
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.alkawsar.com/bn/"
-                className="underline text-black dark:text-white"
-                target="_blank"
-              >
-                মাসিক আল কাউসার
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://ilmdrive.com/risalatul-islam-bd/"
-                className="underline text-black dark:text-white"
-                target="_blank"
-              >
-                রিসালাতুল ইসলাম বাংলাদেশ
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.youtube.com/@RisalatulIslamBD/playlists"
-                className="underline text-black dark:text-white"
-                target="_blank"
-              >
-                রিসালাতুল ইসলাম বাংলাদেশ, ইউটিউব
-              </a>
-            </li>
+            {[
+              [
+                "বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ",
+                "https://www.wifaqbd.org/",
+              ],
+              ["মুআসসাসা ইলমিয়্যাহ বাংলাদেশ", "https://mibd.org/"],
+              ["মাসিক আল কাউসার", "https://www.alkawsar.com/bn/"],
+              [
+                "রিসালাতুল ইসলাম বাংলাদেশ",
+                "https://ilmdrive.com/risalatul-islam-bd/",
+              ],
+              [
+                "রিসালাতুল ইসলাম BD ইউটিউব",
+                "https://www.youtube.com/@RisalatulIslamBD/playlists",
+              ],
+            ].map(([label, link], idx) => (
+              <li key={idx}>
+                <a
+                  href={link}
+                  target="_blank"
+                  className="hover:text-white/90 hover:underline transition-all duration-150"
+                >
+                  ✦ {label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
-        <div className="flex flex-col items-center lg:items-start">
-          <h6 className="text-lg font-bold mb-3 text-black dark:text-white whitespace-nowrap">
+        {/* QR Code */}
+        <div>
+          <h3 className="text-xl font-bold mb-4 tracking-[0.05em]">
             স্ক্যান করুন
-          </h6>
+          </h3>
           <img
-            className="w-52 h-52 md:w-52 md:h-52 rounded-lg border"
             src={qrCodeImage}
-            alt="qr code"
+            alt="QR Code"
+            className="w-44 h-44 rounded-xl border border-emerald-200 shadow-lg shadow-black/20 mx-auto lg:mx-0"
           />
         </div>
 
-        <div className="flex flex-col items-center lg:items-start">
-          <h6 className="text-lg font-bold mb-3 text-black dark:text-white">
-            যোগাযোগ
-          </h6>
-          <ul className="space-y-2 text-sm">
-            <li className="font-bold whitespace-nowrap text-black dark:text-white">
-              ই-মেইল : jamiyahusainiya1@gmail.com
+        {/* Contact Info */}
+        <div>
+          <h3 className="text-xl font-bold mb-4 tracking-[0.05em]">যোগাযোগ</h3>
+          <ul className="space-y-3 text-sm">
+            <li className="flex items-center gap-3">
+              <FaEnvelope className="text-emerald-300" />
+              jamiyahusainiya1@gmail.com
             </li>
-            <li className="font-bold text-black dark:text-white">
-              মোবাইল নাম্বার: +8801751699909
+            <li className="flex items-center gap-3">
+              <FaPhoneAlt className="text-emerald-300" />
+              +8801751699909
             </li>
-            <li className="font-bold text-black dark:text-white">
-              পূবালী ব্যাংক একাউন্ট নাম্বার : 3070101040683
+            <li className="flex items-start gap-3">
+              <FaMapMarkerAlt className="mt-1 text-emerald-300" />
+              <a
+                href="https://www.google.com/maps/place/জামিয়া+হুসাইনিয়া"
+                target="_blank"
+                className="hover:underline hover:text-white/90"
+              >
+                শায়েস্তাগঞ্জ, হবিগঞ্জ, সিলেট, বাংলাদেশ
+              </a>
             </li>
-            <li className="font-bold text-black dark:text-white">
-              শায়েস্তাগঞ্জ, হবিগঞ্জ ব্রাঞ্চ : BS25-C-0717526 TO BS25-C-0717550
+
+            <li className="pt-2 border-t border-emerald-500/40">
+              <p className="text-sm leading-relaxed">
+                পূবালী ব্যাংক একাউন্ট নম্বর:
+                <span className="font-semibold"> 3070101040683</span>
+                <br />
+                ব্রাঞ্চ: BS25-C-0717526 TO BS25-C-0717550
+              </p>
             </li>
-            <a
-              target="_blank"
-              href="https://www.google.com/maps/place/%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%BE+%E0%A6%B9%E0%A7%81%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%BE+%E0%A6%B6%E0%A6%BE%E0%A6%AF%E0%A6%BC%E0%A7%87%E0%A6%B8%E0%A7%8D%E0%A6%A4%E0%A6%BE%E0%A6%97%E0%A6%9E%E0%A7%8D%E0%A6%9C+%E0%A6%AE%E0%A6%BE%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%B8%E0%A6%BE/@24.2693785,91.4727988,17z/data=!3m1!4b1!4m6!3m5!1s0x37515de9b5a6340d:0xe3c553d2f7510f3!8m2!3d24.2693736!4d91.4753737!16s%2Fg%2F11hf6dfc7z?entry=ttu&g_ep=EgoyMDI1MDQwOS4wIKXMDSoASAFQAw%3D%3D"
-            >
-              <li className="font-bold underline text-black dark:text-white">
-                শায়েস্তাগঞ্জ হবিগঞ্জ, সিলেট, বাংলাদেশ
-              </li>
-            </a>
           </ul>
         </div>
 
-        <div className="flex flex-col items-center lg:items-start">
-          <h6 className="text-lg font-bold mb-3 text-black dark:text-white">
-            ফলো করুন
-          </h6>
-          <div className="flex space-x-4">
+        {/* Social Links */}
+        <div>
+          <h3 className="text-xl font-bold mb-4 tracking-[0.05em]">ফলো করুন</h3>
+          <div className="flex gap-4 text-2xl">
             <a
               href="https://www.facebook.com/profile.php?id=61573036155447"
               target="_blank"
-              className="text-3xl text-black dark:text-white hover:opacity-80 transition-opacity"
+              className="hover:text-white transition"
             >
               <FaFacebookF />
             </a>
             <a
               href="https://github.com/jamiyahusainiyaosd"
               target="_blank"
-              className="text-3xl text-black dark:text-white hover:opacity-80 transition-opacity"
+              className="hover:text-white transition"
             >
               <FaGithub />
+            </a>
+            <a
+              href="https://www.youtube.com/@RisalatulIslamBD/playlists"
+              target="_blank"
+              className="hover:text-white transition"
+            >
+              <FaYoutube />
             </a>
           </div>
         </div>
       </div>
 
-      <div className="mt-8 text-center border-t pt-4 border-black dark:border-white text-sm">
-        <p className="font-bold text-sm text-black dark:text-white">
+      {/* Bottom Section */}
+      <div className="mt-10 pt-6 border-t border-emerald-500/30 text-center">
+        <p className="text-sm tracking-wide opacity-90">
           &copy; {new Date().getFullYear()} জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জ,
           হবিগঞ্জ
         </p>
       </div>
+
+      {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500 transition-all duration-200 shadow-lg z-50"
-        aria-label="Scroll to top"
+        className="fixed bottom-6 right-6 w-12 h-12 flex items-center justify-center rounded-full 
+        bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-xl 
+        hover:shadow-emerald-900/60 hover:scale-110 transition-all duration-300 z-50"
       >
-        <FaArrowUp className="text-xl font-bold" />
+        <FaArrowUp className="text-xl" />
       </button>
     </footer>
   );

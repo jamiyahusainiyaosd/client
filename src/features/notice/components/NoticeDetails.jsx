@@ -1,3 +1,4 @@
+// src/features/notice/components/NoticeDetails.jsx
 import { useQuery } from "@tanstack/react-query";
 import { FaArrowLeft, FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -8,66 +9,61 @@ import noticeService from "../services/notice.services";
 
 const NoticeDetails = ({ id }) => {
   const navigate = useNavigate();
-  const { isPending, data, isError, error } = useQuery({
+
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ["noticeDetails", id],
     queryFn: () => noticeService.getOne(id),
   });
 
-  const noticeData = data;
+  const notice = data;
+
+  if (isPending)
+    return (
+      <div className="flex justify-center py-20">
+        <Loader size="lg" />
+      </div>
+    );
+
+  if (isError)
+    return <Error message={error?.message || "নোটিশ লোড করতে সমস্যা হয়েছে"} />;
+
+  if (!notice)
+    return (
+      <NoDataFound message="নোটিশের তথ্য পাওয়া যায়নি" />
+    );
 
   return (
-    <div className="space-y-6">
-      {isPending && (
-        <div className="flex justify-center py-12">
-          <Loader size="lg" variant="pulse" />
+    <div className="bg-white/90 dark:bg-slate-900/90 rounded-3xl shadow-xl
+      border border-emerald-100/70 dark:border-emerald-700/40 overflow-hidden">
+
+      {/* Header */}
+      <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+          {notice.title}
+        </h2>
+
+        <div className="flex items-center gap-2 mt-2 text-slate-600 dark:text-slate-300">
+          <FaCalendarAlt className="text-emerald-600 dark:text-emerald-400" />
+          <span>প্রকাশ: {Time(notice.created_at)}</span>
         </div>
-      )}
 
-      {isError && (
-        <Error message={error.message || "নোটিশ লোড করতে সমস্যা হয়েছে"} />
-      )}
+        <button
+          onClick={() => navigate(-1)}
+          className="mt-5 px-4 py-2 rounded-xl bg-gradient-to-r 
+          from-emerald-600 to-emerald-500 text-white shadow hover:opacity-90 
+          flex items-center gap-2">
+          <FaArrowLeft />
+          ফিরে যান
+        </button>
+      </div>
 
-      {!isPending && noticeData && (
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex justify-between items-start">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {noticeData.title}
-                </h2>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2 text-gray-600 dark:text-gray-400">
-                  <div className="flex items-center gap-2">
-                    <FaCalendarAlt />
-                    <span>প্রকাশ: {Time(noticeData.created_at)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br />
-            <button
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-2 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
-            >
-              <FaArrowLeft />
-              ফিরে যান
-            </button>
-          </div>
-
-          <div className="p-6">
-            <div className="prose dark:prose-invert max-w-none">
-              <p className="text-gray-700 text-justify dark:text-gray-300 whitespace-pre-line leading-relaxed text-lg">
-                {noticeData.description || "এই নোটিশের বিস্তারিত তথ্য নেই।"}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {!isPending && !noticeData && !isError && (
-        <div className="bg-yellow-100 dark:bg-yellow-900/30 border-l-4 border-yellow-500 dark:border-yellow-400 text-yellow-700 dark:text-yellow-300 p-4 rounded-lg">
-          নোটিশের তথ্য পাওয়া যায়নি
-        </div>
-      )}
+      {/* Content */}
+      <div className="p-6">
+        <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed 
+        whitespace-pre-line text-justify">
+          {notice.description || "এই নোটিশের বিস্তারিত তথ্য নেই।"}
+        </p>
+      </div>
     </div>
   );
 };

@@ -1,97 +1,99 @@
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+// src/components/Pagination.jsx
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-const Pagination = ({ currentPage, setCurrentPage, totalPages, totalCount }) => {
-  const getPageNumbers = () => {
+const Pagination = ({
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  totalCount,
+}) => {
+  const getPages = () => {
     const pages = [];
-    const maxVisiblePages = 5;
+    const maxVisible = 5;
 
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(totalPages, start + maxVisible - 1);
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
+    if (end - start + 1 < maxVisible) start = Math.max(1, end - maxVisible + 1);
 
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
-
+    for (let i = start; i <= end; i++) pages.push(i);
     return pages;
   };
 
-  const pageNumbers = getPageNumbers();
+  const pages = getPages();
 
   return (
-    <div className="flex justify-center items-center space-x-2 mt-8 flex-wrap">
-      <button
-        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-        disabled={currentPage === 1}
-        className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center"
-      >
-        <FiChevronLeft className="text-lg mr-1" />
-        পূর্ববর্তী
-      </button>
-
-      {pageNumbers[0] > 1 && (
-        <>
-          <button
-            onClick={() => setCurrentPage(1)}
-            className={`px-4 py-2 rounded-lg border transition-colors ${currentPage === 1
-                ? 'bg-blue-500 text-white border-blue-500'
-                : 'border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'
-              }`}
-          >
-            1
-          </button>
-          {pageNumbers[0] > 2 && (
-            <span className="px-2 text-gray-500">...</span>
-          )}
-        </>
-      )}
-
-      {pageNumbers.map(page => (
+    <div className="flex flex-col items-center gap-4 mt-10">
+      {/* Pagination Buttons */}
+      <div className="flex items-center gap-2 flex-wrap justify-center">
         <button
-          key={page}
-          onClick={() => setCurrentPage(page)}
-          className={`px-4 py-2 rounded-lg border transition-colors ${currentPage === page
-              ? 'bg-blue-500 text-white border-blue-500'
-              : 'border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'
-            }`}
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          className="px-4 py-2 rounded-xl border border-emerald-300 dark:border-emerald-600 bg-white/80 dark:bg-slate-800/80 hover:bg-emerald-50 dark:hover:bg-emerald-900/40 disabled:opacity-40 disabled:hover:bg-transparent transition flex items-center gap-1 text-emerald-700 dark:text-emerald-300 shadow-sm"
         >
-          {page}
+          <FiChevronLeft />
+          পূর্ববর্তী
         </button>
-      ))}
 
-      {pageNumbers[pageNumbers.length - 1] < totalPages && (
-        <>
-          {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && (
-            <span className="px-2 text-gray-500">...</span>
-          )}
+        {/* First Page */}
+        {pages[0] > 1 && (
+          <>
+            <button
+              onClick={() => setCurrentPage(1)}
+              className="px-4 py-2 rounded-xl border border-emerald-300 dark:border-emerald-600 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/40 transition text-emerald-700 dark:text-emerald-300 shadow-sm"
+            >
+              1
+            </button>
+            {pages[0] > 2 && <span className="text-slate-500 px-2">...</span>}
+          </>
+        )}
+
+        {/* Middle Pages */}
+        {pages.map((p) => (
           <button
-            onClick={() => setCurrentPage(totalPages)}
-            className={`px-4 py-2 rounded-lg border transition-colors ${currentPage === totalPages
-                ? 'bg-blue-500 text-white border-blue-500'
-                : 'border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'
-              }`}
+            key={p}
+            onClick={() => setCurrentPage(p)}
+            className={`px-4 py-2 rounded-xl shadow-sm transition 
+                  ${
+                    currentPage === p
+                      ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white border-emerald-600 shadow-emerald-700/40"
+                      : "bg-white dark:bg-slate-800 border border-emerald-300 dark:border-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                  }`}
           >
-            {totalPages}
+            {p}
           </button>
-        </>
-      )}
+        ))}
 
-      <button
-        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-        disabled={currentPage === totalPages}
-        className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center"
-      >
-        পরবর্তী
-        <FiChevronRight className="text-lg ml-1" />
-      </button>
+        {/* Last Page */}
+        {pages[pages.length - 1] < totalPages && (
+          <>
+            {pages[pages.length - 1] < totalPages - 1 && (
+              <span className="text-slate-500 px-2">...</span>
+            )}
+            <button
+              onClick={() => setCurrentPage(totalPages)}
+              className="px-4 py-2 rounded-xl border border-emerald-300 dark:border-emerald-600 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/40 transition text-emerald-700 dark:text-emerald-300 shadow-sm"
+            >
+              {totalPages}
+            </button>
+          </>
+        )}
 
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+          className="px-4 py-2 rounded-xl border border-emerald-300 dark:border-emerald-600 bg-white/80 dark:bg-slate-800/80 hover:bg-emerald-50 dark:hover:bg-emerald-900/40 disabled:opacity-40 transition flex items-center gap-1 text-emerald-700 dark:text-emerald-300 shadow-sm"
+        >
+          পরবর্তী
+          <FiChevronRight />
+        </button>
+      </div>
+
+      {/* Count Info */}
       {totalCount && (
-        <div className="text-sm text-gray-600 dark:text-gray-400 mt-2 sm:mt-0 w-full sm:w-auto text-center">
-          পৃষ্ঠা {currentPage} এর {totalPages} - মোট {totalCount} টি নোটিশ
-        </div>
+        <p className="text-sm text-slate-600 dark:text-slate-400">
+          পৃষ্ঠা {currentPage} এর {totalPages} — মোট {totalCount} টি ছবি
+        </p>
       )}
     </div>
   );

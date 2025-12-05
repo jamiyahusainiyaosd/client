@@ -2,22 +2,31 @@ import avaterImage from "/avater.png";
 
 const Authority = ({ name, title }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-center">
-      <div className="relative mb-4">
-        <img
-          src={avaterImage}
-          alt={`${name}'s avatar`}
-          className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-md"
-        />
-        <div className="absolute -bottom-2 -right-2 bg-blue-500 dark:bg-blue-400 p-2 rounded-full">
-          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-          </svg>
+    <article className="group relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-b from-emerald-50/70 via-white to-white dark:from-emerald-900/60 dark:via-slate-900 dark:to-slate-950 dark:border-emerald-500/40 shadow-md shadow-emerald-900/10 hover:shadow-xl transition-all duration-300 px-4 py-5">
+      <div className="flex flex-col items-center text-center gap-3">
+        <div className="relative">
+          <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-emerald-400 to-emerald-600 opacity-60 blur group-hover:opacity-90 transition-opacity" />
+          <div className="relative h-28 w-28 rounded-full border-4 border-white dark:border-slate-900 overflow-hidden shadow-lg shadow-emerald-900/40">
+            <img
+              src={avaterImage}
+              alt={`${name}'s avatar`}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white text-xs ring-2 ring-white dark:ring-slate-950">
+            ⭐
+          </div>
+        </div>
+        <div>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">
+            {name}
+          </h3>
+          <p className="mt-1 text-xs font-medium tracking-wide text-emerald-700 dark:text-emerald-300">
+            {title}
+          </p>
         </div>
       </div>
-      <h3 className="text-lg font-bold text-gray-900 dark:text-white text-center">{name}</h3>
-      <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-1">{title}</p>
-    </div>
+    </article>
   );
 };
 

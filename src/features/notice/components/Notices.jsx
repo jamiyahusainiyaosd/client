@@ -1,3 +1,4 @@
+// src/features/notice/components/Notices.jsx
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Error from "../../../components/Error";
@@ -10,11 +11,9 @@ import Notice from "./Notice";
 const Notices = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { isPending, data, isError, error } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ["notices", currentPage],
     queryFn: () => noticeService.getAll(currentPage),
-    retry: 2,
-    staleTime: 60000,
   });
 
   const refinedData = data?.results || [];
@@ -22,33 +21,38 @@ const Notices = () => {
   const totalPages = Math.ceil(totalCount / 9);
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-          মোট নোটিশ: {totalCount}
-        </h2>
-      </div>
+    <div className="space-y-10">
 
-      {isPending ? (
-        <div className="flex justify-center py-12">
-          <Loader size="lg" variant="pulse" />
+      {/* Count */}
+      <h2 className="text-xl font-bold text-slate-900 dark:text-slate-50">
+        মোট প্রকাশিত নোটিশ:{" "}
+        <span className="text-emerald-600 dark:text-emerald-400">{totalCount}</span>
+      </h2>
+
+      {/* Loading */}
+      {isPending && (
+        <div className="flex justify-center py-16">
+          <Loader size="lg" />
         </div>
-      ) : isError ? (
-        <Error message={error.message || "ডাটা লোড করতে সমস্যা হয়েছে"} />
-      ) : refinedData.length === 0 ? (
-        <div className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-8 text-center">
-          <NoDataFound message="কোন নোটিশ পাওয়া যায়নি" />
+      )}
+
+      {/* Error */}
+      {isError && <Error message={error?.message} />}
+
+      {/* No Data */}
+      {refinedData.length === 0 && !isPending && (
+        <div className="rounded-2xl p-8 bg-white/90 dark:bg-slate-900/90 shadow-xl 
+        border border-emerald-100/70 dark:border-emerald-700/40 text-center">
+          <NoDataFound message="কোনো নোটিশ পাওয়া যায়নি" />
         </div>
-      ) : (
+      )}
+
+      {/* Grid */}
+      {refinedData.length > 0 && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {refinedData.map((notice) => (
-              <Notice
-                key={notice.id}
-                id={notice.id}
-                title={notice.title}
-                created_at={notice.created_at}
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {refinedData.map((item) => (
+              <Notice key={item.id} {...item} />
             ))}
           </div>
 
@@ -57,7 +61,7 @@ const Notices = () => {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               totalPages={totalPages}
-              totalCount={totalCount} 
+              totalCount={totalCount}
             />
           )}
         </>

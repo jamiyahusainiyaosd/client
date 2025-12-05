@@ -1,29 +1,34 @@
+// src/features/about/components/FutureEducationPlan.jsx
 import { FaCalendarAlt } from "react-icons/fa";
 import { aboutData } from "../../../constants/aboutData";
 
-const FutureDevelopmentPlan = () => {
+const FutureEducationPlan = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 h-full">
-      <div className="flex items-center mb-6">
-        <div className="bg-blue-100 dark:bg-blue-900/20 p-3 rounded-lg mr-4">
-          <FaCalendarAlt className="text-blue-500 dark:text-blue-400 text-xl" />
+    <article className="h-full rounded-3xl border border-emerald-100/80 bg-white/90 dark:bg-slate-900/90 dark:border-emerald-500/30 shadow-md shadow-emerald-900/10 hover:shadow-2xl transition-all duration-300 p-6 sm:p-7">
+      <div className="flex items-center gap-4 mb-5">
+        <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-500 to-emerald-400 text-white shadow-lg shadow-emerald-700/50">
+          <FaCalendarAlt className="text-lg" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-          ভবিষ্যৎ উন্নয়ন পরিকল্পনা
-        </h3>
+        <div>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">
+            ভবিষ্যৎ শিক্ষা পরিকল্পনা
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            শিক্ষাব্যবস্থাকে আধুনিক ও ফলপ্রসূ করার উদ্যোগ
+          </p>
+        </div>
       </div>
-      <ul className="space-y-3">
-        {aboutData.futurePlans.development.map((plan, index) => (
-          <li
-            key={index}
-            className="text-justify text-gray-700 dark:text-gray-300 before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-blue-500 dark:before:bg-blue-400 before:rounded-full"
-          >
-            {plan}
+
+      <ul className="space-y-3 text-sm">
+        {aboutData.futurePlans.education.map((plan, index) => (
+          <li key={index} className="flex items-start gap-2 text-justify">
+            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <span className="text-slate-700 dark:text-slate-200">{plan}</span>
           </li>
         ))}
       </ul>
-    </div>
+    </article>
   );
 };
 
-export default FutureDevelopmentPlan;
+export default FutureEducationPlan;

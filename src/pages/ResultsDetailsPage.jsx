@@ -1,3 +1,4 @@
+// src/pages/ResultsDetailsPage.jsx
 import PageTitle from "../utils/PageTitle";
 import ResultsDetails from "../features/results/components/ResultsDetails";
 

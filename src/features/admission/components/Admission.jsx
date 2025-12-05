@@ -1,4 +1,4 @@
-import Time from "../../../utils/formateData";
+// src/features/admission/components/Admission.jsx
 
 const Admission = ({
   ClassName,
@@ -16,49 +16,37 @@ const Admission = ({
   seat_availability,
 }) => {
   return (
-    <tr className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-        {ClassName}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {class_level}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {form_fee} টাকা
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {new_admission_fee} টাকা
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {old_admission_fee} টাকা
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {new_total_fee} টাকা
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {old_total_fee} টাকা
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {additional_fee} টাকা
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {monthly_fee} টাকা
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {admission_start_date}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {admission_end_date}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-        {required_documents}
-      </td>
+    <tr className="hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
+      {[
+        ClassName,
+        class_level,
+        form_fee + " টাকা",
+        new_admission_fee + " টাকা",
+        old_admission_fee + " টাকা",
+        new_total_fee + " টাকা",
+        old_total_fee + " টাকা",
+        additional_fee + " টাকা",
+        monthly_fee + " টাকা",
+        admission_start_date,
+        admission_end_date,
+        required_documents,
+      ].map((cell, idx) => (
+        <td
+          key={idx}
+          className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 
+          dark:text-slate-300"
+        >
+          {cell}
+        </td>
+      ))}
+
       <td className="px-6 py-4 whitespace-nowrap">
         <span
-          className={`px-2 py-1 text-xs font-medium rounded-full ${
+          className={`px-3 py-1 text-xs font-semibold rounded-full shadow 
+          ${
             seat_availability
-              ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100"
-              : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100"
+              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200"
+              : "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-200"
           }`}
         >
           {seat_availability ? "খালি আছে" : "খালি নেই"}
