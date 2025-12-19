@@ -1,7 +1,7 @@
 import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import NavLogo from "/logo.jpg";
+import NavLogo from "/nav_logo.png";
 
 const navLinkBase =
   "inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-all duration-200";
@@ -45,22 +45,26 @@ const Navbar = () => {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* Top strip */}
-      <div className="hidden lg:block bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-xs text-emerald-50">
-        <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between gap-4">
+      {/* Top strip (এখন মোবাইলেও থাকবে) */}
+      <div className="block bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-xs text-emerald-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <p className="flex items-center gap-2">
             <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/40 ring-1 ring-emerald-300/60">
               🕌
             </span>
             <span className="font-medium">
               জামিয়া হুসাইনিয়া মাদ্রাসা, শায়েস্তাগঞ্জ, হবিগঞ্জ
+              <br />
+              <span className="text-xs text-slate-400 dark:text-slate-300 inline sm:hidden">
+                সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা
+              </span>
             </span>
           </p>
-          <p className="space-x-4">
-            <span>ই-মেইল: jamiyahusainiya1@gmail.com</span>
-            <span className="hidden xl:inline-block">
-              মোবাইল: +8801751699909
-            </span>
+
+          <p className="text-[9px] sm:text-xs whitespace-nowrap text-center">
+            ই-মেইল: jamiyahusainiya1@gmail.com
+            <span> | </span>
+            মোবাইল: +8801751699909
           </p>
         </div>
       </div>
@@ -80,7 +84,7 @@ const Navbar = () => {
                 <img
                   src={NavLogo}
                   alt="Jamia Husainiya Logo"
-                  className="relative z-10 h-14 w-14 rounded-2xl object-cover border border-emerald-100 shadow-lg dark:border-emerald-500/40"
+                  className="relative z-10 h-14 w-14 rounded-xl object-cover border border-emerald-100 shadow-lg dark:border-emerald-500/40"
                 />
               </div>
               <div className="hidden sm:block leading-tight">
@@ -91,7 +95,7 @@ const Navbar = () => {
                   জামিয়া হুসাইনিয়া মাদ্রাসা
                 </h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দীনী শিক্ষা
+                  সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা
                 </p>
               </div>
             </NavLink>
@@ -266,7 +270,6 @@ const Navbar = () => {
       </nav>
 
       {/* --------------------- MOBILE DRAWER --------------------- */}
-
       {/* Backdrop */}
       <div
         onClick={closeDrawer}
@@ -298,7 +301,7 @@ const Navbar = () => {
             হোম
           </NavLink>
 
-          {/* ======================= ABOUT (Accordion) ======================= */}
+          {/* ABOUT (Accordion) */}
           <li>
             <button
               onClick={() => setAboutOpen(!aboutOpen)}
@@ -348,7 +351,6 @@ const Navbar = () => {
             </div>
           </li>
 
-          {/* Teachers */}
           <NavLink
             to="/teachers"
             onClick={closeDrawer}
@@ -365,7 +367,7 @@ const Navbar = () => {
             যোগাযোগ
           </NavLink>
 
-          {/* ======================= ACADEMIC (Accordion) ======================= */}
+          {/* ACADEMIC (Accordion) */}
           <li>
             <button
               onClick={() => setAcademicOpen(!academicOpen)}
