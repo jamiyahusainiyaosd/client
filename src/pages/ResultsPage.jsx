@@ -1,4 +1,3 @@
-// src/pages/ResultsPage.jsx
 import PageTitle from "../utils/PageTitle";
 import AllResults from "../features/results/components/AllResults";
 
@@ -8,9 +7,9 @@ const ResultsPage = () => {
       <PageTitle title="ফলাফল প্রকাশ" />
 
       <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
-      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20">
+      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40">
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 

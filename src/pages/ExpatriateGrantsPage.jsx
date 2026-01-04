@@ -1,10 +1,10 @@
 import PageTitle from "../utils/PageTitle";
-import Teachers from "../features/teachers/components/Teachers";
+import ExpatriateGrants from "./../features/expatriateGrant/components/ExpatriateGrants";
 
-const TeachersPage = () => {
+const ExpatriateGrantsPage = () => {
   return (
     <>
-      <PageTitle title="শিক্ষকবৃন্দ" />
+      <PageTitle title="প্রবাসী অনুদান" />
 
       <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,7 +16,7 @@ const TeachersPage = () => {
               dark:bg-emerald-900/40 dark:text-emerald-300"
             >
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              শিক্ষকবৃন্দ
+              প্রবাসী অনুদান
             </div>
 
             <h1
@@ -28,7 +28,7 @@ const TeachersPage = () => {
                 className="bg-gradient-to-r from-emerald-600 to-emerald-400
               text-transparent bg-clip-text"
               >
-                শিক্ষকবৃন্দ
+                প্রবাসী অনুদান দাতাগণ
               </span>
             </h1>
 
@@ -36,8 +36,9 @@ const TeachersPage = () => {
               className="mt-3 text-sm md:text-base text-slate-600 dark:text-slate-300
               max-w-2xl mx-auto"
             >
-              যাঁরা দ্বীনি ইলম, নৈতিকতা ও আদর্শ চরিত্র গঠনে নিরলস পরিশ্রম করে
-              যাচ্ছেন
+              প্রবাসী অনুদান দাতারা আমাদের প্রতিষ্ঠানের অগ্রগতিতে গুরুত্বপূর্ণ
+              ভূমিকা পালন করছেন, যারা তাদের উদারতা ও সহানুভূতির মাধ্যমে আমাদের
+              মিশনকে সমর্থন করে চলেছেন।
             </p>
 
             <div
@@ -46,11 +47,11 @@ const TeachersPage = () => {
             ></div>
           </div>
 
-          <Teachers />
+          <ExpatriateGrants />
         </div>
       </main>
     </>
   );
 };
 
-export default TeachersPage;
+export default ExpatriateGrantsPage;

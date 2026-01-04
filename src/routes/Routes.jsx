@@ -14,6 +14,8 @@ import ResultsDetailsPage from "../pages/ResultsDetailsPage";
 import ResultsPage from "../pages/ResultsPage";
 import TeachersPage from "../pages/TeachersPage";
 import VideoGalleryPage from "../pages/VideoGalleryPage";
+import FormerStudentsPage from "../pages/FormerStudentsPage";
+import ExpatriateGrantsPage from "../pages/ExpatriateGrantsPage";
 
 const Routes = createBrowserRouter([
   {
@@ -75,6 +77,14 @@ const Routes = createBrowserRouter([
       {
         path: "/financial-report",
         element: <FinancialReportPage />,
+      },
+      {
+        path: "/former-students",
+        element: <FormerStudentsPage />,
+      },
+      {
+        path: "/expatriateGrant",
+        element: <ExpatriateGrantsPage />,
       }
     ],
   },

@@ -1,4 +1,3 @@
-// src/pages/AdmissionPage.jsx
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import {
@@ -31,9 +30,9 @@ const AdmissionPage = () => {
 
       <main
         className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
-      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20"
+      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40"
       >
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-16">
             <div
@@ -98,7 +97,7 @@ const AdmissionPage = () => {
                   key={index}
                   className="flex gap-3 text-slate-700 dark:text-slate-300"
                 >
-                  <FaCheckCircle className="text-emerald-600 dark:text-emerald-400 mt-1" />
+                  <FaCheckCircle className="text-emerald-600 dark:text-emerald-400 mt-1 shrink-0 flex-none text-[18px] sm:text-[18px]" />
                   <span className="text-justify">{item}</span>
                 </li>
               ))}

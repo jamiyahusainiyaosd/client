@@ -1,4 +1,3 @@
-// src/pages/AcademicDetailPage.jsx
 import PageTitle from "../utils/PageTitle";
 import { useQuery } from "@tanstack/react-query";
 import academicsServices from "../features/academics/services/academics.services";
@@ -24,9 +23,9 @@ const AcademicDetailPage = () => {
       <PageTitle title="একাডেমিক বিস্তারিত" />
 
       <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
-        dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20">
+        dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40">
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 md:pt-36">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50">

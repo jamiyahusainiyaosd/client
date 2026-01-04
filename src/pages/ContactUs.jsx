@@ -1,4 +1,3 @@
-// src/pages/ContactUs.jsx
 import ContactPayloadProvider from "../features/contactus/providers/ContactPayloadProvider";
 import PageTitle from "../utils/PageTitle";
 import ContactUsLeftDiv from "../features/contactus/components/ContactUsLeftDiv";
@@ -11,9 +10,9 @@ const ContactUs = () => {
       <PageTitle title="যোগাযোগ" />
 
       <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
-        dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20">
+        dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40">
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header */}
           <div className="text-center mb-16">

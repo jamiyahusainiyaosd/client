@@ -1,10 +1,10 @@
-import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
+import { ChevronDown, HandHeart, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import NavLogo from "/nav_logo.png";
 
 const navLinkBase =
-  "inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-all duration-200";
+  "inline-flex items-center whitespace-nowrap px-3 xl:px-4 py-2 text-sm font-medium rounded-full transition-all duration-200";
 const navLinkInactive =
   "text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 dark:text-slate-200 dark:hover:text-emerald-300 dark:hover:bg-emerald-900/40";
 const navLinkActive =
@@ -14,6 +14,7 @@ const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [academicOpen, setAcademicOpen] = useState(false);
+
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return (
@@ -45,7 +46,6 @@ const Navbar = () => {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* Top strip (এখন মোবাইলেও থাকবে) */}
       <div className="block bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-xs text-emerald-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <p className="flex items-center gap-2">
@@ -55,38 +55,37 @@ const Navbar = () => {
             <span className="font-medium">
               জামিয়া হুসাইনিয়া মাদ্রাসা, শায়েস্তাগঞ্জ, হবিগঞ্জ
               <br />
-              <span className="text-xs text-slate-400 dark:text-slate-300 inline sm:hidden">
+              <span className="text-xs text-slate-200/80 inline sm:hidden">
                 সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা
               </span>
             </span>
           </p>
 
-          <p className="text-[9px] sm:text-xs whitespace-nowrap text-center">
-            ই-মেইল: jamiyahusainiya1@gmail.com
-            <span> | </span>
+          <p className="text-[10px] sm:text-xs whitespace-nowrap text-center">
+            ই-মেইল: jamiyahusainiya1@gmail.com <span> | </span>
             মোবাইল: +8801751699909
           </p>
         </div>
       </div>
 
-      {/* Main nav */}
       <nav className="backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/70 dark:border-slate-700/60 shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-20 items-center justify-between gap-4">
-            {/* Logo + title */}
+          <div className="flex h-20 items-center gap-4">
             <NavLink
               to="/"
-              className="flex items-center gap-3"
+              className="flex items-center gap-3 shrink-0"
               onClick={closeDrawer}
             >
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-emerald-400/60 to-emerald-600/60 blur-md opacity-60" />
+              <div className="relative flex items-center">
+                <div className="absolute -inset-2 rounded-xl bg-emerald-500/20 blur-lg" />
                 <img
                   src={NavLogo}
                   alt="Jamia Husainiya Logo"
-                  className="relative z-10 h-14 w-14 rounded-xl object-cover border border-emerald-100 shadow-lg dark:border-emerald-500/40"
+                  className="h-16 w-auto object-contain"
+                  style={{ imageRendering: "auto" }}
                 />
               </div>
+
               <div className="hidden sm:block leading-tight">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-600 dark:text-emerald-400">
                   Jamia Husainiya
@@ -100,194 +99,205 @@ const Navbar = () => {
               </div>
             </NavLink>
 
-            {/* Right side controls */}
-            <div className="flex items-center gap-3">
-              {/* Dark mode */}
+            <div className="hidden lg:flex flex-1 justify-center">
+              <ul className="flex items-center gap-1 text-sm font-medium">
+                <li>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      `${navLinkBase} ${
+                        isActive ? navLinkActive : navLinkInactive
+                      }`
+                    }
+                  >
+                    হোম
+                  </NavLink>
+                </li>
+
+                <li
+                  className="relative"
+                  onMouseEnter={() => setAboutOpen(true)}
+                  onMouseLeave={() => setAboutOpen(false)}
+                >
+                  <button className={`${navLinkBase} ${navLinkInactive}`}>
+                    মাদ্রাসা সম্পর্কে <DropdownChevron open={aboutOpen} />
+                  </button>
+
+                  {aboutOpen && (
+                    <div className="absolute left-0 mt-3 w-64 rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-900">
+                      <ul className="py-2 text-sm">
+                        <li>
+                          <NavLink
+                            to="/about"
+                            className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+                          >
+                            মাদ্রাসা সম্পর্কে
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/photo-gallery"
+                            className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+                          >
+                            ফটো গ্যালারি
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/video-gallery"
+                            className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+                          >
+                            ভিডিও গ্যালারি
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/financial-report"
+                            className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+                          >
+                            আর্থিক প্রতিবেদন
+                          </NavLink>
+                        </li>
+
+                        <li>
+                          <NavLink
+                            to="/former-students"
+                            className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+                          >
+                            সাবেক ছাত্র
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/teachers"
+                    className={({ isActive }) =>
+                      `${navLinkBase} ${
+                        isActive ? navLinkActive : navLinkInactive
+                      }`
+                    }
+                  >
+                    শিক্ষকবৃন্দ
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/contact"
+                    className={({ isActive }) =>
+                      `${navLinkBase} ${
+                        isActive ? navLinkActive : navLinkInactive
+                      }`
+                    }
+                  >
+                    যোগাযোগ
+                  </NavLink>
+                </li>
+
+                <li
+                  className="relative"
+                  onMouseEnter={() => setAcademicOpen(true)}
+                  onMouseLeave={() => setAcademicOpen(false)}
+                >
+                  <button className={`${navLinkBase} ${navLinkInactive}`}>
+                    একাডেমিক <DropdownChevron open={academicOpen} />
+                  </button>
+
+                  {academicOpen && (
+                    <div className="absolute left-0 mt-3 w-56 rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-900">
+                      <ul className="py-2 text-sm">
+                        <li>
+                          <NavLink
+                            to="/academic"
+                            className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+                          >
+                            একাডেমিক
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/results"
+                            className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+                          >
+                            ফলাফল
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/notice"
+                    className={({ isActive }) =>
+                      `${navLinkBase} ${
+                        isActive ? navLinkActive : navLinkInactive
+                      }`
+                    }
+                  >
+                    নোটিশ
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 ml-auto">
               <button
                 onClick={toggleDarkMode}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-amber-300 shadow-lg shadow-slate-900/40 ring-2 ring-slate-900/70 dark:bg-amber-400 dark:text-slate-900 dark:ring-amber-300/70 transition-all hover:scale-105"
+                aria-label="Toggle theme"
               >
                 {darkMode ? <Sun size={18} /> : <Moon size={18} />}
               </button>
 
-              {/* CTA */}
               <NavLink
                 to="/admission"
-                className="hidden md:inline-flex items-center rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/40 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                className="hidden md:inline-flex items-center rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/40 hover:shadow-xl hover:-translate-y-0.5 transition-all whitespace-nowrap"
               >
                 ভর্তি আবেদন
               </NavLink>
 
-              {/* Mobile menu icon */}
+              <NavLink
+                to="/expatriateGrant"
+                className="hidden lg:inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/40 hover:bg-emerald-700 hover:-translate-y-0.5 transition-all whitespace-nowrap"
+              >
+                <HandHeart size={18} />
+                প্রবাসী অনুদান
+              </NavLink>
+
               <button
                 onClick={() => setIsDrawerOpen(true)}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 lg:hidden"
+                aria-label="Open menu"
               >
                 <Menu size={22} />
               </button>
             </div>
-
-            {/* Desktop nav links */}
-            <ul className="hidden lg:flex items-center gap-1 text-sm font-medium">
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    `${navLinkBase} ${
-                      isActive ? navLinkActive : navLinkInactive
-                    }`
-                  }
-                >
-                  হোম
-                </NavLink>
-              </li>
-
-              {/* About dropdown */}
-              <li
-                className="relative"
-                onMouseEnter={() => setAboutOpen(true)}
-                onMouseLeave={() => setAboutOpen(false)}
-              >
-                <button className={`${navLinkBase} ${navLinkInactive}`}>
-                  মাদ্রাসা সম্পর্কে <DropdownChevron open={aboutOpen} />
-                </button>
-
-                {aboutOpen && (
-                  <div className="absolute right-0 mt-3 w-60 rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-900">
-                    <ul className="py-2 text-sm">
-                      <li>
-                        <NavLink
-                          to="/about"
-                          className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
-                        >
-                          মাদ্রাসা সম্পর্কে
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/photo-gallery"
-                          className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
-                        >
-                          ফটো গ্যালারি
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/video-gallery"
-                          className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
-                        >
-                          ভিডিও গ্যালারি
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/financial-report"
-                          className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
-                        >
-                          আর্থিক প্রতিবেদন
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </li>
-
-              <li>
-                <NavLink
-                  to="/teachers"
-                  className={({ isActive }) =>
-                    `${navLinkBase} ${
-                      isActive ? navLinkActive : navLinkInactive
-                    }`
-                  }
-                >
-                  শিক্ষকবৃন্দ
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    `${navLinkBase} ${
-                      isActive ? navLinkActive : navLinkInactive
-                    }`
-                  }
-                >
-                  যোগাযোগ
-                </NavLink>
-              </li>
-
-              {/* Academic dropdown */}
-              <li
-                className="relative"
-                onMouseEnter={() => setAcademicOpen(true)}
-                onMouseLeave={() => setAcademicOpen(false)}
-              >
-                <button className={`${navLinkBase} ${navLinkInactive}`}>
-                  একাডেমিক <DropdownChevron open={academicOpen} />
-                </button>
-
-                {academicOpen && (
-                  <div className="absolute right-0 mt-3 w-56 rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-900">
-                    <ul className="py-2 text-sm">
-                      <li>
-                        <NavLink
-                          to="/academic"
-                          className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
-                        >
-                          একাডেমিক
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/results"
-                          className="block px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
-                        >
-                          ফলাফল
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </li>
-
-              <li>
-                <NavLink
-                  to="/notice"
-                  className={({ isActive }) =>
-                    `${navLinkBase} ${
-                      isActive ? navLinkActive : navLinkInactive
-                    }`
-                  }
-                >
-                  নোটিশ
-                </NavLink>
-              </li>
-            </ul>
           </div>
         </div>
       </nav>
 
-      {/* --------------------- MOBILE DRAWER --------------------- */}
-      {/* Backdrop */}
       <div
         onClick={closeDrawer}
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 
-  ${isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
-      ></div>
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300
+        ${isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      />
 
-      {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white dark:bg-slate-900 shadow-xl z-50 
-  transition-transform duration-300 
-  ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 h-full w-72 bg-white dark:bg-slate-900 shadow-xl z-50
+        transition-transform duration-300
+        ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">
             মেনু
           </h2>
-          <button onClick={closeDrawer}>
+          <button onClick={closeDrawer} aria-label="Close menu">
             <X size={24} className="text-slate-700 dark:text-slate-200" />
           </button>
         </div>
@@ -301,7 +311,6 @@ const Navbar = () => {
             হোম
           </NavLink>
 
-          {/* ABOUT (Accordion) */}
           <li>
             <button
               onClick={() => setAboutOpen(!aboutOpen)}
@@ -317,7 +326,7 @@ const Navbar = () => {
 
             <div
               className={`overflow-hidden transition-all duration-300 ml-4 border-l border-slate-200 dark:border-slate-700 ${
-                aboutOpen ? "max-h-60 mt-2" : "max-h-0"
+                aboutOpen ? "max-h-80 mt-2" : "max-h-0"
               }`}
             >
               <NavLink
@@ -348,6 +357,14 @@ const Navbar = () => {
               >
                 আর্থিক প্রতিবেদন
               </NavLink>
+
+              <NavLink
+                to="/former-students"
+                onClick={closeDrawer}
+                className="block px-4 py-2 text-sm hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+              >
+                সাবেক ছাত্র
+              </NavLink>
             </div>
           </li>
 
@@ -367,7 +384,6 @@ const Navbar = () => {
             যোগাযোগ
           </NavLink>
 
-          {/* ACADEMIC (Accordion) */}
           <li>
             <button
               onClick={() => setAcademicOpen(!academicOpen)}
@@ -412,13 +428,21 @@ const Navbar = () => {
             নোটিশ
           </NavLink>
 
-          {/* CTA button */}
+          <NavLink
+            to="/expatriateGrant"
+            onClick={closeDrawer}
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/40 hover:bg-emerald-700 hover:-translate-y-0.5 transition-all whitespace-nowrap"
+          >
+            <HandHeart size={18} />
+            প্রবাসী অনুদান
+          </NavLink>
+
           <NavLink
             to="/admission"
             onClick={closeDrawer}
-            className="mt-3 inline-flex items-center justify-center rounded-full 
-      bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-2.5 text-sm 
-      font-semibold text-white shadow-lg"
+            className="mt-3 inline-flex items-center justify-center rounded-full
+            bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-2.5 text-sm
+            font-semibold text-white shadow-lg"
           >
             ভর্তি আবেদন
           </NavLink>

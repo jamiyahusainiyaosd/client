@@ -1,4 +1,3 @@
-// src/pages/About.jsx
 import PageTitle from "../utils/PageTitle";
 import FounderInfo from "../features/about/components/FounderInfo";
 import IntroductionInfo from "../features/about/components/IntroductionInfo";
@@ -16,7 +15,7 @@ const About = () => {
       <PageTitle key={"aboutPage"} title={"মাদ্রাসা সম্পর্কে"} />
 
       <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 md:pt-40">
           {/* Page header */}
           <section className="text-center mb-14">
             <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">

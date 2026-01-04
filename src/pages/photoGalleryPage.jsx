@@ -1,4 +1,3 @@
-// src/pages/photoGalleryPage.jsx
 import PhotoGallery from "../features/photoGalary/components/photoGallary";
 import PageTitle from "../utils/PageTitle";
 
@@ -8,7 +7,7 @@ const PhotoGalleryPage = () => {
       <PageTitle title="ফটো গ্যালারি" />
 
       <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 md:pt-40">
           {/* Header */}
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">

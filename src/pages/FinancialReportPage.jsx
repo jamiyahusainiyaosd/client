@@ -1,4 +1,3 @@
-// src/pages/FinancialReportPage.jsx
 import PageTitle from "../utils/PageTitle";
 import FinancialReport from "../features/financialReport/components/financialReport";
 
@@ -7,8 +6,8 @@ const FinancialReportPage = () => {
     <>
       <PageTitle title="আর্থিক প্রতিবেদন" />
 
-      <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-gray-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36">
+      <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-gray-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-14">
             <div

@@ -1,4 +1,3 @@
-// src/pages/NoticePage.jsx
 import Notices from "../features/notice/components/Notices";
 import PageTitle from "../utils/PageTitle";
 
@@ -8,9 +7,9 @@ const NoticePage = () => {
       <PageTitle title="নোটিশ সমূহ" />
 
       <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
-      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20">
+      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40">
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
           <div className="text-center mb-16">
