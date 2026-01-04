@@ -99,10 +99,6 @@ export default function FormerStudents() {
                           </span>
                         ) : null}
                       </div>
-
-                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 dark:bg-slate-800">
-                        <ArrowUpRight className="h-4 w-4 text-emerald-700 dark:text-emerald-300" />
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -126,21 +122,6 @@ export default function FormerStudents() {
                     </div>
                   ) : null}
                 </div>
-              </div>
-
-              {/* bottom bar */}
-              <div
-                className="
-                  relative flex items-center justify-between
-                  border-t border-emerald-100/70 dark:border-emerald-700/30
-                  px-5 py-3 text-xs
-                  text-slate-600 dark:text-slate-300
-                "
-              >
-                <span>বিস্তারিত দেখুন</span>
-                <span className="font-semibold text-emerald-700 dark:text-emerald-300">
-                  View →
-                </span>
               </div>
             </Link>
           ))}
