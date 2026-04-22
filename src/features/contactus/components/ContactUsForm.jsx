@@ -1,8 +1,13 @@
-// src/features/contactus/components/ContactUsForm.jsx
-import { FaPaperPlane } from "react-icons/fa";
-import { FiMail, FiMessageSquare, FiPhone, FiUser } from "react-icons/fi";
+/* eslint-disable no-unused-vars */
+import { FiMail, FiMessageSquare, FiPhone, FiSend, FiUser } from "react-icons/fi";
 import useContactPayload from "../hooks/useContactPayload";
 import useFieldError from "../hooks/UseFieldError";
+
+const fields = [
+  { name: "name", icon: FiUser, placeholder: "আপনার নাম", type: "text" },
+  { name: "email", icon: FiMail, placeholder: "আপনার ই-মেইল", type: "email" },
+  { name: "phone", icon: FiPhone, placeholder: "ফোন নাম্বার", type: "tel" },
+];
 
 const ContactUsForm = ({ handleSubmit, isPending }) => {
   const { payload, setPayload } = useContactPayload();
@@ -13,87 +18,88 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
     setFieldErrors((p) => ({ ...p, [`${e.target.name}Error`]: "" }));
   };
 
+  const inputBase =
+    "w-full pl-10 pr-4 py-2.5 rounded-xl text-sm border bg-white/60 dark:bg-slate-900/40 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all duration-150";
+  const inputNormal =
+    "border-slate-200 dark:border-slate-700 focus:border-emerald-500 dark:focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/30";
+  const inputError =
+    "border-red-400 dark:border-red-600 focus:border-red-400 focus:ring-1 focus:ring-red-400/30";
+
   return (
-    <div className="bg-white/90 dark:bg-slate-900/90 rounded-3xl shadow-xl 
-      border border-emerald-100/70 dark:border-emerald-600/40 p-8 
-      backdrop-blur-xl transition-all duration-300">
+    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
+      {/* Header */}
+      <div className="px-6 pt-6 pb-4 border-b border-slate-100 dark:border-slate-700/60">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">বার্তা পাঠান</h3>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+          আপনার যেকোনো প্রশ্ন বা মন্তব্য জানান
+        </p>
+      </div>
 
-      <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-6">
-        বার্তা পাঠান
-      </h3>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-
-        {/* Input Field */}
-        {[
-          { name: "name", icon: FiUser, placeholder: "আপনার নাম" },
-          { name: "email", icon: FiMail, placeholder: "আপনার ই-মেইল" },
-          { name: "phone", icon: FiPhone, placeholder: "ফোন নাম্বার" },
-        ].map((item) => (
-          <div key={item.name} className="relative">
-            <item.icon className="absolute left-4 top-3 text-slate-400 
-              group-focus-within:text-emerald-600 transition" />
-
-            <input
-              type="text"
-              name={item.name}
-              value={payload[item.name]}
-              onChange={onChange}
-              placeholder={item.placeholder}
-              className={`w-full pl-12 pr-4 py-3 bg-transparent border-b-2
-              text-slate-800 dark:text-slate-200 placeholder-slate-400 
-              dark:placeholder-slate-500 focus:outline-none
-              transition-all ${
-                fieldErrors[`${item.name}Error`]
-                  ? "border-red-500"
-                  : "border-slate-300 dark:border-slate-600 focus:border-emerald-500"
-              }`}
-            />
-
-            {fieldErrors[`${item.name}Error`] && (
-              <p className="text-sm text-red-500 mt-1">
-                {fieldErrors[`${item.name}Error`]}
-              </p>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        {fields.map(({ name, icon: Icon, placeholder, type }) => (
+          <div key={name}>
+            <div className="relative">
+              <Icon
+                size={14}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
+              />
+              <input
+                type={type}
+                name={name}
+                value={payload[name]}
+                onChange={onChange}
+                placeholder={placeholder}
+                className={`${inputBase} ${fieldErrors[`${name}Error`] ? inputError : inputNormal}`}
+              />
+            </div>
+            {fieldErrors[`${name}Error`] && (
+              <p className="mt-1 text-[11px] text-red-500">{fieldErrors[`${name}Error`]}</p>
             )}
           </div>
         ))}
 
-        {/* Message Input */}
-        <div className="relative">
-          <FiMessageSquare className="absolute top-3 left-4 text-slate-400" />
-
-          <textarea
-            name="message"
-            rows="4"
-            onChange={onChange}
-            value={payload.message}
-            placeholder="আপনার বার্তা লিখুন..."
-            className={`w-full pl-12 pr-4 py-3 bg-transparent border-b-2 
-            text-slate-800 dark:text-slate-200 placeholder-slate-400
-            dark:placeholder-slate-500 focus:outline-none resize-none ${
-              fieldErrors.messageError
-                ? "border-red-500"
-                : "border-slate-300 dark:border-slate-600 focus:border-emerald-500"
-            }`}
-          />
-
+        {/* Textarea */}
+        <div>
+          <div className="relative">
+            <FiMessageSquare
+              size={14}
+              className="absolute left-3 top-3 text-slate-400 dark:text-slate-500"
+            />
+            <textarea
+              name="message"
+              rows={4}
+              onChange={onChange}
+              value={payload.message}
+              placeholder="আপনার বার্তা লিখুন..."
+              className={`${inputBase} resize-none ${fieldErrors.messageError ? inputError : inputNormal}`}
+            />
+          </div>
           {fieldErrors.messageError && (
-            <p className="text-sm text-red-500 mt-1">
-              {fieldErrors.messageError}
-            </p>
+            <p className="mt-1 text-[11px] text-red-500">{fieldErrors.messageError}</p>
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
           disabled={isPending}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 
-          to-emerald-500 text-white font-semibold shadow-md shadow-emerald-700/40 
-          hover:shadow-lg hover:-translate-y-0.5 transition-all disabled:opacity-50 
-          flex items-center justify-center gap-2"
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold shadow-sm shadow-emerald-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isPending ? "প্রক্রিয়াধীন..." : <><FaPaperPlane /> বার্তা পাঠান</>}
+          {isPending ? (
+            <>
+              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              প্রক্রিয়াধীন...
+            </>
+          ) : (
+            <>
+              <FiSend size={14} />
+              বার্তা পাঠান
+            </>
+          )}
         </button>
       </form>
     </div>

@@ -1,37 +1,49 @@
 const Loader = () => {
   return (
-    <div className="flex justify-center items-center">
-      <div className="flex flex-col justify-center items-center">
-        <div className="relative">
+    <div className="flex items-center justify-center py-12">
+      <div className="flex flex-col items-center gap-4">
+        {/* Spinner */}
+        <div className="relative h-10 w-10">
+          {/* Track */}
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="100"
-            height="100"
-            viewBox="0 0 100 100"
+            className="absolute inset-0 h-full w-full"
+            viewBox="0 0 40 40"
             fill="none"
           >
             <circle
-              cx="50"
-              cy="50"
-              r="45"
-              stroke="#3498db"
-              strokeWidth="5"
-              fill="none"
+              cx="20"
+              cy="20"
+              r="16"
+              stroke="currentColor"
+              strokeWidth="3"
+              className="text-slate-200 dark:text-slate-700"
             />
+          </svg>
+          {/* Spinning arc */}
+          <svg
+            className="absolute inset-0 h-full w-full animate-spin"
+            viewBox="0 0 40 40"
+            fill="none"
+            style={{ animationDuration: "0.75s" }}
+          >
             <circle
-              cx="50"
-              cy="50"
-              r="45"
-              stroke="#2ecc71"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="283"
+              cx="20"
+              cy="20"
+              r="16"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray="100"
               strokeDashoffset="75"
-              transform="rotate(-90 50 50)"
-              className="animate-spin"
+              className="text-emerald-500 dark:text-emerald-400"
             />
           </svg>
         </div>
+
+        {/* Label */}
+        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 tracking-wide">
+          লোড হচ্ছে...
+        </p>
       </div>
     </div>
   );

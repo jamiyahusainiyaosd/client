@@ -1,16 +1,9 @@
-import { AxiosError } from "axios";
-import admissionApi from "../apis/admission.apis";
+import admissionApi from "../apis/admission.apis.js";
 
 const admissionService = {
-  getAll: async (page) => {
-    try {
-      const response = await admissionApi.findAll(page);
-      return response;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        throw error;
-      }
-    }
+  getAll: async (page = 1) => {
+    const response = await admissionApi.findAll(page);
+    return response;
   },
 };
 

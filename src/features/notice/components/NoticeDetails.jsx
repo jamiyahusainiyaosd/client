@@ -1,66 +1,50 @@
-// src/features/notice/components/NoticeDetails.jsx
 import { useQuery } from "@tanstack/react-query";
-import { FaArrowLeft, FaCalendarAlt } from "react-icons/fa";
+import { FiArrowLeft, FiCalendar } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import Error from "../../../components/Error";
+import ErrorDisplay from "../../../components/Error";
 import Loader from "../../../components/Loader";
+import NoDataFound from "../../../components/NoDataFound";
 import Time from "../../../utils/formateData";
 import noticeService from "../services/notice.services";
 
 const NoticeDetails = ({ id }) => {
   const navigate = useNavigate();
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data: notice, isPending, isError, error } = useQuery({
     queryKey: ["noticeDetails", id],
     queryFn: () => noticeService.getOne(id),
   });
 
-  const notice = data;
-
-  if (isPending)
-    return (
-      <div className="flex justify-center py-20">
-        <Loader size="lg" />
-      </div>
-    );
-
-  if (isError)
-    return <Error message={error?.message || "নোটিশ লোড করতে সমস্যা হয়েছে"} />;
-
-  if (!notice)
-    return (
-      <NoDataFound message="নোটিশের তথ্য পাওয়া যায়নি" />
-    );
+  if (isPending) return <Loader />;
+  if (isError) return <ErrorDisplay errorMessage={error?.message || "নোটিশ লোড করতে সমস্যা হয়েছে"} />;
+  if (!notice) return <NoDataFound />;
 
   return (
-    <div className="bg-white/90 dark:bg-slate-900/90 rounded-3xl shadow-xl
-      border border-emerald-100/70 dark:border-emerald-700/40 overflow-hidden">
-
+    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
       {/* Header */}
-      <div className="p-6 border-b border-slate-200 dark:border-slate-700">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
-          {notice.title}
-        </h2>
-
-        <div className="flex items-center gap-2 mt-2 text-slate-600 dark:text-slate-300">
-          <FaCalendarAlt className="text-emerald-600 dark:text-emerald-400" />
-          <span>প্রকাশ: {Time(notice.created_at)}</span>
+      <div className="px-5 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
+            {notice.title}
+          </h2>
+          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+            <FiCalendar size={11} />
+            <span>প্রকাশ: {Time(notice.created_at)}</span>
+          </div>
         </div>
 
         <button
           onClick={() => navigate(-1)}
-          className="mt-5 px-4 py-2 rounded-xl bg-gradient-to-r 
-          from-emerald-600 to-emerald-500 text-white shadow hover:opacity-90 
-          flex items-center gap-2">
-          <FaArrowLeft />
+          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-emerald-200 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400 transition-all self-start whitespace-nowrap"
+        >
+          <FiArrowLeft size={14} />
           ফিরে যান
         </button>
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed 
-        whitespace-pre-line text-justify">
+      <div className="px-5 py-5">
+        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line text-justify">
           {notice.description || "এই নোটিশের বিস্তারিত তথ্য নেই।"}
         </p>
       </div>

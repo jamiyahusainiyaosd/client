@@ -1,18 +1,12 @@
-// src/features/results/components/AllResults.jsx
 import { useQuery } from "@tanstack/react-query";
-import { HiOutlineDocumentText } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import ErrorDisplay from "../../../components/Error";
 import Loader from "../../../components/Loader";
-import Error from "../../../components/Error";
 import NoDataFound from "../../../components/NoDataFound";
 import ResultsServices from "../services/results.services";
 
 const AllResults = () => {
-  const {
-    data: results,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: results, isLoading, isError } = useQuery({
     queryKey: ["results"],
     queryFn: async () => {
       const response = await ResultsServices.getAllResults();
@@ -22,62 +16,35 @@ const AllResults = () => {
     },
   });
 
-  if (isLoading)
-    return (
-      <div className="flex justify-center py-16">
-        <Loader size="lg" />
-      </div>
-    );
-
-  if (isError)
-    return <Error message="ফলাফল লোড করতে সমস্যা হয়েছে!" fullWidth />;
-
-  if (!results || results.length === 0)
-    return (
-      <div
-        className="bg-white/80 dark:bg-slate-900/80 border border-emerald-200 
-      dark:border-emerald-700 rounded-3xl p-8 shadow-xl text-center"
-      >
-        <NoDataFound message="কোনো ফলাফল পাওয়া যায়নি" />
-      </div>
-    );
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorDisplay errorMessage="ফলাফল লোড করতে সমস্যা হয়েছে!" />;
+  if (!results || results.length === 0) return <NoDataFound />;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {results.map((result) => (
         <Link
           key={result.id}
           to={`/results/${result.id}`}
-          className="group bg-white/90 dark:bg-slate-900/90 border border-emerald-100/70 
-          dark:border-emerald-700/40 rounded-3xl shadow-md shadow-emerald-900/10
-          hover:shadow-emerald-600/40 transition-all duration-300 p-6 hover:-translate-y-1 
-          relative overflow-hidden"
+          className="group flex items-start gap-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm p-5 hover:border-emerald-200 dark:hover:border-emerald-800/60 hover:bg-white dark:hover:bg-slate-800/60 hover:shadow-sm transition-all duration-200"
         >
-          {/* Subtle glow */}
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-emerald-200/10 
-            to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-          ></div>
-
-          <div className="flex items-start gap-4 mb-6">
-            <div
-              className="bg-gradient-to-br from-emerald-600 to-emerald-400 text-white 
-              dark:from-emerald-700 dark:to-emerald-500 p-3 rounded-xl shadow-lg"
-            >
-              <HiOutlineDocumentText className="text-2xl" />
-            </div>
-
-            <h3
-              className="text-xl font-bold text-slate-900 dark:text-slate-50 
-              group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition"
-            >
-              {result.studentClassName}
-            </h3>
+          {/* Icon */}
+          <div className="h-10 w-10 flex-shrink-0 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/50 transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
           </div>
 
-          <div className="mt-4 border-t border-slate-200 dark:border-slate-700 pt-4 flex justify-between">
-            <span className="text-emerald-600 dark:text-emerald-300 font-medium group-hover:underline">
-              বিস্তারিত দেখুন →
+          {/* Content */}
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors leading-snug">
+              {result.studentClassName}
+            </h3>
+            <span className="mt-2 flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-500 group-hover:gap-2 transition-all">
+              বিস্তারিত দেখুন
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </span>
           </div>
         </Link>

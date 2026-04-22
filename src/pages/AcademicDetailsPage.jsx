@@ -1,11 +1,11 @@
-import PageTitle from "../utils/PageTitle";
 import { useQuery } from "@tanstack/react-query";
-import academicsServices from "../features/academics/services/academics.services";
-import Loader from "../components/Loader";
-import Error from "../components/Error";
-import AcademicDetail from "../features/academics/components/AcademicDetail";
 import { useParams } from "react-router-dom";
+import ErrorDisplay from "../components/Error";
+import Loader from "../components/Loader";
 import NoDataFound from "../components/NoDataFound";
+import AcademicDetail from "../features/academics/components/AcademicDetail";
+import academicsServices from "../features/academics/services/academics.services";
+import PageTitle from "../utils/PageTitle";
 
 const AcademicDetailPage = () => {
   const { id } = useParams();
@@ -22,38 +22,34 @@ const AcademicDetailPage = () => {
     <>
       <PageTitle title="একাডেমিক বিস্তারিত" />
 
-      <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
-        dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40">
+      <main className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-44 md:pt-40">
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-50">
-              একাডেমিক ক্লাস{" "}
-              <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 
-              bg-clip-text text-transparent">
-                বিস্তারিত
+          {/* Page header */}
+          <div className="mb-8">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-500">
+                একাডেমিক
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+              একাডেমিক ক্লাসের{" "}
+              <span className="text-emerald-600 dark:text-emerald-400">
+                বিস্তারিত তথ্য
               </span>
             </h1>
-            <p className="mt-3 text-slate-600 dark:text-slate-300">
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
               ক্লাস সম্পর্কিত সম্পূর্ণ তথ্য ও বিবরণ
             </p>
+            <div className="mt-4 h-px w-full bg-slate-200 dark:bg-slate-800" />
           </div>
 
-          {isPending && (
-            <div className="flex justify-center py-16">
-              <Loader size="lg" />
-            </div>
-          )}
+          {isPending && <Loader />}
 
-          {isError && <Error fullWidth />}
+          {isError && <ErrorDisplay errorMessage="তথ্য লোড করতে সমস্যা হয়েছে।" />}
 
-          {!isPending && !info && (
-            <div className="bg-white/90 dark:bg-slate-900/90 border border-emerald-200 
-              dark:border-emerald-700 p-6 rounded-2xl shadow-xl">
-              <NoDataFound message="কোনো একাডেমিক তথ্য পাওয়া যায়নি" />
-            </div>
-          )}
+          {!isPending && !info && <NoDataFound />}
 
           {info && (
             <AcademicDetail
@@ -65,6 +61,7 @@ const AcademicDetailPage = () => {
               classDescription={info.class_description}
             />
           )}
+
         </div>
       </main>
     </>

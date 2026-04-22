@@ -14,59 +14,53 @@ const About = () => {
     <>
       <PageTitle key={"aboutPage"} title={"মাদ্রাসা সম্পর্কে"} />
 
-      <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-16">
+      <main className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 md:pt-40">
-          {/* Page header */}
-          <section className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              মাদ্রাসা সম্পর্কে
-            </div>
 
-            <h1 className="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50">
-              জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জ –{" "}
-              <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
+          {/* Page header */}
+          <div className="mb-12">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-500">
+                মাদ্রাসা সম্পর্কে
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50 max-w-2xl">
+              জামিয়া হুসাইনিয়া —{" "}
+              <span className="text-emerald-600 dark:text-emerald-400">
                 ইতিহাস, বৈশিষ্ট্য ও পরিকল্পনা
               </span>
             </h1>
-
-            <p className="mt-3 text-sm md:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-              জামিয়া হুসাইনিয়ার প্রতিষ্ঠা, লক্ষ্য, তারবিয়ত ব্যবস্থা এবং ভবিষ্যৎ
-              পরিকল্পনা সম্পর্কে একটি সমন্বিত ধারণা।
+            <p className="mt-3 text-sm text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed">
+              জামিয়া হুসাইনিয়ার প্রতিষ্ঠা, লক্ষ্য, তারবিয়ত ব্যবস্থা এবং ভবিষ্যৎ পরিকল্পনা সম্পর্কে একটি সমন্বিত ধারণা।
             </p>
+            <div className="mt-4 h-px w-full bg-slate-200 dark:bg-slate-800" />
+          </div>
 
-            <div className="mt-5 mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300" />
-          </section>
-
-          {/* Content sections */}
-          <section className="space-y-10 md:space-y-12">
-            {/* Founder + Intro */}
-            <div className="grid md:grid-cols-2 gap-8">
+          {/* Sections */}
+          <div className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-5">
               <FounderInfo />
               <IntroductionInfo />
             </div>
 
-            {/* One-glance section */}
             <FirstLooksInfo />
 
-            {/* Aims + Characteristics */}
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-5">
               <AimsAndObjectivesInfo />
               <CharacteristicsInfo />
             </div>
 
-            {/* Tarbiyat / Department */}
             <DepartmentInfo />
 
-            {/* Future plans */}
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-5">
               <FutureEducationPlan />
               <FutureDevelopmentPlan />
             </div>
 
-            {/* Quote / Message */}
             <TheWordInfo />
-          </section>
+          </div>
+
         </div>
       </main>
     </>

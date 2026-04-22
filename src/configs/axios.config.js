@@ -3,7 +3,10 @@ import { baseUrl } from "../constants/env.constants";
 
 const axiosClient = axios.create({
   baseURL: baseUrl,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: false,
 });
 
 export default axiosClient;

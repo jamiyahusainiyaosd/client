@@ -1,8 +1,6 @@
-// src/features/academics/components/AllAcademics.jsx
 import { useQuery } from "@tanstack/react-query";
-import { HiOutlineAcademicCap } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import Error from "../../../components/Error";
+import ErrorDisplay from "../../../components/Error";
 import Loader from "../../../components/Loader";
 import NoDataFound from "../../../components/NoDataFound";
 import academicsServices from "../services/academics.services";
@@ -15,70 +13,52 @@ const AllAcademics = () => {
 
   const classes = data?.data?.data || [];
 
-  if (isPending)
-    return (
-      <div className="flex justify-center py-16">
-        <Loader size="lg" />
-      </div>
-    );
-
-  if (isError) return <Error fullWidth />;
-
-  if (classes.length === 0)
-    return (
-      <div className="bg-white/90 dark:bg-slate-900/90 shadow-xl rounded-3xl p-6 
-      border border-emerald-100/70 dark:border-emerald-700">
-        <NoDataFound message="কোনো একাডেমিক ক্লাস পাওয়া যায়নি" />
-      </div>
-    );
+  if (isPending) return <Loader />;
+  if (isError) return <ErrorDisplay errorMessage="একাডেমিক তথ্য লোড করতে সমস্যা হয়েছে।" />;
+  if (classes.length === 0) return <NoDataFound />;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {classes
-        ?.sort((a, b) => new Date(b.class_created) - new Date(a.class_created))
+        .sort((a, b) => new Date(b.class_created) - new Date(a.class_created))
         .map((item) => (
           <Link
             key={item.id}
             to={`/academic/${item.id}`}
-            className="group relative bg-white/90 dark:bg-slate-900/90 
-            border border-emerald-100/70 dark:border-emerald-700/40 
-            rounded-3xl shadow-md shadow-emerald-800/10 hover:shadow-emerald-600/40 
-            transition-all duration-300 p-6 overflow-hidden hover:-translate-y-1"
+            className="group flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm p-5 hover:border-emerald-200 dark:hover:border-emerald-800/60 hover:bg-white dark:hover:bg-slate-800/60 hover:shadow-sm transition-all duration-200"
           >
-            {/* Glow overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/10 
-              to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-
             {/* Icon + Title */}
-            <div className="flex items-start gap-4 mb-5">
-              <div className="bg-gradient-to-br from-emerald-600 to-emerald-400 text-white 
-                dark:bg-gradient-to-br dark:from-emerald-800 dark:to-emerald-600 
-                p-3 rounded-xl shadow-lg">
-                <HiOutlineAcademicCap className="text-2xl" />
+            <div className="flex items-start gap-3 mb-4">
+              <div className="h-10 w-10 flex-shrink-0 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/50 transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
               </div>
-
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 
-                  group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition">
+              <div className="min-w-0">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors leading-snug">
                   {item.class_name}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400">{item.class_title}</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 truncate">
+                  {item.class_title}
+                </p>
               </div>
             </div>
 
-            {/* Bottom Content */}
-            <div className="border-t border-slate-200 dark:border-slate-700 pt-4 mt-auto flex justify-between items-center">
+            {/* Footer */}
+            <div className="mt-auto flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-700/60">
               <div>
-                <p className="text-sm text-slate-500 dark:text-slate-400">ছাত্র সংখ্যা</p>
-                <p className="font-semibold text-slate-900 dark:text-slate-50">
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">ছাত্র সংখ্যা</p>
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                   {item.student_count || "০"}
                 </p>
               </div>
-
-              <p className="text-emerald-600 dark:text-emerald-300 font-medium group-hover:underline">
-                বিস্তারিত →
-              </p>
+              <span className="flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-500 group-hover:gap-2 transition-all">
+                বিস্তারিত
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
             </div>
           </Link>
         ))}

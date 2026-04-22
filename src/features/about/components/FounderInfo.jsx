@@ -1,36 +1,29 @@
-// src/features/about/components/FounderInfo.jsx
-import { FaUserTie } from "react-icons/fa";
 import { aboutData } from "../../../constants/aboutData";
-
+ 
 const FounderInfo = () => {
   return (
-    <article className="relative h-full overflow-hidden rounded-3xl border border-emerald-100/80 bg-white/90 dark:bg-slate-900/90 dark:border-emerald-500/30 shadow-md shadow-emerald-900/10 hover:shadow-2xl transition-all duration-300">
-      <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-emerald-100/70 dark:bg-emerald-900/40 blur-2xl opacity-70 pointer-events-none" />
-      <div className="relative p-6 sm:p-7">
-        <div className="flex items-center gap-4 mb-5">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-500 to-emerald-400 text-white shadow-lg shadow-emerald-700/50">
-            <FaUserTie className="text-xl" />
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">
-              মাদ্রাসার প্রতিষ্ঠাতা
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              আল্লাহভীরু, দূরদর্শী ও আমানতদার নেতৃত্ব
-            </p>
-          </div>
+    <article className="h-full rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
+      <div className="px-5 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
+        <div className="h-8 w-8 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
         </div>
-
-        <h4 className="text-base md:text-lg font-semibold text-emerald-700 dark:text-emerald-300 mb-3">
+        <div>
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">মাদ্রাসার প্রতিষ্ঠাতা</h3>
+          <p className="text-xs text-slate-400 dark:text-slate-500">আল্লাহভীরু, দূরদর্শী ও আমানতদার নেতৃত্ব</p>
+        </div>
+      </div>
+      <div className="p-5">
+        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 mb-3">
           {aboutData.founder.name}
-        </h4>
-
-        <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-200 text-justify">
+        </p>
+        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300 text-justify">
           {aboutData.founder.description}
         </p>
       </div>
     </article>
   );
 };
-
+ 
 export default FounderInfo;

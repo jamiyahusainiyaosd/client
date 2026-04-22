@@ -8,52 +8,75 @@ import PageTitle from "../utils/PageTitle";
 const Home = () => {
   return (
     <>
-      <PageTitle key={"homePage"} title={"জামিয়া হুসাইনিয়া"} />
-      <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-16 mt-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero slider */}
+      <PageTitle key={"homePage"} title={"জামিয়া হুসাইনিয়া"} />
+      <main className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+          {/* Hero */}
           <ImageSlider />
 
           {/* Marquee */}
-          <div className="mt-6 mb-10">
+          <div className="mt-5 mb-8">
             <Marquee />
           </div>
 
-          {/* Main two-column layout */}
-          <section className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-            {/* Left column */}
-            <div className="lg:w-2/3 space-y-10">
+          {/* Main layout */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
+            {/* Left */}
+            <div className="lg:flex-1 space-y-8">
               <RecentNotices />
               <HomeIntro />
             </div>
 
-            {/* Right column – principal & info */}
-            <aside className="lg:w-1/3 space-y-6">
-              <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-b from-emerald-400/70 via-emerald-300/40 to-transparent rounded-3xl blur opacity-60" />
-                <div className="relative bg-white/90 dark:bg-slate-900/90 rounded-3xl border border-emerald-100/80 dark:border-emerald-500/40 shadow-xl shadow-emerald-900/10 px-6 py-7">
-                  <h2 className="text-xl font-bold text-center mb-6 text-slate-900 dark:text-slate-50 tracking-tight">
+            {/* Right sidebar */}
+            <aside className="lg:w-72 xl:w-80 space-y-4">
+              {/* Principal card */}
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
+                <div className="px-5 pt-5 pb-3 border-b border-slate-100 dark:border-slate-700/60">
+                  <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
                     প্রিন্সিপাল মহোদয়
                   </h2>
+                </div>
+                <div className="p-3">
                   <Authorities />
                 </div>
               </div>
 
-              <div className="bg-emerald-600/95 text-emerald-50 rounded-3xl px-6 py-5 shadow-xl shadow-emerald-900/40">
-                <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xl">
+              {/* Mission card */}
+              <div className="rounded-2xl overflow-hidden border border-emerald-200/60 dark:border-emerald-800/40 bg-gradient-to-br from-emerald-600 to-emerald-700 dark:from-emerald-800 dark:to-emerald-900 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="h-7 w-7 flex items-center justify-center rounded-lg bg-white/15 text-base">
                     ☪
                   </span>
-                  আমাদের লক্ষ্য
-                </h3>
-                <p className="text-sm leading-relaxed opacity-95">
-                  কুরআন ও সুন্নাহভিত্তিক খাঁটি দ্বীনি শিক্ষার মাধ্যমে আদর্শ
-                  আলেম ও আল্লাহভীরু মানুষ তৈরী করা, নৈতিক ও স্পিরিচুয়াল
-                  টার্মে সমাজকে আলোর পথে পরিচালিত করা।
+                  <h3 className="text-sm font-bold text-white">আমাদের লক্ষ্য</h3>
+                </div>
+                <p className="text-xs text-emerald-50/90 leading-relaxed">
+                  কুরআন ও সুন্নাহভিত্তিক খাঁটি দ্বীনি শিক্ষার মাধ্যমে আদর্শ আলেম ও আল্লাহভীরু মানুষ তৈরী করা,
+                  নৈতিক ও স্পিরিচুয়াল টার্মে সমাজকে আলোর পথে পরিচালিত করা।
                 </p>
               </div>
+
+              {/* Quick info */}
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm p-4">
+                <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500 mb-3">
+                  দ্রুত যোগাযোগ
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <span className="text-emerald-500">📧</span>
+                    <span className="text-xs">jamiyahusainiya1@gmail.com</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <span className="text-emerald-500">📞</span>
+                    <span className="text-xs">+8801751699909</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <span className="text-emerald-500">📍</span>
+                    <span className="text-xs">শায়েস্তাগঞ্জ, হবিগঞ্জ</span>
+                  </div>
+                </div>
+              </div>
             </aside>
-          </section>
+          </div>
         </div>
       </main>
     </>

@@ -1,16 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import {
-  FaBookOpen,
-  FaCheckCircle,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
-import Error from "../components/Error";
+import { FiCheckCircle, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import ErrorDisplay from "../components/Error";
 import Loader from "../components/Loader";
 import Admission from "../features/admission/components/Admission";
-import admissionService from "../features/admission/services/admission.services";
+import admissionService from "../features/admission/services/admission.services.js";
 import PageTitle from "../utils/PageTitle";
+
+const qualifications = [
+  "ভর্তি সংক্রান্ত যেকোনো বিষয়ে মাদ্রাসার কর্তৃপক্ষের সাথে কথা বলুন।",
+  "ভর্তি ফরম ও প্রয়োজনীয় কাগজপত্র অফিস থেকে সংগ্রহ করতে হবে।",
+  "নতুন ছাত্রদের ভর্তি পরীক্ষায় উত্তীর্ণ হতে হবে।",
+  "ভর্তির বিষয়ে কর্তৃপক্ষের সিদ্ধান্তই চূড়ান্ত।",
+  "কিতাব বিভাগ আবাসিক ফি ১০০ টাকা, হিফজ/নাজেরা বিভাগ ৪০০ টাকা।",
+  "নূরানী বিভাগ: আবাসিক ৩০০ টাকা, অনাবাসিক ২০০ টাকা।",
+  "তাহফিজুল কোরআন বিভাগে কোটা অনুযায়ী ভর্তি হবে।",
+  "এক কপি ছবি ও জন্মনিবন্ধনের ফটোকপি আবশ্যক।",
+  "খোরাকি ২০০০ টাকা প্রতি ইংরেজি মাসের ৫ তারিখের মধ্যে পরিশোধ করতে হবে।",
+];
+
+const tableHeaders = [
+  "শ্রেণী", "লেভেল", "ফর্ম ফি", "নতুন ভর্তি ফি", "পুরনো ভর্তি ফি",
+  "নতুন মোট ফি", "পুরনো মোট ফি", "অতিরিক্ত ফি", "মাসিক ফি",
+  "শুরু", "শেষ", "ডকুমেন্ট", "সিট",
+];
 
 const AdmissionPage = () => {
   const [page, setPage] = useState(1);
@@ -18,176 +31,145 @@ const AdmissionPage = () => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["admissions", page],
     queryFn: () => admissionService.getAll(page),
+    keepPreviousData: true,
   });
 
   const refinedData = useMemo(() => data?.data?.results || [], [data]);
   const hasNext = !!data?.data?.next;
   const hasPrev = !!data?.data?.previous;
 
+  const navBtnBase =
+    "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150";
+  const navBtnActive =
+    "border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-200 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400";
+  const navBtnDisabled =
+    "border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-300 dark:text-slate-600 cursor-not-allowed";
+
   return (
     <>
       <PageTitle title="ভর্তি" />
 
-      <main
-        className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 
-      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pb-20 pt-44 md:pt-40"
-      >
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1 
-              bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 
-              rounded-full text-xs font-semibold"
-            >
-              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-              ভর্তি তথ্য
-            </div>
+      <main className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 md:pt-40">
 
-            <h1
-              className="mt-4 text-3xl md:text-4xl font-extrabold 
-              text-slate-900 dark:text-slate-50"
-            >
+          {/* Page header */}
+          <div className="mb-10">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-500">
+                ভর্তি তথ্য
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
               মাদ্রাসার{" "}
-              <span
-                className="bg-gradient-to-r from-emerald-600 to-emerald-400 
-              bg-clip-text text-transparent"
-              >
+              <span className="text-emerald-600 dark:text-emerald-400">
                 ভর্তি সংক্রান্ত নির্দেশনা
               </span>
             </h1>
-
-            <p className="mt-2 max-w-2xl mx-auto text-slate-600 dark:text-slate-300">
-              নতুন ও পুরাতন শিক্ষার্থীদের জন্য সম্পূর্ণ ভর্তি নির্দেশিকা, ফি,
-              সিটের তথ্য।
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed">
+              নতুন ও পুরাতন শিক্ষার্থীদের জন্য সম্পূর্ণ ভর্তি নির্দেশিকা, ফি ও সিটের তথ্য।
             </p>
-
-            <div
-              className="mt-4 h-1 w-24 rounded-full bg-gradient-to-r 
-              from-emerald-500 to-emerald-300 mx-auto"
-            />
+            <div className="mt-4 h-px w-full bg-slate-200 dark:bg-slate-800" />
           </div>
 
-          {/* Rules Section */}
-          <div
-            className="bg-white/90 dark:bg-slate-900/90 border border-emerald-100/70 
-            dark:border-emerald-700/40 rounded-3xl shadow-xl p-8 mb-12 backdrop-blur"
-          >
-            <h3
-              className="text-xl md:text-2xl font-bold flex items-center gap-3 
-              text-slate-900 dark:text-slate-50"
-            >
-              <FaBookOpen className="text-emerald-600 dark:text-emerald-400" />
-              ভর্তি হওয়ার যোগ্যতা
-            </h3>
-
-            <ul className="mt-6 space-y-4">
-              {[
-                "ভর্তি সংক্রান্ত যেকোনো বিষয়ে মাদ্রাসার কর্তৃপক্ষের সাথে কথা বলুন।",
-                "ভর্তি ফরম ও প্রয়োজনীয় কাগজপত্র অফিস থেকে সংগ্রহ করতে হবে।",
-                "নতুন ছাত্রদের ভর্তি পরীক্ষায় উত্তীর্ণ হতে হবে।",
-                "ভর্তির বিষয়ে কর্তৃপক্ষের সিদ্ধান্তই চূড়ান্ত।",
-                "কিতাব বিভাগ আবাসিক ফি ১০০ টাকা, হিফজ/নাজেরা বিভাগ ৪০০ টাকা।",
-                "নূরানী বিভাগ: আবাসিক ৩০০ টাকা, অনাবাসিক ২০০ টাকা।",
-                "তাহফিজুল কোরআন বিভাগে কোটা অনুযায়ী ভর্তি হবে।",
-                "এক কপি ছবি ও জন্মনিবন্ধনের ফটোকপি আবশ্যক।",
-                "খোরাকি ২০০০ টাকা প্রতি ইংরেজি মাসের ৫ তারিখের মধ্যে পরিশোধ করতে হবে।",
-              ].map((item, index) => (
-                <li
-                  key={index}
-                  className="flex gap-3 text-slate-700 dark:text-slate-300"
-                >
-                  <FaCheckCircle className="text-emerald-600 dark:text-emerald-400 mt-1 shrink-0 flex-none text-[18px] sm:text-[18px]" />
-                  <span className="text-justify">{item}</span>
+          {/* Qualification card */}
+          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden mb-8">
+            <div className="px-6 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
+              <div className="h-8 w-8 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                ভর্তি হওয়ার যোগ্যতা ও নির্দেশনা
+              </h3>
+            </div>
+            <ul className="p-5 space-y-3">
+              {qualifications.map((item, index) => (
+                <li key={index} className="flex items-start gap-3 text-sm">
+                  <FiCheckCircle
+                    size={15}
+                    className="mt-[2px] flex-shrink-0 text-emerald-500 dark:text-emerald-400"
+                  />
+                  <span className="text-slate-600 dark:text-slate-300 leading-relaxed text-justify">
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Error */}
-          {isError && <Error message={error.message} />}
+          {isError && (
+            <ErrorDisplay errorMessage={error?.response?.data?.detail || error.message} />
+          )}
 
           {/* Table */}
           {isPending ? (
-            <div className="flex justify-center py-16">
-              <Loader size="lg" />
-            </div>
+            <Loader />
           ) : (
-            <div
-              className="overflow-x-auto rounded-3xl shadow-xl border border-emerald-100/70 
-                dark:border-emerald-700/40 bg-white/70 dark:bg-slate-900/50 
-                backdrop-blur-xl"
-            >
-              <table className="min-w-full divide-y divide-emerald-200 dark:divide-emerald-700">
-                <thead className="bg-emerald-100/80 dark:bg-emerald-900/40 whitespace-nowrap">
-                  <tr>
-                    {[
-                      "শ্রেণী",
-                      "লেভেল",
-                      "ফর্ম ফি",
-                      "নতুন ভর্তি ফি",
-                      "পুরনো ভর্তি ফি",
-                      "নতুন মোট ফি",
-                      "পুরনো মোট ফি",
-                      "অতিরিক্ত ফি",
-                      "মাসিক ফি",
-                      "শুরু",
-                      "শেষ",
-                      "ডকুমেন্ট",
-                      "সিট",
-                    ].map((header, idx) => (
-                      <th
-                        key={idx}
-                        className="px-6 py-4 text-left text-sm font-semibold 
-                        text-emerald-900 dark:text-emerald-200 uppercase tracking-wide"
-                      >
-                        {header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-
-                <tbody className="divide-y divide-emerald-100 dark:divide-emerald-800">
-                  {refinedData.map((ad) => (
-                    <Admission key={ad.id} {...ad} />
-                  ))}
-                </tbody>
-              </table>
+            <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden mb-6">
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead>
+                    <tr className="border-b border-slate-200/80 dark:border-slate-700/60 bg-slate-50/80 dark:bg-slate-900/40">
+                      {tableHeaders.map((header, idx) => (
+                        <th
+                          key={idx}
+                          className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 whitespace-nowrap"
+                        >
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                    {refinedData.length > 0 ? (
+                      refinedData.map((ad) => <Admission key={ad.id} {...ad} />)
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={13}
+                          className="text-center py-10 text-sm text-slate-400 dark:text-slate-500"
+                        >
+                          কোনো ভর্তি তথ্য পাওয়া যায়নি।
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
 
           {/* Pagination */}
-          <div className="flex justify-between items-center mt-10">
+          <div className="flex items-center justify-between">
             <button
               onClick={() => hasPrev && setPage((p) => p - 1)}
               disabled={!hasPrev}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl 
-              ${
-                hasPrev
-                  ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md hover:-translate-y-0.5 transition-all"
-                  : "bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed"
-              }`}
+              className={`${navBtnBase} ${hasPrev ? navBtnActive : navBtnDisabled}`}
             >
-              <FaChevronLeft /> পূর্ববর্তী
+              <FiChevronLeft size={14} />
+              পূর্ববর্তী
             </button>
 
-            <span className="font-medium text-slate-600 dark:text-slate-300">
-              পাতা: {page}
+            <span className="text-xs text-slate-400 dark:text-slate-500">
+              পাতা{" "}
+              <span className="font-semibold text-slate-700 dark:text-slate-300">
+                {page}
+              </span>
             </span>
 
             <button
               onClick={() => hasNext && setPage((p) => p + 1)}
               disabled={!hasNext}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl 
-              ${
-                hasNext
-                  ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md hover:-translate-y-0.5 transition-all"
-                  : "bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed"
-              }`}
+              className={`${navBtnBase} ${hasNext ? navBtnActive : navBtnDisabled}`}
             >
-              পরবর্তী <FaChevronRight />
+              পরবর্তী
+              <FiChevronRight size={14} />
             </button>
           </div>
+
         </section>
       </main>
     </>

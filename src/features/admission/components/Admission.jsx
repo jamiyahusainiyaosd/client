@@ -1,5 +1,3 @@
-// src/features/admission/components/Admission.jsx
-
 const Admission = ({
   ClassName,
   class_level,
@@ -16,37 +14,35 @@ const Admission = ({
   seat_availability,
 }) => {
   return (
-    <tr className="hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
+    <tr className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors duration-150">
       {[
         ClassName,
         class_level,
-        form_fee + " টাকা",
-        new_admission_fee + " টাকা",
-        old_admission_fee + " টাকা",
-        new_total_fee + " টাকা",
-        old_total_fee + " টাকা",
-        additional_fee + " টাকা",
-        monthly_fee + " টাকা",
+        `${form_fee} ৳`,
+        `${new_admission_fee} ৳`,
+        `${old_admission_fee} ৳`,
+        `${new_total_fee} ৳`,
+        `${old_total_fee} ৳`,
+        `${additional_fee} ৳`,
+        `${monthly_fee} ৳`,
         admission_start_date,
         admission_end_date,
         required_documents,
       ].map((cell, idx) => (
         <td
           key={idx}
-          className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 
-          dark:text-slate-300"
+          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 whitespace-nowrap"
         >
           {cell}
         </td>
       ))}
-
-      <td className="px-6 py-4 whitespace-nowrap">
+ 
+      <td className="px-4 py-3 whitespace-nowrap">
         <span
-          className={`px-3 py-1 text-xs font-semibold rounded-full shadow 
-          ${
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
             seat_availability
-              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200"
-              : "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-200"
+              ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+              : "bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400"
           }`}
         >
           {seat_availability ? "খালি আছে" : "খালি নেই"}
@@ -55,5 +51,5 @@ const Admission = ({
     </tr>
   );
 };
-
+ 
 export default Admission;

@@ -1,0 +1,26 @@
+{
+  "name": "জামিয়া হুসাইনিয়া মাদ্রাসা",
+  "short_name": "জামিয়া হুসাইনিয়া",
+  "description": "একটি দ্বীনি শিক্ষা প্রতিষ্ঠান যা আধুনিক শিক্ষার সাথে দ্বীনি শিক্ষাকে সমন্বিত করে।",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "lang": "bn",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
