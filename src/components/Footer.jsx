@@ -1,16 +1,14 @@
 import {
-  FaArrowUp,
   FaEnvelope,
   FaFacebookF,
-  FaGithub,
   FaMapMarkerAlt,
   FaPhoneAlt,
   FaYoutube,
 } from "react-icons/fa";
+import NavLogo from "/nav_logo.png";
 import qrCodeImage from "/qr-code.png";
 
 const Footer = () => {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <footer className="relative bg-slate-950 dark:bg-black text-slate-300 overflow-hidden">
@@ -19,6 +17,16 @@ const Footer = () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-emerald-800/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6 pt-14 pb-8">
+        {/* Footer Brand Header */}
+        <div className="flex items-center gap-4 pb-10 mb-2 border-b border-slate-700/60">
+          <img src={NavLogo} alt="Jamia Husainiya Logo" className="h-14 w-auto object-contain opacity-90" />
+          <div>
+            <p className="text-sm font-bold text-slate-100 leading-tight">জামিয়া হুসাইনিয়া মাদ্রাসা</p>
+            <p className="text-xs text-emerald-400/80 mt-0.5">শায়েস্তাগঞ্জ, হবিগঞ্জ, সিলেট</p>
+            <p className="text-[10px] text-slate-500 mt-1">সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা</p>
+          </div>
+        </div>
+
         {/* Top section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-12 border-b border-slate-700/60">
 
@@ -121,7 +129,6 @@ const Footer = () => {
             <div className="flex gap-3 mb-6">
               {[
                 { href: "https://www.facebook.com/profile.php?id=61573036155447", icon: FaFacebookF, label: "Facebook" },
-                { href: "https://github.com/jamiyahusainiyaosd", icon: FaGithub, label: "GitHub" },
                 { href: "https://www.youtube.com/@RisalatulIslamBD/playlists", icon: FaYoutube, label: "YouTube" },
                 // eslint-disable-next-line no-unused-vars
               ].map(({ href, icon: Icon, label }) => (
@@ -158,14 +165,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Scroll to top */}
-      <button
-        onClick={scrollToTop}
-        className="fixed bottom-6 right-6 h-11 w-11 flex items-center justify-center rounded-xl bg-emerald-400 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-800/50 hover:shadow-emerald-400/40 hover:-translate-y-0.5 transition-all duration-200 z-50"
-        aria-label="Scroll to top"
-      >
-        <FaArrowUp size={14} />
-      </button>
     </footer>
   );
 };

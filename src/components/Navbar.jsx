@@ -60,7 +60,7 @@ const Navbar = () => {
               সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা
             </span>
           </p>
-          <p className="text-[10px] sm:text-xs text-emerald-400/80 whitespace-nowrap">
+          <p className="text-[11px] sm:text-xs text-emerald-400/80 whitespace-nowrap">
             jamiyahusainiya1@gmail.com
             <span className="mx-2 text-emerald-700">|</span>
             +8801751699909
@@ -129,6 +129,15 @@ const Navbar = () => {
                   onMouseLeave={() => setAboutOpen(false)}
                 >
                   <button
+                    aria-expanded={aboutOpen}
+                    aria-haspopup="true"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setAboutOpen(p => !p);
+                      }
+                      if (e.key === 'Escape') setAboutOpen(false);
+                    }}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center ${aboutOpen
                       ? "text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/60"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60"
@@ -158,32 +167,23 @@ const Navbar = () => {
                   </div>
                 </li>
 
-                {[
-                  { to: "/teachers", label: "শিক্ষকবৃন্দ" },
-                  { to: "/contact", label: "যোগাযোগ" },
-                ].map(({ to, label }) => (
-                  <li key={to}>
-                    <NavLink
-                      to={to}
-                      className={({ isActive }) =>
-                        `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
-                          ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30"
-                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60"
-                        }`
-                      }
-                    >
-                      {label}
-                    </NavLink>
-                  </li>
-                ))}
 
-                {/* Academic dropdown */}
+                {/* Academic dropdown — after মাদ্রাসা */}
                 <li
                   className="relative"
                   onMouseEnter={() => setAcademicOpen(true)}
                   onMouseLeave={() => setAcademicOpen(false)}
                 >
                   <button
+                    aria-expanded={academicOpen}
+                    aria-haspopup="true"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setAcademicOpen(p => !p);
+                      }
+                      if (e.key === 'Escape') setAcademicOpen(false);
+                    }}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center ${academicOpen
                       ? "text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/60"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60"
@@ -223,6 +223,25 @@ const Navbar = () => {
                     নোটিশ
                   </NavLink>
                 </li>
+
+                {[
+                  { to: "/teachers", label: "শিক্ষকবৃন্দ" },
+                  { to: "/contact", label: "যোগাযোগ" },
+                ].map(({ to, label }) => (
+                  <li key={to}>
+                    <NavLink
+                      to={to}
+                      className={({ isActive }) =>
+                        `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
+                          ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30"
+                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                        }`
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
               </ul>
             </div>
 
