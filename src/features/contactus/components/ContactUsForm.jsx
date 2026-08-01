@@ -19,18 +19,18 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
   };
 
   const inputBase =
-    "w-full pl-10 pr-4 py-2.5 rounded-xl text-sm border bg-white/60 dark:bg-slate-900/40 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all duration-150";
+    "w-full pl-10 pr-4 py-2.5 rounded-xl text-sm border bg-white/60  text-slate-800  placeholder-slate-400  focus:outline-none transition-all duration-150";
   const inputNormal =
-    "border-slate-200 dark:border-slate-700 focus:border-emerald-500 dark:focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/30";
+    "border-slate-200  focus:border-emerald-500  focus:ring-1 focus:ring-emerald-500/30";
   const inputError =
-    "border-red-400 dark:border-red-600 focus:border-red-400 focus:ring-1 focus:ring-red-400/30";
+    "border-red-400  focus:border-red-400 focus:ring-1 focus:ring-red-400/30";
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
+    <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden">
       {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-slate-100 dark:border-slate-700/60">
-        <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">বার্তা পাঠান</h3>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+      <div className="px-6 pt-6 pb-4 border-b border-slate-100 ">
+        <h3 className="text-sm font-bold text-slate-900 ">বার্তা পাঠান</h3>
+        <p className="text-xs text-slate-400  mt-0.5">
           আপনার যেকোনো প্রশ্ন বা মন্তব্য জানান
         </p>
       </div>
@@ -42,7 +42,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
             <div className="relative">
               <Icon
                 size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 "
               />
               <input
                 type={type}
@@ -64,7 +64,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
           <div className="relative">
             <FiMessageSquare
               size={14}
-              className="absolute left-3 top-3 text-slate-400 dark:text-slate-500"
+              className="absolute left-3 top-3 text-slate-400 "
             />
             <textarea
               name="message"

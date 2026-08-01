@@ -52,14 +52,14 @@ const PhotoGallery = () => {
 
       {/* Error */}
       {isError && (
-        <div className="rounded-xl border-l-4 border-red-400 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-600 dark:text-red-400">
+        <div className="rounded-xl border-l-4 border-red-400 bg-red-50  px-4 py-3 text-sm text-red-600 ">
           ফটো লোড করতে সমস্যা হয়েছে: {error?.message}
         </div>
       )}
 
       {/* Empty */}
       {!isLoading && !isError && photos.length === 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/40 px-4 py-12 text-center text-sm text-slate-400 dark:text-slate-500">
+        <div className="rounded-xl border border-slate-200  bg-white/60  px-4 py-12 text-center text-sm text-slate-400 ">
           এই মুহূর্তে কোনো ছবি পাওয়া যায়নি।
         </div>
       )}
@@ -72,7 +72,7 @@ const PhotoGallery = () => {
               <button
                 key={photo.id}
                 onClick={() => setSelectedPhoto(photo)}
-                className="group relative aspect-square rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 bg-slate-100 dark:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="group relative aspect-square rounded-2xl overflow-hidden border border-slate-200/80  bg-slate-100  focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
               >
                 <img
                   src={photo.photoImg}
@@ -82,7 +82,7 @@ const PhotoGallery = () => {
 
                 {/* Hover overlay */}
                 <div className={`absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-2 transition-opacity duration-300 ${isMobile ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
-                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90 dark:bg-slate-900/90 text-emerald-600 shadow-lg">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90  text-emerald-600 shadow-lg">
                     <FiZoomIn size={18} />
                   </div>
                 </div>

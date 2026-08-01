@@ -26,10 +26,10 @@ const AllResults = () => {
         <Link
           key={result.id}
           to={`/results/${result.id}`}
-          className="group flex items-start gap-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm p-5 hover:border-emerald-200 dark:hover:border-emerald-800/60 hover:bg-white dark:hover:bg-slate-800/60 hover:shadow-sm transition-all duration-200"
+          className="group flex items-start gap-4 rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm p-5 hover:border-emerald-200  hover:bg-white  hover:shadow-sm transition-all duration-200"
         >
           {/* Icon */}
-          <div className="h-10 w-10 flex-shrink-0 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/50 transition-colors">
+          <div className="h-10 w-10 flex-shrink-0 flex items-center justify-center rounded-xl bg-emerald-50  text-emerald-600  group-hover:bg-emerald-100  transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
@@ -37,10 +37,10 @@ const AllResults = () => {
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors leading-snug">
+            <h3 className="text-sm font-bold text-slate-900  group-hover:text-emerald-700  transition-colors leading-snug">
               {result.studentClassName}
             </h3>
-            <span className="mt-2 flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-500 group-hover:gap-2 transition-all">
+            <span className="mt-2 flex items-center gap-1 text-xs font-medium text-emerald-600  group-hover:gap-2 transition-all">
               বিস্তারিত দেখুন
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

@@ -14,7 +14,7 @@ const Admission = ({
   seat_availability,
 }) => {
   return (
-    <tr className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors duration-150">
+    <tr className="hover:bg-slate-50/80  transition-colors duration-150">
       {[
         ClassName,
         class_level,
@@ -31,7 +31,7 @@ const Admission = ({
       ].map((cell, idx) => (
         <td
           key={idx}
-          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 whitespace-nowrap"
+          className="px-4 py-3 text-sm text-slate-600  whitespace-nowrap"
         >
           {cell}
         </td>
@@ -41,8 +41,8 @@ const Admission = ({
         <span
           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
             seat_availability
-              ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-              : "bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400"
+              ? "bg-emerald-50 text-emerald-700  "
+              : "bg-red-50 text-red-600  "
           }`}
         >
           {seat_availability ? "খালি আছে" : "খালি নেই"}

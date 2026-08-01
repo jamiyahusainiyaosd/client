@@ -41,46 +41,46 @@ const AdmissionPage = () => {
   const navBtnBase =
     "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150";
   const navBtnActive =
-    "border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-200 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400";
+    "border border-slate-200  bg-white  text-slate-700  hover:border-emerald-200  hover:text-emerald-700 ";
   const navBtnDisabled =
-    "border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-300 dark:text-slate-600 cursor-not-allowed";
+    "border border-slate-100  bg-slate-50  text-slate-300  cursor-not-allowed";
 
   return (
     <>
       <PageTitle title="ভর্তি" />
 
-      <main className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
+      <main className="min-h-screen bg-slate-50  pb-20">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 md:pt-40">
 
           {/* Page header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-500">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 ">
                 ভর্তি তথ্য
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 ">
               মাদ্রাসার{" "}
-              <span className="text-emerald-600 dark:text-emerald-400">
+              <span className="text-emerald-600 ">
                 ভর্তি সংক্রান্ত নির্দেশনা
               </span>
             </h1>
-            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed">
+            <p className="mt-2 text-sm text-slate-500  max-w-xl leading-relaxed">
               নতুন ও পুরাতন শিক্ষার্থীদের জন্য সম্পূর্ণ ভর্তি নির্দেশিকা, ফি ও সিটের তথ্য।
             </p>
-            <div className="mt-4 h-px w-full bg-slate-200 dark:bg-slate-800" />
+            <div className="mt-4 h-px w-full bg-slate-200 " />
           </div>
 
           {/* Qualification card */}
-          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden mb-8">
-            <div className="px-6 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
-              <div className="h-8 w-8 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+          <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden mb-8">
+            <div className="px-6 pt-5 pb-4 border-b border-slate-100  flex items-center gap-3">
+              <div className="h-8 w-8 flex items-center justify-center rounded-xl bg-emerald-50  text-emerald-600 ">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+              <h3 className="text-sm font-bold text-slate-900 ">
                 ভর্তি হওয়ার যোগ্যতা ও নির্দেশনা
               </h3>
             </div>
@@ -89,9 +89,9 @@ const AdmissionPage = () => {
                 <li key={index} className="flex items-start gap-3 text-sm">
                   <FiCheckCircle
                     size={15}
-                    className="mt-[2px] flex-shrink-0 text-emerald-500 dark:text-emerald-400"
+                    className="mt-[2px] flex-shrink-0 text-emerald-500 "
                   />
-                  <span className="text-slate-600 dark:text-slate-300 leading-relaxed text-justify">
+                  <span className="text-slate-600  leading-relaxed text-justify">
                     {item}
                   </span>
                 </li>
@@ -108,29 +108,29 @@ const AdmissionPage = () => {
           {isPending ? (
             <Loader />
           ) : (
-            <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden mb-6">
+            <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden mb-6">
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead>
-                    <tr className="border-b border-slate-200/80 dark:border-slate-700/60 bg-slate-50/80 dark:bg-slate-900/40">
+                    <tr className="border-b border-slate-200/80  bg-slate-50/80 ">
                       {tableHeaders.map((header, idx) => (
                         <th
                           key={idx}
-                          className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 whitespace-nowrap"
+                          className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500  whitespace-nowrap"
                         >
                           {header}
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                  <tbody className="divide-y divide-slate-100 ">
                     {refinedData.length > 0 ? (
                       refinedData.map((ad) => <Admission key={ad.id} {...ad} />)
                     ) : (
                       <tr>
                         <td
                           colSpan={13}
-                          className="text-center py-10 text-sm text-slate-400 dark:text-slate-500"
+                          className="text-center py-10 text-sm text-slate-400 "
                         >
                           কোনো ভর্তি তথ্য পাওয়া যায়নি।
                         </td>
@@ -153,9 +153,9 @@ const AdmissionPage = () => {
               পূর্ববর্তী
             </button>
 
-            <span className="text-xs text-slate-400 dark:text-slate-500">
+            <span className="text-xs text-slate-400 ">
               পাতা{" "}
-              <span className="font-semibold text-slate-700 dark:text-slate-300">
+              <span className="font-semibold text-slate-700 ">
                 {page}
               </span>
             </span>

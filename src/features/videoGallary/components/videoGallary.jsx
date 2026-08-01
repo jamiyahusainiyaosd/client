@@ -23,14 +23,14 @@ const VideoGallery = () => {
 
       {/* Error */}
       {isError && (
-        <div className="rounded-xl border-l-4 border-red-400 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-600 dark:text-red-400">
+        <div className="rounded-xl border-l-4 border-red-400 bg-red-50  px-4 py-3 text-sm text-red-600 ">
           ভিডিও লোড করতে সমস্যা হয়েছে: {error?.message}
         </div>
       )}
 
       {/* Empty */}
       {!isLoading && !isError && videos.length === 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/40 px-4 py-12 text-center text-sm text-slate-400 dark:text-slate-500">
+        <div className="rounded-xl border border-slate-200  bg-white/60  px-4 py-12 text-center text-sm text-slate-400 ">
           এই মুহূর্তে কোনো ভিডিও পাওয়া যায়নি।
         </div>
       )}
@@ -42,7 +42,7 @@ const VideoGallery = () => {
             {videos.map((video) => (
               <div
                 key={video.id}
-                className="group rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden"
+                className="group rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden"
               >
                 {/* iframe wrapper */}
                 <div className="relative w-full aspect-video bg-slate-900">
@@ -56,8 +56,8 @@ const VideoGallery = () => {
                 </div>
 
                 {/* Title */}
-                <div className="px-4 py-3 border-t border-slate-100 dark:border-slate-700/60">
-                  <h2 className="text-sm font-medium text-slate-800 dark:text-slate-200 line-clamp-2 leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                <div className="px-4 py-3 border-t border-slate-100 ">
+                  <h2 className="text-sm font-medium text-slate-800  line-clamp-2 leading-snug group-hover:text-emerald-600  transition-colors">
                     {video.videoTitle}
                   </h2>
                 </div>

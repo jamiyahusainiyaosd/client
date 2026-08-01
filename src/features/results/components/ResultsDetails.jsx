@@ -53,14 +53,14 @@ const ResultsDetails = () => {
   if (!result) return <NoDataFound />;
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
+    <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden">
       {/* Header */}
-      <div className="px-5 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="px-5 pt-5 pb-4 border-b border-slate-100  flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+          <h3 className="text-sm font-bold text-slate-900 ">
             {result.studentClassName}
           </h3>
-          <div className="flex items-center gap-1.5 mt-1 text-xs text-slate-400 dark:text-slate-500">
+          <div className="flex items-center gap-1.5 mt-1 text-xs text-slate-400 ">
             <FiCalendar size={11} />
             <span>প্রকাশের তারিখ: {publishedAt}</span>
           </div>
@@ -68,7 +68,7 @@ const ResultsDetails = () => {
 
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-emerald-200 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400 transition-all self-start sm:self-auto whitespace-nowrap"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200  bg-white/60  text-sm font-medium text-slate-700  hover:border-emerald-200  hover:text-emerald-700  transition-all self-start sm:self-auto whitespace-nowrap"
         >
           <FiArrowLeft size={14} />
           ফিরে যান
@@ -82,7 +82,7 @@ const ResultsDetails = () => {
             {result.images.map((img, index) => (
               <div
                 key={index}
-                className="group relative rounded-xl border border-slate-200/80 dark:border-slate-700/60 bg-slate-50 dark:bg-slate-900/40 overflow-hidden"
+                className="group relative rounded-xl border border-slate-200/80  bg-slate-50  overflow-hidden"
               >
                 <img
                   src={img.resultsSheetImg}
@@ -95,14 +95,14 @@ const ResultsDetails = () => {
                 <div className="absolute inset-0 bg-black/50 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3">
                   <button
                     onClick={() => setSelectedImage(img.resultsSheetImg)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 shadow-lg hover:bg-white transition-all"
+                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90  text-slate-800  shadow-lg hover:bg-white transition-all"
                     aria-label="পূর্ণ স্ক্রিন"
                   >
                     <FiMaximize2 size={15} />
                   </button>
                   <button
                     onClick={() => handleDownload(img.resultsSheetImg, `${result.studentClassName}_result_${index + 1}.jpg`)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 shadow-lg hover:bg-white transition-all"
+                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90  text-slate-800  shadow-lg hover:bg-white transition-all"
                     aria-label="ডাউনলোড"
                   >
                     <FiDownload size={15} />

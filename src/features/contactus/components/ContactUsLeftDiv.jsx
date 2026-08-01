@@ -4,7 +4,7 @@ const ContactUsLeftDiv = () => {
   return (
     <div className="w-full lg:w-1/2 space-y-4">
       {/* Map */}
-      <div className="relative rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 bg-slate-100 dark:bg-slate-900">
+      <div className="relative rounded-2xl overflow-hidden border border-slate-200/80  bg-slate-100 ">
         <img
           src={mapImage}
           alt="Madrasah Location"
@@ -67,16 +67,16 @@ const ContactUsLeftDiv = () => {
             href={href}
             target={href.startsWith("http") ? "_blank" : undefined}
             rel="noreferrer"
-            className="group flex items-start gap-3 rounded-xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 p-3 hover:border-emerald-200 dark:hover:border-emerald-800/60 hover:bg-white dark:hover:bg-slate-800/60 transition-all duration-200"
+            className="group flex items-start gap-3 rounded-xl border border-slate-200/80  bg-white/70  p-3 hover:border-emerald-200  hover:bg-white  transition-all duration-200"
           >
-            <span className="mt-0.5 h-7 w-7 flex-shrink-0 flex items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+            <span className="mt-0.5 h-7 w-7 flex-shrink-0 flex items-center justify-center rounded-lg bg-emerald-50  text-emerald-600 ">
               {icon}
             </span>
             <div className="min-w-0">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-0.5">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400  mb-0.5">
                 {label}
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-300 break-all leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+              <p className="text-xs text-slate-700  break-all leading-snug group-hover:text-emerald-600  transition-colors">
                 {value}
               </p>
             </div>

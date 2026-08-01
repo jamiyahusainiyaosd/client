@@ -33,11 +33,11 @@ const Pagination = ({
   const btnBase =
     "h-9 min-w-9 px-3 flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150";
   const btnInactive =
-    "border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600";
+    "border border-slate-200  bg-white  text-slate-600  hover:bg-slate-50  hover:border-slate-300 ";
   const btnActive =
     "bg-emerald-600 text-white border border-emerald-600 shadow-sm shadow-emerald-600/30";
   const btnNav =
-    "border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed";
+    "border border-slate-200  bg-white  text-slate-500  hover:bg-slate-50  disabled:opacity-30 disabled:cursor-not-allowed";
 
   return (
     <div className="flex flex-col items-center gap-3 mt-8">
@@ -54,7 +54,7 @@ const Pagination = ({
         {pages[0] > 1 && (
           <>
             <button onClick={() => goTo(1)} className={`${btnBase} ${btnInactive}`}>1</button>
-            {pages[0] > 2 && <span className="text-slate-400 dark:text-slate-600 px-1 text-sm">···</span>}
+            {pages[0] > 2 && <span className="text-slate-400  px-1 text-sm">···</span>}
           </>
         )}
 
@@ -72,7 +72,7 @@ const Pagination = ({
         {pages[pages.length - 1] < totalPages && (
           <>
             {pages[pages.length - 1] < totalPages - 1 && (
-              <span className="text-slate-400 dark:text-slate-600 px-1 text-sm">···</span>
+              <span className="text-slate-400  px-1 text-sm">···</span>
             )}
             <button onClick={() => goTo(totalPages)} className={`${btnBase} ${btnInactive}`}>
               {totalPages}
@@ -91,9 +91,9 @@ const Pagination = ({
       </div>
 
       {typeof totalCount === "number" && (
-        <p className="text-xs text-slate-400 dark:text-slate-500">
+        <p className="text-xs text-slate-400 ">
           পৃষ্ঠা {activePage} / {totalPages}
-          <span className="mx-2 text-slate-300 dark:text-slate-700">—</span>
+          <span className="mx-2 text-slate-300 ">—</span>
           মোট {totalCount}
         </p>
       )}

@@ -35,9 +35,9 @@ const AcademicDetail = ({
   ];
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
+    <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden">
       {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
+      <div className="px-6 pt-6 pb-4 border-b border-slate-100  flex items-center gap-3">
         <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-emerald-600 text-white flex-shrink-0">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -45,18 +45,18 @@ const AcademicDetail = ({
           </svg>
         </div>
         <div>
-          <h1 className="text-base font-bold text-slate-900 dark:text-slate-100">{className}</h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400">{classTitle}</p>
+          <h1 className="text-base font-bold text-slate-900 ">{className}</h1>
+          <p className="text-xs text-slate-500 ">{classTitle}</p>
         </div>
       </div>
 
       <div className="p-6 space-y-5">
         {/* Description */}
-        <div className="rounded-xl border border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/30 p-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500 mb-2">
+        <div className="rounded-xl border border-slate-100  bg-slate-50/50  p-4">
+          <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400  mb-2">
             বিবরণ
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-300 text-justify leading-relaxed">
+          <p className="text-sm text-slate-600  text-justify leading-relaxed">
             {classDescription}
           </p>
         </div>
@@ -66,14 +66,14 @@ const AcademicDetail = ({
           {stats.map(({ icon, label, value }) => (
             <div
               key={label}
-              className="flex items-center gap-3 rounded-xl border border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/30 p-4"
+              className="flex items-center gap-3 rounded-xl border border-slate-100  bg-slate-50/50  p-4"
             >
-              <span className="h-8 w-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+              <span className="h-8 w-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-emerald-50  text-emerald-600 ">
                 {icon}
               </span>
               <div>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{label}</p>
-                <p className="text-sm font-bold text-slate-800 dark:text-slate-200">{value}</p>
+                <p className="text-[10px] text-slate-400  font-medium">{label}</p>
+                <p className="text-sm font-bold text-slate-800 ">{value}</p>
               </div>
             </div>
           ))}
@@ -84,7 +84,7 @@ const AcademicDetail = ({
       <div className="px-6 pb-6 flex justify-start">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-emerald-200 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400 transition-all duration-200"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200  bg-white/60  text-sm font-medium text-slate-700  hover:border-emerald-200  hover:text-emerald-700  transition-all duration-200"
         >
           <FiArrowLeft size={14} />
           ফিরে যান

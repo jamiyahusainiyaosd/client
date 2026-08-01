@@ -4,10 +4,10 @@ const Error = ({ errorMessage }) => {
       <div className="flex flex-col items-center gap-5 text-center max-w-sm">
         {/* Icon */}
         <div className="relative">
-          <div className="absolute inset-0 rounded-2xl bg-red-50 dark:bg-red-900/20 blur-xl opacity-80" />
-          <div className="relative h-16 w-16 flex items-center justify-center rounded-2xl border border-red-200/80 dark:border-red-800/60 bg-red-50/70 dark:bg-red-900/20 backdrop-blur-sm">
+          <div className="absolute inset-0 rounded-2xl bg-red-50  blur-xl opacity-80" />
+          <div className="relative h-16 w-16 flex items-center justify-center rounded-2xl border border-red-200/80  bg-red-50/70  backdrop-blur-sm">
             <svg
-              className="w-7 h-7 text-red-400 dark:text-red-500"
+              className="w-7 h-7 text-red-400 "
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -24,11 +24,11 @@ const Error = ({ errorMessage }) => {
 
         {/* Text */}
         <div className="space-y-1.5">
-          <h3 className="text-base font-semibold text-slate-700 dark:text-slate-300">
+          <h3 className="text-base font-semibold text-slate-700 ">
             কিছু একটা সমস্যা হয়েছে
           </h3>
           {errorMessage && (
-            <p className="text-sm text-red-500 dark:text-red-400 leading-relaxed">
+            <p className="text-sm text-red-500  leading-relaxed">
               {errorMessage}
             </p>
           )}
@@ -37,7 +37,7 @@ const Error = ({ errorMessage }) => {
         {/* Retry hint */}
         <button
           onClick={() => window.location.reload()}
-          className="text-xs text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline underline-offset-2"
+          className="text-xs text-slate-400  hover:text-emerald-600  transition-colors underline underline-offset-2"
         >
           পুনরায় চেষ্টা করুন
         </button>

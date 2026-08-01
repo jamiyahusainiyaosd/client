@@ -55,11 +55,11 @@ const FinancialReport = () => {
 
   if (!reports?.length)
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/40 px-4 py-12 text-center">
-        <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
+      <div className="rounded-xl border border-slate-200  bg-white/60  px-4 py-12 text-center">
+        <p className="text-sm font-medium text-slate-600 ">
           কোনো প্রতিবেদন প্রকাশ করা হয়নি
         </p>
-        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-1 text-xs text-slate-400 ">
           ভবিষ্যতে নতুন প্রতিবেদন যুক্ত হলে এখানে প্রদর্শিত হবে
         </p>
       </div>
@@ -71,16 +71,16 @@ const FinancialReport = () => {
         {reports.map((report) => (
           <div
             key={report.id}
-            className={`rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden transition-all duration-300 ${expandedReport === report.id ? "md:col-span-2" : ""
+            className={`rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden transition-all duration-300 ${expandedReport === report.id ? "md:col-span-2" : ""
               }`}
           >
             {/* Header */}
-            <div className="px-5 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex items-start justify-between gap-3">
+            <div className="px-5 pt-5 pb-4 border-b border-slate-100  flex items-start justify-between gap-3">
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 line-clamp-1">
+                <h3 className="text-sm font-bold text-slate-900  line-clamp-1">
                   {report.finanicialReportName}
                 </h3>
-                <div className="flex items-center flex-wrap gap-3 mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex items-center flex-wrap gap-3 mt-1.5 text-xs text-slate-400 ">
                   <span className="flex items-center gap-1">
                     <FiCalendar size={11} />
                     {Time(report.finanicialReportCreate)}
@@ -98,7 +98,7 @@ const FinancialReport = () => {
                 onClick={() =>
                   setExpandedReport(expandedReport === report.id ? null : report.id)
                 }
-                className="h-8 w-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-700/60 text-slate-500 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all"
+                className="h-8 w-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-slate-100  text-slate-500  hover:bg-emerald-50  hover:text-emerald-600  transition-all"
                 aria-label="বিস্তারিত দেখুন"
               >
                 <FiMaximize2 size={13} />
@@ -108,13 +108,13 @@ const FinancialReport = () => {
             {/* Body */}
             <div className="p-5 space-y-4">
               {/* Description */}
-              <p className={`text-sm text-slate-600 dark:text-slate-300 leading-relaxed ${expandedReport === report.id ? "" : "line-clamp-3"
+              <p className={`text-sm text-slate-600  leading-relaxed ${expandedReport === report.id ? "" : "line-clamp-3"
                 }`}>
                 {report.finanicialReportDescription}
               </p>
 
               {/* Image */}
-              <div className="relative group rounded-xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 bg-slate-100 dark:bg-slate-900/40">
+              <div className="relative group rounded-xl overflow-hidden border border-slate-200/80  bg-slate-100 ">
                 <img
                   src={report.finanicialReportImage}
                   alt={report.finanicialReportName}
@@ -127,7 +127,7 @@ const FinancialReport = () => {
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
                     <button
                       onClick={() => setSelectedImage(report.finanicialReportImage)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/90 dark:bg-slate-900/90 text-sm font-medium text-slate-800 dark:text-slate-200 shadow-lg"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/90  text-sm font-medium text-slate-800  shadow-lg"
                     >
                       <FiMaximize2 size={14} />
                       পূর্ণ স্ক্রিনে দেখুন
@@ -140,7 +140,7 @@ const FinancialReport = () => {
               {isMobile && (
                 <button
                   onClick={() => setSelectedImage(report.finanicialReportImage)}
-                  className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                  className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-slate-200  text-sm text-slate-600  hover:bg-slate-50  transition-all"
                 >
                   <FiMaximize2 size={13} />
                   পূর্ণ স্ক্রিনে দেখুন

@@ -22,9 +22,9 @@ const Notices = () => {
   return (
     <div className="space-y-6">
       {/* Count */}
-      <p className="text-xs text-slate-400 dark:text-slate-500">
+      <p className="text-xs text-slate-400 ">
         মোট{" "}
-        <span className="font-semibold text-slate-700 dark:text-slate-300">{totalCount}</span>{" "}
+        <span className="font-semibold text-slate-700 ">{totalCount}</span>{" "}
         টি নোটিশ প্রকাশিত
       </p>
 

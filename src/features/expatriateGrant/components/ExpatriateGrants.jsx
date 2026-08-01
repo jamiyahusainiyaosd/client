@@ -27,9 +27,9 @@ export default function ExpatriateGrants() {
   return (
     <section className="pb-4">
       {/* Count */}
-      <p className="text-xs text-slate-400 dark:text-slate-500 mb-6">
+      <p className="text-xs text-slate-400  mb-6">
         মোট{" "}
-        <span className="font-semibold text-slate-700 dark:text-slate-300">
+        <span className="font-semibold text-slate-700 ">
           {meta?.count ?? items.length}
         </span>{" "}
         জন অনুদান দাতা
@@ -42,32 +42,32 @@ export default function ExpatriateGrants() {
           {items.map((x) => (
             <div
               key={x.id}
-              className="group flex items-start gap-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm p-4 hover:border-emerald-200 dark:hover:border-emerald-800/60 hover:bg-white dark:hover:bg-slate-800/60 hover:shadow-sm transition-all duration-200"
+              className="group flex items-start gap-4 rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm p-4 hover:border-emerald-200  hover:bg-white  hover:shadow-sm transition-all duration-200"
             >
               {/* Avatar */}
               <div className="flex-shrink-0">
                 <img
                   src={x.image || "/default-user.png"}
                   alt={x.name}
-                  className="h-12 w-12 rounded-xl object-cover border border-slate-200 dark:border-slate-700 group-hover:border-emerald-200 dark:group-hover:border-emerald-700 transition-colors"
+                  className="h-12 w-12 rounded-xl object-cover border border-slate-200  group-hover:border-emerald-200  transition-colors"
                 />
               </div>
 
               {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
+                <p className="text-sm font-semibold text-slate-900  truncate">
                   {x.name}
                 </p>
 
                 {/* Badges */}
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {x.member_type && (
-                    <span className="inline-flex items-center rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:text-emerald-400">
+                    <span className="inline-flex items-center rounded-full bg-emerald-50  px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ">
                       {x.member_type}
                     </span>
                   )}
                   {x.status && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-700/60 px-2 py-0.5 text-[10px] font-semibold text-slate-600 dark:text-slate-300">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-slate-100  px-2 py-0.5 text-[10px] font-semibold text-slate-600 ">
                       <BadgeCheck className="h-3 w-3 text-emerald-500" />
                       {x.status}
                     </span>
@@ -76,17 +76,17 @@ export default function ExpatriateGrants() {
 
                 {/* Details */}
                 <div className="mt-2 space-y-1.5">
-                  <div className="flex items-start gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="flex items-start gap-1.5 text-xs text-slate-500 ">
                     <MapPin className="mt-px h-3 w-3 flex-shrink-0 text-emerald-500" />
                     <span className="line-clamp-1">{x.address}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500 ">
                     <Phone className="h-3 w-3 flex-shrink-0 text-emerald-500" />
                     <span>{x.mobile}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500 ">
                     <Coins className="h-3 w-3 flex-shrink-0 text-emerald-500" />
                     <span>
                       {x.chadar_amount ? `চাঁদা: ${x.chadar_amount}` : "চাঁদা: উল্লেখ নেই"}

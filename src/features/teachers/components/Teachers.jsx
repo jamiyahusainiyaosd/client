@@ -20,9 +20,9 @@ const Teachers = () => {
       {refineData && (
         <>
           {/* Count */}
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-400 ">
             মোট{" "}
-            <span className="font-semibold text-slate-700 dark:text-slate-300">
+            <span className="font-semibold text-slate-700 ">
               {refineData.length}
             </span>{" "}
             জন শিক্ষক

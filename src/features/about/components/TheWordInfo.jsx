@@ -2,7 +2,7 @@ import { aboutData } from "../../../constants/aboutData";
 
 const TheWordInfo = () => {
   return (
-    <section className="rounded-2xl overflow-hidden border border-emerald-800/30 bg-gradient-to-br from-emerald-700 via-emerald-800 to-slate-900 dark:from-emerald-900 dark:via-slate-900 dark:to-slate-950">
+    <section className="rounded-2xl overflow-hidden border border-emerald-800/30 bg-gradient-to-br from-emerald-700 via-emerald-800 to-slate-900   ">
       {/* Header */}
       <div className="px-6 pt-6 pb-4 border-b border-white/10 flex items-center gap-3">
         <div className="h-8 w-8 flex items-center justify-center rounded-xl bg-white/10 text-emerald-200">

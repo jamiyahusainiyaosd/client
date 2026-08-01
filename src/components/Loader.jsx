@@ -16,7 +16,7 @@ const Loader = () => {
               r="16"
               stroke="currentColor"
               strokeWidth="3"
-              className="text-slate-200 dark:text-slate-700"
+              className="text-slate-200 "
             />
           </svg>
           {/* Spinning arc */}
@@ -35,13 +35,13 @@ const Loader = () => {
               strokeLinecap="round"
               strokeDasharray="100"
               strokeDashoffset="75"
-              className="text-emerald-500 dark:text-emerald-400"
+              className="text-emerald-500 "
             />
           </svg>
         </div>
 
         {/* Label */}
-        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 tracking-wide">
+        <p className="text-xs font-medium text-slate-400  tracking-wide">
           লোড হচ্ছে...
         </p>
       </div>

@@ -11,7 +11,7 @@ import qrCodeImage from "/qr-code.png";
 const Footer = () => {
 
   return (
-    <footer className="relative bg-slate-950 dark:bg-black text-slate-300 overflow-hidden">
+    <footer className="relative bg-slate-950  text-slate-300 overflow-hidden">
       {/* Subtle gradient mesh top */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-emerald-800/10 rounded-full blur-3xl pointer-events-none" />

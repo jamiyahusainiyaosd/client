@@ -20,14 +20,14 @@ const NoticeDetails = ({ id }) => {
   if (!notice) return <NoDataFound />;
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm overflow-hidden">
+    <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden">
       {/* Header */}
-      <div className="px-5 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+      <div className="px-5 pt-5 pb-4 border-b border-slate-100  flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
+          <h2 className="text-sm font-bold text-slate-900  leading-snug">
             {notice.title}
           </h2>
-          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-slate-400 ">
             <FiCalendar size={11} />
             <span>প্রকাশ: {Time(notice.created_at)}</span>
           </div>
@@ -35,7 +35,7 @@ const NoticeDetails = ({ id }) => {
 
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-emerald-200 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400 transition-all self-start whitespace-nowrap"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200  bg-white/60  text-sm font-medium text-slate-700  hover:border-emerald-200  hover:text-emerald-700  transition-all self-start whitespace-nowrap"
         >
           <FiArrowLeft size={14} />
           ফিরে যান
@@ -44,7 +44,7 @@ const NoticeDetails = ({ id }) => {
 
       {/* Content */}
       <div className="px-5 py-5">
-        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line text-justify">
+        <p className="text-sm text-slate-600  leading-relaxed whitespace-pre-line text-justify">
           {notice.description || "এই নোটিশের বিস্তারিত তথ্য নেই।"}
         </p>
       </div>
