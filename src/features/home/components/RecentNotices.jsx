@@ -63,7 +63,12 @@ const RecentNotices = () => {
         {!isPending && refinedData?.length > 0 && (
           <div className="divide-y divide-slate-100  p-2">
             {refinedData.map(({ id, title, created_at }) => (
-              <RecentNotice key={id} id={id} title={title} created_at={created_at} />
+              <RecentNotice
+                key={id}
+                id={id}
+                title={title}
+                created_at={created_at}
+              />
             ))}
           </div>
         )}

@@ -33,21 +33,21 @@ const Navbar = () => {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {/* Top announcement bar */}
-      <div className="bg-emerald-900  text-emerald-100">
+      <div className="bg-slate-900 text-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1.5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
           <p className="flex items-center gap-2 text-xs">
             <span className="text-emerald-400">🕌</span>
             <span className="font-medium tracking-wide">
               জামিয়া হুসাইনিয়া মাদ্রাসা, শায়েস্তাগঞ্জ, হবিগঞ্জ
             </span>
-            <span className="hidden sm:inline text-emerald-500/60">—</span>
-            <span className="hidden sm:inline text-emerald-300/80 text-[11px]">
+            <span className="hidden sm:inline text-slate-600">—</span>
+            <span className="hidden sm:inline text-slate-300 text-[11px]">
               সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা
             </span>
           </p>
-          <p className="text-[11px] sm:text-xs text-emerald-400/80 whitespace-nowrap">
+          <p className="text-[11px] sm:text-xs text-slate-300 whitespace-nowrap">
             jamiyahusainiya1@gmail.com
-            <span className="mx-2 text-emerald-700">|</span>
+            <span className="mx-2 text-slate-600">|</span>
             +8801751699909
           </p>
         </div>
@@ -55,10 +55,11 @@ const Navbar = () => {
 
       {/* Main nav */}
       <nav
-        className={`transition-all duration-500 ${scrolled
-          ? "bg-white/75  backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] "
-          : "bg-white/95  backdrop-blur-xl"
-          } border-b border-slate-200/60 `}
+        className={`transition-all duration-500 ${
+          scrolled
+            ? "bg-white/75  backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] "
+            : "bg-white/95  backdrop-blur-xl"
+        } border-b border-slate-200/60 `}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-[68px] items-center gap-4">
@@ -89,16 +90,15 @@ const Navbar = () => {
             {/* Desktop nav */}
             <div className="hidden lg:flex flex-1 justify-center">
               <ul className="flex items-center gap-0.5">
-                {[
-                  { to: "/", label: "হোম" },
-                ].map(({ to, label }) => (
+                {[{ to: "/", label: "হোম" }].map(({ to, label }) => (
                   <li key={to}>
                     <NavLink
                       to={to}
                       className={({ isActive }) =>
-                        `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
-                          ? "text-emerald-600  bg-emerald-50 "
-                          : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
+                        `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                          isActive
+                            ? "text-emerald-600  bg-emerald-50 "
+                            : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
                         }`
                       }
                     >
@@ -117,24 +117,28 @@ const Navbar = () => {
                     aria-expanded={aboutOpen}
                     aria-haspopup="true"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
+                      if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        setAboutOpen(p => !p);
+                        setAboutOpen((p) => !p);
                       }
-                      if (e.key === 'Escape') setAboutOpen(false);
+                      if (e.key === "Escape") setAboutOpen(false);
                     }}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center ${aboutOpen
-                      ? "text-slate-900  bg-slate-50 "
-                      : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
-                      }`}
+                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center ${
+                      aboutOpen
+                        ? "text-slate-900  bg-slate-50 "
+                        : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
+                    }`}
                   >
                     মাদ্রাসা সম্পর্কে
                     <DropdownChevron open={aboutOpen} />
                   </button>
 
                   <div
-                    className={`absolute left-0 top-full pt-2 transition-all duration-200 ${aboutOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
-                      }`}
+                    className={`absolute left-0 top-full pt-2 transition-all duration-200 ${
+                      aboutOpen
+                        ? "opacity-100 translate-y-0 pointer-events-auto"
+                        : "opacity-0 -translate-y-1 pointer-events-none"
+                    }`}
                   >
                     <div className="w-56 rounded-2xl border border-slate-200/80  bg-white/90  backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.12)]  p-1.5">
                       {[
@@ -152,7 +156,6 @@ const Navbar = () => {
                   </div>
                 </li>
 
-
                 {/* Academic dropdown — after মাদ্রাসা */}
                 <li
                   className="relative"
@@ -163,24 +166,28 @@ const Navbar = () => {
                     aria-expanded={academicOpen}
                     aria-haspopup="true"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
+                      if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        setAcademicOpen(p => !p);
+                        setAcademicOpen((p) => !p);
                       }
-                      if (e.key === 'Escape') setAcademicOpen(false);
+                      if (e.key === "Escape") setAcademicOpen(false);
                     }}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center ${academicOpen
-                      ? "text-slate-900  bg-slate-50 "
-                      : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
-                      }`}
+                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center ${
+                      academicOpen
+                        ? "text-slate-900  bg-slate-50 "
+                        : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
+                    }`}
                   >
                     একাডেমিক
                     <DropdownChevron open={academicOpen} />
                   </button>
 
                   <div
-                    className={`absolute left-0 top-full pt-2 transition-all duration-200 ${academicOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
-                      }`}
+                    className={`absolute left-0 top-full pt-2 transition-all duration-200 ${
+                      academicOpen
+                        ? "opacity-100 translate-y-0 pointer-events-auto"
+                        : "opacity-0 -translate-y-1 pointer-events-none"
+                    }`}
                   >
                     <div className="w-48 rounded-2xl border border-slate-200/80  bg-white/90  backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.12)]  p-1.5">
                       {[
@@ -199,9 +206,10 @@ const Navbar = () => {
                   <NavLink
                     to="/notice"
                     className={({ isActive }) =>
-                      `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
-                        ? "text-emerald-600  bg-emerald-50 "
-                        : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
+                      `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                        isActive
+                          ? "text-emerald-600  bg-emerald-50 "
+                          : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
                       }`
                     }
                   >
@@ -217,9 +225,10 @@ const Navbar = () => {
                     <NavLink
                       to={to}
                       className={({ isActive }) =>
-                        `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
-                          ? "text-emerald-600  bg-emerald-50 "
-                          : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
+                        `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                          isActive
+                            ? "text-emerald-600  bg-emerald-50 "
+                            : "text-slate-600  hover:text-slate-900  hover:bg-slate-50 "
                         }`
                       }
                     >
@@ -232,25 +241,24 @@ const Navbar = () => {
 
             {/* Right actions */}
             <div className="flex items-center gap-2 shrink-0 ml-auto">
-
               <NavLink
                 to="/admission"
-                className="hidden md:inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-emerald-600/30 hover:shadow-md hover:shadow-emerald-600/30 transition-all duration-200 whitespace-nowrap"
+                className="hidden md:inline-flex items-center gap-1.5 rounded-lg bg-slate-900 hover:bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 whitespace-nowrap"
               >
                 ভর্তি আবেদন
               </NavLink>
 
               <NavLink
                 to="/expatriateGrant"
-                className="hidden lg:inline-flex items-center gap-1.5 rounded-xl border border-emerald-200  bg-emerald-50  hover:bg-emerald-100  px-4 py-2 text-sm font-semibold text-emerald-700  transition-all duration-200 whitespace-nowrap"
+                className="hidden lg:inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-800 transition-all duration-200 whitespace-nowrap"
               >
-                <HandHeart size={15} />
+                <HandHeart size={15} className="text-emerald-600" />
                 প্রবাসী অনুদান
               </NavLink>
 
               <button
                 onClick={() => setIsDrawerOpen(true)}
-                className="h-9 w-9 flex items-center justify-center rounded-xl border border-slate-200  bg-white  text-slate-700  hover:bg-slate-50  transition-all lg:hidden"
+                className="h-9 w-9 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-all lg:hidden"
                 aria-label="Open menu"
               >
                 <Menu size={18} />
@@ -263,18 +271,22 @@ const Navbar = () => {
       {/* Mobile drawer backdrop */}
       <div
         onClick={closeDrawer}
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
       />
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white  shadow-2xl z-50 transition-transform duration-300 ease-out flex flex-col ${isDrawerOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 h-full w-80 bg-white  shadow-2xl z-50 transition-transform duration-300 ease-out flex flex-col ${
+          isDrawerOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="px-5 py-4 border-b border-slate-100  flex justify-between items-center">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 ">জামিয়া হুসাইনিয়া</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 ">
+              জামিয়া হুসাইনিয়া
+            </p>
             <h2 className="text-base font-bold text-slate-900 ">মেনু</h2>
           </div>
           <button
@@ -303,9 +315,13 @@ const Navbar = () => {
                 className="w-full flex justify-between items-center px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700  hover:bg-slate-50  transition-all"
               >
                 মাদ্রাসা সম্পর্কে
-                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${aboutOpen ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-300 ${aboutOpen ? "rotate-180" : ""}`}
+                />
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${aboutOpen ? "max-h-64 mt-1" : "max-h-0"}`}>
+              <div
+                className={`overflow-hidden transition-all duration-300 ${aboutOpen ? "max-h-64 mt-1" : "max-h-0"}`}
+              >
                 <div className="ml-3 pl-3 border-l border-slate-200  space-y-0.5">
                   {[
                     { to: "/about", label: "মাদ্রাসা সম্পর্কে" },
@@ -348,9 +364,13 @@ const Navbar = () => {
                 className="w-full flex justify-between items-center px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700  hover:bg-slate-50  transition-all"
               >
                 একাডেমিক
-                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${academicOpen ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-300 ${academicOpen ? "rotate-180" : ""}`}
+                />
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${academicOpen ? "max-h-32 mt-1" : "max-h-0"}`}>
+              <div
+                className={`overflow-hidden transition-all duration-300 ${academicOpen ? "max-h-32 mt-1" : "max-h-0"}`}
+              >
                 <div className="ml-3 pl-3 border-l border-slate-200  space-y-0.5">
                   {[
                     { to: "/academic", label: "একাডেমিক" },

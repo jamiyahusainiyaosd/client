@@ -24,9 +24,7 @@ export const Authority = ({ name, title }) => {
         <h3 className="text-sm font-bold text-slate-900  leading-snug">
           {name}
         </h3>
-        <p className="text-xs text-emerald-600  font-medium mt-0.5">
-          {title}
-        </p>
+        <p className="text-xs text-emerald-600  font-medium mt-0.5">{title}</p>
       </div>
     </div>
   );

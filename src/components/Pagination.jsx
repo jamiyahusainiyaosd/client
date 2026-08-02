@@ -30,31 +30,54 @@ const Pagination = ({
     if (next !== activePage) handleChange(next);
   };
 
+  const pageSize = totalCount && totalPages ? Math.ceil(totalCount / totalPages) : 12;
+  const start = totalCount ? (activePage - 1) * pageSize + 1 : 0;
+  const end = totalCount ? Math.min(totalCount, activePage * pageSize) : 0;
+
   const btnBase =
-    "h-9 min-w-9 px-3 flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150";
+    "h-9 min-w-[36px] px-3 flex items-center justify-center rounded-lg text-xs font-mono transition-all duration-150";
   const btnInactive =
-    "border border-slate-200  bg-white  text-slate-600  hover:bg-slate-50  hover:border-slate-300 ";
+    "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 font-medium";
   const btnActive =
-    "bg-emerald-600 text-white border border-emerald-600 shadow-sm shadow-emerald-600/30";
+    "bg-slate-900 text-white border border-slate-900 font-semibold shadow-sm";
   const btnNav =
-    "border border-slate-200  bg-white  text-slate-500  hover:bg-slate-50  disabled:opacity-30 disabled:cursor-not-allowed";
+    "h-9 w-9 p-0 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all";
 
   return (
-    <div className="flex flex-col items-center gap-3 mt-8">
-      <div className="flex items-center gap-1.5 flex-wrap justify-center">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-4 border-t border-slate-200/80">
+      {/* Left count */}
+      <div className="text-xs text-slate-500 font-mono">
+        {totalCount ? (
+          <>
+            Showing <span className="font-semibold text-slate-900">{start}</span> to{" "}
+            <span className="font-semibold text-slate-900">{end}</span> of{" "}
+            <span className="font-semibold text-slate-900">{totalCount}</span> results
+          </>
+        ) : (
+          <>
+            Showing page <span className="font-semibold text-slate-900">{activePage}</span> of{" "}
+            <span className="font-semibold text-slate-900">{totalPages}</span>
+          </>
+        )}
+      </div>
+
+      {/* Right controls */}
+      <div className="flex items-center gap-1.5">
         <button
           disabled={activePage === 1}
           onClick={() => goTo(activePage - 1)}
-          className={`${btnBase} ${btnNav} gap-1`}
+          className={btnNav}
+          aria-label="Previous Page"
         >
-          <FiChevronLeft size={14} />
-          পূর্ববর্তী
+          <FiChevronLeft size={16} />
         </button>
 
         {pages[0] > 1 && (
           <>
-            <button onClick={() => goTo(1)} className={`${btnBase} ${btnInactive}`}>1</button>
-            {pages[0] > 2 && <span className="text-slate-400  px-1 text-sm">···</span>}
+            <button onClick={() => goTo(1)} className={`${btnBase} ${btnInactive}`}>
+              1
+            </button>
+            {pages[0] > 2 && <span className="px-1.5 text-slate-400 font-mono text-xs">...</span>}
           </>
         )}
 
@@ -72,7 +95,7 @@ const Pagination = ({
         {pages[pages.length - 1] < totalPages && (
           <>
             {pages[pages.length - 1] < totalPages - 1 && (
-              <span className="text-slate-400  px-1 text-sm">···</span>
+              <span className="px-1.5 text-slate-400 font-mono text-xs">...</span>
             )}
             <button onClick={() => goTo(totalPages)} className={`${btnBase} ${btnInactive}`}>
               {totalPages}
@@ -83,20 +106,12 @@ const Pagination = ({
         <button
           disabled={activePage === totalPages}
           onClick={() => goTo(activePage + 1)}
-          className={`${btnBase} ${btnNav} gap-1`}
+          className={btnNav}
+          aria-label="Next Page"
         >
-          পরবর্তী
-          <FiChevronRight size={14} />
+          <FiChevronRight size={16} />
         </button>
       </div>
-
-      {typeof totalCount === "number" && (
-        <p className="text-xs text-slate-400 ">
-          পৃষ্ঠা {activePage} / {totalPages}
-          <span className="mx-2 text-slate-300 ">—</span>
-          মোট {totalCount}
-        </p>
-      )}
     </div>
   );
 };

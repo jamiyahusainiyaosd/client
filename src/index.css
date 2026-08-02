@@ -1,14 +1,40 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'DM Sans', 'Noto Sans Bengali', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Noto Sans Bengali', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  --color-primary-navy: #0F172A;
+  --color-secondary-slate: #64748B;
+  --color-tertiary-sage: #059669;
+  --color-verdana-bg: #F8FAFC;
+  --color-verdana-surface: #FFFFFF;
+
+  --shadow-verdana-sm: 0 1px 3px rgba(15, 23, 42, 0.03);
+  --shadow-verdana-default: 0 2px 6px rgba(15, 23, 42, 0.05);
+  --shadow-verdana-md: 0 4px 16px rgba(15, 23, 42, 0.07);
+  --shadow-verdana-lg: 0 8px 32px rgba(15, 23, 42, 0.10);
+}
 
 body {
-  font-family: 'Noto Sans Bengali', sans-serif;
-  @apply bg-[whitesmoke]  text-gray-800  transition-colors duration-200;
+  font-family: var(--font-sans);
+  background-color: #F8FAFC;
+  color: #0F172A;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
 }
 
 /* WCAG Focus Styles */
 :focus-visible {
-  outline: 2px solid #10B981;
+  outline: 2px solid #059669;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -17,4 +43,59 @@ body {
 .text-bengali {
   line-height: 1.85;
   word-spacing: 0.04em;
+}
+
+/* Verdana Card Style Helper */
+.verdana-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: none;
+}
+
+.verdana-card-elevated {
+  background-color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.07);
+}
+
+/* Verdana Button Utilities */
+.btn-verdana-primary {
+  background-color: #0F172A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.15s ease-in-out;
+}
+.btn-verdana-primary:hover:not(:disabled) {
+  background-color: #020617;
+}
+
+.btn-verdana-secondary {
+  background-color: transparent;
+  color: #0F172A;
+  border: 1px solid #0F172A;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.15s ease-in-out;
+}
+.btn-verdana-secondary:hover:not(:disabled) {
+  background-color: rgba(15, 23, 42, 0.04);
+}
+
+.btn-verdana-ghost {
+  background-color: transparent;
+  color: #475569;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.15s ease-in-out;
+}
+.btn-verdana-ghost:hover:not(:disabled) {
+  background-color: #F1F5F9;
+  color: #0F172A;
 }

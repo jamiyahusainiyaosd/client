@@ -52,14 +52,14 @@ const PhotoGallery = () => {
 
       {/* Error */}
       {isError && (
-        <div className="rounded-xl border-l-4 border-red-400 bg-red-50  px-4 py-3 text-sm text-red-600 ">
+        <div className="rounded-lg border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-600 font-medium">
           ফটো লোড করতে সমস্যা হয়েছে: {error?.message}
         </div>
       )}
 
       {/* Empty */}
       {!isLoading && !isError && photos.length === 0 && (
-        <div className="rounded-xl border border-slate-200  bg-white/60  px-4 py-12 text-center text-sm text-slate-400 ">
+        <div className="rounded-lg border border-slate-200 bg-white px-4 py-12 text-center text-sm text-slate-500 shadow-sm">
           এই মুহূর্তে কোনো ছবি পাওয়া যায়নি।
         </div>
       )}
@@ -67,12 +67,12 @@ const PhotoGallery = () => {
       {/* Grid */}
       {!isLoading && photos.length > 0 && (
         <div className="space-y-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {photos.map((photo) => (
               <button
                 key={photo.id}
                 onClick={() => setSelectedPhoto(photo)}
-                className="group relative aspect-square rounded-2xl overflow-hidden border border-slate-200/80  bg-slate-100  focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="group relative aspect-square rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 transition-all duration-200 hover:shadow-md"
               >
                 <img
                   src={photo.photoImg}
@@ -81,15 +81,15 @@ const PhotoGallery = () => {
                 />
 
                 {/* Hover overlay */}
-                <div className={`absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-2 transition-opacity duration-300 ${isMobile ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
-                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90  text-emerald-600 shadow-lg">
+                <div className={`absolute inset-0 bg-slate-900/40 flex flex-col items-center justify-center gap-2 transition-opacity duration-300 ${isMobile ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/95 text-emerald-600 shadow-sm">
                     <FiZoomIn size={18} />
                   </div>
                 </div>
 
                 {/* Caption bar */}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-white text-xs font-medium line-clamp-1">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <p className="text-white text-xs font-medium line-clamp-1 text-bengali">
                     {photo.photoTitle}
                   </p>
                 </div>
@@ -109,7 +109,7 @@ const PhotoGallery = () => {
       {/* Lightbox Modal */}
       {selectedPhoto && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-sm p-4"
           onClick={() => setSelectedPhoto(null)}
         >
           <div
@@ -119,14 +119,14 @@ const PhotoGallery = () => {
             {/* Close */}
             <button
               onClick={() => setSelectedPhoto(null)}
-              className="absolute -top-11 right-0 h-9 w-9 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all"
+              className="absolute -top-11 right-0 h-9 w-9 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-all"
               aria-label="বন্ধ করুন"
             >
               <FiX size={16} />
             </button>
 
             {/* Image container */}
-            <div className="relative rounded-2xl overflow-hidden bg-black">
+            <div className="relative rounded-lg overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl">
               <img
                 src={selectedPhoto.photoImg}
                 alt={selectedPhoto.photoTitle}
@@ -136,7 +136,7 @@ const PhotoGallery = () => {
               {/* Prev */}
               <button
                 onClick={() => navigatePhotos("prev")}
-                className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 text-white transition-all"
+                className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-lg bg-slate-900/80 hover:bg-slate-900 border border-slate-700 text-white transition-all"
                 aria-label="আগের ছবি"
               >
                 <FiChevronLeft size={18} />
@@ -145,7 +145,7 @@ const PhotoGallery = () => {
               {/* Next */}
               <button
                 onClick={() => navigatePhotos("next")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 text-white transition-all"
+                className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-lg bg-slate-900/80 hover:bg-slate-900 border border-slate-700 text-white transition-all"
                 aria-label="পরের ছবি"
               >
                 <FiChevronRight size={18} />
@@ -154,10 +154,10 @@ const PhotoGallery = () => {
 
             {/* Caption */}
             <div className="mt-3 px-1 flex items-center justify-between gap-4">
-              <h3 className="text-sm font-medium text-white/90">
+              <h3 className="text-sm font-medium text-slate-200 font-display">
                 {selectedPhoto.photoTitle}
               </h3>
-              <span className="text-xs text-white/40 flex-shrink-0">
+              <span className="text-xs text-slate-400 font-mono flex-shrink-0">
                 {allPhotos.findIndex((p) => p.id === selectedPhoto.id) + 1} / {allPhotos.length}
               </span>
             </div>

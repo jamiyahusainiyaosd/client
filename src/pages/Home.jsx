@@ -11,12 +11,11 @@ const Home = () => {
   return (
     <>
       <PageTitle key={"homePage"} title={"জামিয়া হুসাইনিয়া"} />
-      <main className="min-h-screen bg-slate-50  pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <main className="min-h-screen bg-watt-bg pb-16">
+        {/* Fullscreen Hero */}
+        <ImageSlider />
 
-          {/* Hero */}
-          <ImageSlider />
-
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Marquee */}
           <div className="mt-5 mb-8">
             <Marquee />
@@ -24,7 +23,6 @@ const Home = () => {
 
           {/* Main layout */}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
-
             {/* Left — Main content */}
             <div className="lg:flex-1 space-y-8">
               <RecentNotices />
@@ -32,87 +30,95 @@ const Home = () => {
             </div>
 
             {/* Right sidebar */}
-            <aside className="lg:w-72 xl:w-80 space-y-4">
-
+            <aside className="lg:w-72 xl:w-80 space-y-5">
               {/* Principal card */}
-              <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden">
-                <div className="px-5 pt-5 pb-3 border-b border-slate-100 ">
-                  <h2 className="text-sm font-bold text-slate-900 ">
+              <div className="rounded-lg border border-slate-200 bg-white overflow-hidden shadow-sm">
+                <div className="px-5 py-3.5 bg-slate-900 text-white border-b border-slate-800 flex items-center justify-between">
+                  <h2 className="text-sm font-semibold tracking-wide">
                     প্রিন্সিপাল মহোদয়
                   </h2>
+                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                    নেতৃত্ব
+                  </span>
                 </div>
                 <div className="p-3">
                   <Authorities />
                 </div>
               </div>
 
-              {/* Mission card */}
-              <div className="rounded-2xl overflow-hidden border border-emerald-200/60  bg-gradient-to-br from-emerald-600 to-emerald-700   p-5">
-                <div className="flex items-center gap-2.5 mb-3">
-                  <div className="h-7 w-7 flex items-center justify-center rounded-lg bg-white/15 text-white text-sm font-semibold">
+              {/* Mission card — Verdana Health spec: Tinted header strip (#0F172A), 8px radius, white surface */}
+              <div className="rounded-lg border border-slate-200 bg-white overflow-hidden shadow-sm">
+                <div className="px-5 py-3.5 bg-slate-900 text-white flex items-center gap-2.5">
+                  <div className="h-6 w-6 flex items-center justify-center rounded bg-slate-800 text-emerald-400 text-xs font-semibold">
                     ☪
                   </div>
-                  <h3 className="text-sm font-bold text-white">আমাদের লক্ষ্য</h3>
+                  <h3 className="text-sm font-semibold">আমাদের লক্ষ্য</h3>
                 </div>
-                <p className="text-xs text-emerald-50/90 leading-relaxed text-bengali">
-                  কুরআন ও সুন্নাহভিত্তিক খাঁটি দ্বীনি শিক্ষার মাধ্যমে আদর্শ আলেম ও আল্লাহভীরু মানুষ তৈরী করা,
-                  নৈতিক ও স্পিরিচুয়াল টার্মে সমাজকে আলোর পথে পরিচালিত করা।
-                </p>
+                <div className="p-5">
+                  <p className="text-xs text-slate-600 leading-relaxed text-bengali">
+                    কুরআন ও সুন্নাহভিত্তিক খাঁটি দ্বীনি শিক্ষার মাধ্যমে আদর্শ
+                    আলেম ও আল্লাহভীরু মানুষ তৈরী করা, নৈতিক ও স্পিরিচুয়াল
+                    টার্মে সমাজকে আলোর পথে পরিচালিত করা।
+                  </p>
+                </div>
               </div>
 
-              {/* Admission CTA Card — replaces duplicate contact */}
-              <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm p-4 space-y-2.5">
-                <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400  mb-1">
+              {/* Admission CTA Card */}
+              <div className="rounded-lg border border-slate-200 bg-white p-5 space-y-3 shadow-sm">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
                   দ্রুত লিংক
                 </h3>
                 <NavLink
                   to="/admission"
-                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-emerald-600/30 hover:shadow-md hover:shadow-emerald-600/30 transition-all duration-200"
+                  className="flex items-center justify-center gap-2 w-full rounded-lg bg-slate-900 hover:bg-slate-950 px-4 py-2.5 text-sm font-medium text-white transition-all duration-150"
                 >
                   ভর্তি আবেদন করুন
                 </NavLink>
                 <NavLink
                   to="/expatriateGrant"
-                  className="flex items-center justify-center gap-2 w-full rounded-xl border border-emerald-200  bg-emerald-50  hover:bg-emerald-100  px-4 py-2.5 text-sm font-semibold text-emerald-700  transition-all duration-200"
+                  className="flex items-center justify-center gap-2 w-full rounded-lg border border-slate-900 bg-transparent hover:bg-slate-50 px-4 py-2.5 text-sm font-medium text-slate-900 transition-all duration-150"
                 >
-                  <HandHeart size={14} />
+                  <HandHeart size={15} className="text-emerald-600" />
                   প্রবাসী অনুদান
                 </NavLink>
               </div>
 
               {/* Quick Contact — with Lucide Icons */}
-              <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm p-4">
-                <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400  mb-3">
+              <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
                   যোগাযোগ করুন
                 </h3>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <a
                     href="mailto:jamiyahusainiya1@gmail.com"
-                    className="flex items-center gap-2.5 text-slate-600  hover:text-emerald-600  transition-colors group"
+                    className="flex items-center gap-3 text-slate-600 hover:text-emerald-600 transition-colors group"
                   >
-                    <span className="h-7 w-7 flex items-center justify-center rounded-lg bg-slate-100  group-hover:bg-emerald-50  transition-colors flex-shrink-0">
-                      <Mail className="w-3.5 h-3.5 text-emerald-500" />
+                    <span className="h-7 w-7 flex items-center justify-center rounded bg-slate-100 group-hover:bg-emerald-50 transition-colors flex-shrink-0">
+                      <Mail className="w-3.5 h-3.5 text-emerald-600" />
                     </span>
-                    <span className="text-xs truncate">jamiyahusainiya1@gmail.com</span>
+                    <span className="text-xs font-mono truncate">
+                      jamiyahusainiya1@gmail.com
+                    </span>
                   </a>
                   <a
                     href="tel:+8801751699909"
-                    className="flex items-center gap-2.5 text-slate-600  hover:text-emerald-600  transition-colors group"
+                    className="flex items-center gap-3 text-slate-600 hover:text-emerald-600 transition-colors group"
                   >
-                    <span className="h-7 w-7 flex items-center justify-center rounded-lg bg-slate-100  group-hover:bg-emerald-50  transition-colors flex-shrink-0">
-                      <Phone className="w-3.5 h-3.5 text-emerald-500" />
+                    <span className="h-7 w-7 flex items-center justify-center rounded bg-slate-100 group-hover:bg-emerald-50 transition-colors flex-shrink-0">
+                      <Phone className="w-3.5 h-3.5 text-emerald-600" />
                     </span>
-                    <span className="text-xs">+8801751699909</span>
+                    <span className="text-xs font-mono">+8801751699909</span>
                   </a>
-                  <div className="flex items-start gap-2.5 text-slate-600 ">
-                    <span className="h-7 w-7 flex items-center justify-center rounded-lg bg-slate-100  flex-shrink-0 mt-0.5">
-                      <MapPin className="w-3.5 h-3.5 text-emerald-500" />
+                  <div className="flex items-start gap-3 text-slate-600">
+                    <span className="h-7 w-7 flex items-center justify-center rounded bg-slate-100 flex-shrink-0 mt-0.5">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-600" />
                     </span>
-                    <span className="text-xs leading-relaxed">শায়েস্তাগঞ্জ, হবিগঞ্জ, সিলেট</span>
+                    <span className="text-xs leading-relaxed">
+                      শায়েস্তাগঞ্জ, হবিগঞ্জ, সিলেট
+                    </span>
                   </div>
                 </div>
               </div>
-
             </aside>
           </div>
         </div>

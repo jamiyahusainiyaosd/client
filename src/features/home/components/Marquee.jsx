@@ -20,7 +20,10 @@ const Marquee = () => {
             "জামিয়া হুসাইনিয়া মাদ্রাসায় আপনাকে স্বাগতম – কুরআন, সুন্নাহ ও সলফে সালেহীনের পথে দ্বীনি তালীমের সুবাস ছড়িয়ে দিতে আমরা প্রতিশ্রুতিবদ্ধ।",
             "হিফয, নুরানী ও কিতাব বিভাগ সমূহ আছে।",
           ].map((text, idx) => (
-            <span key={idx} className="inline-flex items-center gap-3 mx-8 text-sm text-slate-700 ">
+            <span
+              key={idx}
+              className="inline-flex items-center gap-3 mx-8 text-sm text-slate-700 "
+            >
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
               {text}
             </span>
@@ -30,7 +33,10 @@ const Marquee = () => {
             "জামিয়া হুসাইনিয়া মাদ্রাসায় আপনাকে স্বাগতম – কুরআন, সুন্নাহ ও সলফে সালেহীনের পথে দ্বীনি তালীমের সুবাস ছড়িয়ে দিতে আমরা প্রতিশ্রুতিবদ্ধ।",
             "হিফয, নুরানী ও কিতাব বিভাগ সমূহ আছে।",
           ].map((text, idx) => (
-            <span key={`dup-${idx}`} className="inline-flex items-center gap-3 mx-8 text-sm text-slate-700 ">
+            <span
+              key={`dup-${idx}`}
+              className="inline-flex items-center gap-3 mx-8 text-sm text-slate-700 "
+            >
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
               {text}
             </span>

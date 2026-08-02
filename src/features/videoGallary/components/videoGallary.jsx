@@ -23,14 +23,14 @@ const VideoGallery = () => {
 
       {/* Error */}
       {isError && (
-        <div className="rounded-xl border-l-4 border-red-400 bg-red-50  px-4 py-3 text-sm text-red-600 ">
+        <div className="rounded-lg border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-600 font-medium">
           ভিডিও লোড করতে সমস্যা হয়েছে: {error?.message}
         </div>
       )}
 
       {/* Empty */}
       {!isLoading && !isError && videos.length === 0 && (
-        <div className="rounded-xl border border-slate-200  bg-white/60  px-4 py-12 text-center text-sm text-slate-400 ">
+        <div className="rounded-lg border border-slate-200 bg-white px-4 py-12 text-center text-sm text-slate-500 shadow-sm">
           এই মুহূর্তে কোনো ভিডিও পাওয়া যায়নি।
         </div>
       )}
@@ -38,11 +38,11 @@ const VideoGallery = () => {
       {/* Video grid */}
       {!isLoading && videos.length > 0 && (
         <div className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {videos.map((video) => (
               <div
                 key={video.id}
-                className="group rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden"
+                className="group rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md hover:border-slate-300"
               >
                 {/* iframe wrapper */}
                 <div className="relative w-full aspect-video bg-slate-900">
@@ -56,8 +56,8 @@ const VideoGallery = () => {
                 </div>
 
                 {/* Title */}
-                <div className="px-4 py-3 border-t border-slate-100 ">
-                  <h2 className="text-sm font-medium text-slate-800  line-clamp-2 leading-snug group-hover:text-emerald-600  transition-colors">
+                <div className="p-4 border-t border-slate-100">
+                  <h2 className="text-sm font-semibold text-slate-900 line-clamp-2 leading-snug group-hover:text-emerald-600 transition-colors font-display text-bengali">
                     {video.videoTitle}
                   </h2>
                 </div>

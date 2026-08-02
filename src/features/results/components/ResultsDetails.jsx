@@ -53,24 +53,24 @@ const ResultsDetails = () => {
   if (!result) return <NoDataFound />;
 
   return (
-    <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden">
+    <div className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="px-5 pt-5 pb-4 border-b border-slate-100  flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="px-5 py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h3 className="text-sm font-bold text-slate-900 ">
+          <h3 className="text-base font-semibold text-slate-900 font-display">
             {result.studentClassName}
           </h3>
-          <div className="flex items-center gap-1.5 mt-1 text-xs text-slate-400 ">
-            <FiCalendar size={11} />
+          <div className="flex items-center gap-1.5 mt-1 text-xs text-slate-500 font-mono">
+            <FiCalendar size={11} className="text-emerald-600" />
             <span>প্রকাশের তারিখ: {publishedAt}</span>
           </div>
         </div>
 
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200  bg-white/60  text-sm font-medium text-slate-700  hover:border-emerald-200  hover:text-emerald-700  transition-all self-start sm:self-auto whitespace-nowrap"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white text-sm font-medium text-slate-800 hover:bg-slate-50 transition-all self-start sm:self-auto whitespace-nowrap"
         >
-          <FiArrowLeft size={14} />
+          <FiArrowLeft size={14} className="text-slate-600" />
           ফিরে যান
         </button>
       </div>
@@ -78,11 +78,11 @@ const ResultsDetails = () => {
       {/* Images */}
       <div className="p-5">
         {result.images?.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {result.images.map((img, index) => (
               <div
                 key={index}
-                className="group relative rounded-xl border border-slate-200/80  bg-slate-50  overflow-hidden"
+                className="group relative rounded-lg border border-slate-200 bg-slate-100 overflow-hidden shadow-sm"
               >
                 <img
                   src={img.resultsSheetImg}
@@ -92,25 +92,25 @@ const ResultsDetails = () => {
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-black/50 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3">
+                <div className="absolute inset-0 bg-slate-900/50 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3">
                   <button
                     onClick={() => setSelectedImage(img.resultsSheetImg)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90  text-slate-800  shadow-lg hover:bg-white transition-all"
+                    className="h-10 w-10 flex items-center justify-center rounded-lg bg-white text-slate-900 shadow-sm hover:bg-slate-50 transition-all"
                     aria-label="পূর্ণ স্ক্রিন"
                   >
-                    <FiMaximize2 size={15} />
+                    <FiMaximize2 size={15} className="text-emerald-600" />
                   </button>
                   <button
                     onClick={() => handleDownload(img.resultsSheetImg, `${result.studentClassName}_result_${index + 1}.jpg`)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/90  text-slate-800  shadow-lg hover:bg-white transition-all"
+                    className="h-10 w-10 flex items-center justify-center rounded-lg bg-white text-slate-900 shadow-sm hover:bg-slate-50 transition-all"
                     aria-label="ডাউনলোড"
                   >
-                    <FiDownload size={15} />
+                    <FiDownload size={15} className="text-emerald-600" />
                   </button>
                 </div>
 
                 {/* Mobile hint */}
-                <div className="md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-white/80 bg-black/50 px-3 py-1 rounded-full whitespace-nowrap">
+                <div className="md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white bg-slate-900/80 px-3 py-1 rounded-full whitespace-nowrap">
                   জুম / ডাউনলোড
                 </div>
               </div>
@@ -124,20 +124,20 @@ const ResultsDetails = () => {
       {/* Lightbox */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-11 right-0 h-9 w-9 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all"
+              className="absolute -top-11 right-0 h-9 w-9 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-all"
             >
               <FiX size={16} />
             </button>
             <img
               src={selectedImage}
               alt="ফলাফল"
-              className="w-full max-h-[82vh] object-contain rounded-2xl"
+              className="w-full max-h-[82vh] object-contain rounded-lg border border-slate-800 shadow-2xl"
             />
           </div>
         </div>

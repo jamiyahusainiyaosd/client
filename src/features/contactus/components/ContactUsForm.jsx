@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { FiMail, FiMessageSquare, FiPhone, FiSend, FiUser } from "react-icons/fi";
 import useContactPayload from "../hooks/useContactPayload";
 import useFieldError from "../hooks/UseFieldError";
@@ -19,18 +18,18 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
   };
 
   const inputBase =
-    "w-full pl-10 pr-4 py-2.5 rounded-xl text-sm border bg-white/60  text-slate-800  placeholder-slate-400  focus:outline-none transition-all duration-150";
+    "w-full pl-10 pr-4 py-2.5 rounded-lg text-sm border bg-white text-slate-900 placeholder-slate-400 focus:outline-none transition-all duration-150";
   const inputNormal =
-    "border-slate-200  focus:border-emerald-500  focus:ring-1 focus:ring-emerald-500/30";
+    "border-slate-200 focus:border-slate-900 focus:ring-1 focus:ring-slate-900/10";
   const inputError =
-    "border-red-400  focus:border-red-400 focus:ring-1 focus:ring-red-400/30";
+    "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/20";
 
   return (
-    <div className="rounded-2xl border border-slate-200/80  bg-white/70  backdrop-blur-sm overflow-hidden">
+    <div className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-slate-100 ">
-        <h3 className="text-sm font-bold text-slate-900 ">বার্তা পাঠান</h3>
-        <p className="text-xs text-slate-400  mt-0.5">
+      <div className="px-6 py-4 border-b border-slate-100">
+        <h3 className="text-sm font-semibold text-slate-900 font-display">বার্তা পাঠান</h3>
+        <p className="text-xs text-slate-500 mt-0.5 font-sans">
           আপনার যেকোনো প্রশ্ন বা মন্তব্য জানান
         </p>
       </div>
@@ -42,7 +41,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
             <div className="relative">
               <Icon
                 size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 "
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
                 type={type}
@@ -54,7 +53,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
               />
             </div>
             {fieldErrors[`${name}Error`] && (
-              <p className="mt-1 text-[11px] text-red-500">{fieldErrors[`${name}Error`]}</p>
+              <p className="mt-1 text-[11px] text-red-500 font-mono">{fieldErrors[`${name}Error`]}</p>
             )}
           </div>
         ))}
@@ -64,7 +63,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
           <div className="relative">
             <FiMessageSquare
               size={14}
-              className="absolute left-3 top-3 text-slate-400 "
+              className="absolute left-3 top-3 text-slate-400"
             />
             <textarea
               name="message"
@@ -76,7 +75,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
             />
           </div>
           {fieldErrors.messageError && (
-            <p className="mt-1 text-[11px] text-red-500">{fieldErrors.messageError}</p>
+            <p className="mt-1 text-[11px] text-red-500 font-mono">{fieldErrors.messageError}</p>
           )}
         </div>
 
@@ -84,7 +83,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold shadow-sm shadow-emerald-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-950 text-white text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isPending ? (
             <>
@@ -96,7 +95,7 @@ const ContactUsForm = ({ handleSubmit, isPending }) => {
             </>
           ) : (
             <>
-              <FiSend size={14} />
+              <FiSend size={14} className="text-emerald-400" />
               বার্তা পাঠান
             </>
           )}
