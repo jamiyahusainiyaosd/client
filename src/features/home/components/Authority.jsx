@@ -1,5 +1,6 @@
 import { CheckCircle } from "lucide-react";
-import avaterImage from "/avater.png";
+import SmoothImage from "../../../components/SmoothImage";
+const avaterImage = "/muhtamim.webp";
 
 export const Authority = ({ name, title }) => {
   return (
@@ -7,9 +8,11 @@ export const Authority = ({ name, title }) => {
       {/* Avatar */}
       <div className="relative flex-shrink-0">
         <div className="h-16 w-16 rounded-2xl overflow-hidden border-2 border-slate-200  group-hover:border-emerald-300  transition-colors">
-          <img
+          <SmoothImage
             src={avaterImage}
+            fallbackSrc="/avater.png"
             alt={name}
+            containerClassName="h-full w-full"
             className="h-full w-full object-cover"
           />
         </div>

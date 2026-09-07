@@ -99,3 +99,10 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #F1F5F9;
   color: #0F172A;
 }
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+

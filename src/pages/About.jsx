@@ -14,8 +14,8 @@ const About = () => {
     <>
       <PageTitle key={"aboutPage"} title={"মাদ্রাসা সম্পর্কে"} />
 
-      <main className="min-h-screen bg-slate-50  pb-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 md:pt-40">
+      <main className="min-h-screen bg-slate-50 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 md:pt-40">
 
           {/* Page header */}
           <div className="mb-10">
@@ -39,21 +39,21 @@ const About = () => {
 
           {/* Sections */}
           <div className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 gap-6">
               <FounderInfo />
               <IntroductionInfo />
             </div>
 
             <FirstLooksInfo />
 
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 gap-6">
               <AimsAndObjectivesInfo />
               <CharacteristicsInfo />
             </div>
 
             <DepartmentInfo />
 
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 gap-6">
               <FutureEducationPlan />
               <FutureDevelopmentPlan />
             </div>

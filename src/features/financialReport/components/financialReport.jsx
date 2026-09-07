@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FiCalendar, FiDownload, FiMaximize2, FiRefreshCw, FiX } from "react-icons/fi";
 import Error from "../../../components/Error";
 import Loader from "../../../components/Loader";
+import SmoothImage from "../../../components/SmoothImage";
 import { baseUrl } from "../../../constants/env.constants";
 import Time from "../../../utils/formateData";
 
@@ -114,20 +115,21 @@ const FinancialReport = () => {
               </p>
 
               {/* Image */}
-              <div className="relative group rounded-lg overflow-hidden border border-slate-200 bg-slate-100">
-                <img
+              <div className="relative group rounded-lg overflow-hidden border border-slate-200 bg-slate-100 min-h-[220px]">
+                <SmoothImage
                   src={report.finanicialReportImage}
                   alt={report.finanicialReportName}
+                  containerClassName="w-full h-full min-h-[220px]"
                   className="w-full object-cover cursor-pointer"
                   onClick={() => setSelectedImage(report.finanicialReportImage)}
                 />
 
                 {/* Desktop hover overlay */}
                 {!isMobile && (
-                  <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
                     <button
                       onClick={() => setSelectedImage(report.finanicialReportImage)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-sm font-medium text-slate-900 shadow-sm"
+                      className="pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-sm font-medium text-slate-900 shadow-sm"
                     >
                       <FiMaximize2 size={14} className="text-emerald-600" />
                       পূর্ণ স্ক্রিনে দেখুন
@@ -185,10 +187,11 @@ const FinancialReport = () => {
               <FiX size={16} />
             </button>
 
-            <img
+            <SmoothImage
               src={selectedImage}
               alt="পূর্ণ প্রতিবেদন"
-              className="w-full max-h-[82vh] object-contain rounded-lg border border-slate-800 shadow-2xl"
+              containerClassName="w-full flex items-center justify-center min-h-[350px] rounded-lg border border-slate-800 shadow-2xl bg-slate-950"
+              className="w-full max-h-[82vh] object-contain"
             />
           </div>
         </div>

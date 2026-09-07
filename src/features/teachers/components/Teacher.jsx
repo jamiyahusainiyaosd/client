@@ -1,15 +1,17 @@
-import avatarImage from "/avater.png";
- 
-const Teacher = ({ avatar, name, designation, phone_number }) => {
+import SmoothImage from "../../../components/SmoothImage";
+
+const Teacher = ({ avatar, image, name, designation, phone_number, priority = false }) => {
   return (
     <div className="group flex items-center gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-all duration-150 hover:shadow-md hover:border-slate-300">
       {/* Avatar */}
       <div className="relative flex-shrink-0">
-        <img
-          src={avatar || avatarImage}
+        <SmoothImage
+          src={avatar || image}
+          fallbackSrc="/avater.png"
           alt={name}
-          className="h-14 w-14 rounded-lg object-cover border-2 border-slate-200 group-hover:border-slate-300 transition-colors"
-          onError={(e) => (e.target.src = avatarImage)}
+          priority={priority}
+          containerClassName="h-14 w-14 rounded-lg border-2 border-slate-200 group-hover:border-slate-300 transition-colors"
+          className="h-full w-full object-cover"
         />
         <div className="absolute -bottom-1 -right-1 h-4 w-4 flex items-center justify-center rounded-full bg-emerald-600 border-2 border-white">
           <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">

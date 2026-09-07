@@ -1,12 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight, FiX, FiZoomIn } from "react-icons/fi";
+import { useSearchParams } from "react-router-dom";
 import Loader from "../../../components/Loader";
 import Pagination from "../../../components/Pagination";
+import SmoothImage from "../../../components/SmoothImage";
 import photoGallaryService from "../services/photoGallary.services";
 
 const PhotoGallery = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const rawPage = searchParams.get("page");
+  const currentPage = Math.max(1, Number(rawPage) || 1);
+
+  useEffect(() => {
+    if (!rawPage) {
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          next.set("page", "1");
+          return next;
+        },
+        { replace: true }
+      );
+    }
+  }, [rawPage, setSearchParams]);
+
+  const handlePageChange = (p) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
+
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [allPhotos, setAllPhotos] = useState([]);
@@ -67,16 +93,18 @@ const PhotoGallery = () => {
       {/* Grid */}
       {!isLoading && photos.length > 0 && (
         <div className="space-y-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {photos.map((photo) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {photos.map((photo, index) => (
               <button
                 key={photo.id}
                 onClick={() => setSelectedPhoto(photo)}
                 className="group relative aspect-square rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 transition-all duration-200 hover:shadow-md"
               >
-                <img
+                <SmoothImage
                   src={photo.photoImg}
                   alt={photo.photoTitle}
+                  priority={index < 3}
+                  containerClassName="h-full w-full"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
@@ -99,7 +127,7 @@ const PhotoGallery = () => {
 
           <Pagination
             currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+            setCurrentPage={handlePageChange}
             totalPages={totalPages}
             totalCount={totalCount}
           />
@@ -127,10 +155,12 @@ const PhotoGallery = () => {
 
             {/* Image container */}
             <div className="relative rounded-lg overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl">
-              <img
+              <SmoothImage
                 src={selectedPhoto.photoImg}
                 alt={selectedPhoto.photoTitle}
-                className="w-full max-h-[72vh] object-contain"
+                priority={true}
+                containerClassName="w-full flex items-center justify-center min-h-[300px]"
+                className="max-h-[75vh] w-auto max-w-full object-contain mx-auto"
               />
 
               {/* Prev */}

@@ -1,9 +1,9 @@
 import academicsApis from "../apis/academics.apis";
 
 const academicsServices = {
-  getAllAcademic: async () => {
+  getAllAcademic: async (page = 1) => {
     try {
-      return await academicsApis.findAllApi();
+      return await academicsApis.findAllApi(page);
     } catch (error) {
       if (error instanceof Error) {
         throw error;

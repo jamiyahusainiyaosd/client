@@ -1,15 +1,39 @@
+import { useEffect } from "react";
 import { BadgeCheck, Coins, MapPin, Phone } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import { useExpatriateGrants } from "../../../features/expatriateGrant/services/expatriateGrant.services";
 import Loader from "./../../../components/Loader";
 import NoDataFound from "./../../../components/NoDataFound";
 import Pagination from "./../../../components/Pagination";
+import SmoothImage from "./../../../components/SmoothImage";
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 9;
 
 export default function ExpatriateGrants() {
   const [sp, setSp] = useSearchParams();
-  const page = Number(sp.get("page") || 1);
+  const rawPage = sp.get("page");
+  const page = Math.max(1, Number(rawPage) || 1);
+
+  useEffect(() => {
+    if (!rawPage) {
+      setSp(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          next.set("page", "1");
+          return next;
+        },
+        { replace: true }
+      );
+    }
+  }, [rawPage, setSp]);
+
+  const handlePageChange = (p) => {
+    setSp((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
 
   const { data, isLoading, isError } = useExpatriateGrants({
     page,
@@ -38,7 +62,7 @@ export default function ExpatriateGrants() {
       {items.length === 0 ? (
         <NoDataFound />
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((x) => (
             <div
               key={x.id}
@@ -46,10 +70,12 @@ export default function ExpatriateGrants() {
             >
               {/* Avatar */}
               <div className="flex-shrink-0">
-                <img
-                  src={x.image || "/default-user.png"}
+                <SmoothImage
+                  src={x.image}
+                  fallbackSrc="/avater.png"
                   alt={x.name}
-                  className="h-12 w-12 rounded-lg object-cover border border-slate-200 group-hover:border-slate-300 transition-colors"
+                  containerClassName="h-12 w-12 rounded-lg border border-slate-200 group-hover:border-slate-300 transition-colors"
+                  className="h-full w-full object-cover"
                 />
               </div>
 
@@ -103,7 +129,7 @@ export default function ExpatriateGrants() {
         page={page}
         totalPages={totalPages}
         totalCount={meta?.count}
-        onPageChange={(p) => setSp({ page: String(p) })}
+        onPageChange={handlePageChange}
       />
     </section>
   );

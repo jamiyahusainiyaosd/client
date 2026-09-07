@@ -11,7 +11,7 @@ import qrCodeImage from "/qr-code.png";
 const Footer = () => {
   return (
     <footer className="relative bg-slate-900 text-slate-300 overflow-hidden border-t border-slate-800">
-      <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
         {/* Footer Brand Header */}
         <div className="flex items-center gap-4 pb-8 mb-2 border-b border-slate-800">
           <img

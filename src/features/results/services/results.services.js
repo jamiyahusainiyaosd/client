@@ -1,9 +1,9 @@
 import ResultsApis from "../apis/results.apis";
 
 const ResultsServices = {
-    getAllResults: async () => {
+    getAllResults: async (page = 1) => {
         try {
-            return await ResultsApis.findAllApi();
+            return await ResultsApis.findAllApi(page);
         } catch (error) {
             if (error instanceof Error) {
                 throw error;

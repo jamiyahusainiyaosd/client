@@ -11,13 +11,13 @@ const Home = () => {
   return (
     <>
       <PageTitle key={"homePage"} title={"জামিয়া হুসাইনিয়া"} />
-      <main className="min-h-screen bg-watt-bg pb-16">
+      <main className="min-h-screen bg-watt-bg pb-20">
         {/* Fullscreen Hero */}
         <ImageSlider />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Marquee */}
-          <div className="mt-5 mb-8">
+          <div className="my-8">
             <Marquee />
           </div>
 
@@ -30,7 +30,7 @@ const Home = () => {
             </div>
 
             {/* Right sidebar */}
-            <aside className="lg:w-72 xl:w-80 space-y-5">
+            <aside className="lg:w-72 xl:w-80 space-y-6">
               {/* Principal card */}
               <div className="rounded-lg border border-slate-200 bg-white overflow-hidden shadow-sm">
                 <div className="px-5 py-3.5 bg-slate-900 text-white border-b border-slate-800 flex items-center justify-between">

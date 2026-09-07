@@ -1,4 +1,5 @@
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { useSearchParams } from "react-router-dom";
 
 const Pagination = ({
   page,
@@ -9,8 +10,19 @@ const Pagination = ({
   totalCount,
   maxVisible = 5,
 }) => {
-  const activePage = page ?? currentPage ?? 1;
-  const handleChange = onPageChange ?? setCurrentPage;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlPage = Math.max(1, Number(searchParams.get("page") || 1));
+  const activePage = page ?? currentPage ?? urlPage;
+
+  const defaultHandleChange = (p) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
+
+  const handleChange = onPageChange ?? setCurrentPage ?? defaultHandleChange;
 
   if (!handleChange || !totalPages || totalPages <= 1) return null;
 
@@ -27,10 +39,13 @@ const Pagination = ({
 
   const goTo = (p) => {
     const next = Math.min(totalPages, Math.max(1, p));
-    if (next !== activePage) handleChange(next);
+    if (next !== activePage) {
+      handleChange(next);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
-  const pageSize = totalCount && totalPages ? Math.ceil(totalCount / totalPages) : 12;
+  const pageSize = totalCount && totalPages ? Math.ceil(totalCount / totalPages) : 9;
   const start = totalCount ? (activePage - 1) * pageSize + 1 : 0;
   const end = totalCount ? Math.min(totalCount, activePage * pageSize) : 0;
 

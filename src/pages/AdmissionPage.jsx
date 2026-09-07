@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
-import { FiCheckCircle, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { useEffect, useMemo } from "react";
+import { FiCheckCircle } from "react-icons/fi";
+import { useSearchParams } from "react-router-dom";
 import ErrorDisplay from "../components/Error";
 import Loader from "../components/Loader";
+import Pagination from "../components/Pagination";
 import Admission from "../features/admission/components/Admission";
 import admissionService from "../features/admission/services/admission.services.js";
 import PageTitle from "../utils/PageTitle";
@@ -26,7 +28,31 @@ const tableHeaders = [
 ];
 
 const AdmissionPage = () => {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const rawPage = searchParams.get("page");
+  const page = Math.max(1, Number(rawPage) || 1);
+
+  useEffect(() => {
+    if (!rawPage) {
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          next.set("page", "1");
+          return next;
+        },
+        { replace: true }
+      );
+    }
+  }, [rawPage, setSearchParams]);
+
+  const handlePageChange = (p) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["admissions", page],
@@ -35,15 +61,8 @@ const AdmissionPage = () => {
   });
 
   const refinedData = useMemo(() => data?.data?.results || [], [data]);
-  const hasNext = !!data?.data?.next;
-  const hasPrev = !!data?.data?.previous;
-
-  const navBtnBase =
-    "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150";
-  const navBtnActive =
-    "border border-slate-200  bg-white  text-slate-700  hover:border-emerald-200  hover:text-emerald-700 ";
-  const navBtnDisabled =
-    "border border-slate-100  bg-slate-50  text-slate-300  cursor-not-allowed";
+  const totalCount = data?.data?.count || 0;
+  const totalPages = Math.ceil(totalCount / 9);
 
   return (
     <>
@@ -73,7 +92,7 @@ const AdmissionPage = () => {
           </div>
 
           {/* Qualification card */}
-          <div className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden mb-8">
+          <div className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden mb-6">
             <div className="px-6 py-4 border-b border-slate-100 flex items-center gap-3">
               <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 text-emerald-600">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +127,7 @@ const AdmissionPage = () => {
           {isPending ? (
             <Loader />
           ) : (
-            <div className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden mb-6">
+            <div className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead>
@@ -143,32 +162,12 @@ const AdmissionPage = () => {
           )}
 
           {/* Pagination */}
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => hasPrev && setPage((p) => p - 1)}
-              disabled={!hasPrev}
-              className={`${navBtnBase} ${hasPrev ? navBtnActive : navBtnDisabled}`}
-            >
-              <FiChevronLeft size={14} />
-              পূর্ববর্তী
-            </button>
-
-            <span className="text-xs text-slate-500 font-mono">
-              পাতা{" "}
-              <span className="font-semibold text-slate-900 font-mono">
-                {page}
-              </span>
-            </span>
-
-            <button
-              onClick={() => hasNext && setPage((p) => p + 1)}
-              disabled={!hasNext}
-              className={`${navBtnBase} ${hasNext ? navBtnActive : navBtnDisabled}`}
-            >
-              পরবর্তী
-              <FiChevronRight size={14} />
-            </button>
-          </div>
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            totalCount={totalCount}
+            onPageChange={handlePageChange}
+          />
 
         </section>
       </main>

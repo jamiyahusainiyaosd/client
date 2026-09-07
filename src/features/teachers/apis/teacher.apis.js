@@ -1,8 +1,8 @@
 import axiosClient from "../../../configs/axios.config";
 
 const teachersApi = {
-  findAllTeachers: () => {
-    return axiosClient.get("/teacher");
+  findAllTeachers: (page = 1) => {
+    return axiosClient.get(`/teacher?page=${page}`);
   },
 };
 

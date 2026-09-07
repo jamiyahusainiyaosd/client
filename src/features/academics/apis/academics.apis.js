@@ -1,8 +1,8 @@
 import axiosClient from "../../../configs/axios.config";
 
 const academicsApis = {
-  findAllApi: () => {
-    return axiosClient.get("/academics");
+  findAllApi: (page = 1) => {
+    return axiosClient.get(`/academics?page=${page}`);
   },
   findOne: (id) => {
     return axiosClient.get(`/academics/${id}`);

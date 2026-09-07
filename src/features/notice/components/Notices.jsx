@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ErrorDisplay from "../../../components/Error";
 import Loader from "../../../components/Loader";
 import NoDataFound from "../../../components/NoDataFound";
@@ -8,7 +9,30 @@ import noticeService from "../services/notice.services";
 import Notice from "./Notice";
 
 const Notices = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const rawPage = searchParams.get("page");
+  const currentPage = Math.max(1, Number(rawPage) || 1);
+
+  useEffect(() => {
+    if (!rawPage) {
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          next.set("page", "1");
+          return next;
+        },
+        { replace: true }
+      );
+    }
+  }, [rawPage, setSearchParams]);
+
+  const handlePageChange = (p) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["notices", currentPage],
@@ -36,7 +60,7 @@ const Notices = () => {
 
       {refinedData.length > 0 && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {refinedData.map((item) => (
               <Notice key={item.id} {...item} />
             ))}
@@ -44,7 +68,7 @@ const Notices = () => {
 
           <Pagination
             currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+            setCurrentPage={handlePageChange}
             totalPages={totalPages}
             totalCount={totalCount}
           />

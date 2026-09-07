@@ -1,12 +1,16 @@
+import SmoothImage from "../../../components/SmoothImage";
+
 const FIRST_SLIDE_IMAGE = "/unnamed3.jpg";
 
 const ImageSlider = () => {
   return (
     <section className="relative w-full pt-[90px] sm:pt-[96px] overflow-hidden bg-watt-bg">
       <div className="relative w-full h-[360px] sm:h-[420px] md:h-[480px] lg:h-[540px] xl:h-[580px]">
-        <img
+        <SmoothImage
           src={FIRST_SLIDE_IMAGE}
           alt="জামিয়া হুসাইনিয়া মাদ্রাসা — মূল ক্যাম্পাস"
+          loading="eager"
+          containerClassName="h-full w-full"
           className="h-full w-full object-cover object-right md:object-[80%_center]"
         />
 

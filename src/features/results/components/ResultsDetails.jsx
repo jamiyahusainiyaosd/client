@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ErrorDisplay from "../../../components/Error";
 import Loader from "../../../components/Loader";
 import NoDataFound from "../../../components/NoDataFound";
+import SmoothImage from "../../../components/SmoothImage";
 import Time from "../../../utils/formateData";
 import ResultsServices from "../services/results.services";
 
@@ -78,31 +79,31 @@ const ResultsDetails = () => {
       {/* Images */}
       <div className="p-5">
         {result.images?.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {result.images.map((img, index) => (
               <div
                 key={index}
                 className="group relative rounded-lg border border-slate-200 bg-slate-100 overflow-hidden shadow-sm"
               >
-                <img
+                <SmoothImage
                   src={img.resultsSheetImg}
                   alt={`ফলাফল ${index + 1}`}
-                  className="w-full h-64 sm:h-72 md:h-80 object-contain"
-                  loading="lazy"
+                  containerClassName="w-full h-64 sm:h-72 md:h-80 flex items-center justify-center bg-slate-100"
+                  className="w-full h-full object-contain"
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-slate-900/50 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3">
+                <div className="absolute inset-0 bg-slate-900/50 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3 pointer-events-none">
                   <button
                     onClick={() => setSelectedImage(img.resultsSheetImg)}
-                    className="h-10 w-10 flex items-center justify-center rounded-lg bg-white text-slate-900 shadow-sm hover:bg-slate-50 transition-all"
+                    className="pointer-events-auto h-10 w-10 flex items-center justify-center rounded-lg bg-white text-slate-900 shadow-sm hover:bg-slate-50 transition-all"
                     aria-label="পূর্ণ স্ক্রিন"
                   >
                     <FiMaximize2 size={15} className="text-emerald-600" />
                   </button>
                   <button
                     onClick={() => handleDownload(img.resultsSheetImg, `${result.studentClassName}_result_${index + 1}.jpg`)}
-                    className="h-10 w-10 flex items-center justify-center rounded-lg bg-white text-slate-900 shadow-sm hover:bg-slate-50 transition-all"
+                    className="pointer-events-auto h-10 w-10 flex items-center justify-center rounded-lg bg-white text-slate-900 shadow-sm hover:bg-slate-50 transition-all"
                     aria-label="ডাউনলোড"
                   >
                     <FiDownload size={15} className="text-emerald-600" />
@@ -110,7 +111,7 @@ const ResultsDetails = () => {
                 </div>
 
                 {/* Mobile hint */}
-                <div className="md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white bg-slate-900/80 px-3 py-1 rounded-full whitespace-nowrap">
+                <div className="md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white bg-slate-900/80 px-3 py-1 rounded-full whitespace-nowrap pointer-events-none">
                   জুম / ডাউনলোড
                 </div>
               </div>
@@ -134,10 +135,11 @@ const ResultsDetails = () => {
             >
               <FiX size={16} />
             </button>
-            <img
+            <SmoothImage
               src={selectedImage}
               alt="ফলাফল"
-              className="w-full max-h-[82vh] object-contain rounded-lg border border-slate-800 shadow-2xl"
+              containerClassName="w-full flex items-center justify-center min-h-[350px] rounded-lg border border-slate-800 shadow-2xl bg-slate-950"
+              className="w-full max-h-[82vh] object-contain"
             />
           </div>
         </div>

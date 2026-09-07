@@ -1,15 +1,39 @@
+import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { GraduationCap, MapPin, Phone } from "lucide-react";
+import Loader from "../../../components/Loader";
 import NoDataFound from "../../../components/NoDataFound";
 import Pagination from "../../../components/Pagination";
+import SmoothImage from "../../../components/SmoothImage";
 import { useFormerStudents } from "../../../features/formerStudent/services/formerStudent.services";
-import Loader from "../../../components/Loader";
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 9;
 
 export default function FormerStudents() {
   const [sp, setSp] = useSearchParams();
-  const page = Number(sp.get("page") || 1);
+  const rawPage = sp.get("page");
+  const page = Math.max(1, Number(rawPage) || 1);
+
+  useEffect(() => {
+    if (!rawPage) {
+      setSp(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          next.set("page", "1");
+          return next;
+        },
+        { replace: true }
+      );
+    }
+  }, [rawPage, setSp]);
+
+  const handlePageChange = (p) => {
+    setSp((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
 
   const { data, isLoading, isError } = useFormerStudents({ page, page_size: PAGE_SIZE });
 
@@ -37,18 +61,21 @@ export default function FormerStudents() {
       {items.length === 0 ? (
         <NoDataFound />
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((x) => (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((x, index) => (
             <div
               key={x.id}
               className="group flex items-start gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-all duration-150 hover:shadow-md hover:border-slate-300"
             >
               {/* Avatar */}
               <div className="flex-shrink-0">
-                <img
-                  src={x.image || "/default-user.png"}
+                <SmoothImage
+                  src={x.image}
+                  fallbackSrc="/avater.png"
                   alt={x.name}
-                  className="h-12 w-12 rounded-lg object-cover border border-slate-200 group-hover:border-slate-300 transition-colors"
+                  priority={index < 6}
+                  containerClassName="h-12 w-12 rounded-lg border border-slate-200 group-hover:border-slate-300 transition-colors"
+                  className="h-full w-full object-cover"
                 />
               </div>
 
@@ -91,7 +118,7 @@ export default function FormerStudents() {
       <Pagination
         page={page}
         totalPages={totalPages}
-        onPageChange={(p) => setSp({ page: String(p) })}
+        onPageChange={handlePageChange}
       />
     </section>
   );
