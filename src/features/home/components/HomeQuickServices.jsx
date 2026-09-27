@@ -10,7 +10,7 @@ const quickServices = [
     icon: "how_to_reg",
     path: "/admission",
     badge: "চলমান",
-    badgeColor: "bg-emerald-100 text-emerald-800",
+    badgeColor: "bg-primary-light text-primary border border-primary-border/60",
   },
   {
     title: "একাডেমিক বিভাগ",
@@ -24,7 +24,7 @@ const quickServices = [
     icon: "campaign",
     path: "/notice",
     badge: "নতুন",
-    badgeColor: "bg-amber-100 text-amber-800",
+    badgeColor: "bg-amber-100 text-amber-800 border border-amber-200/60",
   },
   {
     title: "পরীক্ষার ফলাফল",
@@ -44,7 +44,7 @@ const quickServices = [
     icon: "volunteer_activism",
     path: "/expatriateGrant",
     badge: "দান",
-    badgeColor: "bg-emerald-100 text-emerald-800",
+    badgeColor: "bg-primary-light text-primary border border-primary-border/60",
   },
 ];
 
@@ -61,11 +61,11 @@ const HomeQuickServices = () => {
       <div className="flex items-center justify-between gap-3 mb-4 sm:mb-5">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
-          <h2 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+          <h2 className="text-base sm:text-lg font-bold text-main tracking-tight">
             প্রয়োজনীয় সেবা ও দ্রুত নেভিগেশন
           </h2>
         </div>
-        <span className="text-xs text-slate-500 hidden sm:inline-block">
+        <span className="text-xs text-muted hidden sm:inline-block">
           সরাসরি সেবা নির্বাচন করুন
         </span>
       </div>
@@ -79,10 +79,10 @@ const HomeQuickServices = () => {
           if (item.path === "/admission" && admissionStatus) {
             if (admissionStatus.is_open === false) {
               badgeText = admissionStatus.badge_text_closed || "ভর্তি সমাপ্ত";
-              badgeColor = "bg-amber-100 text-amber-800";
+              badgeColor = "bg-amber-100 text-amber-800 border border-amber-200/60";
             } else {
               badgeText = admissionStatus.badge_text_open || "চলমান";
-              badgeColor = "bg-emerald-100 text-emerald-800";
+              badgeColor = "bg-primary-light text-primary border border-primary-border/60";
             }
           }
 
@@ -103,17 +103,17 @@ const HomeQuickServices = () => {
               )}
 
             <div>
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center mb-2.5 sm:mb-3 group-hover:text-black transition-colors duration-200 shadow-xs">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center mb-2.5 sm:mb-3 group-hover:bg-primary group-hover:text-white transition-colors duration-200 shadow-xs">
                 <span className="material-symbols-outlined text-[20px] sm:text-[22px]">
                   {item.icon}
                 </span>
               </div>
-              <h3 className="font-bold text-xs sm:text-sm text-slate-900 group-hover:text-primary transition-colors leading-snug">
+              <h3 className="font-bold text-xs sm:text-sm text-main group-hover:text-primary transition-colors leading-snug">
                 {item.title}
               </h3>
             </div>
 
-            <p className="text-[11px] text-slate-500 mt-1 line-clamp-1">
+            <p className="text-[11px] text-muted mt-1 line-clamp-1">
               {item.subtitle}
             </p>
           </Link>

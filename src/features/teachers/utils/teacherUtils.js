@@ -26,13 +26,13 @@ export const getTeacherStatusBadge = (designation = "") => {
   if (d.includes("মুহতামিম")) {
     return {
       label: "মুহতামিম / প্রধান পরিচালক",
-      className: "bg-emerald-50 text-emerald-800 border border-emerald-200/80",
+      className: "bg-primary-light text-primary border border-primary-border/60",
     };
   }
   if (d.includes("তা'লিমাত") || d.includes("তা’লিমাত")) {
     return {
       label: "নাজিমে তা’লিমাত / শিক্ষা সচিব",
-      className: "bg-emerald-50 text-emerald-800 border border-emerald-200/80",
+      className: "bg-primary-light text-primary border border-primary-border/60",
     };
   }
   return {

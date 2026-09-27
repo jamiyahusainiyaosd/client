@@ -94,9 +94,9 @@ const HomeIntro = () => {
               <div className="p-2 rounded-lg bg-white text-primary shrink-0 shadow-2xs">
                 <card.icon className="h-5 w-5" />
               </div>
-              <h3 className="font-bold text-sm sm:text-base text-slate-900">{card.title}</h3>
+              <h3 className="font-bold text-sm sm:text-base text-main">{card.title}</h3>
             </div>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-body leading-relaxed">
               {card.body}
             </p>
           </div>
@@ -110,8 +110,8 @@ const HomeIntro = () => {
             <span className="material-symbols-outlined text-[22px]">calendar_month</span>
           </div>
           <div>
-            <span className="block font-bold text-base sm:text-lg text-slate-900">১৯৯৩ ইং</span>
-            <span className="block text-[11px] sm:text-xs text-slate-500">প্রতিষ্ঠাকাল</span>
+            <span className="block font-bold text-base sm:text-lg text-main">১৯৯৩ ইং</span>
+            <span className="block text-[11px] sm:text-xs text-muted">প্রতিষ্ঠাকাল</span>
           </div>
         </div>
 
@@ -120,10 +120,10 @@ const HomeIntro = () => {
             <span className="material-symbols-outlined text-[22px]">groups</span>
           </div>
           <div>
-            <span className="block font-bold text-base sm:text-lg text-slate-900">
+            <span className="block font-bold text-base sm:text-lg text-main">
               {toBengaliDigits(studentCount)}+ ছাত্র
             </span>
-            <span className="block text-[11px] sm:text-xs text-slate-500">দ্বীনি শিক্ষার্থী</span>
+            <span className="block text-[11px] sm:text-xs text-muted">দ্বীনি শিক্ষার্থী</span>
           </div>
         </div>
 
@@ -132,10 +132,10 @@ const HomeIntro = () => {
             <span className="material-symbols-outlined text-[22px]">school</span>
           </div>
           <div>
-            <span className="block font-bold text-base sm:text-lg text-slate-900">
+            <span className="block font-bold text-base sm:text-lg text-main">
               {toBengaliDigits(teacherCount)} জন
             </span>
-            <span className="block text-[11px] sm:text-xs text-slate-500">উস্তাদ ও কর্মচারী</span>
+            <span className="block text-[11px] sm:text-xs text-muted">উস্তাদ ও কর্মচারী</span>
           </div>
         </div>
 
@@ -144,8 +144,8 @@ const HomeIntro = () => {
             <span className="material-symbols-outlined text-[22px]">verified</span>
           </div>
           <div>
-            <span className="block font-bold text-base sm:text-lg text-slate-900">১০০%</span>
-            <span className="block text-[11px] sm:text-xs text-slate-500">সুন্নাতি আদর্শ ও আমল</span>
+            <span className="block font-bold text-base sm:text-lg text-main">১০০%</span>
+            <span className="block text-[11px] sm:text-xs text-muted">সুন্নাতি আদর্শ ও আমল</span>
           </div>
         </div>
       </div>
@@ -158,17 +158,17 @@ const HomeIntro = () => {
             <span className="material-symbols-outlined text-[26px]">mosque</span>
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+            <h2 className="text-xl sm:text-2xl font-bold text-main">
               জামিয়া হুসাইনিয়া মাদ্রাসা
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
+            <p className="text-xs sm:text-sm text-muted font-medium mt-0.5">
               হবিগঞ্জ জেলার ঐতিহ্যবাহী কওমি দ্বীনি শিক্ষা প্রতিষ্ঠান
             </p>
           </div>
         </div>
 
         {/* Body */}
-        <div className="space-y-4 text-sm sm:text-base leading-relaxed text-slate-700 text-bengali">
+        <div className="space-y-4 text-sm sm:text-base leading-relaxed text-body text-bengali">
           <p>
             জামিয়া হুসাইনিয়া শায়েস্তাগঞ্জ, হবিগঞ্জ জেলার ঐতিহ্যবাহী ও
             সুপরিচিত দ্বীনি শিক্ষা প্রতিষ্ঠানগুলোর অন্যতম। শায়েস্তাগঞ্জ সংলগ্ন
@@ -193,12 +193,12 @@ const HomeIntro = () => {
         </div>
 
         <div className="mt-6 pt-4 border-t border-slate-200/70 flex items-center justify-between gap-2 sm:gap-4">
-          <span className="text-[11px] sm:text-xs text-slate-500 font-medium whitespace-nowrap truncate">
+          <span className="text-[11px] sm:text-xs text-muted font-medium whitespace-nowrap truncate">
             শায়েস্তাগঞ্জ নতুনব্রিজ সংলগ্ন, হবিগঞ্জ
           </span>
           <Link
             to="/about"
-            className="inline-flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-sm font-bold text-primary hover:text-primary-container transition-colors whitespace-nowrap flex-shrink-0"
+            className="inline-flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-sm font-bold text-primary hover:text-primary-hover transition-colors whitespace-nowrap flex-shrink-0"
           >
             <span>সম্পূর্ণ ইতিহাস পড়ুন</span>
             <span className="material-symbols-outlined text-[15px] sm:text-[16px]">arrow_forward</span>

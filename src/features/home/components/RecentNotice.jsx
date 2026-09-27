@@ -11,7 +11,7 @@ export const RecentNotice = ({ id, title, created_at }) => {
       className="group cursor-pointer flex items-start gap-4 p-3.5 sm:p-4 rounded-xl border border-transparent hover:border-slate-200/80 hover:bg-[#f8faff] active:bg-[#f1f3ff] transition-all duration-200"
     >
       {/* Icon */}
-      <div className="mt-0.5 h-9 w-9 flex-shrink-0 flex items-center justify-center rounded-xl bg-emerald-50  text-emerald-600  group-hover:bg-emerald-100  transition-colors">
+      <div className="mt-0.5 h-9 w-9 flex-shrink-0 flex items-center justify-center rounded-xl bg-primary-light text-primary group-hover:bg-primary/10 transition-colors">
         <svg
           className="w-4 h-4"
           fill="none"
@@ -29,10 +29,10 @@ export const RecentNotice = ({ id, title, created_at }) => {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <h2 className="text-sm sm:text-base font-medium text-slate-800  group-hover:text-emerald-700  line-clamp-2 transition-colors leading-snug">
+        <h2 className="text-sm sm:text-base font-medium text-main group-hover:text-primary line-clamp-2 transition-colors leading-snug">
           {title}
         </h2>
-        <p className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-400 ">
+        <p className="mt-1.5 flex items-center gap-1.5 text-xs text-muted">
           <svg
             className="w-3 h-3"
             fill="none"
@@ -52,7 +52,7 @@ export const RecentNotice = ({ id, title, created_at }) => {
 
       {/* Arrow */}
       <svg
-        className="w-4 h-4 mt-1 flex-shrink-0 text-slate-300  group-hover:text-emerald-500  group-hover:translate-x-0.5 transition-all duration-200"
+        className="w-4 h-4 mt-1 flex-shrink-0 text-slate-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-200"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

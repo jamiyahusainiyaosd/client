@@ -74,7 +74,7 @@ const FormerStudentCards = ({
         return (
           <div
             key={student.id}
-            className="alumni-card group bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-5 sm:p-6 hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
+            className="alumni-card group site-card-alt hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
             data-location={student.address}
             data-name={student.name}
             data-phone={student.mobile}
@@ -94,7 +94,7 @@ const FormerStudentCards = ({
                   />
 
                   <div>
-                    <h3 className="font-headline-sm text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
+                    <h3 className="font-headline-sm text-base sm:text-lg font-bold text-main group-hover:text-primary transition-colors line-clamp-1">
                       {student.name}
                     </h3>
                     {student.current && (
@@ -106,7 +106,7 @@ const FormerStudentCards = ({
                 </div>
 
                 {student.pass_year && (
-                  <span className="px-2.5 py-1 rounded-lg bg-white text-emerald-800 border border-emerald-200/80 text-xs font-semibold shrink-0 shadow-xs">
+                  <span className="px-2.5 py-1 rounded-lg bg-white text-primary border border-primary-border/60 text-xs font-semibold shrink-0 shadow-xs">
                     {passYearBengali}
                   </span>
                 )}

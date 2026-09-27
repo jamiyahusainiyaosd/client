@@ -28,7 +28,7 @@ const DonorCard = ({ donor }) => {
   const displayAmount = formatDonationAmount(chadar_amount);
 
   return (
-    <article className="group bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-5 sm:p-6 hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+    <article className="group site-card-alt hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
       <div>
         {/* Top Profile Header with Large Image and Badges */}
         <div className="flex items-start gap-3.5 sm:gap-4 mb-4">
@@ -50,7 +50,7 @@ const DonorCard = ({ donor }) => {
               </div>
             )}
             <span
-              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-600 border-2 border-white flex items-center justify-center shadow-xs"
+              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary border-2 border-white flex items-center justify-center shadow-xs"
               title="সক্রিয় শুভাকাঙ্ক্ষী"
             >
               <span className="material-symbols-outlined text-white text-[12px]">
@@ -62,19 +62,19 @@ const DonorCard = ({ donor }) => {
           {/* Name & Identity Badges */}
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-              <span className="inline-block px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs">
+              <span className="inline-block px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-primary-light text-primary border border-primary-border/60 shadow-xs">
                 {member_type || "প্রবাসী"}
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium text-emerald-700 bg-white border border-emerald-200 shadow-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium text-primary bg-white border border-primary-border/60 shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 <span>{status || "সক্রীয়"}</span>
               </span>
             </div>
 
-            <h2 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1 leading-snug">
+            <h2 className="text-base sm:text-lg font-bold text-main group-hover:text-primary transition-colors line-clamp-1 leading-snug">
               {name}
             </h2>
-            <p className="text-xs text-slate-500 mt-1 line-clamp-1 font-medium">
+            <p className="text-xs text-muted mt-1 line-clamp-1 font-medium">
               দ্বীনি শিক্ষার সম্মানিত পৃষ্ঠপোষক ও হিতাকাঙ্ক্ষী
             </p>
           </div>

@@ -13,7 +13,7 @@ const ResultsCard = ({ result }) => {
   const categoryLabel = getCategoryLabel(className);
 
   return (
-    <article className="group bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-5 sm:p-6 hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+    <article className="group site-card-alt hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
       <div>
         {/* Card Header */}
         <div className="flex items-start justify-between gap-3 mb-3.5">
@@ -22,18 +22,18 @@ const ResultsCard = ({ result }) => {
               {icon}
             </span>
           </div>
-          <span className="px-2.5 py-1 rounded-lg bg-white text-emerald-800 border border-emerald-200/80 text-xs font-semibold shrink-0 shadow-xs">
+          <span className="px-2.5 py-1 rounded-lg bg-white text-primary border border-primary-border/60 text-xs font-semibold shrink-0 shadow-xs">
             {categoryLabel}
           </span>
         </div>
 
         {/* Title */}
-        <h2 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
+        <h2 className="text-base sm:text-lg font-bold text-main group-hover:text-primary transition-colors line-clamp-1">
           {className}
         </h2>
 
         {/* Session / Tagline */}
-        <p className="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+        <p className="text-xs sm:text-sm text-body mt-1 line-clamp-2 leading-relaxed">
           {result.studentClassDescription ||
             result.description ||
             meta.syllabusDesc ||
@@ -41,7 +41,7 @@ const ResultsCard = ({ result }) => {
         </p>
 
         {/* Dynamic Exam Session Badge */}
-        <div className="mt-2.5 bg-white/70 rounded-lg p-2 border border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs text-slate-600">
+        <div className="mt-2.5 bg-white/70 rounded-lg p-2 border border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs text-muted">
           <span className="flex items-center gap-1 text-slate-700 font-medium truncate">
             <span className="material-symbols-outlined text-[15px] text-primary shrink-0">
               event_note
@@ -53,11 +53,11 @@ const ResultsCard = ({ result }) => {
 
       {/* Card Footer */}
       <div className="mt-4 pt-3.5 border-t border-slate-200/70 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
+        <div className="flex items-center gap-1.5 text-xs text-body font-medium">
           <span className="material-symbols-outlined text-[17px] text-primary">
             verified
           </span>
-          <span className="text-slate-800 font-semibold">ফলাফল প্রকাশিত</span>
+          <span className="text-main font-semibold">ফলাফল প্রকাশিত</span>
         </div>
 
         <Link

@@ -41,8 +41,8 @@ const ResultsFilter = ({
                 onClick={() => onSelectCategory(cat.id)}
                 className={`shrink-0 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 ${
                   isSelected
-                    ? "bg-emerald-50 text-emerald-800 border border-emerald-300/90 shadow-xs"
-                    : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200/80 hover:bg-slate-50"
+                    ? "bg-primary-light text-primary border border-primary-border shadow-xs font-bold"
+                    : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
                 }`}
               >
                 {label}

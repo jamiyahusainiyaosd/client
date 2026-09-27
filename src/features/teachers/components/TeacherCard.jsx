@@ -19,7 +19,7 @@ const TeacherCard = ({ teacher }) => {
   const imageSrc = !imgError && rawImage ? rawImage : null;
 
   return (
-    <article className="group bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-5 sm:p-6 hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+    <article className="group site-card-alt hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
       <div>
         {/* Top Profile Header with Significantly Larger Image */}
         <div className="flex items-start gap-3.5 sm:gap-4 mb-3.5">
@@ -41,7 +41,7 @@ const TeacherCard = ({ teacher }) => {
               </div>
             )}
             <span
-              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-600 border-2 border-white flex items-center justify-center shadow-xs"
+              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary border-2 border-white flex items-center justify-center shadow-xs"
               title="সক্রিয় শিক্ষক"
             >
               <span className="material-symbols-outlined text-white text-[12px]">
@@ -57,17 +57,17 @@ const TeacherCard = ({ teacher }) => {
             >
               {status.label}
             </span>
-            <h2 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+            <h2 className="text-base sm:text-lg font-bold text-main group-hover:text-primary transition-colors line-clamp-2 leading-snug">
               {teacher.name}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1 font-medium line-clamp-2 leading-relaxed">
+            <p className="text-xs sm:text-sm text-body mt-1 font-medium line-clamp-2 leading-relaxed">
               {teacher.designation || "সম্মানিত শিক্ষক, জামিয়া হুসাইনিয়া"}
             </p>
           </div>
         </div>
 
         {/* Location & Institution Tag */}
-        <div className="bg-white/70 rounded-xl p-2.5 border border-slate-200/60 flex items-center gap-1.5 text-xs text-slate-600 mt-2">
+        <div className="bg-white/70 rounded-xl p-2.5 border border-slate-200/60 flex items-center gap-1.5 text-xs text-muted mt-2">
           <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
             location_on
           </span>

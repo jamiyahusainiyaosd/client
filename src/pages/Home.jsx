@@ -5,6 +5,7 @@ import RecentNotices from "../features/home/components/RecentNotices";
 import HomeQuickServices from "../features/home/components/HomeQuickServices";
 import MuhtamimCard from "../features/home/components/MuhtamimCard";
 import PrayerTimesCard from "../features/home/components/PrayerTimesCard";
+import { AcademicCalendarCard } from "../features/calendar";
 import PageTitle from "../utils/PageTitle";
 
 const Home = () => {
@@ -16,8 +17,8 @@ const Home = () => {
         <ImageSlider />
 
         {/* SECTION 1: QUICK SERVICES, MARQUEE, RECENT NOTICES & SIDEBAR (Background: #f1f3ff) */}
-        <section className="w-full bg-[#f1f3ff] py-8 sm:py-12 lg:py-14 border-b border-slate-200/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="site-section site-section-alt border-b border-slate-200/60">
+          <div className="site-container">
             {/* Quick Services Navigation Grid */}
             <HomeQuickServices />
 
@@ -33,20 +34,30 @@ const Home = () => {
                 <RecentNotices />
               </div>
 
-              {/* Right sidebar */}
-              <aside className="lg:w-80 xl:w-88 w-full space-y-6">
-                {/* Respected Muhtamim Card */}
+              {/* Right sidebar — Respected Muhtamim Card */}
+              <aside className="lg:w-80 xl:w-88 w-full space-y-6 shrink-0">
                 <MuhtamimCard />
-                {/* Daily Jamat Prayer Times Card */}
-                <PrayerTimesCard />
               </aside>
+            </div>
+
+            {/* Islamic Services Row: Academic Calendar on LEFT, Prayer Times on RIGHT on large screens */}
+            <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+              {/* Left Column: Academic Hijri Calendar */}
+              <div className="w-full">
+                <AcademicCalendarCard />
+              </div>
+
+              {/* Right Column: Daily Jamat Prayer Times */}
+              <div className="w-full">
+                <PrayerTimesCard />
+              </div>
             </div>
           </div>
         </section>
 
         {/* SECTION 2: INTRO & WHY CHOOSE US (Background: white) */}
-        <section className="w-full bg-white py-12 sm:py-16 lg:py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="site-section site-section-white">
+          <div className="site-container">
             <HomeIntro />
           </div>
         </section>

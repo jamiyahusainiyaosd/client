@@ -67,7 +67,37 @@
   --color-on-background: #141b2b;
   --color-surface-variant: #dce2f7;
 
-  /* Spacing */
+  /* ========================================================================= */
+  /* UNIFIED BRAND & THEME COLOR TOKENS                                        */
+  /* ========================================================================= */
+  --color-primary: #005435;
+  --color-primary-hover: #086c46;
+  --color-primary-light: #ecfdf5;
+  --color-primary-subtle: #dcfce7;
+  --color-primary-border: #a7f3d0;
+  --color-primary-dark: #003d26;
+
+  --color-secondary: #475569;
+  --color-secondary-hover: #334155;
+  --color-secondary-light: #f8fafc;
+  --color-secondary-border: #e2e8f0;
+
+  --color-main: #0f172a;
+  --color-body: #334155;
+  --color-muted: #64748b;
+
+  --color-surface-white: #ffffff;
+  --color-surface-alt: var(--bg-alt-color, #f1f3ff);
+  --color-border-card: #e2e8f0;
+
+  /* Spacing Tokens */
+  --spacing-section-py-sm: 2rem;
+  --spacing-section-py-md: 3rem;
+  --spacing-section-py-lg: 3.5rem;
+  --spacing-section-gap: 1.5rem;
+  --spacing-section-gap-lg: 2rem;
+  --spacing-card-p: 1.25rem;
+  --spacing-card-p-lg: 1.5rem;
   --spacing-space-xs: 0.375rem;
   --spacing-space-sm: 0.75rem;
   --spacing-space-md: 1.25rem;
@@ -78,75 +108,262 @@
 }
 
 /* ========================================================================= */
-/* CENTRAL DYNAMIC SECTION & CONTAINER BACKGROUND COLOR PALETTE              */
+/* CENTRAL DYNAMIC SECTION, CARD & DESIGN SYSTEM TOKENS                      */
 /* Comment out the active theme & uncomment any option below to swap theme!  */
 /* ========================================================================= */
 :root {
-  /* [অপশন ১]: সফট ল্যাভেন্ডার স্লেট (Soft Lavender Slate - মূল কালার) */
+  /* ========================================================================= */
+  /* 1. CENTRAL DYNAMIC BACKGROUNDS (Controlled by Admin Theme Settings)       */
+  /* ========================================================================= */
+  /* [অপশন ১]: সফট ল্যাভেন্ডার স্লেট (Soft Lavender Slate - মূল সক্রিয় কালার) */
   --bg-alt-color: #f1f3ff;
+  --bg-surface-white: #ffffff;
+  --bg-surface-alt: var(--bg-alt-color, #f1f3ff);
 
-  /* [অপশন ২]: আইস স্কাই ব্লু (Ice Sky Blue - অত্যন্ত ফ্রেশ, ক্রিস্প ও মডার্ন - বর্তমান সক্রিয়) */
+  /* [অপশন ২]: আইস স্কাই ব্লু (Ice Sky Blue) */
   /* --bg-alt-color: #f0f9ff; */
 
-  /* [অপশন ৩]: সফট এমারেল্ড মিন্ট (Soft Emerald Mint - ইসলামিক ও মাদরাসার জন্য সবচেয়ে খাপ খাওয়া ও শান্ত) */
+  /* [অপশন ৩]: সফট এমারেল্ড মিন্ট (Soft Emerald Mint) */
   /* --bg-alt-color: #f0fdf4; */
 
-  /* [অপশন ৪]: ক্ল্যাসিক কর্পোরেট স্লেট (Classic Slate Neutral - মিনিমাল, গ্লোবাল ও প্রোফেশনাল) */
+  /* [অপশন ৪]: ক্ল্যাসিক কর্পোরেট স্লেট (Classic Slate Neutral) */
   /* --bg-alt-color: #f8fafc; */
 
-  /* [অপশন ৫]: ওয়ার্ম ক্রিম পেপার (Warm Cream Paper - চোখের জন্য আরামদায়ক সোবার ওয়ার্ম লুক) */
+  /* [অপশন ৫]: ওয়ার্ম ক্রিম পেপার (Warm Cream Paper) */
   /* --bg-alt-color: #fafaf9; */
 
-  /* [অপশন ৬]: রয়েল ইন্ডিগো টিন্ট (Royal Indigo Tint - আধুনিক ও অভিজাত স্টাইল) */
+  /* [অপশন ৬]: রয়েল ইন্ডিগো টিন্ট (Royal Indigo Tint) */
   /* --bg-alt-color: #f5f3ff; */
 
-  /* [অপশন ৭]: গোল্ডেন সেণ্ড টিন্ট (Golden Sand / Light Amber Warmth - প্রিমিয়াম ট্র্যাডিশনাল ফিল) */
+  /* [অপশন ৭]: গোল্ডেন সেণ্ড টিন্ট (Golden Sand) */
   /* --bg-alt-color: #fff7ed; */
 
-  /* [অপশন ৮]: সেজ লাইম গ্রিন (Sage Lime Breeze - প্রশান্তিদায়ক হালকা প্রাকৃতির ছোঁয়া) */
+  /* [অপশন ৮]: সেজ লাইম গ্রিন (Sage Lime Breeze) */
   /* --bg-alt-color: #f7fee7; */
 
-  /* [অপশন ৯]: ভায়োলেট রয়্যালটি (Soft Purple Berry - প্রিমিয়াম একাডেমিক এলিগেন্স) */
+  /* [অপশন ৯]: ভায়োলেট রয়্যালটি (Soft Purple Berry) */
   /* --bg-alt-color: #fdf4ff; */
 
-  /* [অপশন ১০]: ডিপ মিন্ট টিন্ট (Lush Mint Breeze - জীবন্ত ও রিফ্রেশিং গ্রিন) */
+  /* [অপশন ১০]: ডিপ মিন্ট টিন্ট (Lush Mint Breeze) */
   /* --bg-alt-color: #ecfdf5; */
 
-  /* [অপশন ১১]: কুল গ্লাস স্লেট (Cool Grey Slate - হাই-টেক মেটালিক টেক্সচার) */
+  /* [অপশন ১১]: কুল গ্লাস স্লেট (Cool Grey Slate) */
   /* --bg-alt-color: #f1f5f9; */
 
-  /* [অপশন ১২]: রোজ কোয়ার্টজ নিউট্রাল (Soft Rose Quartz Neutral - প্রফেশনাল ওয়ার্ম পেস্টেল) */
+  /* [অপশন ১২]: রোজ কোয়ার্টজ নিউট্রাল (Soft Rose Quartz) */
   /* --bg-alt-color: #fdf8f6; */
 
-  /* [অপশন ১৩]: সফট টিল মিস্ট (Soft Teal Mist - মার্জিত ও রিফ্রেশিং ব্লুইশ-গ্রিন আভা) */
+  /* [অপশন ১৩]: সফট টিল মিস্ট (Soft Teal Mist) */
   /* --bg-alt-color: #f0fdfa; */
 
-  /* [অপশন ১৪]: ব্লাশ রোজ ক্লাউড (Blush Rose Cloud - সফট লাক্সারি পেস্টেল পিংক টিন্ট) */
+  /* [অপশন ১৪]: ব্লাশ রোজ ক্লাউড (Blush Rose Cloud) */
   /* --bg-alt-color: #fff1f2; */
 
-  /* [অপশন ১৫]: ওয়ার্ম ভ্যানিলা গ্লো (Warm Vanilla Glow - প্রিমিয়াম সাটিন গোল্ডেন ওয়ার্মথ) */
+  /* [অপশন ১৫]: ওয়ার্ম ভ্যানিলা গ্লো (Warm Vanilla Glow) */
   /* --bg-alt-color: #fffbeb; */
 
-  /* [অপশন ১৬]: মিনিমাল কুল প্ল্যাটিনাম (Minimal Cool Platinum - আল্ট্রা-মডার্ন মেটালিক প্ল্যাটিনাম) */
+  /* [অপশন ১৬]: মিনিমাল কুল প্ল্যাটিনাম (Minimal Cool Platinum) */
   /* --bg-alt-color: #f3f4f6; */
 
-  /* [অপশন ১৭]: ডিপ হরাইজন ব্লু (Deep Horizon Blue - প্রফেশনাল ট্রাস্টেড ব্লু ফিল) */
+  /* [অপশন ১৭]: ডিপ হরাইজন ব্লু (Deep Horizon Blue) */
   /* --bg-alt-color: #eef2ff; */
 
-  /* [অপশন ১৮]: সফট অরকিড সিল্ক (Soft Orchid Silk - ইউনিক অভিজাত পার্পল পেস্টেল) */
+  /* [অপশন ১৮]: সফট অরকিড সিল্ক (Soft Orchid Silk) */
   /* --bg-alt-color: #fdf2f8; */
 
-  /* [অপশন ১৯]: ওয়ার্ম স্যান্ডালউড (Warm Sandalwood Neutral - রাজকীয় চন্দন ও ট্রেডিশনাল টিন্ট) */
+  /* [অপশন ১৯]: ওয়ার্ম স্যান্ডালউড (Warm Sandalwood Neutral) */
   /* --bg-alt-color: #fcf4ec; */
 
-  /* [অপশন ২০]: সাইয়ান মিন্ট আইস (Cyan Mint Ice - স্পার্কলিং ক্রিস্টাল ক্লিন আভা) */
+  /* [অপশন ২০]: সাইয়ান মিন্ট আইস (Cyan Mint Ice) */
   /* --bg-alt-color: #e0f2fe; */
+
+  /* ========================================================================= */
+  /* 2. CENTRAL BRAND COLOR PALETTE (Single source of truth)                   */
+  /* ========================================================================= */
+  --color-primary: #005435;              /* মূল ডিপ এমারেল্ড */
+  --color-primary-hover: #086c46;        /* হোভার কালার */
+  --color-primary-light: #ecfdf5;        /* হালকা এমারেল্ড আভা */
+  --color-primary-border: #a7f3d0;       /* এমারেল্ড বর্ডার */
+
+  --color-secondary: #475569;            /* সেকেন্ডারি স্লেট */
+  --color-secondary-light: #f8fafc;
+  --color-secondary-border: #e2e8f0;
+
+  /* ========================================================================= */
+  /* 3. CENTRAL TYPOGRAPHY COLORS                                              */
+  /* ========================================================================= */
+  --text-main: #0f172a;                  /* প্রধান হেডিংস / কালো টেক্সট */
+  --text-body: #334155;                  /* সাধারণ বডি টেক্সট */
+  --text-secondary: #475569;             /* সেকেন্ডারি সাব-টেক্সট */
+  --text-muted: #64748b;                 /* হালকা বা মিউটেড টেক্সট */
+  --text-white: #ffffff;                 /* সাদা টেক্সট */
+  --text-brand: #005435;                 /* প্রাইমারি ব্র্যান্ড কালার টেক্সট */
+
+  /* ========================================================================= */
+  /* 4. CENTRAL SPACING, PADDING, MARGIN & GAP TOKENS                          */
+  /* ========================================================================= */
+  --container-max-w: 80rem;              /* 1280px (max-w-7xl) */
+  --container-px-sm: 1rem;               /* 16px (px-4) */
+  --container-px-md: 1.5rem;             /* 24px (px-6) */
+  --container-px-lg: 2rem;               /* 32px (px-8) */
+
+  --section-py-sm: 2rem;                 /* 32px (py-8) */
+  --section-py-md: 3rem;                 /* 48px (py-12) */
+  --section-py-lg: 3.5rem;               /* 56px (py-14) */
+  
+  --section-gap-sm: 1.5rem;              /* 24px (gap-6) */
+  --section-gap-lg: 2rem;                /* 32px (gap-8) */
+  --section-gap-xl: 2.5rem;              /* 40px (gap-10) */
+
+  --card-padding-sm: 1.25rem;            /* 20px (p-5) */
+  --card-padding-lg: 1.5rem;             /* 24px (p-6) */
+  --card-radius: 1rem;                   /* 16px (rounded-2xl) */
+  --card-border-color: rgba(226, 232, 240, 0.85);
+  --card-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
 }
 
-/* Global Dynamic Override: Automatically applies --bg-alt-color to all sections & cards */
-.bg-\[\#f1f3ff\],
-.bg-section-alt {
+/* ========================================================================= */
+/* UNIFIED SYSTEM-WIDE CONSISTENCY CLASSES                                   */
+/* ========================================================================= */
+
+/* 1. Global Container Alignment */
+.site-container {
+  width: 100%;
+  max-width: var(--container-max-w, 80rem);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-px-sm, 1rem);
+  padding-right: var(--container-px-sm, 1rem);
+}
+@media (min-width: 640px) {
+  .site-container {
+    padding-left: var(--container-px-md, 1.5rem);
+    padding-right: var(--container-px-md, 1.5rem);
+  }
+}
+@media (min-width: 1024px) {
+  .site-container {
+    padding-left: var(--container-px-lg, 2rem);
+    padding-right: var(--container-px-lg, 2rem);
+  }
+}
+
+/* 2. Global Section Spacing */
+.site-section {
+  width: 100%;
+  padding-top: var(--section-py-sm, 2rem);
+  padding-bottom: var(--section-py-sm, 2rem);
+}
+@media (min-width: 640px) {
+  .site-section {
+    padding-top: var(--section-py-md, 3rem);
+    padding-bottom: var(--section-py-md, 3rem);
+  }
+}
+@media (min-width: 1024px) {
+  .site-section {
+    padding-top: var(--section-py-lg, 3.5rem);
+    padding-bottom: var(--section-py-lg, 3.5rem);
+  }
+}
+
+/* 3. Section Background Themes */
+.site-section-alt,
+.bg-section-alt,
+.bg-\[\#f1f3ff\] {
   background-color: var(--bg-alt-color, #f1f3ff) !important;
+}
+
+.site-section-white {
+  background-color: var(--bg-surface-white, #ffffff) !important;
+}
+
+/* 4. Global Card Consistency */
+.site-card {
+  background-color: var(--bg-surface-white, #ffffff);
+  border: 1px solid var(--card-border-color, rgba(226, 232, 240, 0.85));
+  border-radius: var(--card-radius, 1rem);
+  padding: var(--card-padding-sm, 1.25rem);
+  box-shadow: var(--card-shadow, 0 1px 3px 0 rgba(15, 23, 42, 0.04));
+  transition: all 0.2s ease-in-out;
+}
+@media (min-width: 640px) {
+  .site-card {
+    padding: var(--card-padding-lg, 1.5rem);
+  }
+}
+
+.site-card-alt {
+  background-color: var(--bg-alt-color, #f1f3ff) !important;
+  border: 1px solid var(--card-border-color, rgba(226, 232, 240, 0.85));
+  border-radius: var(--card-radius, 1rem);
+  padding: var(--card-padding-sm, 1.25rem);
+  box-shadow: var(--card-shadow, 0 1px 3px 0 rgba(15, 23, 42, 0.04));
+  transition: all 0.2s ease-in-out;
+}
+@media (min-width: 640px) {
+  .site-card-alt {
+    padding: var(--card-padding-lg, 1.5rem);
+  }
+}
+
+/* 5. Inner Card / Pill / Row Items Consistency */
+.site-inner-item {
+  background-color: var(--bg-alt-color, #f1f3ff) !important;
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.15s ease-in-out;
+}
+
+/* 6. Text Color Consistency Utilities */
+.text-main {
+  color: var(--text-main, #0f172a) !important;
+}
+.text-body {
+  color: var(--text-body, #334155) !important;
+}
+.text-secondary {
+  color: var(--text-secondary, #475569) !important;
+}
+.text-muted {
+  color: var(--text-muted, #64748b) !important;
+}
+.text-brand {
+  color: var(--color-primary, #005435) !important;
+}
+.hover\:text-brand:hover {
+  color: var(--color-primary-hover, #086c46) !important;
+}
+
+/* 7. Brand Background Utilities */
+.bg-brand {
+  background-color: var(--color-primary, #005435) !important;
+  color: #ffffff !important;
+}
+.bg-brand-hover:hover {
+  background-color: var(--color-primary-hover, #086c46) !important;
+}
+.bg-brand-light {
+  background-color: var(--color-primary-light, #ecfdf5) !important;
+  color: var(--color-primary, #005435) !important;
+}
+.border-brand-light {
+  border-color: var(--color-primary-border, #a7f3d0) !important;
+}
+
+/* 8. Standard Brand Badges / Live Indicator */
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: var(--color-primary-light, #ecfdf5);
+  color: var(--color-primary, #005435);
+  border: 1px solid var(--color-primary-border, #a7f3d0);
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 700;
 }
 
 /* ========================================================================= */

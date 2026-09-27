@@ -19,15 +19,15 @@ const RecentNotices = () => {
       {/* Section Header */}
       <div className="mb-5">
         <div className="flex items-center gap-2 mb-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 ">
-            লাইভ আপডেট
+          <span className="brand-pill">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            <span>লাইভ আপডেট</span>
           </span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900  tracking-tight">
+        <h2 className="text-2xl md:text-3xl font-bold text-main tracking-tight">
           সাম্প্রতিক নোটিশ
         </h2>
-        <p className="text-sm text-slate-500  mt-1">
+        <p className="text-sm text-muted mt-1">
           মাদ্রাসার সর্বশেষ নোটিশ ও গুরুত্বপূর্ণ ঘোষণা
         </p>
       </div>
@@ -49,20 +49,20 @@ const RecentNotices = () => {
         {/* Improved Empty State */}
         {!isPending && !isError && !refinedData?.length && (
           <div className="py-14 text-center px-6">
-            <div className="mx-auto mb-4 h-14 w-14 flex items-center justify-center rounded-2xl bg-slate-100 ">
-              <Bell className="w-6 h-6 text-slate-400 " />
+            <div className="mx-auto mb-4 h-14 w-14 flex items-center justify-center rounded-2xl bg-[#f1f3ff]">
+              <Bell className="w-6 h-6 text-slate-400" />
             </div>
-            <p className="text-sm font-medium text-slate-500 ">
+            <p className="text-sm font-medium text-slate-500">
               এই মুহূর্তে কোনো নোটিশ পাওয়া যায়নি।
             </p>
-            <p className="text-xs text-slate-400  mt-1">
+            <p className="text-xs text-slate-400 mt-1">
               নতুন নোটিশ প্রকাশিত হলে এখানে দেখাবে।
             </p>
           </div>
         )}
 
         {!isPending && refinedData?.length > 0 && (
-          <div className="divide-y divide-slate-100  p-2">
+          <div className="divide-y divide-slate-100 p-2">
             {refinedData.map(({ id, title, created_at }) => (
               <RecentNotice
                 key={id}
@@ -76,10 +76,10 @@ const RecentNotices = () => {
 
         {/* "সব নোটিশ দেখুন" CTA */}
         {!isPending && (
-          <div className="px-4 py-3 border-t border-slate-100 ">
+          <div className="px-4 py-3 border-t border-slate-100">
             <NavLink
               to="/notice"
-              className="flex items-center justify-center gap-2 text-sm font-semibold text-emerald-600  hover:text-emerald-700  transition-colors duration-150 py-1 group"
+              className="flex items-center justify-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors duration-150 py-1 group"
             >
               সকল নোটিশ দেখুন
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-150" />

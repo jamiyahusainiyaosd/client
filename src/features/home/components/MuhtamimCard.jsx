@@ -39,7 +39,7 @@ const MuhtamimCard = () => {
 
           {/* Official Executive Seal Badge */}
           <div
-            className="absolute -bottom-1.5 -right-1.5 h-7 w-7 flex items-center justify-center rounded-full bg-emerald-600 text-white ring-3 ring-white shadow-md group-hover:scale-110 transition-transform duration-300"
+            className="absolute -bottom-1.5 -right-1.5 h-7 w-7 flex items-center justify-center rounded-full bg-primary text-white ring-3 ring-white shadow-md group-hover:scale-110 transition-transform duration-300"
             title="যাচাইকৃত প্রশাসন প্রধান"
           >
             <span className="material-symbols-outlined text-[17px]">
@@ -49,11 +49,11 @@ const MuhtamimCard = () => {
         </div>
 
         {/* Identity Details */}
-        <h3 className="text-base font-bold text-slate-900 leading-snug">
+        <h3 className="text-base font-bold text-main leading-snug">
           মাওলানা সৈয়দ তানভীর ছিফাতুল্লাহ
         </h3>
-        <p className="text-xs font-semibold text-primary mt-1 inline-flex items-center justify-center gap-1.5 bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 rounded-full">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+        <p className="text-xs font-semibold text-primary mt-1 inline-flex items-center justify-center gap-1.5 bg-primary-light border border-primary-border px-2.5 py-0.5 rounded-full">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
           <span>মুহতামিম, অত্র জামিয়া</span>
         </p>
 
@@ -63,7 +63,7 @@ const MuhtamimCard = () => {
         <div className="w-full mt-4 flex items-center gap-2">
           <Link
             to="/about"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#f1f3ff] hover:bg-primary hover:text-slate-900 text-primary text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#f1f3ff] hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs"
           >
             <span>মাদ্রাসার ইতিহাস ও পরিচিতি</span>
             <span className="material-symbols-outlined text-[15px]">

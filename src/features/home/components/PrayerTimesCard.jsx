@@ -24,24 +24,24 @@ const PrayerTimesCard = () => {
   ];
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 sm:p-6 shadow-xs">
+    <div className="site-card">
       {/* Header */}
       <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
+          <div className="w-9 h-9 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0 border border-primary-border/60">
             <span className="material-symbols-outlined text-[20px]">mosque</span>
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 leading-snug">
+            <h3 className="text-sm font-bold text-main leading-snug">
               {prayerData?.title || "দৈনিক জামা'আতের সময়সূচি"}
             </h3>
-            <p className="text-[11px] text-slate-500 font-medium line-clamp-1">
+            <p className="text-[11px] text-muted font-medium line-clamp-1">
               {prayerData?.sub_title || "জামিয়া হুসাইনিয়া কেন্দ্রীয় মসজিদ"}
             </p>
           </div>
         </div>
-        <span className="hidden sm:inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200/60">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <span className="hidden sm:inline-flex items-center gap-1 bg-primary-light text-primary text-[10px] font-bold px-2 py-0.5 rounded-full border border-primary-border/60">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
           <span>জামা'আত</span>
         </span>
       </div>
@@ -51,17 +51,17 @@ const PrayerTimesCard = () => {
         {prayers.map((prayer, idx) => (
           <div
             key={idx}
-            className="flex items-center justify-between px-3 py-2 rounded-xl bg-[#f1f3ff] border border-slate-200/60 hover:border-emerald-300 transition-colors duration-150"
+            className="flex items-center justify-between px-3 py-2 rounded-xl bg-[#f1f3ff] border border-slate-200/60 hover:border-primary/40 transition-colors duration-150"
           >
             <div className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-[15px] text-emerald-600">
+              <span className="material-symbols-outlined text-[15px] text-primary">
                 {prayer.icon}
               </span>
               <span className="text-xs font-semibold text-slate-700">
                 {prayer.name}
               </span>
             </div>
-            <span className="text-xs font-bold text-slate-900 font-sans">
+            <span className="text-xs font-bold text-main font-sans">
               {prayer.time}
             </span>
           </div>
@@ -84,8 +84,8 @@ const PrayerTimesCard = () => {
 
       {/* Special Note */}
       {prayerData?.special_note && (
-        <div className="mt-3 flex items-start gap-1.5 text-[11px] text-slate-500 leading-tight">
-          <span className="material-symbols-outlined text-[14px] text-emerald-600 shrink-0 mt-0.5">
+        <div className="mt-3 flex items-start gap-1.5 text-[11px] text-muted leading-tight">
+          <span className="material-symbols-outlined text-[14px] text-primary shrink-0 mt-0.5">
             info
           </span>
           <span>{prayerData.special_note}</span>
