@@ -78,6 +78,78 @@
 }
 
 /* ========================================================================= */
+/* CENTRAL DYNAMIC SECTION & CONTAINER BACKGROUND COLOR PALETTE              */
+/* Comment out the active theme & uncomment any option below to swap theme!  */
+/* ========================================================================= */
+:root {
+  /* [অপশন ১]: সফট ল্যাভেন্ডার স্লেট (Soft Lavender Slate - মূল কালার) */
+  --bg-alt-color: #f1f3ff;
+
+  /* [অপশন ২]: আইস স্কাই ব্লু (Ice Sky Blue - অত্যন্ত ফ্রেশ, ক্রিস্প ও মডার্ন - বর্তমান সক্রিয়) */
+  /* --bg-alt-color: #f0f9ff; */
+
+  /* [অপশন ৩]: সফট এমারেল্ড মিন্ট (Soft Emerald Mint - ইসলামিক ও মাদরাসার জন্য সবচেয়ে খাপ খাওয়া ও শান্ত) */
+  /* --bg-alt-color: #f0fdf4; */
+
+  /* [অপশন ৪]: ক্ল্যাসিক কর্পোরেট স্লেট (Classic Slate Neutral - মিনিমাল, গ্লোবাল ও প্রোফেশনাল) */
+  /* --bg-alt-color: #f8fafc; */
+
+  /* [অপশন ৫]: ওয়ার্ম ক্রিম পেপার (Warm Cream Paper - চোখের জন্য আরামদায়ক সোবার ওয়ার্ম লুক) */
+  /* --bg-alt-color: #fafaf9; */
+
+  /* [অপশন ৬]: রয়েল ইন্ডিগো টিন্ট (Royal Indigo Tint - আধুনিক ও অভিজাত স্টাইল) */
+  /* --bg-alt-color: #f5f3ff; */
+
+  /* [অপশন ৭]: গোল্ডেন সেণ্ড টিন্ট (Golden Sand / Light Amber Warmth - প্রিমিয়াম ট্র্যাডিশনাল ফিল) */
+  /* --bg-alt-color: #fff7ed; */
+
+  /* [অপশন ৮]: সেজ লাইম গ্রিন (Sage Lime Breeze - প্রশান্তিদায়ক হালকা প্রাকৃতির ছোঁয়া) */
+  /* --bg-alt-color: #f7fee7; */
+
+  /* [অপশন ৯]: ভায়োলেট রয়্যালটি (Soft Purple Berry - প্রিমিয়াম একাডেমিক এলিগেন্স) */
+  /* --bg-alt-color: #fdf4ff; */
+
+  /* [অপশন ১০]: ডিপ মিন্ট টিন্ট (Lush Mint Breeze - জীবন্ত ও রিফ্রেশিং গ্রিন) */
+  /* --bg-alt-color: #ecfdf5; */
+
+  /* [অপশন ১১]: কুল গ্লাস স্লেট (Cool Grey Slate - হাই-টেক মেটালিক টেক্সচার) */
+  /* --bg-alt-color: #f1f5f9; */
+
+  /* [অপশন ১২]: রোজ কোয়ার্টজ নিউট্রাল (Soft Rose Quartz Neutral - প্রফেশনাল ওয়ার্ম পেস্টেল) */
+  /* --bg-alt-color: #fdf8f6; */
+
+  /* [অপশন ১৩]: সফট টিল মিস্ট (Soft Teal Mist - মার্জিত ও রিফ্রেশিং ব্লুইশ-গ্রিন আভা) */
+  /* --bg-alt-color: #f0fdfa; */
+
+  /* [অপশন ১৪]: ব্লাশ রোজ ক্লাউড (Blush Rose Cloud - সফট লাক্সারি পেস্টেল পিংক টিন্ট) */
+  /* --bg-alt-color: #fff1f2; */
+
+  /* [অপশন ১৫]: ওয়ার্ম ভ্যানিলা গ্লো (Warm Vanilla Glow - প্রিমিয়াম সাটিন গোল্ডেন ওয়ার্মথ) */
+  /* --bg-alt-color: #fffbeb; */
+
+  /* [অপশন ১৬]: মিনিমাল কুল প্ল্যাটিনাম (Minimal Cool Platinum - আল্ট্রা-মডার্ন মেটালিক প্ল্যাটিনাম) */
+  /* --bg-alt-color: #f3f4f6; */
+
+  /* [অপশন ১৭]: ডিপ হরাইজন ব্লু (Deep Horizon Blue - প্রফেশনাল ট্রাস্টেড ব্লু ফিল) */
+  /* --bg-alt-color: #eef2ff; */
+
+  /* [অপশন ১৮]: সফট অরকিড সিল্ক (Soft Orchid Silk - ইউনিক অভিজাত পার্পল পেস্টেল) */
+  /* --bg-alt-color: #fdf2f8; */
+
+  /* [অপশন ১৯]: ওয়ার্ম স্যান্ডালউড (Warm Sandalwood Neutral - রাজকীয় চন্দন ও ট্রেডিশনাল টিন্ট) */
+  /* --bg-alt-color: #fcf4ec; */
+
+  /* [অপশন ২০]: সাইয়ান মিন্ট আইস (Cyan Mint Ice - স্পার্কলিং ক্রিস্টাল ক্লিন আভা) */
+  /* --bg-alt-color: #e0f2fe; */
+}
+
+/* Global Dynamic Override: Automatically applies --bg-alt-color to all sections & cards */
+.bg-\[\#f1f3ff\],
+.bg-section-alt {
+  background-color: var(--bg-alt-color, #f1f3ff) !important;
+}
+
+/* ========================================================================= */
 /* Global Universal Font Family: 'Noto Sans Bengali UI' Exclusively        */
 /* ========================================================================= */
 *,
@@ -90,12 +162,42 @@ button,
 select,
 textarea,
 optgroup,
-h1, h2, h3, h4, h5, h6,
-p, span, a, label, li, ul, ol, table, tr, th, td, div, section, main, article, aside, header, footer, nav, blockquote, strong, small, em, b, i {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+label,
+li,
+ul,
+ol,
+table,
+tr,
+th,
+td,
+div,
+section,
+main,
+article,
+aside,
+header,
+footer,
+nav,
+blockquote,
+strong,
+small,
+em,
+b,
+i {
   font-family: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif !important;
 }
 
-html, body {
+html,
+body {
   font-family: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif !important;
   background-color: #F8FAFC;
   color: #0F172A;
@@ -104,7 +206,12 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif !important;
 }
 
@@ -146,7 +253,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Font Awesome Icons Support (Protected from override) */
-.fa, .fas, .far, .fal, .fad, .fab, [class*="fa-"], [class^="fa-"] {
+.fa,
+.fas,
+.far,
+.fal,
+.fad,
+.fab,
+[class*="fa-"],
+[class^="fa-"] {
   font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", FontAwesome !important;
 }
 
@@ -157,57 +271,68 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.01em;
 }
+
 .text-display-lg-mobile {
   font-size: 30px;
   line-height: 42px;
   font-weight: 700;
   letter-spacing: 0;
 }
+
 .text-headline-lg {
   font-size: 32px;
   line-height: 44px;
   font-weight: 700;
 }
+
 .text-headline-lg-mobile {
   font-size: 24px;
   line-height: 34px;
   font-weight: 700;
 }
+
 .text-headline-md {
   font-size: 22px;
   line-height: 32px;
   font-weight: 600;
 }
+
 .text-headline-sm {
   font-size: 18px;
   line-height: 26px;
   font-weight: 600;
 }
+
 .text-body-lg {
   font-size: 16px;
   line-height: 28px;
   font-weight: 400;
 }
+
 .text-body-md {
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
 }
+
 .text-body-sm {
   font-size: 12px;
   line-height: 20px;
   font-weight: 400;
 }
+
 .text-label-lg {
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
 }
+
 .text-label-md {
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
 }
+
 .text-label-sm {
   font-size: 11px;
   line-height: 14px;
@@ -254,6 +379,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   transition: all 0.15s ease-in-out;
 }
+
 .btn-verdana-primary:hover:not(:disabled) {
   background-color: #020617;
 }
@@ -266,6 +392,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   transition: all 0.15s ease-in-out;
 }
+
 .btn-verdana-secondary:hover:not(:disabled) {
   background-color: rgba(15, 23, 42, 0.04);
 }
@@ -278,6 +405,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   transition: all 0.15s ease-in-out;
 }
+
 .btn-verdana-ghost:hover:not(:disabled) {
   background-color: #F1F5F9;
   color: #0F172A;
@@ -293,17 +421,21 @@ h1, h2, h3, h4, h5, h6 {
 .sheet-shadow {
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
 }
-.doc-preview-table th, .doc-preview-table td {
+
+.doc-preview-table th,
+.doc-preview-table td {
   border: 1px solid #1e293b;
   padding: 3px 6px;
   font-size: 8.5px;
   line-height: 1.25;
 }
+
 .doc-preview-table th {
   background-color: #f8fafc;
   font-weight: 600;
   text-align: center;
 }
+
 .stamp-seal {
   border: 1.5px dashed #009B63;
   border-radius: 9999px;
@@ -319,6 +451,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.85;
   text-align: center;
 }
+
 .signature-line {
   border-top: 1px solid #64748b;
   width: 85px;
@@ -333,6 +466,7 @@ h1, h2, h3, h4, h5, h6 {
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;

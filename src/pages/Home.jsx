@@ -36,22 +36,7 @@ const Home = () => {
               <aside className="lg:w-80 xl:w-88 w-full space-y-6">
                 {/* Respected Muhtamim Card */}
                 <MuhtamimCard />
-
                 {/* Mission card */}
-                <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-xs hover:shadow-md transition-all">
-                  <div className="px-5 py-3.5 bg-slate-50 border-b border-slate-100 flex items-center gap-2.5">
-                    <div className="h-6 w-6 flex items-center justify-center rounded-lg bg-primary/10 text-primary text-xs font-bold">
-                      ☪
-                    </div>
-                    <h3 className="text-sm font-bold text-slate-900">আমাদের লক্ষ্য ও দর্শন</h3>
-                  </div>
-                  <div className="p-5">
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-bengali">
-                      কুরআন ও সুন্নাহভিত্তিক খাঁটি দ্বীনি শিক্ষার মাধ্যমে আদর্শ
-                      আলেম ও আল্লাহভীরু মানুষ তৈরি করা, এবং সমাজে ইসলামী মূল্যবোধ ও আমলের দ্যুতি ছড়িয়ে দেওয়া।
-                    </p>
-                  </div>
-                </div>
               </aside>
             </div>
           </div>

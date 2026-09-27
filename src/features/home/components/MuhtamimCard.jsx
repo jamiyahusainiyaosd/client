@@ -42,7 +42,9 @@ const MuhtamimCard = () => {
             className="absolute -bottom-1.5 -right-1.5 h-7 w-7 flex items-center justify-center rounded-full bg-emerald-600 text-white ring-3 ring-white shadow-md group-hover:scale-110 transition-transform duration-300"
             title="যাচাইকৃত প্রশাসন প্রধান"
           >
-            <span className="material-symbols-outlined text-[17px]">verified</span>
+            <span className="material-symbols-outlined text-[17px]">
+              verified
+            </span>
           </div>
         </div>
 
@@ -56,25 +58,17 @@ const MuhtamimCard = () => {
         </p>
 
         {/* Message / Bani Excerpt */}
-        <div className="w-full mt-3.5 p-3 rounded-xl bg-[#f8faff] border border-slate-200/60 text-left">
-          <div className="flex items-start gap-1.5 text-slate-600 text-xs leading-relaxed">
-            <span className="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">
-              format_quote
-            </span>
-            <p className="italic">
-              কুরআন ও সুন্নাহর সহীহ আদর্শে চরিত্রবান, আল্লাহভীরু ও দক্ষ আলেম জাতি গঠনে জামিয়া পরিবার সর্বদা নিবেদিতপ্রাণ।
-            </p>
-          </div>
-        </div>
 
         {/* Action Link */}
         <div className="w-full mt-4 flex items-center gap-2">
           <Link
             to="/about"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#f1f3ff] hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#f1f3ff] hover:bg-primary hover:text-black text-primary text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs"
           >
             <span>মাদ্রাসার ইতিহাস ও পরিচিতি</span>
-            <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+            <span className="material-symbols-outlined text-[15px]">
+              arrow_forward
+            </span>
           </Link>
         </div>
       </div>
