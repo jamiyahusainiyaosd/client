@@ -1,27 +1,14 @@
+import { Users } from "lucide-react";
 import { aboutData } from "../../../constants/aboutData";
  
 const FounderInfo = () => {
   return (
-    <article className="h-full rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
-        <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 text-slate-700">
-          <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900 font-display">মাদ্রাসার প্রতিষ্ঠাতা</h3>
-          <p className="text-xs text-slate-500">আল্লাহভীরু, দূরদর্শী ও আমানতদার নেতৃত্ব</p>
-        </div>
+    <article className="h-full rounded-xl bg-indigo-50/60 p-5">
+      <div className="flex items-start gap-3 border-b border-indigo-100 pb-3">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-emerald-700 text-white"><Users size={20} /></span>
+        <div><span className="text-[11px] font-bold text-emerald-700">মাদ্রাসার প্রতিষ্ঠাতা — আধ্যাত্মিক মুরব্বী ও অনুপ্রেরণার কেন্দ্র</span><h3 className="text-lg font-bold text-slate-900">{aboutData.founder.name.replace("নাম : ", "")}</h3><p className="text-[10px] text-slate-500">ওফাত: ১৮ রবীউল আউয়াল ১৪৩০ হি. / ১৫ ফেব্রুয়ারি ২০০৯ খ্রি.</p></div>
       </div>
-      <div className="p-5">
-        <p className="text-sm font-semibold text-emerald-700 mb-2.5">
-          {aboutData.founder.name}
-        </p>
-        <p className="text-sm leading-relaxed text-slate-600 text-bengali">
-          {aboutData.founder.description}
-        </p>
-      </div>
+      <div className="mt-4 border-l-4 border-indigo-200 pl-3"><p className="text-sm leading-6 text-slate-600">{aboutData.founder.description}</p></div>
     </article>
   );
 };

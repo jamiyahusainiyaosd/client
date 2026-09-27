@@ -8,7 +8,7 @@ export const RecentNotice = ({ id, title, created_at }) => {
   return (
     <article
       onClick={() => navigate(`/notice/${id}`)}
-      className="group cursor-pointer flex items-start gap-4 p-4 rounded-2xl border border-transparent hover:border-slate-200  hover:bg-white  hover:shadow-sm transition-all duration-200"
+      className="group cursor-pointer flex items-start gap-4 p-3.5 sm:p-4 rounded-xl border border-transparent hover:border-slate-200/80 hover:bg-[#f8faff] active:bg-[#f1f3ff] transition-all duration-200"
     >
       {/* Icon */}
       <div className="mt-0.5 h-9 w-9 flex-shrink-0 flex items-center justify-center rounded-xl bg-emerald-50  text-emerald-600  group-hover:bg-emerald-100  transition-colors">

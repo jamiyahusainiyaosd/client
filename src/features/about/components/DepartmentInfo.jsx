@@ -1,34 +1,26 @@
-import { aboutData } from "../../../constants/aboutData";
- 
-const DepartmentInfo = () => {
-  return (
-    <section className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-slate-100 flex items-center gap-3">
-        <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 text-slate-700">
-          <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </div>
-        <div>
-          <h3 className="text-base font-semibold text-slate-900 font-display">তারবিয়ত বা ছাত্রগঠন বিভাগ</h3>
-          <p className="text-xs text-slate-500">শিক্ষার্থীদের আখলাক, আমল ও সামগ্রিক চরিত্র গঠনের ব্যবস্থাপনা</p>
+import { BookOpen, Building2, Library, MessageCircle, Mic, Newspaper } from "lucide-react";
+import AboutSectionHeading from "./AboutSectionHeading";
+
+const activities = [
+  [MessageCircle, "ক্বিরাআত ও তাজবিদ", "সহিহ উচ্চারণ ও সুরচর্চা"],
+  [Library, "কুতুবখানা বা গ্রন্থাগার", "অমূল্য কিতাবের সুবিশাল ভাণ্ডার"],
+  [BookOpen, "ছাত্র পাঠাগার", "সাহিত্য ও সাধারণ জ্ঞান চর্চা"],
+  [Mic, "বক্তৃতা প্রশিক্ষণ কর্মশালা", "সাপ্তাহিক বক্তৃতা ও বিতর্ক ফোরাম"],
+  [Newspaper, "দেয়ালিকা প্রকাশ", "নিয়মিত সাহিত্য ও মননশীল সৃজন"],
+  [Building2, "আবাসিক ছাত্রাবাস", "সুশৃঙ্খল ও নিরিবিলি আবাসিক পরিবেশ"],
+];
+
+const DepartmentInfo = () => (
+  <section className="bg-white py-8 sm:py-10">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="rounded-2xl bg-indigo-50/70 p-4 sm:p-6">
+        <AboutSectionHeading eyebrow="তারবিয়াত ব্যবস্থা" title="তারবিয়াত বা ছাত্রগঠন বিভাগ" description="শিক্ষার্থীদের সত্যিকার অর্থে ওয়ারিসান আম্বিয়া ও যুগোপযোগী দা-ঈ হিসেবে গড়ে তুলতে মাদ্রাসায় রয়েছে বহুমুখী ও সুশৃঙ্খল গঠনমূলক বিভিন্ন সক্রিয় শাখা—" />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {activities.map(([Icon, title, copy]) => <article className="flex items-center gap-2 rounded-lg bg-white p-2.5 shadow-sm" key={title}><span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-emerald-50 text-emerald-700"><Icon size={16} /></span><div><h3 className="text-xs font-bold text-slate-900">{title}</h3><p className="text-[10px] leading-4 text-slate-500">{copy}</p></div></article>)}
         </div>
       </div>
-      <div className="p-5">
-        <ul className="grid md:grid-cols-2 gap-3">
-          {aboutData.tarbiyat.map((item, index) => (
-            <li
-              key={index}
-              className="flex items-start gap-3 rounded-lg border border-slate-200/70 bg-slate-50/50 p-4 text-sm"
-            >
-              <span className="mt-[8px] h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0" />
-              <p className="text-slate-600 leading-relaxed text-bengali">{item}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-};
- 
+    </div>
+  </section>
+);
+
 export default DepartmentInfo;

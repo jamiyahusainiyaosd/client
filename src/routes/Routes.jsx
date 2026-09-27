@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
-import About from "../pages/About";
+import AboutPage from "../pages/AboutPage";
 import AcademicDetailPage from "../pages/AcademicDetailsPage";
 import AcademicsPage from "../pages/AcademicsPage";
 import AdmissionPage from "../pages/AdmissionPage";
@@ -16,11 +16,14 @@ import TeachersPage from "../pages/TeachersPage";
 import VideoGalleryPage from "../pages/VideoGalleryPage";
 import FormerStudentsPage from "../pages/FormerStudentsPage";
 import ExpatriateGrantsPage from "../pages/ExpatriateGrantsPage";
+import RouteErrorBoundary from "../components/RouteErrorBoundary";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const Routes = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       {
         path: "/",
@@ -28,14 +31,22 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element: <AboutPage />,
       },
       {
         path: "/contact",
         element: <ContactUs />,
       },
       {
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+      {
         path: "/academic",
+        element: <AcademicsPage />,
+      },
+      {
+        path: "/academics",
         element: <AcademicsPage />,
       },
       {
@@ -51,7 +62,15 @@ const Routes = createBrowserRouter([
         element: <AdmissionPage />,
       },
       {
+        path: "/admissions",
+        element: <AdmissionPage />,
+      },
+      {
         path: "/notice",
+        element: <NoticePage />,
+      },
+      {
+        path: "/notices",
         element: <NoticePage />,
       },
       {
@@ -79,13 +98,33 @@ const Routes = createBrowserRouter([
         element: <FinancialReportPage />,
       },
       {
+        path: "/financial-reports",
+        element: <FinancialReportPage />,
+      },
+      {
         path: "/former-students",
         element: <FormerStudentsPage />,
       },
       {
         path: "/expatriateGrant",
         element: <ExpatriateGrantsPage />,
-      }
+      },
+      {
+        path: "/expatriate-grants",
+        element: <ExpatriateGrantsPage />,
+      },
+      {
+        path: "/donations",
+        element: <ExpatriateGrantsPage />,
+      },
+      {
+        path: "/donors",
+        element: <ExpatriateGrantsPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
     ],
   },
 ]);

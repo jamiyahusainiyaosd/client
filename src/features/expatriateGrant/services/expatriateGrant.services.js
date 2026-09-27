@@ -26,7 +26,7 @@ export const useExpatriateGrants = ({ page, page_size }) =>
     queryKey: ["expatriateGrants", page, page_size], 
     queryFn: async () =>
       normalizeList(await fetchExpatriateGrantsApi({ page, page_size })),
-    staleTime: 0,
+    staleTime: 1000 * 60 * 5,
   });
 
 export const useExpatriateGrantById = (id) =>

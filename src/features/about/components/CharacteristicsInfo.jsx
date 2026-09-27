@@ -1,29 +1,19 @@
+import { Eye, Landmark, Languages, MapPin } from "lucide-react";
 import { aboutData } from "../../../constants/aboutData";
- 
-const CharacteristicsInfo = () => {
-  return (
-    <article className="h-full rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
-        <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 text-slate-700">
-          <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-          </svg>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900 font-display">বৈশিষ্ট্যসমূহ</h3>
-          <p className="text-xs text-slate-500">অন্যান্য প্রতিষ্ঠানের তুলনায় স্বাতন্ত্র্যসূচক দিক</p>
-        </div>
+import AboutSectionHeading from "./AboutSectionHeading";
+
+const icons = [MapPin, Eye, Languages, Landmark];
+const titles = ["মনোরম ভৌগোলিক অবস্থান", "সার্বক্ষণিক নিবিড় তত্ত্বাবধান", "বহুভাষিক ও যুগোপযোগী জ্ঞানচর্চা", "আমল ও আদর্শের বাস্তব অনুশীলন"];
+
+const CharacteristicsInfo = () => (
+  <section className="bg-indigo-50/70 py-8 sm:py-10">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <AboutSectionHeading eyebrow="আমাদের স্বাতন্ত্র্য" title="আমাদের বৈশিষ্ট্যসমূহ" description="অন্যান্য দ্বীনি প্রতিষ্ঠানের তুলনায় জামিয়ার অনন্য বৈশিষ্ট্য ও অবস্থান" />
+      <div className="grid gap-3 md:grid-cols-2">
+        {aboutData.features.map((feature, index) => { const Icon = icons[index]; return <article className="flex gap-3 rounded-xl bg-white p-4 shadow-sm" key={feature}><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-700"><Icon size={20} /></span><div><h3 className="text-base font-bold text-slate-900">{titles[index]}</h3><p className="mt-1 text-xs leading-6 text-slate-600">{feature.replace(/^[^:]+:\s*/, "")}</p></div></article>; })}
       </div>
-      <ul className="p-5 space-y-3">
-        {aboutData.features.map((feature, index) => (
-          <li key={index} className="flex items-start gap-3 text-sm">
-            <span className="mt-[8px] h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0" />
-            <span className="text-slate-600 leading-relaxed text-bengali">{feature}</span>
-          </li>
-        ))}
-      </ul>
-    </article>
-  );
-};
- 
+    </div>
+  </section>
+);
+
 export default CharacteristicsInfo;

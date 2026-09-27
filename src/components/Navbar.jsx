@@ -1,4 +1,4 @@
-import { ChevronDown, HandHeart, Menu, X } from "lucide-react";
+import { ChevronDown, HandHeart, Menu, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import NavLogo from "/nav_logo.png";
@@ -10,10 +10,37 @@ const Navbar = () => {
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileAcademicOpen, setMobileAcademicOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [copiedToast, setCopiedToast] = useState(false);
 
   const location = useLocation();
   const aboutTimeoutRef = useRef(null);
   const academicTimeoutRef = useRef(null);
+
+  const handleShare = async () => {
+    const shareData = {
+      title: "জামিয়া হুসাইনিয়া মাদ্রাসা",
+      text: "জামিয়া হুসাইনিয়া মাদ্রাসা শায়েস্তাগঞ্জ, হবিগঞ্জ - অফিসিয়াল ওয়েবসাইট",
+      url: "https://jamiyahusainiya.vercel.app",
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        if (err?.name !== "AbortError") {
+          console.error("Error sharing:", err);
+        }
+      }
+    } else if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText("https://jamiyahusainiya.vercel.app");
+        setCopiedToast(true);
+        setTimeout(() => setCopiedToast(false), 2500);
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -78,23 +105,23 @@ const Navbar = () => {
     "block px-4 py-2.5 text-sm text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/90 font-medium transition-all duration-200 rounded-xl mx-1";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 bg-white">
       {/* Top announcement bar */}
-      <div className="bg-slate-900 text-slate-100">
+      <div className="bg-white text-slate-600 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
           <p className="flex items-center gap-2 text-xs">
-            <span className="text-emerald-400">🕌</span>
-            <span className="font-medium tracking-wide">
+            <span className="text-emerald-600">🕌</span>
+            <span className="font-semibold tracking-wide text-slate-800">
               জামিয়া হুসাইনিয়া মাদ্রাসা, শায়েস্তাগঞ্জ, হবিগঞ্জ
             </span>
-            <span className="hidden sm:inline text-slate-600">—</span>
-            <span className="hidden sm:inline text-slate-300 text-[11px]">
+            <span className="hidden sm:inline text-slate-300">—</span>
+            <span className="hidden sm:inline text-slate-500 text-[11px]">
               সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা
             </span>
           </p>
-          <p className="text-[11px] sm:text-xs text-slate-300 whitespace-nowrap">
+          <p className="text-[11px] sm:text-xs text-slate-600 font-medium whitespace-nowrap">
             jamiyahusainiya1@gmail.com
-            <span className="mx-2 text-slate-600">|</span>
+            <span className="mx-2 text-slate-300">|</span>
             +8801751699909
           </p>
         </div>
@@ -102,11 +129,11 @@ const Navbar = () => {
 
       {/* Main nav */}
       <nav
-        className={`transition-all duration-500 ${
+        className={`bg-white transition-all duration-300 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
-            : "bg-white/95 backdrop-blur-xl"
-        } border-b border-slate-200/60`}
+            ? "shadow-[0_12px_36px_rgba(0,0,0,0.12)] border-b border-slate-200/80"
+            : "shadow-[0_4px_24px_rgba(0,0,0,0.08)] border-b border-slate-200/60"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-[68px] items-center gap-4">
@@ -317,6 +344,30 @@ const Navbar = () => {
                 প্রবাসী অনুদান
               </NavLink>
 
+              {/* Mobile Install Button */}
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-pwa-install"))}
+                className="h-9 w-9 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 hover:text-emerald-600 hover:bg-slate-50 transition-all lg:hidden active:scale-95"
+                title="মোবাইল অ্যাপ ইনস্টল"
+                aria-label="মোবাইল অ্যাপ ইনস্টল"
+              >
+                <span className="material-symbols-outlined text-[20px] text-emerald-600">
+                  install_mobile
+                </span>
+              </button>
+
+              {/* Mobile Share Button */}
+              <button
+                type="button"
+                onClick={handleShare}
+                className="h-9 w-9 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 hover:text-emerald-600 hover:bg-slate-50 transition-all lg:hidden active:scale-95"
+                title="ওয়েবসাইট শেয়ার করুন"
+                aria-label="ওয়েবসাইট শেয়ার করুন"
+              >
+                <Share2 size={17} />
+              </button>
+
               <button
                 onClick={() => setIsDrawerOpen(true)}
                 className="h-9 w-9 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-all lg:hidden"
@@ -337,19 +388,20 @@ const Navbar = () => {
         }`}
       />
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer (opens from left) */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 transition-transform duration-300 ease-out flex flex-col ${
-          isDrawerOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 transition-transform duration-300 ease-out flex flex-col ${
+          isDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-600">
-              জামিয়া হুসাইনিয়া
-            </p>
-            <h2 className="text-base font-bold text-slate-900">মেনু</h2>
-          </div>
+        <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center">
+          <NavLink to="/" onClick={closeDrawer} className="flex items-center">
+            <img
+              src={NavLogo}
+              alt="জামিয়া হুসাইনিয়া মাদ্রাসা"
+              className="h-10 w-auto object-contain"
+            />
+          </NavLink>
           <button
             onClick={closeDrawer}
             className="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all"
@@ -473,7 +525,20 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="p-4 border-t border-slate-100  space-y-2">
+        <div className="p-4 border-t border-slate-100 space-y-2">
+          <button
+            type="button"
+            onClick={() => {
+              closeDrawer();
+              window.dispatchEvent(new CustomEvent("open-pwa-install"));
+            }}
+            className="flex items-center justify-center gap-2 w-full rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-800 transition-all active:scale-[0.98]"
+          >
+            <span className="material-symbols-outlined text-[19px] text-emerald-600">
+              install_mobile
+            </span>
+            <span>মোবাইল অ্যাপ ইনস্টল</span>
+          </button>
           <NavLink
             to="/expatriateGrant"
             onClick={closeDrawer}
@@ -482,6 +547,14 @@ const Navbar = () => {
             <HandHeart size={15} />
             প্রবাসী অনুদান
           </NavLink>
+          <button
+            type="button"
+            onClick={handleShare}
+            className="flex items-center justify-center gap-2 w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 transition-all active:scale-[0.98]"
+          >
+            <Share2 size={16} className="text-emerald-600" />
+            <span>ওয়েবসাইট শেয়ার করুন</span>
+          </button>
           <NavLink
             to="/admission"
             onClick={closeDrawer}
@@ -491,6 +564,14 @@ const Navbar = () => {
           </NavLink>
         </div>
       </div>
+
+      {/* Toast Notification if link copied */}
+      {copiedToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-4 py-2 rounded-full text-xs font-semibold shadow-xl border border-slate-700 flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          <span>ওয়েবসাইট লিংক কপি করা হয়েছে!</span>
+        </div>
+      )}
     </header>
   );
 };

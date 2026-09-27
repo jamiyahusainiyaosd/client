@@ -7,6 +7,9 @@ const homeApi = {
   findSliderImage: () => {
     return axiosClient.get("/images");
   },
+  findAnnouncements: () => {
+    return axiosClient.get("/notices/announcements");
+  },
 };
 
 export default homeApi;

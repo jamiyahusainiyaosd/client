@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
+import MobileInstallPrompt from "../components/MobileInstallPrompt";
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
@@ -34,6 +35,7 @@ const Main = () => {
       <Outlet />
       <Footer />
       <ScrollToTop />
+      <MobileInstallPrompt />
     </>
   );
 };

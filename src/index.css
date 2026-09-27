@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'DM Sans', 'Noto Sans Bengali', system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', 'Noto Sans Bengali', system-ui, sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-sans: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif;
+  --font-display: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif;
+  --font-serif: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif;
+  --font-mono: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif;
 
   --color-primary-navy: #0F172A;
   --color-secondary-slate: #64748B;
@@ -15,21 +17,202 @@
   --shadow-verdana-default: 0 2px 6px rgba(15, 23, 42, 0.05);
   --shadow-verdana-md: 0 4px 16px rgba(15, 23, 42, 0.07);
   --shadow-verdana-lg: 0 8px 32px rgba(15, 23, 42, 0.10);
+
+  /* Husaini Prestige Academic Theme Colors */
+  --color-surface: #f9f9ff;
+  --color-surface-dim: #d3daef;
+  --color-surface-bright: #f9f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f1f3ff;
+  --color-surface-container: #e9edff;
+  --color-surface-container-high: #e1e8fd;
+  --color-surface-container-highest: #dce2f7;
+  --color-on-surface: #141b2b;
+  --color-on-surface-variant: #3f4942;
+  --color-inverse-surface: #293040;
+  --color-inverse-on-surface: #edf0ff;
+  --color-outline: #6f7a72;
+  --color-outline-variant: #bec9c0;
+  --color-surface-tint: #086c46;
+  --color-primary: #005435;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #0d6e48;
+  --color-on-primary-container: #98edbd;
+  --color-inverse-primary: #83d8a9;
+  --color-secondary: #4f616d;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #d0e2f1;
+  --color-on-secondary-container: #546572;
+  --color-tertiary: #735c00;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #cba72f;
+  --color-on-tertiary-container: #4e3d00;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-primary-fixed: #9ff4c4;
+  --color-primary-fixed-dim: #83d8a9;
+  --color-on-primary-fixed: #002112;
+  --color-on-primary-fixed-variant: #005233;
+  --color-secondary-fixed: #d3e5f4;
+  --color-secondary-fixed-dim: #b7c9d8;
+  --color-on-secondary-fixed: #0b1d28;
+  --color-on-secondary-fixed-variant: #384955;
+  --color-tertiary-fixed: #ffe088;
+  --color-tertiary-fixed-dim: #e9c349;
+  --color-on-tertiary-fixed: #241a00;
+  --color-on-tertiary-fixed-variant: #574500;
+  --color-background: #f9f9ff;
+  --color-on-background: #141b2b;
+  --color-surface-variant: #dce2f7;
+
+  /* Spacing */
+  --spacing-space-xs: 0.375rem;
+  --spacing-space-sm: 0.75rem;
+  --spacing-space-md: 1.25rem;
+  --spacing-space-lg: 2rem;
+  --spacing-space-xl: 3.5rem;
+  --spacing-margin: 1.5rem;
+  --spacing-gutter: 1.5rem;
 }
 
-body {
-  font-family: var(--font-sans);
+/* ========================================================================= */
+/* Global Universal Font Family: 'Noto Sans Bengali UI' Exclusively        */
+/* ========================================================================= */
+*,
+*::before,
+*::after,
+html,
+body,
+input,
+button,
+select,
+textarea,
+optgroup,
+h1, h2, h3, h4, h5, h6,
+p, span, a, label, li, ul, ol, table, tr, th, td, div, section, main, article, aside, header, footer, nav, blockquote, strong, small, em, b, i {
+  font-family: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif !important;
+}
+
+html, body {
+  font-family: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif !important;
   background-color: #F8FAFC;
   color: #0F172A;
   transition: background-color 0.2s, color 0.2s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+  font-family: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif !important;
 }
 
-.font-mono {
-  font-family: var(--font-mono);
+/* Override all Tailwind Font utility classes to Noto Sans Bengali UI */
+.font-sans,
+.font-serif,
+.font-mono,
+.font-display,
+.font-display-lg,
+.font-display-lg-mobile,
+.font-headline-lg,
+.font-headline-lg-mobile,
+.font-headline-md,
+.font-headline-sm,
+.font-body-lg,
+.font-body-md,
+.font-body-sm,
+.font-label-lg,
+.font-label-md,
+.font-label-sm {
+  font-family: 'Noto Sans Bengali UI', 'Noto Sans Bengali', sans-serif !important;
+}
+
+/* Material Symbols Outlined Font Support (Protected from override) */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Font Awesome Icons Support (Protected from override) */
+.fa, .fas, .far, .fal, .fad, .fab, [class*="fa-"], [class^="fa-"] {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", FontAwesome !important;
+}
+
+/* Typography styles matching DESIGN.md */
+.text-display-lg {
+  font-size: 44px;
+  line-height: 60px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.text-display-lg-mobile {
+  font-size: 30px;
+  line-height: 42px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.text-headline-lg {
+  font-size: 32px;
+  line-height: 44px;
+  font-weight: 700;
+}
+.text-headline-lg-mobile {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 700;
+}
+.text-headline-md {
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 600;
+}
+.text-headline-sm {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+}
+.text-body-lg {
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400;
+}
+.text-body-md {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+}
+.text-body-sm {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
+}
+.text-label-lg {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.text-label-md {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+.text-label-sm {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 /* WCAG Focus Styles */
@@ -106,3 +289,51 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Financial Document Preview Custom Styles */
+.sheet-shadow {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+}
+.doc-preview-table th, .doc-preview-table td {
+  border: 1px solid #1e293b;
+  padding: 3px 6px;
+  font-size: 8.5px;
+  line-height: 1.25;
+}
+.doc-preview-table th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  text-align: center;
+}
+.stamp-seal {
+  border: 1.5px dashed #009B63;
+  border-radius: 9999px;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 6.5px;
+  color: #009B63;
+  transform: rotate(-8deg);
+  opacity: 0.85;
+  text-align: center;
+}
+.signature-line {
+  border-top: 1px solid #64748b;
+  width: 85px;
+  margin-top: 24px;
+  padding-top: 2px;
+  font-size: 7.5px;
+  text-align: center;
+  color: #334155;
+}
+
+/* Custom scrollbar utility to hide scrollbars while preserving touch scrolling */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

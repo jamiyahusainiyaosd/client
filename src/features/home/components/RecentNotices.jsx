@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Bell } from "lucide-react";
 import { useMemo } from "react";
 import { NavLink } from "react-router-dom";
-import { ClockLoader } from "react-spinners";
 import homeService from "../services/home.services";
 import RecentNotice from "./RecentNotice";
+import Loader from "../../../components/Loader";
+import Error from "../../../components/Error";
 
 const RecentNotices = () => {
   const { data, isPending, isError, error } = useQuery({
@@ -32,16 +33,16 @@ const RecentNotices = () => {
       </div>
 
       {/* Content card */}
-      <div className="rounded-2xl border border-slate-200/80  bg-white/60  backdrop-blur-sm overflow-hidden">
+      <div className="rounded-2xl border border-slate-200/80 bg-white shadow-xs overflow-hidden">
         {isError && (
-          <div className="m-3 rounded-xl border-l-4 border-red-500 bg-red-50  px-4 py-3 text-sm text-red-600 ">
-            নোটিশ লোড করতে সমস্যা হয়েছে: {error.message}
+          <div className="py-4">
+            <Error errorMessage={error?.message} />
           </div>
         )}
 
         {isPending && (
-          <div className="flex justify-center py-12">
-            <ClockLoader color="#10B981" size={36} />
+          <div className="py-6">
+            <Loader />
           </div>
         )}
 

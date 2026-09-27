@@ -1,47 +1,45 @@
-import { aboutData } from "../../../constants/aboutData";
- 
+import { Backpack, BadgeCheck, BookOpen, Building2, Coins, GraduationCap, Users } from "lucide-react";
+import AboutSectionHeading from "./AboutSectionHeading";
+
+const overviewIcons = [
+  BookOpen,
+  BadgeCheck,
+  Coins,
+  Users,
+  Backpack,
+  Building2,
+  GraduationCap,
+  Users,
+  Coins,
+  GraduationCap,
+];
+
+const overviewFacts = [
+  ["প্রতিষ্ঠাকাল", "১৪১৩ হিজরি / ১৯৯৩ ইং", "বাংলা ১৪০০ সনে প্রতিষ্ঠিত"],
+  ["মূল মতাদর্শ", "আহলুস সুন্নাহ ওয়াল জামাআহ", "দারুল উলুম দেওবন্দের শিক্ষানীতি অনুসরণ"],
+  ["মুহতামিম ও শিক্ষাসচিব", "মুহতামিম: মাওলানা সৈয়দ তানভীর ছিফাতুল্লাহ", "শিক্ষাসচিব: মাওলানা আব্দুল কুদ্দুস নোমান"],
+  ["শিক্ষক ও কর্মচারী", "মোট ২৬ জন", "২৪ জন দক্ষ শিক্ষক ও ২ জন কর্মচারী"],
+  ["ছাত্রসংখ্যা ও ব্যবস্থাপনা", "প্রায় ৬০০ জন", "আবাসিক ও অনাবাসিক শিক্ষার্থী"],
+  ["শিক্ষাদান বিভাগ", "মোট ৬টি বিভাগ", "ইবতেদাইয়্যাহ, নূরানী, মক্তব, হিফজ ও কিতাব বিভাগ"],
+];
+
 const FirstLooksInfo = () => {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-slate-100 flex items-center gap-3">
-        <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 text-slate-700">
-          <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-          </svg>
+    <section className="bg-indigo-50/70 py-8 sm:py-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <AboutSectionHeading eyebrow="কাঠামো ও পরিচিতি" title="এক নজরে জামিয়া হুসাইনিয়া" description="প্রতিষ্ঠানের মূল তথ্য, সাংগঠনিক কাঠামো ও আর্থিক স্বচ্ছতা" />
+        <div className="mb-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {overviewFacts.map(([label, value, note], index) => {
+            const ItemIcon = overviewIcons[index] || BookOpen;
+            return <div key={index} className="flex items-start gap-2 rounded-lg bg-white p-3 shadow-sm ring-1 ring-slate-100">
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-emerald-50 text-emerald-700"><ItemIcon size={16} /></span>
+              <div><span className="text-[10px] text-slate-500">{label}</span><h4 className="text-sm font-bold text-slate-900">{value}</h4><p className="mt-1 text-[10px] leading-5 text-slate-500">{note}</p></div>
+            </div>;
+          })}
         </div>
-        <div>
-          <h3 className="text-base font-semibold text-slate-900 font-display">এক নজরে জামিয়া হুসাইনিয়া</h3>
-          <p className="text-xs text-slate-500">প্রতিষ্ঠানের মূল তথ্য, কাঠামো ও আর্থিক ব্যবস্থাপনা</p>
-        </div>
-      </div>
-      <div className="p-5">
-        <div className="grid md:grid-cols-2 gap-4">
-          {aboutData.overview.map((item, index) => (
-            <div
-              key={index}
-              className="rounded-lg border border-slate-200/70 bg-slate-50/50 p-4"
-            >
-              <h4 className="flex items-center gap-2 text-sm font-semibold text-slate-900 mb-2 font-display">
-                <span className="text-base">{item.icon}</span>
-                {item.label}
-              </h4>
-              <div className="text-sm text-slate-600">
-                {Array.isArray(item.value) ? (
-                  <ul className="space-y-1.5">
-                    {item.value.map((fund, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-bengali">
-                        <span className="mt-[8px] h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0" />
-                        <span className="leading-relaxed">{fund}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="leading-relaxed text-bengali">{item.value}</p>
-                )}
-              </div>
-            </div>
-          ))}
+        <div className="grid gap-2 lg:grid-cols-12">
+          <div className="rounded-xl bg-white p-4 shadow-sm lg:col-span-7"><h3 className="flex items-center gap-2 text-base font-bold text-emerald-800"><Coins size={17} /> আয়ের উৎস ও তহবিল কাঠামো</h3><p className="mt-1 text-xs leading-5 text-slate-600">মাদ্রাসাটি ধর্মপ্রাণ জনসাধারণ ও প্রবাসী ভাই-বোনদের স্বতঃস্ফূর্ত দান-অনুদানে পরিচালিত হয়।</p><div className="mt-2 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold"><span className="rounded bg-indigo-50 p-2">জেনারেল ফান্ড<small className="block text-[9px] font-normal text-slate-500">দৈনন্দিন ব্যয়</small></span><span className="rounded bg-indigo-50 p-2">গরিব ফান্ড<small className="block text-[9px] font-normal text-slate-500">সহায়তা</small></span><span className="rounded bg-indigo-50 p-2">কিতাব ফান্ড<small className="block text-[9px] font-normal text-slate-500">গ্রন্থাগার</small></span></div></div>
+          <div className="rounded-xl bg-white p-4 shadow-sm lg:col-span-5"><h3 className="flex items-center gap-2 text-base font-bold text-emerald-800"><GraduationCap size={17} /> ছাত্রদের সুযোগ-সুবিধা</h3><p className="mt-1 text-xs leading-5 text-slate-600">দরিদ্র, মেধাবী শিক্ষার্থী এবং এতিমদের খাদ্য, বস্ত্র, চিকিৎসা ও পাঠ্যপুস্তকসহ পড়াশোনার খরচ গরিব ফান্ড থেকে বিনামূল্যে বহন করা হয়।</p><strong className="mt-2 flex items-center gap-1 text-[10px] text-emerald-700"><BadgeCheck size={14} /> অসংখ্য শিক্ষার্থী নিখরচায় সুবিধাভোগী</strong></div>
         </div>
       </div>
     </section>

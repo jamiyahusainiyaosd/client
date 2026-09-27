@@ -1,6 +1,6 @@
 import SmoothImage from "../../../components/SmoothImage";
 
-const FIRST_SLIDE_IMAGE = "/unnamed3.jpg";
+const FIRST_SLIDE_IMAGE = "/unnamed2.jpg";
 
 const ImageSlider = () => {
   return (

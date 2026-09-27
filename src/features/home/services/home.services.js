@@ -20,6 +20,15 @@ const homeService = {
       }
     }
   },
+  getAnnouncements: async () => {
+    try {
+      return await homeApi.findAnnouncements();
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw error;
+      }
+    }
+  },
 };
 
 export default homeService;

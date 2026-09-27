@@ -1,29 +1,13 @@
+import { Building2, CheckCircle2, HeartHandshake } from "lucide-react";
 import { aboutData } from "../../../constants/aboutData";
- 
-const FutureDevelopmentPlan = () => {
-  return (
-    <article className="h-full rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
-        <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 text-slate-700">
-          <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900 font-display">ভবিষ্যৎ উন্নয়ন পরিকল্পনা</h3>
-          <p className="text-xs text-slate-500">অবকাঠামো, সুযোগ–সুবিধা ও সার্বিক উন্নয়নের রূপরেখা</p>
-        </div>
-      </div>
-      <ul className="p-5 space-y-3">
-        {aboutData.futurePlans.development.map((plan, index) => (
-          <li key={index} className="flex items-start gap-3 text-sm">
-            <span className="mt-[8px] h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0" />
-            <span className="text-slate-600 leading-relaxed text-bengali">{plan}</span>
-          </li>
-        ))}
-      </ul>
-    </article>
-  );
-};
- 
+
+const FutureDevelopmentPlan = () => (
+  <article className="rounded-xl bg-white p-4 shadow-sm sm:p-5">
+    <header className="flex items-start gap-3"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-slate-950 text-white"><Building2 size={20} /></span><div><span className="text-[10px] font-bold text-emerald-700">অবকাঠামো রূপরেখা</span><h3 className="text-lg font-bold text-slate-900">ভবিষ্যৎ উন্নয়ন পরিকল্পনা</h3></div></header>
+    <p className="mt-2 text-xs leading-6 text-slate-600">অবকাঠামো, উন্নত আবাসন ব্যবস্থা, আধুনিক সুযোগ-সুবিধা ও সার্বিক পরিবেশ নিশ্চিতকরণের মহাপরিকল্পনা:</p>
+    <ul className="mt-2 grid gap-1.5">{aboutData.futurePlans.development.map((plan) => <li className="flex items-start gap-2 rounded-md bg-indigo-50/70 p-1.5 text-xs leading-5 text-slate-700" key={plan}><CheckCircle2 className="mt-1 shrink-0 text-emerald-700" size={14} />{plan.replace(/^🏗\s*/, "")}</li>)}</ul>
+    <strong className="mt-3 flex items-center gap-1 text-[10px] text-amber-700"><HeartHandshake size={15} /> সকল শুভানুধ্যায়ী ও প্রবাসীদের দোয়া ও সহযোগিতা কাম্য</strong>
+  </article>
+);
+
 export default FutureDevelopmentPlan;

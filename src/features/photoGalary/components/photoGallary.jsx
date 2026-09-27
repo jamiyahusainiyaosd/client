@@ -1,16 +1,164 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { FiChevronLeft, FiChevronRight, FiX, FiZoomIn } from "react-icons/fi";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import Loader from "../../../components/Loader";
-import Pagination from "../../../components/Pagination";
-import SmoothImage from "../../../components/SmoothImage";
 import photoGallaryService from "../services/photoGallary.services";
+import PhotoGalleryHero from "./PhotoGalleryHero";
+import PhotoGallerySpotlight from "./PhotoGallerySpotlight";
+import PhotoGalleryFilter from "./PhotoGalleryFilter";
+import PhotoGalleryCards from "./PhotoGalleryCards";
+import Pagination from "../../../components/Pagination";
+import PhotoGalleryLightbox from "./PhotoGalleryLightbox";
+
+
+// Helper to categorize photos intelligently based on Bengali keywords in the title
+const categorizePhoto = (title = "") => {
+  const t = title.toLowerCase();
+  if (
+    t.includes("হিফজ") ||
+    t.includes("নাজেরা") ||
+    t.includes("নুরানি") ||
+    t.includes("নুরানিতে") ||
+    t.includes("ক্লাস") ||
+    t.includes("পড়ছে") ||
+    t.includes("ছাত্র") ||
+    t.includes("তালিম") ||
+    t.includes("শিক্ষক")
+  ) {
+    return {
+      category: "academic",
+      badge: "তা’লীম ও ক্লাস",
+      icon: "auto_stories",
+      tag: "শ্রেণিকক্ষ",
+      desc: "মাদ্রাসার নিয়মিত পাঠদান, হিফজ ও পাঠশালার প্রামাণ্য চিত্র।"
+    };
+  }
+  if (
+    t.includes("মসজিদ") ||
+    t.includes("মাকবারাহ") ||
+    t.includes("রৌজা") ||
+    t.includes("চাঁন মিয়া") ||
+    t.includes("স্মারক")
+  ) {
+    return {
+      category: "spiritual",
+      badge: "মসজিদ ও স্মারক",
+      icon: "mosque",
+      tag: "পবিত্র প্রাঙ্গণ",
+      desc: "জামিয়া প্রাঙ্গণের পবিত্র মসজিদ ও বুজুর্গদের বরকতময় স্মৃতি।"
+    };
+  }
+  if (
+    t.includes("পোস্টার") ||
+    t.includes("বিজ্ঞপ্তি") ||
+    t.includes("ভর্তি") ||
+    t.includes("মাকতাব")
+  ) {
+    return {
+      category: "circular",
+      badge: "বিজ্ঞপ্তি ও পোস্টার",
+      icon: "campaign",
+      tag: "নোটিশ",
+      desc: "চলতি শিক্ষাবর্ষের ভর্তি কার্যক্রম ও অফিশিয়াল প্রকাশনা।"
+    };
+  }
+  if (
+    t.includes("অফিস") ||
+    t.includes("দফতর") ||
+    t.includes("মার্কেট") ||
+    t.includes("প্রশাসন")
+  ) {
+    return {
+      category: "office",
+      badge: "প্রশাসন ও দফতর",
+      icon: "badge",
+      tag: "প্রশাসনিক ভবন",
+      desc: "মাদ্রাসার প্রশাসনিক কার্যক্রম ও ঐতিহাসিক দফতর।"
+    };
+  }
+  return {
+    category: "campus",
+    badge: "ক্যাম্পাস ও পরিবেশ",
+    icon: "apartment",
+    tag: "ক্যাম্পাস দৃশ্য",
+    desc: "সবুজ শ্যামল প্রাঙ্গণ, উন্মুক্ত মাঠ ও ঐতিহাসিক স্থাপত্য রূপরেখা।"
+  };
+};
 
 const PhotoGallery = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = searchParams.get("page");
   const currentPage = Math.max(1, Number(rawPage) || 1);
+
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [viewMode, setViewMode] = useState("grid");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  // Fetch photos from backend API
+  const { data: photosData, isLoading } = useQuery({
+    queryKey: ["photos", currentPage],
+    queryFn: () => photoGallaryService.getAll(currentPage),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  // Map API photos purely dynamically
+  const allDisplayPhotos = useMemo(() => {
+    const rawList =
+      photosData?.data?.results ||
+      photosData?.results ||
+      photosData?.data?.data ||
+      photosData?.data ||
+      (Array.isArray(photosData) ? photosData : []);
+
+    if (rawList && Array.isArray(rawList) && rawList.length > 0) {
+      return rawList.map((p, idx) => {
+        const catInfo = categorizePhoto(p.photoTitle || p.title || "");
+        return {
+          id: p.id ?? idx,
+          category: p.category || catInfo.category,
+          badge: p.badge || catInfo.badge,
+          title: p.photoTitle || p.title || "জামিয়া হুসাইনিয়া প্রাঙ্গণ",
+          desc: p.desc || p.description || catInfo.desc,
+          fullDesc: p.fullDesc || p.description || catInfo.desc,
+          icon: p.icon || catInfo.icon,
+          tag: p.tag || catInfo.tag,
+          image: p.photoImg || p.image || "/unnamed.jpg",
+          alt: p.photoTitle || p.alt || "জামিয়া হুসাইনিয়া মাদ্রাসা",
+        };
+      });
+    }
+    return [];
+  }, [photosData]);
+
+  const totalCount =
+    photosData?.count ||
+    photosData?.data?.count ||
+    allDisplayPhotos.length ||
+    0;
+  const totalPages = Math.ceil(totalCount / 9) || 1;
+
+  // Compute categories dynamically
+  const categories = useMemo(() => [
+    { key: "all", label: "সব ছবি" },
+    { key: "campus", label: "ক্যাম্পাস ও পরিবেশ" },
+    { key: "academic", label: "তা’লীম ও ক্লাস" },
+    { key: "spiritual", label: "মসজিদ ও স্মারক" },
+    { key: "office", label: "প্রশাসন ও দফতর" },
+    { key: "circular", label: "বিজ্ঞপ্তি ও পোস্টার" },
+  ], []);
+
+  const filteredItems = useMemo(() => {
+    if (activeCategory === "all") return allDisplayPhotos;
+    return allDisplayPhotos.filter((item) => item.category === activeCategory);
+  }, [activeCategory, allDisplayPhotos]);
+
+  const handlePageChange = (p) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
 
   useEffect(() => {
     if (!rawPage) {
@@ -25,176 +173,103 @@ const PhotoGallery = () => {
     }
   }, [rawPage, setSearchParams]);
 
-  const handlePageChange = (p) => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.set("page", String(p));
-      return next;
-    });
+  // Determine currently active photos for lightbox navigation
+  const activePhotos = useMemo(() => {
+    return filteredItems.length > 0 ? filteredItems : allDisplayPhotos;
+  }, [filteredItems, allDisplayPhotos]);
+
+  const openLightbox = (idOrIndex) => {
+    const foundIdx = activePhotos.findIndex((item) => String(item.id) === String(idOrIndex));
+    if (foundIdx !== -1) {
+      setCurrentIdx(foundIdx);
+    } else {
+      const fallbackIdx = allDisplayPhotos.findIndex((item) => String(item.id) === String(idOrIndex));
+      setCurrentIdx(fallbackIdx !== -1 ? fallbackIdx : 0);
+    }
+    setLightboxOpen(true);
   };
 
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [allPhotos, setAllPhotos] = useState([]);
-
-  const { data: photosData, isLoading, isError, error } = useQuery({
-    queryKey: ["photos", currentPage],
-    queryFn: () => photoGallaryService.getAll(currentPage),
-  });
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  useEffect(() => {
-    if (photosData?.results) setAllPhotos(photosData.results);
-  }, [photosData]);
-
-  // Lock body scroll when modal is open
-  useEffect(() => {
-    document.body.style.overflow = selectedPhoto ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [selectedPhoto]);
-
-  const photos = photosData?.results || [];
-  const totalCount = photosData?.count || 0;
-  const totalPages = Math.ceil(totalCount / 9);
-
-  const navigatePhotos = (dir) => {
-    const index = allPhotos.findIndex((p) => p.id === selectedPhoto.id);
-    let next = dir === "next" ? index + 1 : index - 1;
-    if (next >= allPhotos.length) next = 0;
-    if (next < 0) next = allPhotos.length - 1;
-    setSelectedPhoto(allPhotos[next]);
+  const closeLightbox = () => {
+    setLightboxOpen(false);
   };
+
+  const nextLightboxImage = useCallback(() => {
+    if (activePhotos.length === 0) return;
+    setCurrentIdx((prev) => (prev + 1) % activePhotos.length);
+  }, [activePhotos.length]);
+
+  const prevLightboxImage = useCallback(() => {
+    if (activePhotos.length === 0) return;
+    setCurrentIdx((prev) => (prev - 1 + activePhotos.length) % activePhotos.length);
+  }, [activePhotos.length]);
 
   return (
-    <div>
-      {/* Loader */}
-      {isLoading && <Loader />}
+    <main className="w-full pt-[132px] sm:pt-[100px] lg:pt-[106px] bg-[#f1f3ff] min-h-screen">
+      <div className="flex flex-col w-full font-body-md text-body-md text-on-surface">
+        {/* SECTION 1: HERO & DYNAMIC STATS (Background: #f1f3ff) */}
+        <PhotoGalleryHero
+          totalCount={totalCount}
+        />
 
-      {/* Error */}
-      {isError && (
-        <div className="rounded-lg border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-600 font-medium">
-          ফটো লোড করতে সমস্যা হয়েছে: {error?.message}
-        </div>
-      )}
-
-      {/* Empty */}
-      {!isLoading && !isError && photos.length === 0 && (
-        <div className="rounded-lg border border-slate-200 bg-white px-4 py-12 text-center text-sm text-slate-500 shadow-sm">
-          এই মুহূর্তে কোনো ছবি পাওয়া যায়নি।
-        </div>
-      )}
-
-      {/* Grid */}
-      {!isLoading && photos.length > 0 && (
-        <div className="space-y-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {photos.map((photo, index) => (
-              <button
-                key={photo.id}
-                onClick={() => setSelectedPhoto(photo)}
-                className="group relative aspect-square rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 transition-all duration-200 hover:shadow-md"
-              >
-                <SmoothImage
-                  src={photo.photoImg}
-                  alt={photo.photoTitle}
-                  priority={index < 3}
-                  containerClassName="h-full w-full"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-
-                {/* Hover overlay */}
-                <div className={`absolute inset-0 bg-slate-900/40 flex flex-col items-center justify-center gap-2 transition-opacity duration-300 ${isMobile ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
-                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/95 text-emerald-600 shadow-sm">
-                    <FiZoomIn size={18} />
-                  </div>
-                </div>
-
-                {/* Caption bar */}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-white text-xs font-medium line-clamp-1 text-bengali">
-                    {photo.photoTitle}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={handlePageChange}
-            totalPages={totalPages}
-            totalCount={totalCount}
+        {/* SECTION 2: SPOTLIGHT HERO CARD (Background: white) */}
+        {allDisplayPhotos.length > 0 && (
+          <PhotoGallerySpotlight
+            onOpenLightbox={openLightbox}
+            spotlightItem={allDisplayPhotos[0]}
           />
-        </div>
-      )}
+        )}
+
+        {/* SECTION 3: INTERACTIVE FILTER TOOLBAR & PHOTO GALLERY CARDS (Background: #f1f3ff) */}
+        <section className="w-full bg-[#f1f3ff] py-10 sm:py-14 lg:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <PhotoGalleryFilter
+              activeCategory={activeCategory}
+              categories={categories}
+              onCategoryChange={setActiveCategory}
+              onViewModeChange={setViewMode}
+              totalCount={filteredItems.length}
+              viewMode={viewMode}
+            />
+
+            <div className="mt-8">
+              <PhotoGalleryCards
+                isLoading={isLoading}
+                items={filteredItems}
+                onOpenLightbox={openLightbox}
+                viewMode={viewMode}
+              />
+            </div>
+
+            {/* Pagination Controls */}
+            {totalCount > 9 && (
+              <div className="mt-10 sm:mt-12">
+                <Pagination
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                  pageSize={9}
+                  totalCount={totalCount}
+                  totalPages={totalPages}
+                  useBengaliDigits={true}
+                />
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
 
       {/* Lightbox Modal */}
-      {selectedPhoto && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-sm p-4"
-          onClick={() => setSelectedPhoto(null)}
-        >
-          <div
-            className="relative w-full max-w-4xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close */}
-            <button
-              onClick={() => setSelectedPhoto(null)}
-              className="absolute -top-11 right-0 h-9 w-9 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-all"
-              aria-label="বন্ধ করুন"
-            >
-              <FiX size={16} />
-            </button>
-
-            {/* Image container */}
-            <div className="relative rounded-lg overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl">
-              <SmoothImage
-                src={selectedPhoto.photoImg}
-                alt={selectedPhoto.photoTitle}
-                priority={true}
-                containerClassName="w-full flex items-center justify-center min-h-[300px]"
-                className="max-h-[75vh] w-auto max-w-full object-contain mx-auto"
-              />
-
-              {/* Prev */}
-              <button
-                onClick={() => navigatePhotos("prev")}
-                className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-lg bg-slate-900/80 hover:bg-slate-900 border border-slate-700 text-white transition-all"
-                aria-label="আগের ছবি"
-              >
-                <FiChevronLeft size={18} />
-              </button>
-
-              {/* Next */}
-              <button
-                onClick={() => navigatePhotos("next")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-lg bg-slate-900/80 hover:bg-slate-900 border border-slate-700 text-white transition-all"
-                aria-label="পরের ছবি"
-              >
-                <FiChevronRight size={18} />
-              </button>
-            </div>
-
-            {/* Caption */}
-            <div className="mt-3 px-1 flex items-center justify-between gap-4">
-              <h3 className="text-sm font-medium text-slate-200 font-display">
-                {selectedPhoto.photoTitle}
-              </h3>
-              <span className="text-xs text-slate-400 font-mono flex-shrink-0">
-                {allPhotos.findIndex((p) => p.id === selectedPhoto.id) + 1} / {allPhotos.length}
-              </span>
-            </div>
-          </div>
-        </div>
+      {lightboxOpen && activePhotos.length > 0 && (
+        <PhotoGalleryLightbox
+          isOpen={lightboxOpen}
+          currentIdx={currentIdx}
+          items={activePhotos}
+          images={activePhotos}
+          onClose={closeLightbox}
+          onNext={nextLightboxImage}
+          onPrev={prevLightboxImage}
+        />
       )}
-    </div>
+    </main>
   );
 };
 
