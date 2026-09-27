@@ -8,6 +8,7 @@ import {
   formatNoticeDate,
 } from "../utils/noticeUtils";
 import Loader from "../../../components/Loader";
+import { useContactSettings } from "../../contactus/hooks/useContactSettings";
 
 // Secure Canvas Signature Component: Renders image bitmap on in-memory canvas
 // DevTools DOM Inspector sees ONLY <canvas>, NO <img> tag, and NO image URL to hover/download!
@@ -77,6 +78,7 @@ const ProtectedSignature = ({ className }) => {
 const NoticeDetails = () => {
   const { id } = useParams();
   const [copied, setCopied] = useState(false);
+  const { contact } = useContactSettings();
 
   // Fetch single notice from API
   const { data: apiNoticeResponse, isLoading: isDetailLoading } = useQuery({
@@ -523,30 +525,30 @@ ${description}
 
                 <div className="bg-white rounded-xl p-3.5 border border-slate-200/70 flex flex-col gap-2.5 shadow-xs text-xs sm:text-sm">
                   <a
-                    href="tel:+8801751699909"
-                    className="flex items-center gap-2 text-slate-800 hover:text-primary font-medium transition-colors"
+                    href={`tel:${contact.primary_phone}`}
+                    className="flex items-center gap-2 text-slate-800 hover:text-primary font-medium transition-colors font-mono"
                   >
                     <span className="material-symbols-outlined text-[18px] text-primary">
                       call
                     </span>
-                    <span>+৮৮০ ১৭৫১৬৯৯৯০৯</span>
+                    <span>{contact.primary_phone}</span>
                   </a>
 
                   <a
-                    href="mailto:jamiyahusainiya1@gmail.com"
+                    href={`mailto:${contact.primary_email}`}
                     className="flex items-center gap-2 text-slate-600 hover:text-primary transition-colors truncate"
                   >
                     <span className="material-symbols-outlined text-[18px] text-primary">
                       mail
                     </span>
-                    <span className="truncate">jamiyahusainiya1@gmail.com</span>
+                    <span className="truncate">{contact.primary_email}</span>
                   </a>
 
-                  <div className="flex items-center gap-2 text-slate-600 pt-1 border-t border-slate-100">
-                    <span className="material-symbols-outlined text-[18px] text-primary">
+                  <div className="flex items-center gap-2 text-slate-600 pt-1 border-t border-slate-100 text-[11px] sm:text-xs">
+                    <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
                       schedule
                     </span>
-                    <span>সকাল ৮:০০ — বিকাল ৪:০০</span>
+                    <span className="line-clamp-1">{contact.office_hours}</span>
                   </div>
                 </div>
               </div>

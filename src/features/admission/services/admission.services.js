@@ -25,6 +25,14 @@ const admissionService = {
       return null;
     }
   },
+  getStatus: async () => {
+    try {
+      const response = await admissionApi.getStatus();
+      return response?.data || response;
+    } catch (error) {
+      return null;
+    }
+  },
 };
 
 export default admissionService;

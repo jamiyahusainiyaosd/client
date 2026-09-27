@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../../../components/Pagination";
 import { toBengaliDigits, formatFee } from "../utils/admissionUtils";
+import { useContactSettings } from "../../contactus/hooks/useContactSettings";
 
 const ITEMS_PER_PAGE = 8;
 
 const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
+  const { contact } = useContactSettings();
   const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = searchParams.get("page");
   const currentPage = Math.max(1, Number(rawPage) || 1);
@@ -24,7 +26,7 @@ const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
           next.set("page", "1");
           return next;
         },
-        { replace: true }
+        { replace: true },
       );
     }
   }, [rawPage, setSearchParams]);
@@ -57,7 +59,7 @@ const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
         r.monthly_fee?.toLowerCase().includes(q) ||
         r.required_documents?.toLowerCase().includes(q) ||
         r.admission_start_date?.toLowerCase().includes(q) ||
-        r.admission_end_date?.toLowerCase().includes(q)
+        r.admission_end_date?.toLowerCase().includes(q),
     );
   }, [feeRecords, searchTerm]);
 
@@ -109,7 +111,8 @@ const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
             ভর্তি ফি, তারিখ ও প্রয়োজনীয় নথিপত্র
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            সব তথ্য একনজরে — যেকোনো সারিতে ক্লিক করে বিস্তারিত নথিপত্র ও হিসাব দেখুন
+            সব তথ্য একনজরে — যেকোনো সারিতে ক্লিক করে বিস্তারিত নথিপত্র ও হিসাব
+            দেখুন
           </p>
         </div>
 
@@ -272,14 +275,17 @@ const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
 
                       {/* ভর্তি সময়সীমা */}
                       <td className="py-3.5 px-3 text-center text-xs text-slate-600">
-                        {item.admission_start_date || item.admission_end_date ? (
+                        {item.admission_start_date ||
+                        item.admission_end_date ? (
                           <div className="inline-flex items-center gap-1 font-mono text-[11px] bg-slate-50 px-2 py-1 rounded-md border border-slate-200/70">
                             <span>{item.admission_start_date || "শুরু"}</span>
                             <span>–</span>
                             <span>{item.admission_end_date || "চলমান"}</span>
                           </div>
                         ) : (
-                          <span className="text-slate-400 text-xs">ভর্তি চলছে</span>
+                          <span className="text-slate-400 text-xs">
+                            ভর্তি চলছে
+                          </span>
                         )}
                       </td>
 
@@ -639,13 +645,15 @@ const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
                     <div>
                       <span className="text-slate-400">শুরুর তারিখ: </span>
                       <span className="font-semibold font-mono">
-                        {selectedDetailItem.admission_start_date || "ঘোষণা করা হবে"}
+                        {selectedDetailItem.admission_start_date ||
+                          "ঘোষণা করা হবে"}
                       </span>
                     </div>
                     <div>
                       <span className="text-slate-400">শেষের তারিখ: </span>
                       <span className="font-semibold font-mono">
-                        {selectedDetailItem.admission_end_date || "আসন খালি থাকা সাপেক্ষে"}
+                        {selectedDetailItem.admission_end_date ||
+                          "আসন খালি থাকা সাপেক্ষে"}
                       </span>
                     </div>
                   </div>
@@ -708,10 +716,10 @@ const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
                   </span>
                   <span>ভর্তি সহায়তায় সরাসরি কল করুন:</span>
                   <a
-                    href="tel:+8801751699909"
+                    href={`tel:${contact.primary_phone}`}
                     className="font-bold text-slate-800 font-mono hover:text-primary"
                   >
-                    +880 1751-699909
+                    {contact.primary_phone}
                   </a>
                 </div>
 

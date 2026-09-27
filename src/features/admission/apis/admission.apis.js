@@ -10,6 +10,9 @@ const admissionApi = {
   findRules: () => {
     return axiosClient.get("/admissions/rules/");
   },
+  getStatus: () => {
+    return axiosClient.get("/admissions/status/");
+  },
 };
 
 export default admissionApi;

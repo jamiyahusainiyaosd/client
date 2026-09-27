@@ -1,6 +1,8 @@
 import React from "react";
+import { useContactSettings } from "../hooks/useContactSettings";
 
 const ContactHero = () => {
+  const { contact } = useContactSettings();
   return (
     <section
       className="w-full bg-[#f1f3ff] pt-8 sm:pt-10 lg:pt-12 pb-8 sm:pb-12 border-b border-slate-200/70"
@@ -15,7 +17,9 @@ const ContactHero = () => {
               <span>আমাদের সাথে যোগাযোগ</span>
             </span>
             <span className="text-secondary text-xs">•</span>
-            <span className="text-secondary text-xs font-medium">সরাসরি সহায়তা ডেস্ক</span>
+            <span className="text-secondary text-xs font-medium">
+              সরাসরি সহায়তা ডেস্ক
+            </span>
           </div>
 
           {/* Section Title */}
@@ -26,7 +30,9 @@ const ContactHero = () => {
 
           {/* Subheading Description */}
           <p className="text-slate-600 text-sm sm:text-base max-w-3xl leading-relaxed">
-            দ্বীনি শিক্ষা, ভর্তি কার্যক্রম, দান-সাদাকাহ বা জামিয়া হুসাইনিয়া মাদ্রাসার যেকোনো বিষয়ে জানতে সরাসরি আমাদের ক্যাম্পাসে আসুন, ফোন করুন অথবা নিচের ফরমের মাধ্যমে বার্তা পাঠান।
+            দ্বীনি শিক্ষা, ভর্তি কার্যক্রম, দান-সাদাকাহ বা জামিয়া হুসাইনিয়া
+            মাদ্রাসার যেকোনো বিষয়ে জানতে সরাসরি আমাদের ক্যাম্পাসে আসুন, ফোন করুন
+            অথবা নিচের ফরমের মাধ্যমে বার্তা পাঠান।
           </p>
 
           {/* 3 Quick Highlight Cards */}
@@ -55,10 +61,10 @@ const ContactHero = () => {
               </div>
               <div className="min-w-0">
                 <div className="text-[11px] text-slate-500 font-medium">
-                  জরুরি হেল্পলাইন
+                  {contact.primary_phone_label || "জরুরি হেল্পলাইন"}
                 </div>
                 <div className="text-xs sm:text-sm font-bold text-slate-900 truncate font-mono">
-                  +880 1751-699909
+                  {contact.primary_phone}
                 </div>
               </div>
             </div>
@@ -71,10 +77,10 @@ const ContactHero = () => {
               </div>
               <div className="min-w-0">
                 <div className="text-[11px] text-slate-500 font-medium">
-                  অফিসিয়াল ই-মেইল
+                  {contact.primary_email_label || "অফিসিয়াল ই-মেইল"}
                 </div>
                 <div className="text-xs sm:text-sm font-bold text-slate-900 truncate">
-                  jamiyahusainiya1@gmail.com
+                  {contact.primary_email}
                 </div>
               </div>
             </div>

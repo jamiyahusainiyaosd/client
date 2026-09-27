@@ -1,8 +1,14 @@
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import admissionService from "../services/admission.services.js";
 import AcademicYear from "../../../components/AcademicYear";
 
 const AdmissionForm = () => {
+  const { data: admissionStatus } = useQuery({
+    queryKey: ["admissionStatus"],
+    queryFn: admissionService.getStatus,
+    staleTime: 1000 * 60 * 5,
+  });
   const [formData, setFormData] = useState({
     name_bn: "",
     name_en: "",
@@ -56,6 +62,33 @@ const AdmissionForm = () => {
 
   return (
     <div className="lg:col-span-8 bg-surface-container-lowest rounded-2xl shadow-md p-space-lg lg:p-space-xl">
+      {/* Closed Notice Banner if Admissions are Closed */}
+      {admissionStatus?.is_open === false && (
+        <div className="mb-6 p-5 sm:p-6 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 shadow-xs">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-[24px]">info</span>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-200 text-amber-900">
+                  {admissionStatus.badge_text_closed || "ভর্তি সমাপ্ত"}
+                </span>
+                <span className="text-xs font-semibold text-amber-800">
+                  {admissionStatus.session_name}
+                </span>
+              </div>
+              <h3 className="font-bold text-base text-amber-950 mb-1">
+                {admissionStatus.notice_title || "ভর্তি সংক্রান্ত জরুরি নোটিশ"}
+              </h3>
+              <p className="text-xs sm:text-sm text-amber-800/90 leading-relaxed">
+                {admissionStatus.notice_text}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Form Header */}
       <div className="flex flex-col gap-1 pb-space-md">
         <div className="flex items-center justify-between">
@@ -484,11 +517,22 @@ const AdmissionForm = () => {
         <div className="pt-space-xs flex flex-col sm:flex-row items-center justify-between gap-space-md">
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+            disabled={isSubmitting || admissionStatus?.is_open === false}
+            className={`w-full sm:w-auto px-8 py-3.5 rounded-xl font-headline-sm text-headline-sm transition-all shadow-md flex items-center justify-center gap-2 ${
+              admissionStatus?.is_open === false
+                ? "bg-slate-300 text-slate-600 cursor-not-allowed"
+                : "bg-primary hover:bg-primary-container text-on-primary cursor-pointer disabled:opacity-50"
+            }`}
           >
             {isSubmitting ? (
               <span>জমা হচ্ছে...</span>
+            ) : admissionStatus?.is_open === false ? (
+              <>
+                <span className="material-symbols-outlined text-[22px]">
+                  block
+                </span>
+                <span>আবেদন সাময়িকভাবে বন্ধ</span>
+              </>
             ) : (
               <>
                 <span className="material-symbols-outlined text-[22px]">

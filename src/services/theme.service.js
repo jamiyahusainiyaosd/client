@@ -9,6 +9,22 @@ export const themeService = {
       return null;
     }
   },
+  getPrayerTimes: async () => {
+    try {
+      const response = await axiosClient.get("/theme/prayer-times/");
+      return response.data;
+    } catch {
+      return null;
+    }
+  },
+  getContactSetting: async () => {
+    try {
+      const response = await axiosClient.get("/theme/contact/");
+      return response.data;
+    } catch {
+      return null;
+    }
+  },
 };
 
 export default themeService;

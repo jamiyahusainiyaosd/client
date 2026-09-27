@@ -1,6 +1,8 @@
 import React from "react";
+import { useContactSettings } from "../../contactus/hooks/useContactSettings";
 
 const AdmissionStatsBanner = () => {
+  const { contact } = useContactSettings();
   return (
     <section className="max-w-7xl mx-auto px-margin py-space-sm w-full">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-space-md">
@@ -64,8 +66,8 @@ const AdmissionStatsBanner = () => {
             <span className="font-headline-sm text-headline-sm text-on-surface block font-mono">
               সহায়তা কেন্দ্র
             </span>
-            <span className="font-body-sm text-body-sm text-secondary">
-              +8801751699909
+            <span className="font-body-sm text-body-sm text-secondary font-mono">
+              {contact.primary_phone}
             </span>
           </div>
         </div>

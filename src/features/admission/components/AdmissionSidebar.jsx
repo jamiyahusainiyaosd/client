@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useContactSettings } from "../../contactus/hooks/useContactSettings";
 
 const AdmissionSidebar = () => {
+  const { contact } = useContactSettings();
   const [copied, setCopied] = useState(false);
+  const [copiedKey, setCopiedKey] = useState(null);
 
   const handleCopyAccount = () => {
     navigator.clipboard?.writeText("3070101040683");
@@ -37,14 +40,14 @@ const AdmissionSidebar = () => {
         <div className="space-y-2">
           <a
             className="p-3 rounded-xl bg-surface-container-low hover:bg-surface-container flex items-center justify-between text-on-surface transition-colors"
-            href="tel:+8801751699909"
+            href={`tel:${contact.primary_phone}`}
           >
             <div className="flex items-center gap-2.5">
               <span className="material-symbols-outlined text-primary text-[20px]">
                 call
               </span>
               <span className="font-headline-sm text-headline-sm font-mono">
-                +880 1751 699909
+                {contact.primary_phone}
               </span>
             </div>
             <span className="font-label-sm text-label-sm text-primary">
@@ -52,16 +55,37 @@ const AdmissionSidebar = () => {
             </span>
           </a>
 
+          {contact.whatsapp_number && (
+            <a
+              className="p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200/80 flex items-center justify-between text-emerald-950 transition-colors"
+              href={`https://wa.me/${contact.whatsapp_number.replace(/[^0-9]/g, "")}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="material-symbols-outlined text-emerald-600 text-[20px]">
+                  chat
+                </span>
+                <span className="font-headline-sm text-headline-sm font-mono text-emerald-900 font-medium">
+                  {contact.whatsapp_number}
+                </span>
+              </div>
+              <span className="font-label-sm text-label-sm text-emerald-700 font-semibold">
+                হোয়াটসঅ্যাপ
+              </span>
+            </a>
+          )}
+
           <a
             className="p-3 rounded-xl bg-surface-container-low hover:bg-surface-container flex items-center justify-between text-on-surface transition-colors"
-            href="mailto:jamiyahusainiya1@gmail.com"
+            href={`mailto:${contact.secondary_email || contact.primary_email}`}
           >
             <div className="flex items-center gap-2.5 truncate">
               <span className="material-symbols-outlined text-primary text-[20px] shrink-0">
                 mail
               </span>
               <span className="font-body-sm text-body-sm text-secondary truncate">
-                jamiyahusainiya1@gmail.com
+                {contact.secondary_email || contact.primary_email}
               </span>
             </div>
             <span className="font-label-sm text-label-sm text-primary shrink-0 ml-1">
@@ -138,6 +162,70 @@ const AdmissionSidebar = () => {
           <span className="font-label-sm text-label-sm text-secondary-fixed-dim font-mono">
             BS25-C-0717526 TO BS25-C-0717550
           </span>
+
+          {contact.bkash_number && (
+            <div className="mt-2 bg-pink-50/80 border border-pink-200/80 p-2.5 rounded-lg flex items-center justify-between">
+              <div>
+                <span className="font-label-sm text-label-sm text-pink-700 block font-semibold">
+                  বিকাশ ({contact.bkash_type_display || "পার্সোনাল"}):
+                </span>
+                <span className="font-headline-sm text-headline-sm font-mono text-pink-900 font-bold">
+                  {contact.bkash_number}
+                </span>
+              </div>
+              <button
+                className="p-1.5 rounded-md hover:bg-pink-100 text-pink-700 transition-colors relative"
+                onClick={() => {
+                  navigator.clipboard?.writeText(contact.bkash_number);
+                  setCopiedKey("bkash");
+                  setTimeout(() => setCopiedKey(null), 2000);
+                }}
+                title="বিকাশ নম্বর কপি করুন"
+                type="button"
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  {copiedKey === "bkash" ? "done" : "content_copy"}
+                </span>
+                {copiedKey === "bkash" && (
+                  <span className="absolute -top-7 right-0 bg-slate-900 text-white text-[10px] px-1.5 py-0.5 rounded shadow whitespace-nowrap">
+                    কপি হয়েছে
+                  </span>
+                )}
+              </button>
+            </div>
+          )}
+
+          {contact.nagad_number && (
+            <div className="mt-1 bg-orange-50/80 border border-orange-200/80 p-2.5 rounded-lg flex items-center justify-between">
+              <div>
+                <span className="font-label-sm text-label-sm text-orange-700 block font-semibold">
+                  নগদ ({contact.nagad_type_display || "পার্সোনাল"}):
+                </span>
+                <span className="font-headline-sm text-headline-sm font-mono text-orange-900 font-bold">
+                  {contact.nagad_number}
+                </span>
+              </div>
+              <button
+                className="p-1.5 rounded-md hover:bg-orange-100 text-orange-700 transition-colors relative"
+                onClick={() => {
+                  navigator.clipboard?.writeText(contact.nagad_number);
+                  setCopiedKey("nagad");
+                  setTimeout(() => setCopiedKey(null), 2000);
+                }}
+                title="নগদ নম্বর কপি করুন"
+                type="button"
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  {copiedKey === "nagad" ? "done" : "content_copy"}
+                </span>
+                {copiedKey === "nagad" && (
+                  <span className="absolute -top-7 right-0 bg-slate-900 text-white text-[10px] px-1.5 py-0.5 rounded shadow whitespace-nowrap">
+                    কপি হয়েছে
+                  </span>
+                )}
+              </button>
+            </div>
+          )}
         </div>
 
         <p className="font-body-sm text-body-sm text-secondary">

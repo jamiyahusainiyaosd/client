@@ -1,7 +1,10 @@
 import { ChevronDown, HandHeart, Menu, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import NavLogo from "/nav_logo.png";
+import admissionService from "../features/admission/services/admission.services";
+import { useContactSettings } from "../features/contactus/hooks/useContactSettings";
 
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -11,6 +14,14 @@ const Navbar = () => {
   const [mobileAcademicOpen, setMobileAcademicOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [copiedToast, setCopiedToast] = useState(false);
+
+  const { data: admissionStatus } = useQuery({
+    queryKey: ["admissionStatus"],
+    queryFn: admissionService.getStatus,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const { contact } = useContactSettings();
 
   const location = useLocation();
   const aboutTimeoutRef = useRef(null);
@@ -119,11 +130,21 @@ const Navbar = () => {
               সুন্নতি ইলম, আমল ও আখলাকের সমন্বয়ে দ্বীনী শিক্ষা
             </span>
           </p>
-          <p className="text-[11px] sm:text-xs text-slate-600 font-medium whitespace-nowrap">
-            jamiyahusainiya1@gmail.com
-            <span className="mx-2 text-slate-300">|</span>
-            +8801751699909
-          </p>
+          <div className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs text-slate-600 font-medium whitespace-nowrap">
+            <a
+              href={`mailto:${contact.primary_email}`}
+              className="hover:text-emerald-700 transition-colors"
+            >
+              {contact.primary_email}
+            </a>
+            <span className="text-slate-300">|</span>
+            <a
+              href={`tel:${contact.primary_phone}`}
+              className="hover:text-emerald-700 transition-colors font-mono"
+            >
+              {contact.primary_phone}
+            </a>
+          </div>
         </div>
       </div>
 
@@ -331,9 +352,20 @@ const Navbar = () => {
             <div className="flex items-center gap-2 shrink-0 ml-auto">
               <NavLink
                 to="/admission"
-                className="hidden md:inline-flex items-center gap-1.5 rounded-lg bg-slate-900 hover:bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 whitespace-nowrap"
+                className="hidden md:inline-flex items-center gap-2 rounded-lg bg-slate-900 hover:bg-slate-950 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-white transition-all duration-200 whitespace-nowrap shadow-xs"
               >
-                ভর্তি আবেদন
+                <span>ভর্তি আবেদন</span>
+                <span
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                    admissionStatus?.is_open === false
+                      ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                      : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                  }`}
+                >
+                  {admissionStatus?.is_open === false
+                    ? admissionStatus?.badge_text_closed || "ভর্তি সমাপ্ত"
+                    : admissionStatus?.badge_text_open || "চলমান"}
+                </span>
               </NavLink>
 
               <NavLink
@@ -558,9 +590,20 @@ const Navbar = () => {
           <NavLink
             to="/admission"
             onClick={closeDrawer}
-            className="flex items-center justify-center w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition-all"
+            className="flex items-center justify-center gap-2 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition-all shadow-xs"
           >
-            ভর্তি আবেদন
+            <span>ভর্তি আবেদন</span>
+            <span
+              className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                admissionStatus?.is_open === false
+                  ? "bg-amber-100 text-amber-900"
+                  : "bg-white text-emerald-800"
+              }`}
+            >
+              {admissionStatus?.is_open === false
+                ? admissionStatus?.badge_text_closed || "ভর্তি সমাপ্ত"
+                : admissionStatus?.badge_text_open || "চলমান"}
+            </span>
           </NavLink>
         </div>
       </div>

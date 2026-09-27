@@ -4,6 +4,7 @@ import Marquee from "../features/home/components/Marquee";
 import RecentNotices from "../features/home/components/RecentNotices";
 import HomeQuickServices from "../features/home/components/HomeQuickServices";
 import MuhtamimCard from "../features/home/components/MuhtamimCard";
+import PrayerTimesCard from "../features/home/components/PrayerTimesCard";
 import PageTitle from "../utils/PageTitle";
 
 const Home = () => {
@@ -36,7 +37,8 @@ const Home = () => {
               <aside className="lg:w-80 xl:w-88 w-full space-y-6">
                 {/* Respected Muhtamim Card */}
                 <MuhtamimCard />
-                {/* Mission card */}
+                {/* Daily Jamat Prayer Times Card */}
+                <PrayerTimesCard />
               </aside>
             </div>
           </div>
