@@ -19,6 +19,12 @@ import ExpatriateGrantsPage from "../pages/ExpatriateGrantsPage";
 import RouteErrorBoundary from "../components/RouteErrorBoundary";
 import NotFoundPage from "../pages/NotFoundPage";
 import TopAchieversPage from "../pages/TopAchieversPage";
+import BoardingPolicyPage from "../pages/BoardingPolicyPage";
+import HolidayCalendarPage from "../pages/HolidayCalendarPage";
+import ExamRoutinePage from "../pages/ExamRoutinePage";
+import ClassRoutinePage from "../pages/ClassRoutinePage";
+import CoCurricularPage from "../pages/CoCurricularPage";
+import MealMenuPage from "../pages/MealMenuPage";
 
 const Routes = createBrowserRouter([
   {
@@ -129,6 +135,58 @@ const Routes = createBrowserRouter([
       {
         path: "/donors",
         element: <ExpatriateGrantsPage />,
+      },
+      {
+        path: "/boarding-rules",
+        element: <BoardingPolicyPage />,
+      },
+      {
+        path: "/hostel-policy",
+        element: <BoardingPolicyPage />,
+      },
+      {
+        path: "/holiday-calendar",
+        element: <HolidayCalendarPage />,
+      },
+      {
+        path: "/holidays",
+        element: <HolidayCalendarPage />,
+      },
+      {
+        path: "/exam-routine",
+        element: <ExamRoutinePage />,
+      },
+      {
+        path: "/exam-schedule",
+        element: <ExamRoutinePage />,
+      },
+      {
+        path: "/class-routine",
+        element: <ClassRoutinePage />,
+      },
+      {
+        path: "/class-schedule",
+        element: <ClassRoutinePage />,
+      },
+      {
+        path: "/co-curricular",
+        element: <CoCurricularPage />,
+      },
+      {
+        path: "/co-curricular-activities",
+        element: <CoCurricularPage />,
+      },
+      {
+        path: "/meal-menu",
+        element: <MealMenuPage />,
+      },
+      {
+        path: "/residential-food-menu",
+        element: <MealMenuPage />,
+      },
+      {
+        path: "/boarding-meal-routine",
+        element: <MealMenuPage />,
       },
       {
         path: "*",

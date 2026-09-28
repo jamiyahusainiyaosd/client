@@ -1,0 +1,253 @@
+import React, { useState, useMemo, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Search, Clock, MapPin, User, CheckCircle2, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
+import coCurricularService from "../services/coCurricular.services";
+import Loader from "../../../components/Loader";
+import Pagination from "../../../components/Pagination";
+
+const DEFAULT_CATEGORIES = [
+  { id: "all", label: "সকল কার্যক্রম" },
+  { id: "language", label: "ভাষা ও সাহিত্য" },
+  { id: "islamic", label: "কুরআন ও রুহানিয়াত" },
+  { id: "physical", label: "শরীরচর্চা ও সমাজসেবা" },
+];
+
+const ITEMS_PER_PAGE = 6;
+
+const CoCurricularCards = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Fetch all activities once to derive categories dynamically
+  const { data: apiAllActivities } = useQuery({
+    queryKey: ["coCurricular", "all"],
+    queryFn: () => coCurricularService.getAllActivities("all"),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const categories = useMemo(() => {
+    const raw = Array.isArray(apiAllActivities) ? apiAllActivities : apiAllActivities?.results || [];
+    if (raw.length === 0) return DEFAULT_CATEGORIES;
+    const cats = [{ id: "all", label: "সকল কার্যক্রম" }];
+    const seen = new Set();
+    raw.forEach((a) => {
+      if (a.category && !seen.has(a.category)) {
+        seen.add(a.category);
+        cats.push({ id: a.category, label: a.category_label || a.category });
+      }
+    });
+    return cats.length > 1 ? cats : DEFAULT_CATEGORIES;
+  }, [apiAllActivities]);
+
+  // Reset page when category or search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchQuery]);
+
+  // Fetch dynamic activities from DRF API
+  const {
+    data: apiActivities,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["coCurricular", selectedCategory],
+    queryFn: () => coCurricularService.getAllActivities(selectedCategory),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  // Normalize API data
+  const activities = useMemo(() => {
+    const rawList = Array.isArray(apiActivities)
+      ? apiActivities
+      : apiActivities?.results || apiActivities?.data || [];
+
+    return rawList.map((item) => {
+      let parsedItems = [];
+      if (Array.isArray(item.items) && item.items.length > 0) {
+        parsedItems = item.items;
+      } else if (item.items_json) {
+        try {
+          parsedItems = JSON.parse(item.items_json);
+        } catch {
+          parsedItems = [];
+        }
+      }
+
+      return {
+        id: item.activity_id || item.id,
+        title: item.title,
+        shortDesc: item.short_desc,
+        category: item.category,
+        timing: item.timing,
+        venue: item.venue,
+        mentor: item.mentor,
+        badge: item.badge,
+        icon: item.icon,
+        items: parsedItems,
+      };
+    });
+  }, [apiActivities]);
+
+  const filteredActivities = useMemo(() => {
+    return activities.filter((item) => {
+      const matchSearch =
+        !searchQuery.trim() ||
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.shortDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.mentor.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return matchSearch;
+    });
+  }, [activities, searchQuery]);
+
+  const paginatedActivities = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredActivities.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredActivities, currentPage]);
+
+  return (
+    <div className="space-y-6">
+      {/* Category Pills & Search */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Category Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 scrollbar-none">
+          {categories.map((cat) => {
+            const isActive = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? "bg-primary text-white shadow-xs"
+                    : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Search Input */}
+        <div className="relative w-full md:w-72">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="কার্যক্রম বা উস্তাদের নাম..."
+            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+          />
+        </div>
+      </div>
+
+      {/* Error state with retry */}
+      {isError && (
+        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-amber-800">
+            <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+            <span>সার্ভার থেকে সরাসরি কার্যক্রম লোড হতে বিঘ্ন ঘটেছে।</span>
+          </div>
+          <button
+            onClick={() => refetch()}
+            className="inline-flex items-center gap-1 text-xs font-semibold text-amber-900 bg-amber-200/70 hover:bg-amber-200 px-3 py-1 rounded-lg transition-colors cursor-pointer"
+          >
+            <RefreshCw className="w-3 h-3" />
+            পুনরায় চেষ্টা
+          </button>
+        </div>
+      )}
+
+      {/* Loading or Content */}
+      {isLoading ? (
+        <Loader />
+      ) : paginatedActivities.length > 0 ? (
+        <>
+          {/* Activities Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            {paginatedActivities.map((act) => (
+              <div
+                key={act.id}
+                className="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-xs hover:border-primary/40 hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  {/* Header: Icon + Badge */}
+                  <div className="flex items-start justify-between gap-3 mb-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center shrink-0 shadow-2xs">
+                      <span className="material-symbols-outlined text-[22px]">
+                        {act.icon}
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200/60">
+                      {act.badge}
+                    </span>
+                  </div>
+
+                  {/* Title & Short Description */}
+                  <h3 className="text-base sm:text-lg font-bold text-main leading-snug">
+                    {act.title}
+                  </h3>
+                  <p className="mt-1.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                    {act.shortDesc}
+                  </p>
+
+                  {/* Key Features Bullet List */}
+                  {act.items && act.items.length > 0 && (
+                    <div className="mt-4 pt-3.5 border-t border-slate-100 space-y-2">
+                      {act.items.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span className="leading-snug">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Footer: Timing, Venue & Mentor */}
+                <div className="mt-5 pt-3.5 border-t border-slate-100/80 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-500 bg-slate-50/60 p-3 rounded-xl">
+                  <div className="flex items-center gap-1.5 text-slate-700 font-medium truncate">
+                    <Clock className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span className="truncate">{act.timing}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-slate-700 font-medium truncate">
+                    <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span className="truncate">{act.venue}</span>
+                  </div>
+                  <div className="col-span-1 sm:col-span-2 flex items-center gap-1.5 text-slate-600 pt-1 text-[11px] border-t border-slate-200/50">
+                    <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span className="truncate font-medium">দায়িত্বে: {act.mentor}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Shared Pagination component */}
+          {filteredActivities.length > ITEMS_PER_PAGE && (
+            <Pagination
+              currentPage={currentPage}
+              totalCount={filteredActivities.length}
+              pageSize={ITEMS_PER_PAGE}
+              onPageChange={setCurrentPage}
+              useBengaliDigits={true}
+            />
+          )}
+        </>
+      ) : (
+        <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
+          <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+          <p className="text-sm font-semibold text-slate-700">
+            কোনো কার্যক্রম পাওয়া যায়নি
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CoCurricularCards;

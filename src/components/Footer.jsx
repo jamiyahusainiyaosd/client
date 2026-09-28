@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   FaEnvelope,
   FaFacebookF,
@@ -66,6 +67,30 @@ const Footer = () => {
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0" />
                     <span className="truncate">{label}</span>
                   </a>
+                </li>
+              ))}
+            </ul>
+
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mt-5 mb-2.5 pt-3 border-t border-slate-200/70">
+              একাডেমিক ও রুটিন সেবা
+            </h4>
+            <ul className="space-y-2 text-xs">
+              {[
+                ["ক্লাস রুটিন", "/class-routine"],
+                ["পরীক্ষার রুটিন", "/exam-routine"],
+                ["ছুটির তালিকা", "/holiday-calendar"],
+                ["আবাসিক নীতিমালা", "/boarding-rules"],
+                ["দৈনিক খাবার তালিকা", "/meal-menu"],
+                ["সহ-পাঠ্যক্রম", "/co-curricular"],
+              ].map(([label, path], idx) => (
+                <li key={idx}>
+                  <Link
+                    to={path}
+                    className="group flex items-center gap-2 text-slate-600 hover:text-emerald-700 transition-colors duration-150"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0" />
+                    <span className="truncate">{label}</span>
+                  </Link>
                 </li>
               ))}
             </ul>

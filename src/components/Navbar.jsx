@@ -24,8 +24,35 @@ const Navbar = () => {
   const { contact } = useContactSettings();
 
   const location = useLocation();
+  const currentPath = location.pathname;
+
   const aboutTimeoutRef = useRef(null);
   const academicTimeoutRef = useRef(null);
+
+  // মেনু ডাটা লিস্ট
+  const aboutLinks = [
+    { to: "/about", label: "মাদ্রাসা সম্পর্কে" },
+    { to: "/photo-gallery", label: "ফটো গ্যালারি" },
+    { to: "/video-gallery", label: "ভিডিও গ্যালারি" },
+    { to: "/financial-report", label: "আর্থিক প্রতিবেদন" },
+    { to: "/former-students", label: "সাবেক ছাত্র" },
+  ];
+
+  const academicLinks = [
+    { to: "/academic", label: "একাডেমিক জামাত" },
+    { to: "/class-routine", label: "ক্লাস রুটিন" },
+    { to: "/exam-routine", label: "পরীক্ষার রুটিন" },
+    { to: "/holiday-calendar", label: "ছুটির তালিকা" },
+    { to: "/boarding-rules", label: "আবাসিক নীতিমালা" },
+    { to: "/meal-menu", label: "দৈনিক খাবার তালিকা" },
+    { to: "/co-curricular", label: "সহ-পাঠ্যক্রম" },
+    { to: "/results", label: "ফলাফল" },
+    { to: "/top-achievers", label: "এ বছরের সেরা" },
+  ];
+
+  // চেক করা ইউজার ড্রপডাউনের কোনো পেজে আছেন কি না
+  const isAboutActive = aboutLinks.some((link) => currentPath === link.to);
+  const isAcademicActive = academicLinks.some((link) => currentPath === link.to);
 
   const handleShare = async () => {
     const shareData = {
@@ -104,16 +131,13 @@ const Navbar = () => {
     setMobileAcademicOpen(false);
   };
 
-  const DropdownChevron = ({ open }) => (
+  const DropdownChevron = ({ open, active }) => (
     <ChevronDown
       className={`ml-1.5 h-3.5 w-3.5 transition-transform duration-300 ease-out ${
-        open ? "rotate-180 text-emerald-600" : "text-slate-400"
-      }`}
+        open ? "rotate-180" : ""
+      } ${active || open ? "text-emerald-600" : "text-slate-400"}`}
     />
   );
-
-  const dropdownItemClass =
-    "block px-4 py-2.5 text-sm text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/90 font-medium transition-all duration-200 rounded-xl mx-1";
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-white">
@@ -132,17 +156,17 @@ const Navbar = () => {
           </p>
           <div className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs text-slate-600 font-medium whitespace-nowrap">
             <a
-              href={`mailto:${contact.primary_email}`}
+              href={`mailto:${contact?.primary_email || ""}`}
               className="hover:text-emerald-700 transition-colors"
             >
-              {contact.primary_email}
+              {contact?.primary_email}
             </a>
             <span className="text-slate-300">|</span>
             <a
-              href={`tel:${contact.primary_phone}`}
+              href={`tel:${contact?.primary_phone || ""}`}
               className="hover:text-emerald-700 transition-colors font-mono"
             >
-              {contact.primary_phone}
+              {contact?.primary_phone}
             </a>
           </div>
         </div>
@@ -185,22 +209,21 @@ const Navbar = () => {
             {/* Desktop nav */}
             <div className="hidden lg:flex flex-1 justify-center">
               <ul className="flex items-center gap-1">
-                {[{ to: "/", label: "হোম" }].map(({ to, label }) => (
-                  <li key={to}>
-                    <NavLink
-                      to={to}
-                      className={({ isActive }) =>
-                        `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                          isActive
-                            ? "text-emerald-600 bg-emerald-50"
-                            : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-                        }`
-                      }
-                    >
-                      {label}
-                    </NavLink>
-                  </li>
-                ))}
+                <li>
+                  <NavLink
+                    to="/"
+                    end
+                    className={({ isActive }) =>
+                      `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                        isActive
+                          ? "text-emerald-600 bg-emerald-50 font-semibold"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                      }`
+                    }
+                  >
+                    হোম
+                  </NavLink>
+                </li>
 
                 {/* About dropdown */}
                 <li
@@ -220,16 +243,15 @@ const Navbar = () => {
                       if (e.key === "Escape") setAboutOpen(false);
                     }}
                     className={`px-3.5 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center cursor-pointer ${
-                      aboutOpen
-                        ? "text-emerald-700 bg-emerald-50/80"
+                      isAboutActive || aboutOpen
+                        ? "text-emerald-700 bg-emerald-50 font-semibold"
                         : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                     }`}
                   >
                     মাদ্রাসা সম্পর্কে
-                    <DropdownChevron open={aboutOpen} />
+                    <DropdownChevron open={aboutOpen} active={isAboutActive} />
                   </button>
 
-                  {/* Dropdown Menu with hover bridge & smooth scale/opacity */}
                   <div
                     className={`absolute left-0 top-full pt-1.5 z-50 origin-top-left transition-all duration-300 ease-out ${
                       aboutOpen
@@ -238,18 +260,19 @@ const Navbar = () => {
                     }`}
                   >
                     <div className="w-56 rounded-2xl border border-slate-200/80 bg-white/95 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-1.5 transition-all duration-300">
-                      {[
-                        { to: "/about", label: "মাদ্রাসা সম্পর্কে" },
-                        { to: "/photo-gallery", label: "ফটো গ্যালারি" },
-                        { to: "/video-gallery", label: "ভিডিও গ্যালারি" },
-                        { to: "/financial-report", label: "আর্থিক প্রতিবেদন" },
-                        { to: "/former-students", label: "সাবেক ছাত্র" },
-                      ].map(({ to, label }) => (
+                      {aboutLinks.map(({ to, label }) => (
                         <NavLink
                           key={to}
                           to={to}
+                          end
                           onClick={() => setAboutOpen(false)}
-                          className={dropdownItemClass}
+                          className={({ isActive }) =>
+                            `block px-4 py-2.5 text-sm font-medium transition-all duration-200 rounded-xl mx-1 ${
+                              isActive
+                                ? "text-emerald-700 bg-emerald-50 font-semibold"
+                                : "text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/90"
+                            }`
+                          }
                         >
                           {label}
                         </NavLink>
@@ -258,7 +281,7 @@ const Navbar = () => {
                   </div>
                 </li>
 
-                {/* Academic dropdown — after মাদ্রাসা */}
+                {/* Academic dropdown */}
                 <li
                   className="relative group py-2"
                   onMouseEnter={handleAcademicEnter}
@@ -276,16 +299,15 @@ const Navbar = () => {
                       if (e.key === "Escape") setAcademicOpen(false);
                     }}
                     className={`px-3.5 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center cursor-pointer ${
-                      academicOpen
-                        ? "text-emerald-700 bg-emerald-50/80"
+                      isAcademicActive || academicOpen
+                        ? "text-emerald-700 bg-emerald-50 font-semibold"
                         : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                     }`}
                   >
                     একাডেমিক
-                    <DropdownChevron open={academicOpen} />
+                    <DropdownChevron open={academicOpen} active={isAcademicActive} />
                   </button>
 
-                  {/* Dropdown Menu with hover bridge & smooth scale/opacity */}
                   <div
                     className={`absolute left-0 top-full pt-1.5 z-50 origin-top-left transition-all duration-300 ease-out ${
                       academicOpen
@@ -293,17 +315,20 @@ const Navbar = () => {
                         : "opacity-0 scale-95 -translate-y-2 pointer-events-none invisible"
                     }`}
                   >
-                    <div className="w-48 rounded-2xl border border-slate-200/80 bg-white/95 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-1.5 transition-all duration-300">
-                      {[
-                        { to: "/academic", label: "একাডেমিক" },
-                        { to: "/results", label: "ফলাফল" },
-                        { to: "/top-achievers", label: "এ বছরের সেরা" },
-                      ].map(({ to, label }) => (
+                    <div className="w-52 rounded-2xl border border-slate-200/80 bg-white/95 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-1.5 transition-all duration-300">
+                      {academicLinks.map(({ to, label }) => (
                         <NavLink
                           key={to}
                           to={to}
+                          end
                           onClick={() => setAcademicOpen(false)}
-                          className={dropdownItemClass}
+                          className={({ isActive }) =>
+                            `block px-4 py-2.5 text-sm font-medium transition-all duration-200 rounded-xl mx-1 ${
+                              isActive
+                                ? "text-emerald-700 bg-emerald-50 font-semibold"
+                                : "text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/90"
+                            }`
+                          }
                         >
                           {label}
                         </NavLink>
@@ -312,22 +337,9 @@ const Navbar = () => {
                   </div>
                 </li>
 
-                <li>
-                  <NavLink
-                    to="/notice"
-                    className={({ isActive }) =>
-                      `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                        isActive
-                          ? "text-emerald-600 bg-emerald-50"
-                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-                      }`
-                    }
-                  >
-                    নোটিশ
-                  </NavLink>
-                </li>
-
+                {/* Other Static Nav Links */}
                 {[
+                  { to: "/notice", label: "নোটিশ" },
                   { to: "/teachers", label: "শিক্ষকবৃন্দ" },
                   { to: "/contact", label: "যোগাযোগ" },
                 ].map(({ to, label }) => (
@@ -337,7 +349,7 @@ const Navbar = () => {
                       className={({ isActive }) =>
                         `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                           isActive
-                            ? "text-emerald-600 bg-emerald-50"
+                            ? "text-emerald-600 bg-emerald-50 font-semibold"
                             : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                         }`
                       }
@@ -371,7 +383,13 @@ const Navbar = () => {
 
               <NavLink
                 to="/expatriateGrant"
-                className="hidden lg:inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-800 transition-all duration-200 whitespace-nowrap"
+                className={({ isActive }) =>
+                  `hidden lg:inline-flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
+                    isActive
+                      ? "bg-emerald-50 border-emerald-300 text-emerald-800"
+                      : "border-slate-300 bg-white hover:bg-slate-50 text-slate-800"
+                  }`
+                }
               >
                 <HandHeart size={15} className="text-emerald-600" />
                 প্রবাসী অনুদান
@@ -448,8 +466,15 @@ const Navbar = () => {
             <li>
               <NavLink
                 to="/"
+                end
                 onClick={closeDrawer}
-                className="flex items-center px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-all"
+                className={({ isActive }) =>
+                  `flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    isActive
+                      ? "text-emerald-700 bg-emerald-50 font-semibold"
+                      : "text-slate-700 hover:bg-slate-50"
+                  }`
+                }
               >
                 হোম
               </NavLink>
@@ -460,7 +485,11 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => setMobileAboutOpen((prev) => !prev)}
-                className="w-full flex justify-between items-center px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-all"
+                className={`w-full flex justify-between items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  isAboutActive
+                    ? "text-emerald-700 bg-emerald-50/70 font-semibold"
+                    : "text-slate-700 hover:bg-slate-50"
+                }`}
               >
                 <span>মাদ্রাসা সম্পর্কে</span>
                 <ChevronDown
@@ -478,18 +507,19 @@ const Navbar = () => {
               >
                 <div className="overflow-hidden">
                   <div className="ml-3 pl-3 border-l-2 border-emerald-200 space-y-0.5 py-1">
-                    {[
-                      { to: "/about", label: "মাদ্রাসা সম্পর্কে" },
-                      { to: "/photo-gallery", label: "ফটো গ্যালারি" },
-                      { to: "/video-gallery", label: "ভিডিও গ্যালারি" },
-                      { to: "/financial-report", label: "আর্থিক প্রতিবেদন" },
-                      { to: "/former-students", label: "সাবেক ছাত্র" },
-                    ].map(({ to, label }) => (
+                    {aboutLinks.map(({ to, label }) => (
                       <NavLink
                         key={to}
                         to={to}
+                        end
                         onClick={closeDrawer}
-                        className="block px-3 py-2 rounded-lg text-sm text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 transition-all"
+                        className={({ isActive }) =>
+                          `block px-3 py-2 rounded-lg text-sm transition-all ${
+                            isActive
+                              ? "text-emerald-700 bg-emerald-50 font-semibold"
+                              : "text-slate-600 hover:text-emerald-600 hover:bg-emerald-50"
+                          }`
+                        }
                       >
                         {label}
                       </NavLink>
@@ -504,7 +534,11 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => setMobileAcademicOpen((prev) => !prev)}
-                className="w-full flex justify-between items-center px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-all"
+                className={`w-full flex justify-between items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  isAcademicActive
+                    ? "text-emerald-700 bg-emerald-50/70 font-semibold"
+                    : "text-slate-700 hover:bg-slate-50"
+                }`}
               >
                 <span>একাডেমিক</span>
                 <ChevronDown
@@ -522,16 +556,19 @@ const Navbar = () => {
               >
                 <div className="overflow-hidden">
                   <div className="ml-3 pl-3 border-l-2 border-emerald-200 space-y-0.5 py-1">
-                    {[
-                      { to: "/academic", label: "একাডেমিক" },
-                      { to: "/results", label: "ফলাফল" },
-                      { to: "/top-achievers", label: "এ বছরের সেরা" },
-                    ].map(({ to, label }) => (
+                    {academicLinks.map(({ to, label }) => (
                       <NavLink
                         key={to}
                         to={to}
+                        end
                         onClick={closeDrawer}
-                        className="block px-3 py-2 rounded-lg text-sm text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 transition-all"
+                        className={({ isActive }) =>
+                          `block px-3 py-2 rounded-lg text-sm transition-all ${
+                            isActive
+                              ? "text-emerald-700 bg-emerald-50 font-semibold"
+                              : "text-slate-600 hover:text-emerald-600 hover:bg-emerald-50"
+                          }`
+                        }
                       >
                         {label}
                       </NavLink>
@@ -550,7 +587,13 @@ const Navbar = () => {
                 <NavLink
                   to={to}
                   onClick={closeDrawer}
-                  className="flex items-center px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-all"
+                  className={({ isActive }) =>
+                    `flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                      isActive
+                        ? "text-emerald-700 bg-emerald-50 font-semibold"
+                        : "text-slate-700 hover:bg-slate-50"
+                    }`
+                  }
                 >
                   {label}
                 </NavLink>
@@ -576,7 +619,7 @@ const Navbar = () => {
           <NavLink
             to="/expatriateGrant"
             onClick={closeDrawer}
-            className="flex items-center justify-center gap-2 w-full rounded-xl border border-emerald-200  bg-emerald-50  px-4 py-2.5 text-sm font-semibold text-emerald-700  transition-all"
+            className="flex items-center justify-center gap-2 w-full rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm font-semibold text-emerald-700 transition-all"
           >
             <HandHeart size={15} />
             প্রবাসী অনুদান
