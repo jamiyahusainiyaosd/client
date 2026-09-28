@@ -6,6 +6,7 @@ import HomeQuickServices from "../features/home/components/HomeQuickServices";
 import MuhtamimCard from "../features/home/components/MuhtamimCard";
 import PrayerTimesCard from "../features/home/components/PrayerTimesCard";
 import { AcademicCalendarCard } from "../features/calendar";
+import TopAchieversCarousel from "../features/home/components/TopAchieversCarousel";
 import PageTitle from "../utils/PageTitle";
 
 const Home = () => {
@@ -55,8 +56,15 @@ const Home = () => {
           </div>
         </section>
 
-        {/* SECTION 2: INTRO & WHY CHOOSE US (Background: white) */}
-        <section className="site-section site-section-white">
+        {/* SECTION 2: এ বছরের সেরা কৃতি শিক্ষার্থী (Dedicated Section with White Background) */}
+        <section className="site-section site-section-white border-b border-slate-200/60">
+          <div className="site-container">
+            <TopAchieversCarousel />
+          </div>
+        </section>
+
+        {/* SECTION 3: পাঠ্য কর্মসূচি, জামিয়া পরিচিতি ও মেট্রিক্স (Background: #f1f3ff) */}
+        <section className="site-section site-section-alt">
           <div className="site-container">
             <HomeIntro />
           </div>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { toBengaliDigits } from "../utils/resultsUtils";
 import AcademicYear from "../../../components/AcademicYear";
@@ -16,16 +17,26 @@ const ResultsHero = ({ totalResults = 16, academicYear }) => {
           <span className="text-secondary text-xs font-medium">অফিসিয়াল ফলাফল</span>
         </div>
 
-        {/* Header Title */}
-        <div className="max-w-3xl">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            মাদ্রাসার <span className="text-primary">প্রকাশিত ফলাফল</span>
-          </h1>
-          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
-            বিভিন্ন জামাতের সর্বশেষ বার্ষিক ও সাময়িক পরীক্ষার ফলাফল, অফিসিয়াল
-            মার্কশীট ও কেন্দ্রীয় মেধা তালিকা। ঘরে বসেই আপনার কাঙ্ক্ষিত জামাতের
-            অনুমোদিত ফলাফল দেখুন ও সংগ্রহ করুন।
-          </p>
+        {/* Header Title with link to Top Achievers */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="max-w-3xl">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              মাদ্রাসার <span className="text-primary">প্রকাশিত ফলাফল</span>
+            </h1>
+            <p className="mt-2 sm:mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+              বিভিন্ন জামাতের সর্বশেষ বার্ষিক ও সাময়িক পরীক্ষার ফলাফল, অফিসিয়াল
+              মার্কশীট ও কেন্দ্রীয় মেধা তালিকা। ঘরে বসেই আপনার কাঙ্ক্ষিত জামাতের
+              অনুমোদিত ফলাফল দেখুন ও সংগ্রহ করুন।
+            </p>
+          </div>
+
+          <Link
+            to="/top-achievers"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white hover:bg-primary-hover font-semibold text-xs sm:text-sm transition-all shadow-xs shrink-0 self-start md:self-end"
+          >
+            <span>🏆 এ বছরের সেরা</span>
+            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </Link>
         </div>
 
         {/* Quick Summary Stat Badges (Clean White Cards) */}

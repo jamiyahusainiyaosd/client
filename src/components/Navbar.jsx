@@ -297,6 +297,7 @@ const Navbar = () => {
                       {[
                         { to: "/academic", label: "একাডেমিক" },
                         { to: "/results", label: "ফলাফল" },
+                        { to: "/top-achievers", label: "এ বছরের সেরা" },
                       ].map(({ to, label }) => (
                         <NavLink
                           key={to}
@@ -524,6 +525,7 @@ const Navbar = () => {
                     {[
                       { to: "/academic", label: "একাডেমিক" },
                       { to: "/results", label: "ফলাফল" },
+                      { to: "/top-achievers", label: "এ বছরের সেরা" },
                     ].map(({ to, label }) => (
                       <NavLink
                         key={to}

@@ -103,7 +103,7 @@ const HomeQuickServices = () => {
               )}
 
             <div>
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center mb-2.5 sm:mb-3 group-hover:bg-primary group-hover:text-white transition-colors duration-200 shadow-xs">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center mb-2.5 sm:mb-3 group-hover:bg-slate-100 group-hover:text-slate-900 transition-colors duration-200 shadow-xs">
                 <span className="material-symbols-outlined text-[20px] sm:text-[22px]">
                   {item.icon}
                 </span>

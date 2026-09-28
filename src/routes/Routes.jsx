@@ -18,6 +18,7 @@ import FormerStudentsPage from "../pages/FormerStudentsPage";
 import ExpatriateGrantsPage from "../pages/ExpatriateGrantsPage";
 import RouteErrorBoundary from "../components/RouteErrorBoundary";
 import NotFoundPage from "../pages/NotFoundPage";
+import TopAchieversPage from "../pages/TopAchieversPage";
 
 const Routes = createBrowserRouter([
   {
@@ -92,6 +93,14 @@ const Routes = createBrowserRouter([
       {
         path: "/results/:id",
         element: <ResultsDetailsPage />,
+      },
+      {
+        path: "/top-achievers",
+        element: <TopAchieversPage />,
+      },
+      {
+        path: "/best-students",
+        element: <TopAchieversPage />,
       },
       {
         path: "/financial-report",

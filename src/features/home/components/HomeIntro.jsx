@@ -88,10 +88,10 @@ const HomeIntro = () => {
         {cards.map((card, idx) => (
           <div
             key={idx}
-            className="p-4 rounded-xl border border-slate-200/70 bg-[#f1f3ff]"
+            className="p-4 rounded-xl border border-slate-200/80 bg-white shadow-xs hover:shadow-md transition-all duration-200"
           >
             <div className="flex items-center gap-3 mb-2.5">
-              <div className="p-2 rounded-lg bg-white text-primary shrink-0 shadow-2xs">
+              <div className="p-2 rounded-lg bg-[#f1f3ff] text-primary shrink-0 shadow-2xs border border-slate-200/60">
                 <card.icon className="h-5 w-5" />
               </div>
               <h3 className="font-bold text-sm sm:text-base text-main">{card.title}</h3>
@@ -105,8 +105,8 @@ const HomeIntro = () => {
 
       {/* Quick Trust Metrics Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="rounded-2xl border border-slate-200/80 bg-[#f1f3ff] p-4 sm:p-5 flex items-center gap-3.5 shadow-xs">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-primary flex items-center justify-center shrink-0 shadow-xs">
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 flex items-center gap-3.5 shadow-xs hover:shadow-md transition-all duration-200">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center shrink-0 shadow-2xs border border-slate-200/60">
             <span className="material-symbols-outlined text-[22px]">calendar_month</span>
           </div>
           <div>
@@ -115,8 +115,8 @@ const HomeIntro = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200/80 bg-[#f1f3ff] p-4 sm:p-5 flex items-center gap-3.5 shadow-xs">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-primary flex items-center justify-center shrink-0 shadow-xs">
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 flex items-center gap-3.5 shadow-xs hover:shadow-md transition-all duration-200">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center shrink-0 shadow-2xs border border-slate-200/60">
             <span className="material-symbols-outlined text-[22px]">groups</span>
           </div>
           <div>
@@ -127,8 +127,8 @@ const HomeIntro = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200/80 bg-[#f1f3ff] p-4 sm:p-5 flex items-center gap-3.5 shadow-xs">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-primary flex items-center justify-center shrink-0 shadow-xs">
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 flex items-center gap-3.5 shadow-xs hover:shadow-md transition-all duration-200">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center shrink-0 shadow-2xs border border-slate-200/60">
             <span className="material-symbols-outlined text-[22px]">school</span>
           </div>
           <div>
@@ -139,8 +139,8 @@ const HomeIntro = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200/80 bg-[#f1f3ff] p-4 sm:p-5 flex items-center gap-3.5 shadow-xs">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-primary flex items-center justify-center shrink-0 shadow-xs">
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 flex items-center gap-3.5 shadow-xs hover:shadow-md transition-all duration-200">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center shrink-0 shadow-2xs border border-slate-200/60">
             <span className="material-symbols-outlined text-[22px]">verified</span>
           </div>
           <div>
@@ -151,9 +151,9 @@ const HomeIntro = () => {
       </div>
 
       {/* About Section */}
-      <div className="rounded-2xl border border-slate-200/80 bg-[#f1f3ff] p-6 sm:p-8 shadow-xs">
+      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs">
         {/* Header */}
-        <div className="flex items-center gap-3.5 pb-5 mb-5 border-b border-slate-200/70">
+        <div className="flex items-center gap-3.5 pb-5 mb-5 border-b border-slate-100">
           <div className="h-12 w-12 flex items-center justify-center rounded-2xl bg-primary text-white flex-shrink-0 shadow-xs">
             <span className="material-symbols-outlined text-[26px]">mosque</span>
           </div>
