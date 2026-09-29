@@ -5,9 +5,9 @@ import {
   Sun,
   Moon,
   Info,
-  Sparkles,
-  Search,
-  CheckCircle,
+  Calendar,
+  LayoutGrid,
+  Table as TableIcon,
 } from "lucide-react";
 
 const getTodayKey = () => {
@@ -27,7 +27,9 @@ const getTodayKey = () => {
 const MealMenuTable = ({ mealMenus = [] }) => {
   const todayKey = getTodayKey();
   const [selectedDay, setSelectedDay] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery] = useState("");
+  // On mobile screen, default to card view for optimal readability
+  const [mobileView, setMobileView] = useState("card"); // "card" or "table"
 
   const filteredMenus = mealMenus.filter((item) => {
     const matchesDay = selectedDay === "all" || item.day_key === selectedDay;
@@ -41,84 +43,224 @@ const MealMenuTable = ({ mealMenus = [] }) => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Table Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg sm:text-xl font-bold text-main">
-              আবাসিক শিক্ষার্থীদের দৈনিক খাবার তালিকা (মেনু)
-            </h2>
-            <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
-              সাপ্তাহিক রুটিন
-            </span>
+      <div className="flex flex-col gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-base sm:text-xl font-bold text-main">
+                আবাসিক শিক্ষার্থীদের দৈনিক খাবার তালিকা (মেনু)
+              </h2>
+              <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                সাপ্তাহিক রুটিন
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              বার অনুযায়ী সকাল, দুপুর ও রাতের নির্ধারিত পুষ্টিকর খাবার তালিকা
+            </p>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            বার অনুযায়ী সকাল, দুপুর ও রাতের নির্ধারিত পুষ্টিকর খাবার তালিকা
-          </p>
-        </div>
 
-        {/* Filter / Search */}
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Day Filter Pills */}
-          <div className="flex items-center gap-1 overflow-x-auto pb-1 max-w-full">
+          {/* View Toggle on Mobile (Card vs Table) */}
+          <div className="flex md:hidden items-center self-start sm:self-auto bg-slate-100 p-0.5 rounded-xl border border-slate-200">
             <button
-              onClick={() => setSelectedDay("all")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                selectedDay === "all"
-                  ? "bg-primary text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              type="button"
+              onClick={() => setMobileView("card")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                mobileView === "card"
+                  ? "bg-white text-primary shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              সব দিন
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>কার্ড ভিউ</span>
             </button>
-            {mealMenus.map((m) => (
+            <button
+              type="button"
+              onClick={() => setMobileView("table")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                mobileView === "table"
+                  ? "bg-white text-primary shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <TableIcon className="w-3.5 h-3.5" />
+              <span>টেবিল ভিউ</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Day Filter Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
+          <button
+            onClick={() => setSelectedDay("all")}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 cursor-pointer ${
+              selectedDay === "all"
+                ? "bg-primary text-white shadow-xs"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+            }`}
+          >
+            সব দিন
+          </button>
+          {mealMenus.map((m) => {
+            const isToday = m.day_key === todayKey;
+            const isSelected = selectedDay === m.day_key;
+            return (
               <button
                 key={m.id || m.day_key}
                 onClick={() => setSelectedDay(m.day_key)}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                  selectedDay === m.day_key
-                    ? "bg-primary text-white shadow-sm"
-                    : m.day_key === todayKey
-                    ? "bg-emerald-50 text-emerald-700 border border-emerald-300 font-bold"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+                  isSelected
+                    ? "bg-primary text-white shadow-xs"
+                    : isToday
+                    ? "bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                 }`}
               >
                 {m.day_name}
-                {m.day_key === todayKey && (
-                  <span className="ml-1 w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+                {isToday && (
+                  <span className="ml-1 px-1 py-0.2 rounded text-[10px] bg-primary text-white font-normal">
+                    আজ
+                  </span>
                 )}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Main Table Container */}
-      <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+      {/* ========================================================================= */}
+      {/* 1. MOBILE-FRIENDLY CARD VIEW (Optimal for small screens)                  */}
+      {/* ========================================================================= */}
+      <div
+        className={`${
+          mobileView === "card" ? "block md:hidden" : "hidden"
+        } space-y-3.5`}
+      >
+        {filteredMenus.map((row) => {
+          const isToday = row.day_key === todayKey;
+          return (
+            <div
+              key={`card-${row.id || row.day_key}`}
+              className={`rounded-2xl border transition-all p-4 shadow-xs ${
+                isToday
+                  ? "bg-emerald-50/60 border-emerald-300 ring-1 ring-emerald-300"
+                  : "bg-white border-slate-200/90"
+              }`}
+            >
+              {/* Day Header */}
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-200/80">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+                  <h3
+                    className={`font-bold text-base ${
+                      isToday ? "text-primary" : "text-slate-900"
+                    }`}
+                  >
+                    {row.day_name}
+                  </h3>
+                  {isToday && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-white">
+                      আজকের দিন
+                    </span>
+                  )}
+                </div>
+                {row.day_key === "fri" && (
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
+                    জুমার বিশেষ মেনু
+                  </span>
+                )}
+              </div>
+
+              {/* 3 Meals in Clean, Readable Rows */}
+              <div className="space-y-2.5 text-xs">
+                {/* Breakfast */}
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-amber-50/60 border border-amber-100/80">
+                  <div className="w-6 h-6 rounded-lg bg-amber-100 flex items-center justify-center shrink-0 mt-0.5 text-amber-700">
+                    <Sunrise className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-[10px] font-bold text-amber-900 uppercase tracking-wide block mb-0.5">
+                      সকালের নাস্তা
+                    </span>
+                    <p className="text-slate-900 font-semibold text-xs leading-relaxed">
+                      {row.breakfast}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Lunch */}
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200/70">
+                  <div className="w-6 h-6 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5 text-emerald-700">
+                    <Sun className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-[10px] font-bold text-emerald-900 uppercase tracking-wide block mb-0.5">
+                      দুপুরের আহার (প্রধান)
+                    </span>
+                    <p className="text-slate-950 font-bold text-xs sm:text-sm leading-relaxed">
+                      {row.lunch}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Dinner */}
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-sky-50/60 border border-sky-100/80">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 flex items-center justify-center shrink-0 mt-0.5 text-sky-700">
+                    <Moon className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-[10px] font-bold text-sky-900 uppercase tracking-wide block mb-0.5">
+                      রাতের খাবার
+                    </span>
+                    <p className="text-slate-900 font-semibold text-xs leading-relaxed">
+                      {row.dinner}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 2. TABLE VIEW (Desktop default, and mobile when Table View is selected)    */}
+      {/* ========================================================================= */}
+      <div
+        className={`${
+          mobileView === "table" ? "block" : "hidden md:block"
+        } overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-xs`}
+      >
+        {/* Mobile Horizontal Scroll Hint */}
+        <div className="md:hidden bg-slate-100/90 px-3 py-1.5 text-center text-[11px] font-medium text-slate-600 border-b border-slate-200">
+          👉 আঙুল দিয়ে ডানে-বামে টেনে পুরো তালিকা দেখুন
+        </div>
+
+        <div className="overflow-x-auto scrollbar-none">
+          <table className="w-full min-w-[650px] text-left border-collapse">
             {/* Table Header */}
             <thead>
               <tr className="bg-slate-900 text-white text-xs sm:text-sm">
                 <th className="py-3.5 px-4 sm:px-6 font-bold w-36 sm:w-44 text-emerald-300">
                   <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-emerald-400" />
                     <span>বার</span>
                   </div>
                 </th>
-                <th className="py-3.5 px-4 sm:px-6 font-bold text-amber-300">
+                <th className="py-3.5 px-4 sm:px-6 font-bold w-[28%] text-amber-300">
                   <div className="flex items-center gap-2">
                     <Sunrise className="w-4 h-4 text-amber-400" />
                     <span>সকাল (নাস্তা)</span>
                   </div>
                 </th>
-                <th className="py-3.5 px-4 sm:px-6 font-bold text-emerald-300">
+                <th className="py-3.5 px-4 sm:px-6 font-bold w-[36%] text-emerald-300">
                   <div className="flex items-center gap-2">
                     <Sun className="w-4 h-4 text-emerald-400" />
                     <span>দুপুর (আহার)</span>
                   </div>
                 </th>
-                <th className="py-3.5 px-4 sm:px-6 font-bold text-sky-300">
+                <th className="py-3.5 px-4 sm:px-6 font-bold w-[28%] text-sky-300">
                   <div className="flex items-center gap-2">
                     <Moon className="w-4 h-4 text-sky-400" />
                     <span>রাত (নৈশভোজ)</span>
@@ -146,20 +288,20 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                     <td className="py-4 px-4 sm:px-6 align-top">
                       <div className="flex items-center gap-2">
                         <span
-                          className={`font-bold text-sm sm:text-base ${
+                          className={`font-bold text-sm sm:text-base whitespace-nowrap ${
                             isToday ? "text-primary" : "text-slate-900"
                           }`}
                         >
                           {row.day_name}
                         </span>
                         {isToday && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-white">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-white shrink-0">
                             আজ
                           </span>
                         )}
                       </div>
                       {row.day_key === "fri" && (
-                        <span className="inline-block mt-1 text-[10px] text-emerald-700 bg-emerald-100/80 px-1.5 py-0.5 rounded font-semibold">
+                        <span className="inline-block mt-1 text-[10px] text-emerald-700 bg-emerald-100/80 px-1.5 py-0.5 rounded font-semibold whitespace-nowrap">
                           জুমার বিশেষ মেনু
                         </span>
                       )}
