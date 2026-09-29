@@ -7,6 +7,7 @@ import { AlertTriangle, RotateCcw, Home } from "lucide-react";
 
 const RouteErrorBoundary = () => {
   const error = useRouteError();
+  console.error("RouteErrorBoundary caught error:", error);
 
   const is404 = isRouteErrorResponse(error) && error.status === 404;
 
@@ -35,9 +36,17 @@ const RouteErrorBoundary = () => {
             কিছুটা সমস্যা হয়েছে
           </h2>
 
-          <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+          <p className="text-sm text-slate-600 mb-4 leading-relaxed">
             আমরা এই পাতাটি লোড করতে সমস্যায় পড়েছি। অনুগ্রহ করে পাতাটি রিলোড করুন অথবা হোমে ফিরে যান।
           </p>
+
+          {import.meta.env.DEV && error && (
+            <div className="mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-left text-xs font-mono text-red-700 overflow-x-auto max-h-40">
+              <p className="font-bold mb-1">Developer Error Details:</p>
+              <p>{error?.message || error?.statusText || String(error)}</p>
+              {error?.stack && <pre className="mt-1 text-[10px] text-red-600 whitespace-pre-wrap">{error.stack}</pre>}
+            </div>
+          )}
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button

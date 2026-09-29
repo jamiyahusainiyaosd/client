@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   Search,
@@ -10,6 +10,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import examRoutineService from "../services/examRoutine.services";
+import classRoutineService from "../../classRoutine/services/classRoutine.services";
 import Loader from "../../../components/Loader";
 import Pagination from "../../../components/Pagination";
 
@@ -20,32 +21,51 @@ const toBengaliNumber = (num) => {
 
 const ITEMS_PER_PAGE = 8;
 
-const ExamRoutineTable = ({ activeSession = "annual" }) => {
-  const [selectedJamat, setSelectedJamat] = useState("meshkat");
+const ExamRoutineTable = ({ activeSession = "" }) => {
+  const [selectedJamat, setSelectedJamat] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Dynamic Jamats from API
-  const { data: apiJamats } = useQuery({
-    queryKey: ["examJamats"],
-    queryFn: () => examRoutineService.getAllJamats(),
+
+  // Dynamic Sessions from API to get active session details
+  const { data: apiSessions } = useQuery({
+    queryKey: ["examSessions"],
+    queryFn: () => examRoutineService.getAllSessions(),
     staleTime: 1000 * 60 * 5,
   });
 
-  const jamats = useMemo(() => {
-    if (Array.isArray(apiJamats) && apiJamats.length > 0) {
-      return apiJamats;
-    }
-    return [
-      { id: "meshkat", name: "ফযিলত ২য় বর্ষ (মেশকাত)" },
-      { id: "jalalain", name: "ফযিলত ১ম বর্ষ (জালালাইন)" },
-      { id: "jami", name: "সানাবিয়্যাতুল উলইয়া (শরহে জামি)" },
-      { id: "kafia", name: "সানাবিয়্যাহ আম্মাহ (কাফিয়া)" },
-      { id: "nahbemir", name: "মুতাওয়াসসিতাহ ২য় বর্ষ (নাহবেমির)" },
-      { id: "hifz", name: "তাহফিজুল কোরআন (হিফজ)" },
-      { id: "noorani", name: "নূরানী ৩য় বর্ষ" },
-    ];
-  }, [apiJamats]);
+  const activeSessionObj = useMemo(() => {
+    const raw = Array.isArray(apiSessions)
+      ? apiSessions
+      : apiSessions?.results || apiSessions?.sessions || [];
+    return raw.find((s) => String(s.session_id || s.id || s.slug) === String(activeSession));
+  }, [apiSessions, activeSession]);
+
+  // Dynamic Master Jamats from routine metadata as fallback when session has no exam routines yet
+  const { data: routineMeta } = useQuery({
+    queryKey: ["classRoutineMeta"],
+    queryFn: () => classRoutineService.getRoutineMeta(),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const allMasterJamats = useMemo(() => {
+    const map = routineMeta?.jamats_by_dept || {};
+    const list = [];
+    const seen = new Set();
+    Object.values(map).forEach((group) => {
+      if (Array.isArray(group)) {
+        group.forEach((j) => {
+          const id = j.id || j.jamat_id;
+          const name = j.name || j.jamat_name || j.title;
+          if (id && !seen.has(String(id))) {
+            seen.add(String(id));
+            list.push({ id, name });
+          }
+        });
+      }
+    });
+    return list;
+  }, [routineMeta]);
 
   // Dynamic Instructions from API
   const { data: apiInstructions } = useQuery({
@@ -55,34 +75,31 @@ const ExamRoutineTable = ({ activeSession = "annual" }) => {
   });
 
   const examInstructions = useMemo(() => {
-    const raw = Array.isArray(apiInstructions) ? apiInstructions : apiInstructions?.results || [];
-    if (raw.length > 0) {
-      return raw.map((item) => item.instruction);
-    }
-    return [];
+    const raw = Array.isArray(apiInstructions)
+      ? apiInstructions
+      : apiInstructions?.results || apiInstructions?.instructions || [];
+    return raw
+      .map((item) =>
+        typeof item === "string" ? item : item.instruction || item.text || item.title || ""
+      )
+      .filter(Boolean);
   }, [apiInstructions]);
-
-  // Keep selectedJamat valid when jamats load
-  useEffect(() => {
-    if (jamats.length > 0 && !jamats.some((j) => j.id === selectedJamat)) {
-      setSelectedJamat(jamats[0].id);
-    }
-  }, [jamats, selectedJamat]);
 
   // Reset page when session, jamat, or search changes
   useEffect(() => {
     setCurrentPage(1);
   }, [activeSession, selectedJamat, searchQuery]);
 
-  // Dynamic fetch from DRF API
+  // Dynamic fetch from API based on selected session
   const {
     data: apiRoutines,
     isLoading,
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["examRoutines", activeSession, selectedJamat],
-    queryFn: () => examRoutineService.getAllExamRoutines(activeSession, selectedJamat),
+    queryKey: ["examRoutines", activeSession],
+    queryFn: () => examRoutineService.getAllExamRoutines(activeSession),
+    enabled: Boolean(activeSession),
     staleTime: 1000 * 60 * 5,
   });
 
@@ -94,30 +111,80 @@ const ExamRoutineTable = ({ activeSession = "annual" }) => {
 
     return rawList.map((item) => ({
       id: item.id,
-      jamatId: item.jamat_id,
-      jamatName: item.jamat_name,
-      date: item.date_str,
-      day: item.day_name,
-      subject: item.subject,
-      code: item.subject_code,
-      time: item.time_str,
-      hall: item.hall_name,
-      marks: item.marks,
-      sessionName: item.session_name,
-      academicYear: item.academic_year,
+      jamatId: item.jamat_id || item.jamat?.id || item.jamat,
+      jamatName: item.jamat_name || item.jamat?.name || item.jamat || "",
+      date: item.date_str || item.date || item.exam_date || "",
+      day: item.day_name || item.day || "",
+      subject: item.subject || item.subject_name || "",
+      code: item.subject_code || item.code || "",
+      time: item.time_str || item.time || item.exam_time || "",
+      hall: item.hall_name || item.hall || item.room || "",
+      marks: item.marks || item.total_marks || "১০০",
+      sessionName: item.session_name || item.session?.name || "",
+      academicYear: item.academic_year || "",
     }));
   }, [apiRoutines]);
 
+  // Dynamically extract jamats: if active session has exam routines, show those jamats;
+  // otherwise, fall back to master jamats list so the category filter bar is not completely empty
+  const jamats = useMemo(() => {
+    if (schedules.length > 0) {
+      const seen = new Set();
+      const list = [];
+      schedules.forEach((item) => {
+        const id = item.jamatId;
+        const name = item.jamatName;
+        if (id && !seen.has(String(id))) {
+          seen.add(String(id));
+          list.push({ id, name: name || String(id) });
+        }
+      });
+      if (list.length > 0) {
+        return [{ id: "all", name: "সকল জামাত" }, ...list];
+      }
+    }
+
+    if (allMasterJamats.length > 0) {
+      return [{ id: "all", name: "সকল জামাত" }, ...allMasterJamats];
+    }
+
+    return [{ id: "all", name: "সকল জামাত" }];
+  }, [schedules, allMasterJamats]);
+
+  // Reset selectedJamat to "all" if current selection is not present in this session's jamats
+  useEffect(() => {
+    if (
+      selectedJamat !== "all" &&
+      !jamats.some((j) => String(j.id) === String(selectedJamat))
+    ) {
+      setSelectedJamat("all");
+    }
+  }, [jamats, selectedJamat]);
+
   const filteredSchedules = useMemo(() => {
     return schedules.filter((item) => {
-      const matchSearch =
-        !searchQuery.trim() ||
-        item.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.hall.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchSearch;
+      // If a specific jamat is selected, verify match
+      if (
+        selectedJamat !== "all" &&
+        item.jamatId &&
+        String(item.jamatId) !== String(selectedJamat)
+      ) {
+        return false;
+      }
+
+      const q = searchQuery.trim().toLowerCase();
+      if (!q) return true;
+
+      return (
+        item.subject?.toLowerCase().includes(q) ||
+        item.code?.toLowerCase().includes(q) ||
+        item.date?.toLowerCase().includes(q) ||
+        item.day?.toLowerCase().includes(q) ||
+        item.hall?.toLowerCase().includes(q) ||
+        item.jamatName?.toLowerCase().includes(q)
+      );
     });
-  }, [schedules, searchQuery]);
+  }, [schedules, selectedJamat, searchQuery]);
 
   const paginatedSchedules = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -126,86 +193,147 @@ const ExamRoutineTable = ({ activeSession = "annual" }) => {
 
   const currentJamatObj = jamats.find((j) => j.id === selectedJamat);
 
-  // Dynamic header info
-  const sessionHeader = useMemo(() => {
-    if (schedules.length > 0 && schedules[0].sessionName) {
-      return {
-        title: schedules[0].sessionName,
-        academicYear: schedules[0].academicYear || "২০২৫-২০২৬ শিক্ষাবর্ষ",
-        timing: schedules[0].time || "সকাল ৯:০০ – ১২:০০"
-      };
+  const scrollContainerRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftPos, setScrollLeftPos] = useState(0);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 6);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 6);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    const handleResize = () => checkScroll();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [checkScroll, jamats]);
+
+  const handleScrollBy = (distance) => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: distance, behavior: "smooth" });
+      setTimeout(checkScroll, 200);
     }
-    return {
-      title: activeSession === "befaq" ? "বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ" : "বার্ষিক শালানা ইমতিহান ২০২৬",
-      academicYear: "২০২৫-২০২৬ শিক্ষাবর্ষ",
-      timing: "সকাল ৯:০০ – ১২:০০",
-      announcement: "জামিয়া হুসাইনিয়া কেন্দ্রীয় পরীক্ষা কমিটি কর্তৃক অনুমোদিত আনুষ্ঠানিক সময়সূচি",
-    };
-  }, [schedules, activeSession]);
+  };
+
+  const handleWheel = (e) => {
+    if (scrollContainerRef.current && e.deltaY !== 0) {
+      scrollContainerRef.current.scrollLeft += e.deltaY;
+      checkScroll();
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeftPos(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollContainerRef.current.scrollLeft = scrollLeftPos - walk;
+    checkScroll();
+  };
+
+  const stopDragging = () => {
+    setIsDragging(false);
+  };
 
   return (
     <div className="space-y-6">
-      {/* Session Title & Announcement Callout */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded">
-              {sessionHeader.academicYear}
-            </span>
-            <h2 className="text-base sm:text-lg font-bold text-emerald-950 mt-1">
-              {sessionHeader.title}
-            </h2>
-            <p className="text-xs text-emerald-800/90 mt-0.5">
-              {sessionHeader.announcement}
-            </p>
-          </div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-900 bg-white px-3 py-1.5 rounded-xl border border-emerald-200 shrink-0">
-            <Clock className="w-3.5 h-3.5 text-emerald-700" />
-            <span>{sessionHeader.timing}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Jamat Switcher Bar & Search */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        {/* Jamat Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 lg:pb-0 scrollbar-none">
-          {jamats.map((jamat) => {
-            const isActive = selectedJamat === jamat.id;
-            return (
+      {/* Jamat Switcher Bar & Search (Matches NoticeFilter style with arrow buttons & scrollbar) */}
+      <div className="bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-3.5 sm:p-4 shadow-xs mb-6">
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
+          {/* Jamat Pills Slider with Scroll Buttons */}
+          <div className="relative flex-1 min-w-0 flex items-center">
+            {/* Left Arrow Button */}
+            {canScrollLeft && (
               <button
-                key={jamat.id}
                 type="button"
-                onClick={() => setSelectedJamat(jamat.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? "bg-primary text-white shadow-xs"
-                    : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
-                }`}
+                onClick={() => handleScrollBy(-220)}
+                aria-label="Scroll left"
+                className="absolute -left-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
               >
-                {jamat.name}
+                <span className="material-symbols-outlined text-[18px]">chevron_left</span>
               </button>
-            );
-          })}
-        </div>
+            )}
 
-        {/* Search Input */}
-        <div className="relative w-full lg:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="বিষয় বা তারিখ খুঁজুন..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-          />
+            {/* Scrollable Pills Container */}
+            <div
+              ref={scrollContainerRef}
+              onScroll={checkScroll}
+              onWheel={handleWheel}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={stopDragging}
+              onMouseLeave={stopDragging}
+              className={`flex items-center gap-2 overflow-x-auto pb-1.5 lg:pb-0 scroll-smooth w-full select-none ${
+                isDragging ? "cursor-grabbing" : "cursor-grab"
+              }`}
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "#cbd5e1 transparent",
+              }}
+            >
+              {jamats.map((jamat) => {
+                const isActive = selectedJamat === jamat.id;
+                return (
+                  <button
+                    key={jamat.id}
+                    type="button"
+                    onClick={() => setSelectedJamat(jamat.id)}
+                    className={`shrink-0 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                      isActive
+                        ? "bg-primary text-white shadow-xs font-bold"
+                        : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
+                    }`}
+                  >
+                    {jamat.name}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right Arrow Button */}
+            {canScrollRight && (
+              <button
+                type="button"
+                onClick={() => handleScrollBy(220)}
+                aria-label="Scroll right"
+                className="absolute -right-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+              </button>
+            )}
+          </div>
+
+          {/* Search Input */}
+          <div className="relative w-full lg:w-72 xl:w-80 shrink-0">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="বিষয় বা তারিখ খুঁজুন..."
+              className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
+            />
+          </div>
         </div>
       </div>
 
       {/* Selected Jamat Header */}
       <div className="flex items-center justify-between px-1">
         <h3 className="text-sm sm:text-base font-bold text-main">
-          {currentJamatObj ? currentJamatObj.name : "রুটিন তালিকা"} — পরীক্ষার সময়সূচি
+          {selectedJamat === "all" ? "সকল জামাত" : currentJamatObj ? currentJamatObj.name : "রুটিন তালিকা"} — পরীক্ষার সময়সূচি
         </h3>
         <span className="text-xs text-slate-500">
           মোট পরীক্ষা:{" "}
@@ -233,7 +361,7 @@ const ExamRoutineTable = ({ activeSession = "annual" }) => {
       )}
 
       {/* Loading or Data Display */}
-      {isLoading ? (
+      {isLoading || (!activeSession && !isError) ? (
         <Loader />
       ) : paginatedSchedules.length > 0 ? (
         <>
@@ -304,18 +432,18 @@ const ExamRoutineTable = ({ activeSession = "annual" }) => {
               return (
                 <div
                   key={item.id || idx}
-                  className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-2.5"
+                  className="p-4 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 shadow-xs hover:border-primary/40 space-y-2.5 transition-all"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-lg bg-[#f1f3ff] text-primary text-xs font-bold flex items-center justify-center shrink-0">
+                      <span className="w-6 h-6 rounded-lg bg-white border border-slate-200/80 text-primary text-xs font-bold flex items-center justify-center shrink-0 shadow-2xs">
                         {toBengaliNumber(globalIdx)}
                       </span>
                       <span className="font-semibold text-xs text-slate-700">
                         {item.date} ({item.day})
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-md font-bold text-[11px] bg-slate-100 text-slate-800 shrink-0">
+                    <span className="px-2 py-0.5 rounded-md font-bold text-[11px] bg-white border border-slate-200/80 text-slate-800 shrink-0 shadow-2xs">
                       পূর্ণমান: {item.marks}
                     </span>
                   </div>
@@ -324,7 +452,7 @@ const ExamRoutineTable = ({ activeSession = "annual" }) => {
                     {item.subject}
                   </h4>
 
-                  <div className="bg-slate-50 rounded-xl p-2.5 border border-slate-100 grid grid-cols-2 gap-2 text-xs">
+                  <div className="bg-white rounded-xl p-2.5 border border-slate-200/70 grid grid-cols-2 gap-2 text-xs shadow-2xs">
                     <div className="flex items-center gap-1.5 text-emerald-800 font-semibold">
                       <Clock className="w-3.5 h-3.5 shrink-0 text-emerald-600" />
                       <span className="truncate">{item.time}</span>
@@ -351,29 +479,40 @@ const ExamRoutineTable = ({ activeSession = "annual" }) => {
           )}
         </>
       ) : (
-        <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
-          <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-          <p className="text-sm font-semibold text-slate-700">
-            কোনো পরীক্ষার রুটিন পাওয়া যায়নি
+        <div className="p-8 sm:p-12 text-center bg-[#f1f3ff] rounded-2xl border border-dashed border-slate-200/80 shadow-xs space-y-2">
+          <AlertCircle className="w-10 h-10 text-slate-400 mx-auto mb-1 opacity-70" />
+          <h3 className="text-sm sm:text-base font-bold text-slate-800">
+            {searchQuery
+              ? `"${searchQuery}" এর সাথে মিলে এমন কোনো পরীক্ষা পাওয়া যায়নি`
+              : selectedJamat !== "all"
+              ? `"${currentJamatObj?.name || 'নির্বাচিত জামাত'}"-এর জন্য এই সেশনে কোনো রুটিন পাওয়া যায়নি`
+              : activeSessionObj?.name
+              ? `${activeSessionObj.name}-এর সময়সূচি এখনো অন্তর্ভুক্ত করা হয়নি`
+              : "কোনো পরীক্ষার রুটিন পাওয়া যায়নি"}
+          </h3>
+          <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+            পরীক্ষা নিয়ন্ত্রণ দফতর কর্তৃক রুটিন অনুমোদিত ও ডাটাবেজে অন্তর্ভুক্ত করা হলে এখানে বিস্তারিত সময়সূচি, তারিখ ও হল বরাদ্দ প্রদর্শিত হবে।
           </p>
         </div>
       )}
 
       {/* Exam Rules & Guidelines Accordion / Box */}
-      <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
-        <div className="flex items-center gap-2 text-main font-bold text-sm sm:text-base">
-          <FileText className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>পরীক্ষার্থীদের জন্য বিশেষ নির্দেশনাবলী</span>
+      {examInstructions.length > 0 && (
+        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 space-y-3 shadow-xs">
+          <div className="flex items-center gap-2 text-main font-bold text-sm sm:text-base">
+            <FileText className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>পরীক্ষার্থীদের জন্য বিশেষ নির্দেশনাবলী</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1 text-xs text-slate-700">
+            {examInstructions.map((rule, idx) => (
+              <div key={idx} className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-slate-200/70 shadow-2xs">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                <span className="leading-relaxed">{rule}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1 text-xs text-slate-700">
-          {examInstructions.map((rule, idx) => (
-            <div key={idx} className="flex items-start gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-              <span className="leading-relaxed">{rule}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -6,17 +6,18 @@ import HolidayTable from "../features/holiday/components/HolidayTable";
 import holidayService from "../features/holiday/services/holiday.services";
 
 const HolidayCalendarPage = () => {
-  const [activeYear, setActiveYear] = useState("2025-2026");
+  const [activeYear, setActiveYear] = useState("");
 
   const { data: allHolidays } = useQuery({
     queryKey: ["holidays", activeYear],
     queryFn: () => holidayService.getAllHolidays(activeYear),
+    enabled: Boolean(activeYear),
     staleTime: 1000 * 60 * 5,
   });
 
   const totalHolidays = Array.isArray(allHolidays)
     ? allHolidays.length
-    : allHolidays?.results?.length || 15;
+    : allHolidays?.results?.length || 0;
 
   return (
     <>

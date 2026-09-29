@@ -10,14 +10,6 @@ const toBengaliNumber = (num) => {
   return String(num).replace(/\d/g, (d) => bnDigits[Number(d)]);
 };
 
-const DEFAULT_CATEGORIES = [
-  { id: "all", label: "সকল ছুটি" },
-  { id: "ইসলামিক ছুটি", label: "ইসলামিক ছুটি" },
-  { id: "বার্ষিক সমাপনী", label: "বার্ষিক সমাপনী" },
-  { id: "পরীক্ষা ছুটি", label: "পরীক্ষা অবকাশ" },
-  { id: "জাতীয় দিবস", label: "জাতীয় দিবস" },
-];
-
 const HOLIDAY_HADITH = {
   bangla:
     "রাসূলুল্লাহ (সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম) ইরশাদ করেন: 'নিশ্চয়ই আল্লাহ তাআলা তোমাদেরকে জাহেলিয়াতের উৎসবের চেয়ে উত্তম দুটি আনন্দের দিন দান করেছেন— তা হলো ঈদুল ফিতর ও ঈদুল আজহা।'",
@@ -45,6 +37,7 @@ const HolidayTable = ({ activeYear }) => {
   } = useQuery({
     queryKey: ["holidays", activeYear],
     queryFn: () => holidayService.getAllHolidays(activeYear, "all"),
+    enabled: Boolean(activeYear),
     staleTime: 1000 * 60 * 5,
   });
 
@@ -56,7 +49,7 @@ const HolidayTable = ({ activeYear }) => {
 
     return rawList.map((item) => ({
       id: item.id,
-      year: item.academic_year || "2025-2026",
+      year: item.academic_year || "",
       title: item.title,
       category: item.category,
       dateRange: item.date_range,
@@ -70,7 +63,6 @@ const HolidayTable = ({ activeYear }) => {
 
   // Dynamic categories from all fetched holidays
   const categories = useMemo(() => {
-    if (holidays.length === 0) return DEFAULT_CATEGORIES;
     const cats = [{ id: "all", label: "সকল ছুটি" }];
     const seen = new Set();
     holidays.forEach((h) => {
@@ -79,21 +71,23 @@ const HolidayTable = ({ activeYear }) => {
         cats.push({ id: h.category, label: h.category });
       }
     });
-    return cats.length > 1 ? cats : DEFAULT_CATEGORIES;
+    return cats;
   }, [holidays]);
 
   const filteredHolidays = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return holidays.filter((item) => {
       const matchCategory =
         selectedCategory === "all" || item.category === selectedCategory;
-      const matchSearch =
-        !searchQuery.trim() ||
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.dateRange.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.day.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase());
+      if (!matchCategory) return false;
+      if (!q) return true;
 
-      return matchCategory && matchSearch;
+      return (
+        item.title?.toLowerCase().includes(q) ||
+        item.dateRange?.toLowerCase().includes(q) ||
+        item.day?.toLowerCase().includes(q) ||
+        item.category?.toLowerCase().includes(q)
+      );
     });
   }, [holidays, selectedCategory, searchQuery]);
 
@@ -113,7 +107,9 @@ const HolidayTable = ({ activeYear }) => {
           <p className="text-xl sm:text-2xl font-black text-primary mt-1">
             {toBengaliNumber(holidays.length || filteredHolidays.length)}টি
           </p>
-          <p className="text-[10px] text-slate-600 mt-0.5">অনুমোদিত ছুটি তালিকা</p>
+          <p className="text-[10px] text-slate-600 mt-0.5">
+            অনুমোদিত ছুটি তালিকা
+          </p>
         </div>
 
         <div className="bg-emerald-50/80 rounded-2xl p-4 border border-emerald-200/60">
@@ -123,7 +119,9 @@ const HolidayTable = ({ activeYear }) => {
           <p className="text-xl sm:text-2xl font-black text-emerald-900 mt-1">
             ৪০ দিন
           </p>
-          <p className="text-[10px] text-emerald-700 mt-0.5">মাহে রমজান ও ঈদুল ফিতর</p>
+          <p className="text-[10px] text-emerald-700 mt-0.5">
+            মাহে রমজান ও ঈদুল ফিতর
+          </p>
         </div>
 
         <div className="col-span-2 sm:col-span-1 bg-amber-50/80 rounded-2xl p-4 border border-amber-200/60">
@@ -140,9 +138,16 @@ const HolidayTable = ({ activeYear }) => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 scrollbar-none">
+        <div
+          onWheel={(e) => {
+            if (e.deltaY !== 0) {
+              e.currentTarget.scrollLeft += e.deltaY;
+            }
+          }}
+          className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none scroll-smooth"
+        >
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
@@ -150,7 +155,7 @@ const HolidayTable = ({ activeYear }) => {
                 key={cat.id}
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-primary text-white shadow-xs"
                     : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
@@ -163,14 +168,14 @@ const HolidayTable = ({ activeYear }) => {
         </div>
 
         {/* Search Input */}
-        <div className="relative w-full md:w-72">
+        <div className="relative w-full sm:w-64 md:w-72 shrink-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="ছুটি বা তারিখ খুঁজুন..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
           />
         </div>
       </div>
@@ -213,7 +218,8 @@ const HolidayTable = ({ activeYear }) => {
               </thead>
               <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
                 {paginatedHolidays.map((item, idx) => {
-                  const globalIdx = (currentPage - 1) * ITEMS_PER_PAGE + idx + 1;
+                  const globalIdx =
+                    (currentPage - 1) * ITEMS_PER_PAGE + idx + 1;
                   return (
                     <tr
                       key={item.id || idx}
@@ -264,19 +270,19 @@ const HolidayTable = ({ activeYear }) => {
               return (
                 <div
                   key={item.id || idx}
-                  className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-2.5"
+                  className="p-4 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 shadow-xs hover:border-primary/40 space-y-2.5 transition-all"
                 >
                   {/* Card Header: Sl + Title + Category */}
                   <div className="flex items-start justify-between gap-2.5">
                     <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-lg bg-[#f1f3ff] text-primary text-xs font-bold flex items-center justify-center shrink-0">
+                      <span className="w-6 h-6 rounded-lg bg-white border border-slate-200/80 text-primary text-xs font-bold flex items-center justify-center shrink-0 shadow-2xs">
                         {toBengaliNumber(globalIdx)}
                       </span>
-                      <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/50">
+                      <span className="text-[10px] font-semibold text-emerald-800 bg-white border border-emerald-200/80 px-2 py-0.5 rounded shadow-2xs">
                         {item.category}
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-md font-bold text-[11px] bg-slate-100 text-slate-800 shrink-0">
+                    <span className="px-2 py-0.5 rounded-md font-bold text-[11px] bg-white border border-slate-200/80 text-slate-800 shrink-0 shadow-2xs">
                       {item.duration}
                     </span>
                   </div>
@@ -286,7 +292,7 @@ const HolidayTable = ({ activeYear }) => {
                   </h3>
 
                   {/* Date & Hijri */}
-                  <div className="bg-slate-50 rounded-xl p-2.5 border border-slate-100 space-y-1 text-xs">
+                  <div className="bg-white rounded-xl p-2.5 border border-slate-200/70 space-y-1 text-xs shadow-2xs">
                     <div className="flex items-center gap-1.5 text-slate-800">
                       <Calendar className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                       <span className="font-semibold">{item.dateRange}</span>
@@ -298,7 +304,7 @@ const HolidayTable = ({ activeYear }) => {
                   </div>
 
                   {/* Reopen Date */}
-                  <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-100">
+                  <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-200/70">
                     <span className="text-slate-500">মাদরাসা খুলবে:</span>
                     <span className="font-bold text-emerald-800">
                       {item.reopenDate}
@@ -327,7 +333,7 @@ const HolidayTable = ({ activeYear }) => {
           )}
         </>
       ) : (
-        <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
+        <div className="p-8 text-center bg-[#f1f3ff] rounded-2xl border border-slate-200/80 shadow-xs">
           <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
           <p className="text-sm font-semibold text-slate-700">
             কোনো ছুটির রেকর্ড পাওয়া যায়নি

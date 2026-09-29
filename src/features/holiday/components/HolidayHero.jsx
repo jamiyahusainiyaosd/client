@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Printer, CalendarDays, Sparkles } from "lucide-react";
 import holidayService from "../services/holiday.services";
@@ -8,12 +8,7 @@ const toBengaliNumber = (num) => {
   return String(num).replace(/\d/g, (d) => bnDigits[Number(d)]);
 };
 
-const DEFAULT_ACADEMIC_YEARS = [
-  { id: "2025-2026", label: "২০২৫-২০২৬" },
-  { id: "2026-2027", label: "২০২৬-২০২৭" },
-];
-
-const HolidayHero = ({ activeYear, onSelectYear, totalHolidays = 15 }) => {
+const HolidayHero = ({ activeYear, onSelectYear, totalHolidays = 0 }) => {
   const { data: apiAllHolidays } = useQuery({
     queryKey: ["holidays", "allYears"],
     queryFn: () => holidayService.getAllHolidays(),
@@ -26,11 +21,18 @@ const HolidayHero = ({ activeYear, onSelectYear, totalHolidays = 15 }) => {
     raw.forEach((h) => {
       if (h.academic_year) yearsSet.add(h.academic_year);
     });
-    if (yearsSet.size > 0) {
-      return Array.from(yearsSet).map((yr) => ({ id: yr, label: yr }));
-    }
-    return DEFAULT_ACADEMIC_YEARS;
+    return Array.from(yearsSet).map((yr) => ({ id: yr, label: yr }));
   }, [apiAllHolidays]);
+
+  // Sync activeYear to the first available year from API
+  useEffect(() => {
+    if (academicYears.length > 0) {
+      const match = academicYears.find((yr) => String(yr.id) === String(activeYear));
+      if (!match && onSelectYear) {
+        onSelectYear(academicYears[0].id);
+      }
+    }
+  }, [academicYears, activeYear, onSelectYear]);
 
   const handlePrint = () => {
     window.print();

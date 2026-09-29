@@ -63,7 +63,7 @@ const MuhtamimCard = () => {
         <div className="w-full mt-4 flex items-center gap-2">
           <Link
             to="/about"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#f1f3ff] hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#f1f3ff] hover:bg-primary hover:text-black text-primary text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs"
           >
             <span>মাদ্রাসার ইতিহাস ও পরিচিতি</span>
             <span className="material-symbols-outlined text-[15px]">

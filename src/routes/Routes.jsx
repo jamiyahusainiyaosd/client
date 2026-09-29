@@ -149,6 +149,10 @@ const Routes = createBrowserRouter([
         element: <HolidayCalendarPage />,
       },
       {
+        path: "/holiday calendar",
+        element: <HolidayCalendarPage />,
+      },
+      {
         path: "/holidays",
         element: <HolidayCalendarPage />,
       },
@@ -157,11 +161,19 @@ const Routes = createBrowserRouter([
         element: <ExamRoutinePage />,
       },
       {
+        path: "/exam routine",
+        element: <ExamRoutinePage />,
+      },
+      {
         path: "/exam-schedule",
         element: <ExamRoutinePage />,
       },
       {
         path: "/class-routine",
+        element: <ClassRoutinePage />,
+      },
+      {
+        path: "/class routine",
         element: <ClassRoutinePage />,
       },
       {

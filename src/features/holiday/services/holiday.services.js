@@ -5,10 +5,13 @@ const holidayService = {
   getAllHolidays: async (year, category) => {
     try {
       const response = await holidayApis.findAllHolidays(year, category);
-      return response?.data || [];
+      const data = response?.data;
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data?.results)) return data.results;
+      return [];
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw error;
+        console.error("Error fetching holidays:", error.message);
       }
       return [];
     }

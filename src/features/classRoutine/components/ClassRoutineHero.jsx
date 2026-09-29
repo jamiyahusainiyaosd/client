@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Printer, Clock, BookOpen } from "lucide-react";
 import classRoutineService from "../services/classRoutine.services";
@@ -17,35 +17,23 @@ const ClassRoutineHero = ({
 
   const departments = useMemo(() => {
     const raw = Array.isArray(apiDepts) ? apiDepts : apiDepts?.results || [];
-    if (raw.length > 0) {
-      return raw.map((d) => ({
-        id: d.dept_id,
-        name: d.name,
-        desc: d.desc,
-        icon: d.icon,
-      }));
-    }
-    return [
-      {
-        id: "kitab",
-        name: "কিতাব বিভাগ (ফযিলত ও সানাবিয়্যাহ)",
-        desc: "ইবতেদাইয়্যাহ হতে ফযিলত (মেশকাত) পর্যন্ত",
-        icon: "menu_book",
-      },
-      {
-        id: "hifz",
-        name: "হিফজুল কুরআন একাডেমি",
-        desc: "নাজেরা ও তাহফিজুল কোরআন বিভাগ",
-        icon: "auto_stories",
-      },
-      {
-        id: "noorani",
-        name: "নূরানী ও মক্তব শাখা",
-        desc: "আর-রাওদাহ শিশু হতে ৩য় বর্ষ",
-        icon: "school",
-      },
-    ];
+    return raw.map((d) => ({
+      id: d.dept_id || d.id || d.code,
+      name: d.name || d.title,
+      desc: d.desc || d.description || "",
+      icon: d.icon || "school",
+    }));
   }, [apiDepts]);
+
+  // When departments are fetched, if activeDept is unset or not found, select first available department
+  useEffect(() => {
+    if (departments.length > 0) {
+      const match = departments.find((d) => String(d.id) === String(activeDept));
+      if (!match && onSelectDept) {
+        onSelectDept(departments[0].id);
+      }
+    }
+  }, [departments, activeDept, onSelectDept]);
 
   const handlePrint = () => {
     window.print();
@@ -115,7 +103,7 @@ const ClassRoutineHero = ({
         {/* Department Switcher Tabs */}
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           {departments.map((dept) => {
-            const isActive = activeDept === dept.id;
+            const isActive = String(activeDept) === String(dept.id);
             return (
               <button
                 key={dept.id}

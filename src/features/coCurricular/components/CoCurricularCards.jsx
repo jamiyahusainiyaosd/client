@@ -5,13 +5,6 @@ import coCurricularService from "../services/coCurricular.services";
 import Loader from "../../../components/Loader";
 import Pagination from "../../../components/Pagination";
 
-const DEFAULT_CATEGORIES = [
-  { id: "all", label: "সকল কার্যক্রম" },
-  { id: "language", label: "ভাষা ও সাহিত্য" },
-  { id: "islamic", label: "কুরআন ও রুহানিয়াত" },
-  { id: "physical", label: "শরীরচর্চা ও সমাজসেবা" },
-];
-
 const ITEMS_PER_PAGE = 6;
 
 const CoCurricularCards = () => {
@@ -28,7 +21,6 @@ const CoCurricularCards = () => {
 
   const categories = useMemo(() => {
     const raw = Array.isArray(apiAllActivities) ? apiAllActivities : apiAllActivities?.results || [];
-    if (raw.length === 0) return DEFAULT_CATEGORIES;
     const cats = [{ id: "all", label: "সকল কার্যক্রম" }];
     const seen = new Set();
     raw.forEach((a) => {
@@ -37,7 +29,7 @@ const CoCurricularCards = () => {
         cats.push({ id: a.category, label: a.category_label || a.category });
       }
     });
-    return cats.length > 1 ? cats : DEFAULT_CATEGORIES;
+    return cats;
   }, [apiAllActivities]);
 
   // Reset page when category or search changes
@@ -91,14 +83,14 @@ const CoCurricularCards = () => {
   }, [apiActivities]);
 
   const filteredActivities = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return activities.filter((item) => {
-      const matchSearch =
-        !searchQuery.trim() ||
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.shortDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.mentor.toLowerCase().includes(searchQuery.toLowerCase());
-
-      return matchSearch;
+      if (!q) return true;
+      return (
+        item.title?.toLowerCase().includes(q) ||
+        item.shortDesc?.toLowerCase().includes(q) ||
+        item.mentor?.toLowerCase().includes(q)
+      );
     });
   }, [activities, searchQuery]);
 
@@ -110,9 +102,16 @@ const CoCurricularCards = () => {
   return (
     <div className="space-y-6">
       {/* Category Pills & Search */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 scrollbar-none">
+        <div
+          onWheel={(e) => {
+            if (e.deltaY !== 0) {
+              e.currentTarget.scrollLeft += e.deltaY;
+            }
+          }}
+          className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none scroll-smooth"
+        >
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
@@ -120,7 +119,7 @@ const CoCurricularCards = () => {
                 key={cat.id}
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-primary text-white shadow-xs"
                     : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
@@ -133,14 +132,14 @@ const CoCurricularCards = () => {
         </div>
 
         {/* Search Input */}
-        <div className="relative w-full md:w-72">
+        <div className="relative w-full sm:w-64 md:w-72 shrink-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="কার্যক্রম বা উস্তাদের নাম..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
           />
         </div>
       </div>
@@ -172,17 +171,17 @@ const CoCurricularCards = () => {
             {paginatedActivities.map((act) => (
               <div
                 key={act.id}
-                className="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-xs hover:border-primary/40 hover:shadow-md transition-all flex flex-col justify-between"
+                className="bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-xs hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between"
               >
                 <div>
                   {/* Header: Icon + Badge */}
                   <div className="flex items-start justify-between gap-3 mb-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center shrink-0 shadow-2xs">
+                    <div className="w-11 h-11 rounded-xl bg-white border border-slate-200/80 text-primary flex items-center justify-center shrink-0 shadow-xs">
                       <span className="material-symbols-outlined text-[22px]">
                         {act.icon}
                       </span>
                     </div>
-                    <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200/60">
+                    <span className="text-[11px] font-bold text-emerald-800 bg-white px-2.5 py-1 rounded-lg border border-emerald-200/80 shadow-2xs">
                       {act.badge}
                     </span>
                   </div>
@@ -197,7 +196,7 @@ const CoCurricularCards = () => {
 
                   {/* Key Features Bullet List */}
                   {act.items && act.items.length > 0 && (
-                    <div className="mt-4 pt-3.5 border-t border-slate-100 space-y-2">
+                    <div className="mt-4 pt-3.5 border-t border-slate-200/70 space-y-2">
                       {act.items.map((item, idx) => (
                         <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
@@ -209,7 +208,7 @@ const CoCurricularCards = () => {
                 </div>
 
                 {/* Footer: Timing, Venue & Mentor */}
-                <div className="mt-5 pt-3.5 border-t border-slate-100/80 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-500 bg-slate-50/60 p-3 rounded-xl">
+                <div className="mt-5 pt-3.5 border-t border-slate-200/70 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 bg-white border p-3 rounded-xl shadow-2xs">
                   <div className="flex items-center gap-1.5 text-slate-700 font-medium truncate">
                     <Clock className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span className="truncate">{act.timing}</span>
@@ -218,7 +217,7 @@ const CoCurricularCards = () => {
                     <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span className="truncate">{act.venue}</span>
                   </div>
-                  <div className="col-span-1 sm:col-span-2 flex items-center gap-1.5 text-slate-600 pt-1 text-[11px] border-t border-slate-200/50">
+                  <div className="col-span-1 sm:col-span-2 flex items-center gap-1.5 text-slate-600 pt-1 text-[11px] border-t border-slate-100">
                     <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span className="truncate font-medium">দায়িত্বে: {act.mentor}</span>
                   </div>
@@ -239,7 +238,7 @@ const CoCurricularCards = () => {
           )}
         </>
       ) : (
-        <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
+        <div className="p-8 text-center bg-[#f1f3ff] rounded-2xl border border-slate-200/80 shadow-xs">
           <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
           <p className="text-sm font-semibold text-slate-700">
             কোনো কার্যক্রম পাওয়া যায়নি

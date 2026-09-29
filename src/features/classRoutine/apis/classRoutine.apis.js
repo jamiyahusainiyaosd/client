@@ -14,8 +14,14 @@ const classRoutineApis = {
   findAllDepartments: () => {
     return axiosClient.get("/academics/class-departments/");
   },
-  findAllDailySchedules: () => {
-    return axiosClient.get("/academics/daily-schedules/");
+  findAllDailySchedules: (department) => {
+    const params = {};
+    if (department && department !== "all") {
+      params.department = department;
+      params.dept = department;
+      params.department_id = department;
+    }
+    return axiosClient.get("/academics/daily-schedules/", { params });
   },
   findRoutineMeta: () => {
     return axiosClient.get("/academics/class-routines/meta/");

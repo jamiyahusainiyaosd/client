@@ -56,9 +56,9 @@ const BoardingQuickStats = () => {
       {stats.map((stat, idx) => (
         <div
           key={idx}
-          className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-xs hover:border-primary/40 hover:shadow-sm transition-all"
+          className="bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-xs hover:border-primary/40 hover:shadow-sm transition-all"
         >
-          <div className="w-10 h-10 rounded-xl bg-[#f1f3ff] text-primary flex items-center justify-center mb-3">
+          <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 text-primary flex items-center justify-center mb-3 shadow-xs">
             <span className="material-symbols-outlined text-[22px]">{stat.icon}</span>
           </div>
           <p className="text-xl sm:text-2xl font-black text-main tracking-tight">

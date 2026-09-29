@@ -37,14 +37,14 @@ const MealTimingCards = ({ timings = [] }) => {
         {timings.map((t, idx) => (
           <div
             key={t.id || idx}
-            className="group relative rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm hover:shadow-md hover:border-emerald-500/30 transition-all duration-200 flex flex-col justify-between"
+            className="group relative rounded-2xl bg-[#f1f3ff] border border-slate-200/80 p-5 shadow-xs hover:shadow-sm hover:border-primary/40 transition-all duration-200 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
                   {getIcon(t.icon, idx)}
                 </div>
-                <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border ${getBadgeStyle(idx)}`}>
+                <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-white border ${getBadgeStyle(idx)} shadow-2xs`}>
                   <Clock className="w-3.5 h-3.5" />
                   {t.time_slot}
                 </span>
@@ -59,9 +59,9 @@ const MealTimingCards = ({ timings = [] }) => {
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+            <div className="mt-4 pt-3 border-t border-slate-200/70 flex items-center justify-between text-[11px] text-slate-500">
               <span>পর্ব ০{idx + 1}</span>
-              <span className="text-emerald-600 font-medium">আবাসিক ডাইনিং হল</span>
+              <span className="text-emerald-700 font-medium">আবাসিক ডাইনিং হল</span>
             </div>
           </div>
         ))}

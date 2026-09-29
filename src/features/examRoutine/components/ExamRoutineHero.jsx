@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Printer } from "lucide-react";
 import examRoutineService from "../services/examRoutine.services";
@@ -11,21 +11,26 @@ const ExamRoutineHero = ({ activeSession, onSelectSession }) => {
   });
 
   const sessions = useMemo(() => {
-    const raw = Array.isArray(apiSessions) ? apiSessions : apiSessions?.results || [];
-    if (raw.length > 0) {
-      return raw.map((s) => ({
-        id: s.session_id,
-        name: s.name,
-        badge: s.badge,
-      }));
-    }
-    return [
-      { id: "annual", name: "বার্ষিক শালানা ইমতিহান", badge: "আসন্ন প্রধান পরীক্ষা" },
-      { id: "befaq", name: "বেফাকুল মাদারিস কেন্দ্রীয় পরীক্ষা", badge: "বোর্ড পরীক্ষা" },
-      { id: "term1", name: "১ম সাময়িক পরীক্ষা", badge: "সম্পন্ন" },
-      { id: "term2", name: "২য় সাময়িক পরীক্ষা", badge: "সম্পন্ন" },
-    ];
+    const raw = Array.isArray(apiSessions)
+      ? apiSessions
+      : apiSessions?.results || apiSessions?.sessions || [];
+    return raw.map((s) => ({
+      id: s.session_id || s.id || s.slug,
+      name: s.name || s.title || s.session_name,
+      badge: s.badge || s.badge_text || "",
+    }));
   }, [apiSessions]);
+
+  // When sessions are fetched, if activeSession is unset or not found, select first available session
+  useEffect(() => {
+    if (sessions.length > 0) {
+      const match = sessions.find((s) => String(s.id) === String(activeSession));
+      if (!match && onSelectSession) {
+        onSelectSession(sessions[0].id);
+      }
+    }
+  }, [sessions, activeSession, onSelectSession]);
+
   const handlePrint = () => {
     window.print();
   };
@@ -61,35 +66,39 @@ const ExamRoutineHero = ({ activeSession, onSelectSession }) => {
           </p>
         </div>
 
-        {/* Session Switcher Pills */}
-        <div className="mt-6 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          {sessions.map((session) => {
-            const isActive = activeSession === session.id;
-            return (
-              <button
-                key={session.id}
-                type="button"
-                onClick={() => onSelectSession(session.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 ${
-                  isActive
-                    ? "bg-primary text-white shadow-xs"
-                    : "bg-white text-slate-700 border border-slate-200/80 hover:bg-slate-50"
-                }`}
-              >
-                <span>{session.name}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${
+        {/* Dynamic Session Switcher Pills from API */}
+        {sessions.length > 0 && (
+          <div className="mt-6 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            {sessions.map((session) => {
+              const isActive = String(activeSession) === String(session.id);
+              return (
+                <button
+                  key={session.id}
+                  type="button"
+                  onClick={() => onSelectSession && onSelectSession(session.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 ${
                     isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-emerald-50 text-emerald-800"
+                      ? "bg-primary text-white shadow-xs"
+                      : "bg-white text-slate-700 border border-slate-200/80 hover:bg-slate-50"
                   }`}
                 >
-                  {session.badge}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+                  <span>{session.name}</span>
+                  {session.badge ? (
+                    <span
+                      className={`text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${
+                        isActive
+                          ? "bg-white/20 text-white"
+                          : "bg-emerald-50 text-emerald-800"
+                      }`}
+                    >
+                      {session.badge}
+                    </span>
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import ExamRoutineHero from "../features/examRoutine/components/ExamRoutineHero"
 import ExamRoutineTable from "../features/examRoutine/components/ExamRoutineTable";
 
 const ExamRoutinePage = () => {
-  const [activeSession, setActiveSession] = useState("annual");
+  const [activeSession, setActiveSession] = useState("");
 
   return (
     <>

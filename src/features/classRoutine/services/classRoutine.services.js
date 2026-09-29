@@ -5,10 +5,13 @@ const classRoutineService = {
   getAllClassRoutines: async (department, jamat) => {
     try {
       const response = await classRoutineApis.findAllRoutines(department, jamat);
-      return response?.data || [];
+      const data = response?.data;
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data?.results)) return data.results;
+      return [];
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw error;
+        console.error("Error fetching class routines:", error.message);
       }
       return [];
     }
@@ -16,18 +19,28 @@ const classRoutineService = {
   getAllDepartments: async () => {
     try {
       const response = await classRoutineApis.findAllDepartments();
-      return response?.data || [];
+      const data = response?.data;
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data?.results)) return data.results;
+      return [];
     } catch (error) {
-      if (error instanceof AxiosError) throw error;
+      if (error instanceof AxiosError) {
+        console.error("Error fetching class departments:", error.message);
+      }
       return [];
     }
   },
-  getAllDailySchedules: async () => {
+  getAllDailySchedules: async (department) => {
     try {
-      const response = await classRoutineApis.findAllDailySchedules();
-      return response?.data || [];
+      const response = await classRoutineApis.findAllDailySchedules(department);
+      const data = response?.data;
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data?.results)) return data.results;
+      return [];
     } catch (error) {
-      if (error instanceof AxiosError) throw error;
+      if (error instanceof AxiosError) {
+        console.error("Error fetching daily schedules:", error.message);
+      }
       return [];
     }
   },
@@ -36,7 +49,9 @@ const classRoutineService = {
       const response = await classRoutineApis.findRoutineMeta();
       return response?.data || { departments: [], jamats_by_dept: {} };
     } catch (error) {
-      if (error instanceof AxiosError) throw error;
+      if (error instanceof AxiosError) {
+        console.error("Error fetching routine meta:", error.message);
+      }
       return { departments: [], jamats_by_dept: {} };
     }
   },

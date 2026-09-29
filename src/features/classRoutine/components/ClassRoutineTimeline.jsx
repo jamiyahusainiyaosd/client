@@ -1,41 +1,72 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Clock, User, MapPin, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
 import classRoutineService from "../services/classRoutine.services";
 import Loader from "../../../components/Loader";
 
-const DEFAULT_DEPT_JAMATS = {
-  kitab: [
-    { id: "meshkat", name: "ফযিলত ২য় বর্ষ (মেশকাত)" },
-    { id: "jalalain", name: "ফযিলত ১ম বর্ষ (জালালাইন)" },
-    { id: "jami", name: "সানাবিয়্যাতুল উলইয়া (শরহে জামি)" },
-    { id: "kafia", name: "সানাবিয়্যাহ আম্মাহ (কাফিয়া)" },
-    { id: "nahbemir", name: "মুতাওয়াসসিতাহ ২য় বর্ষ (নাহবেমির)" },
-  ],
-  hifz: [{ id: "tahfiz", name: "তাহফিজুল কোরআন (হিফজ বিভাগ)" }],
-  noorani: [{ id: "noorani3", name: "নূরানী ৩য় বর্ষ (আস-সালিস)" }],
-};
+const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
+  // Fetch departments to identify the active department's title
+  const { data: apiDepts } = useQuery({
+    queryKey: ["classDepartments"],
+    queryFn: () => classRoutineService.getAllDepartments(),
+    staleTime: 1000 * 60 * 5,
+  });
 
-const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) => {
-  // Dynamic 24-hr Sunnah Schedule from API
-  const { data: apiDailySchedules } = useQuery({
-    queryKey: ["dailySchedules"],
-    queryFn: () => classRoutineService.getAllDailySchedules(),
+  // Dynamic 24-hr Sunnah Schedule from API for selected department
+  const {
+    data: apiDailySchedules,
+    isLoading: isDailyLoading,
+    isError: isDailyError,
+    refetch: refetchDaily,
+  } = useQuery({
+    queryKey: ["dailySchedules", activeDept],
+    queryFn: () => classRoutineService.getAllDailySchedules(activeDept),
     staleTime: 1000 * 60 * 5,
   });
 
   const dailyTimeline = useMemo(() => {
-    const raw = Array.isArray(apiDailySchedules) ? apiDailySchedules : apiDailySchedules?.results || [];
-    if (raw.length > 0) {
-      return raw.map((item) => ({
-        time: item.time_slot,
-        title: item.title,
-        desc: item.description,
-        badge: item.badge,
-      }));
+    const raw = Array.isArray(apiDailySchedules)
+      ? apiDailySchedules
+      : apiDailySchedules?.results || [];
+
+    if (raw.length === 0) return [];
+
+    // Check if items contain department fields (department, dept, dept_id, etc.)
+    const hasDeptField = raw.some(
+      (item) =>
+        item.department !== undefined ||
+        item.dept !== undefined ||
+        item.department_id !== undefined ||
+        item.dept_id !== undefined
+    );
+
+    let list = raw;
+    if (hasDeptField && activeDept) {
+      const filtered = raw.filter((item) => {
+        const d =
+          item.department?.id ??
+          item.department?.dept_id ??
+          item.department ??
+          item.dept ??
+          item.department_id ??
+          item.dept_id;
+
+        if (d === null || d === undefined || d === "" || d === "all") return true;
+        return String(d) === String(activeDept);
+      });
+      if (filtered.length > 0) {
+        list = filtered;
+      }
     }
-    return [];
-  }, [apiDailySchedules]);
+
+    return list.map((item) => ({
+      id: item.id,
+      time: item.time_slot || item.time,
+      title: item.title,
+      desc: item.description || item.desc,
+      badge: item.badge || item.category || item.activity_type,
+    }));
+  }, [apiDailySchedules, activeDept]);
 
   // Dynamic Jamats from API metadata
   const { data: routineMeta } = useQuery({
@@ -46,20 +77,84 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
 
   const currentJamats = useMemo(() => {
     const dynamicMap = routineMeta?.jamats_by_dept || {};
-    if (dynamicMap[activeDept] && dynamicMap[activeDept].length > 0) {
-      return dynamicMap[activeDept];
+    if (dynamicMap[activeDept] && Array.isArray(dynamicMap[activeDept])) {
+      return dynamicMap[activeDept].map((j) => ({
+        id: j.id || j.jamat_id,
+        name: j.name || j.jamat_name || j.title,
+      }));
     }
-    return DEFAULT_DEPT_JAMATS[activeDept] || DEFAULT_DEPT_JAMATS.kitab;
+    return [];
   }, [routineMeta, activeDept]);
 
-  const [activeJamat, setActiveJamat] = useState(currentJamats[0]?.id || "meshkat");
+  const [activeJamat, setActiveJamat] = useState("");
 
   // When active department or currentJamats change, reset active jamat
   useEffect(() => {
-    if (currentJamats.length > 0 && !currentJamats.some((j) => j.id === activeJamat)) {
-      setActiveJamat(currentJamats[0].id);
+    if (currentJamats.length > 0) {
+      const match = currentJamats.find((j) => String(j.id) === String(activeJamat));
+      if (!match) {
+        setActiveJamat(currentJamats[0].id);
+      }
+    } else {
+      setActiveJamat("");
     }
-  }, [activeDept, currentJamats, activeJamat]);
+  }, [currentJamats, activeJamat]);
+
+  // Horizontal scroll controls for jamat pills
+  const scrollContainerRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftPos, setScrollLeftPos] = useState(0);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 6);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 6);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    const handleResize = () => checkScroll();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [checkScroll, currentJamats]);
+
+  const handleScrollBy = (distance) => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: distance, behavior: "smooth" });
+      setTimeout(checkScroll, 200);
+    }
+  };
+
+  const handleWheel = (e) => {
+    if (scrollContainerRef.current && e.deltaY !== 0) {
+      scrollContainerRef.current.scrollLeft += e.deltaY;
+      checkScroll();
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeftPos(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollContainerRef.current.scrollLeft = scrollLeftPos - walk;
+    checkScroll();
+  };
+
+  const stopDragging = () => {
+    setIsDragging(false);
+  };
 
   // Fetch dynamic routine from DRF API
   const {
@@ -70,6 +165,7 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
   } = useQuery({
     queryKey: ["classRoutines", activeDept, activeJamat],
     queryFn: () => classRoutineService.getAllClassRoutines(activeDept, activeJamat),
+    enabled: Boolean(activeDept && activeJamat),
     staleTime: 1000 * 60 * 5,
   });
 
@@ -90,7 +186,14 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
     }));
   }, [apiRoutines]);
 
-  const activeJamatObj = currentJamats.find((j) => j.id === activeJamat) || currentJamats[0];
+  const activeDeptObj = useMemo(() => {
+    const list = Array.isArray(apiDepts)
+      ? apiDepts
+      : apiDepts?.results || routineMeta?.departments || [];
+    return list.find((d) => String(d.id || d.dept_id || d.code) === String(activeDept));
+  }, [apiDepts, routineMeta, activeDept]);
+
+  const activeJamatObj = currentJamats.find((j) => String(j.id) === String(activeJamat)) || currentJamats[0];
 
   return (
     <div className="space-y-6">
@@ -103,64 +206,142 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
                 প্রাত্যহিক আমল ও সময়সারণী
               </span>
               <h2 className="text-base sm:text-lg font-bold text-emerald-950 mt-1">
-                মাদরাসার ২৪ ঘণ্টার সুন্নতি দৈনিক রুটিন
+                {activeDeptObj?.name ? `${activeDeptObj.name} — ২৪ ঘণ্টার সুন্নতি দৈনিক রুটিন` : "মাদরাসার ২৪ ঘণ্টার সুন্নতি দৈনিক রুটিন"}
               </h2>
               <p className="text-xs text-emerald-800 mt-0.5">
-                ফজরের পূর্ব হতে নিশীথ নিদ্রা পর্যন্ত একজন তালিবুল ইলমের প্রাত্যহিক সময়সূচি।
+                {activeDeptObj?.name
+                  ? `${activeDeptObj.name}-এর তালিবুল ইলমদের জন্য প্রাত্যহিক আমল, পাঠ ও সুন্নতি জীবনযাত্রার সময়সূচি।`
+                  : "ফজরের পূর্ব হতে নিশীথ নিদ্রা পর্যন্ত একজন তালিবুল ইলমের প্রাত্যহিক সময়সূচি।"}
               </p>
             </div>
             <Clock className="w-8 h-8 text-emerald-700 shrink-0 opacity-80" />
           </div>
 
-          <div className="relative border-l-2 border-emerald-200 ml-4 sm:ml-6 pl-4 sm:pl-6 space-y-4 sm:space-y-6 pt-2">
-            {dailyTimeline.map((item, idx) => (
-              <div key={idx} className="relative group">
-                {/* Dot */}
-                <div className="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-white border-3 border-primary shadow-xs group-hover:scale-125 transition-transform" />
+          {isDailyLoading ? (
+            <div className="py-12 flex justify-center items-center">
+              <Loader />
+            </div>
+          ) : isDailyError ? (
+            <div className="p-8 text-center bg-rose-50/50 rounded-2xl border border-rose-100">
+              <AlertCircle className="w-10 h-10 text-rose-500 mx-auto mb-2 opacity-80" />
+              <h3 className="text-base font-bold text-slate-800">রুটিন লোড করতে সমস্যা হয়েছে</h3>
+              <p className="text-xs text-slate-600 mt-1">অনুগ্রহ করে পুনরায় চেষ্টা করুন।</p>
+              <button
+                type="button"
+                onClick={() => refetchDaily()}
+                className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold hover:opacity-90 transition-all cursor-pointer"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                পুনরায় চেষ্টা করুন
+              </button>
+            </div>
+          ) : dailyTimeline.length === 0 ? (
+            <div className="p-8 sm:p-12 text-center bg-slate-50/60 rounded-2xl border border-dashed border-slate-200">
+              <Clock className="w-10 h-10 text-slate-400 mx-auto mb-2 opacity-70" />
+              <h3 className="text-base font-bold text-slate-700">কোনো ২৪ ঘণ্টার রুটিন পাওয়া যায়নি</h3>
+              <p className="text-xs text-slate-500 mt-1">
+                {activeDeptObj?.name ? `${activeDeptObj.name}-এর জন্য এখনো কোনো সময়সূচি যুক্ত করা হয়নি।` : "এই বিভাগের জন্য কোনো সময়সূচি পাওয়া যায়নি।"}
+              </p>
+            </div>
+          ) : (
+            <div className="relative border-l-2 border-emerald-200 ml-4 sm:ml-6 pl-4 sm:pl-6 space-y-4 sm:space-y-6 pt-2">
+              {dailyTimeline.map((item, idx) => (
+                <div key={item.id || idx} className="relative group">
+                  {/* Dot */}
+                  <div className="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-white border-3 border-primary shadow-xs group-hover:scale-125 transition-transform" />
 
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-primary/40 hover:shadow-sm transition-all space-y-1">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200/60 font-mono">
-                      {item.time}
-                    </span>
-                    <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
-                      {item.badge}
-                    </span>
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 shadow-xs hover:border-primary/40 hover:shadow-sm transition-all space-y-1">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-emerald-800 bg-white px-2.5 py-0.5 rounded-md border border-emerald-200/80 font-mono shadow-2xs">
+                        {item.time}
+                      </span>
+                      {item.badge && (
+                        <span className="text-[10px] font-semibold text-slate-600 bg-white border border-slate-200/70 px-2 py-0.5 rounded shadow-2xs">
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-bold text-sm sm:text-base text-main">
+                      {item.title}
+                    </h3>
+                    {item.desc && (
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        {item.desc}
+                      </p>
+                    )}
                   </div>
-                  <h3 className="font-bold text-sm sm:text-base text-main">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    {item.desc}
-                  </p>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         /* If viewMode is "routine", render Period-by-Period Routine for Selected Jamat */
         <div className="space-y-6">
-          {/* Jamat Switcher Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-none">
-            {currentJamats.map((jamat) => {
-              const isActive = activeJamat === jamat.id;
-              return (
+          {/* Jamat Switcher Pills Slider with Scroll Buttons & Drag */}
+          {currentJamats.length > 0 && (
+            <div className="relative w-full flex items-center">
+              {/* Left Arrow Button */}
+              {canScrollLeft && (
                 <button
-                  key={jamat.id}
                   type="button"
-                  onClick={() => setActiveJamat(jamat.id)}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? "bg-primary text-white shadow-xs"
-                      : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
-                  }`}
+                  onClick={() => handleScrollBy(-220)}
+                  aria-label="Scroll left"
+                  className="absolute -left-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
                 >
-                  {jamat.name}
+                  <span className="material-symbols-outlined text-[18px]">chevron_left</span>
                 </button>
-              );
-            })}
-          </div>
+              )}
+
+              {/* Scrollable Pills Container */}
+              <div
+                ref={scrollContainerRef}
+                onScroll={checkScroll}
+                onWheel={handleWheel}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={stopDragging}
+                onMouseLeave={stopDragging}
+                className={`flex items-center gap-2 overflow-x-auto pb-1.5 scroll-smooth w-full select-none ${
+                  isDragging ? "cursor-grabbing" : "cursor-grab"
+                }`}
+                style={{
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "#cbd5e1 transparent",
+                }}
+              >
+                {currentJamats.map((jamat) => {
+                  const isActive = String(activeJamat) === String(jamat.id);
+                  return (
+                    <button
+                      key={jamat.id}
+                      type="button"
+                      onClick={() => setActiveJamat(jamat.id)}
+                      className={`shrink-0 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                        isActive
+                          ? "bg-primary text-white shadow-xs font-bold"
+                          : "bg-[#f1f3ff] text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-200/70"
+                      }`}
+                    >
+                      {jamat.name}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Right Arrow Button */}
+              {canScrollRight && (
+                <button
+                  type="button"
+                  onClick={() => handleScrollBy(220)}
+                  aria-label="Scroll right"
+                  className="absolute -right-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+                </button>
+              )}
+            </div>
+          )}
 
           {/* Jamat Title Banner */}
           <div className="flex items-center justify-between px-1">
@@ -275,7 +456,7 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
                       className={`p-4 rounded-2xl border shadow-xs space-y-2 ${
                         isBreak
                           ? "bg-amber-50/70 border-amber-200"
-                          : "bg-white border-slate-200/80"
+                          : "bg-[#f1f3ff] border-slate-200/80 hover:border-primary/40"
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
@@ -283,7 +464,7 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
                           className={`text-xs font-bold px-2 py-0.5 rounded-md ${
                             isBreak
                               ? "bg-amber-200 text-amber-950"
-                              : "bg-[#f1f3ff] text-primary"
+                              : "bg-white text-primary border border-slate-200/80 shadow-2xs"
                           }`}
                         >
                           {row.period}
@@ -298,7 +479,7 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
                       </h3>
 
                       {row.teacher && row.teacher !== "—" && (
-                        <div className="pt-1 flex flex-col gap-1 text-xs border-t border-slate-100 text-slate-600">
+                        <div className="pt-2 flex flex-col gap-1 text-xs border-t border-slate-200/70 text-slate-600">
                           <div className="flex items-center gap-1.5 text-slate-800 font-medium">
                             <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             <span className="truncate">{row.teacher}</span>
@@ -315,7 +496,7 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
               </div>
             </>
           ) : (
-            <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
+            <div className="p-8 text-center bg-[#f1f3ff] rounded-2xl border border-slate-200/80 shadow-xs">
               <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
               <p className="text-sm font-semibold text-slate-700">
                 কোনো ক্লাস রুটিন পাওয়া যায়নি
@@ -326,7 +507,7 @@ const ClassRoutineTimeline = ({ activeDept = "kitab", viewMode = "routine" }) =>
       )}
 
       {/* Routine Note */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3 text-xs text-slate-600">
+      <div className="p-4 sm:p-5 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 flex items-start gap-3 text-xs text-slate-600 shadow-xs">
         <Sparkles className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
         <p className="leading-relaxed">
           <strong className="text-slate-800">রুটিন পালন সংক্রান্ত নির্দেশনা:</strong>{" "}

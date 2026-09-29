@@ -4,7 +4,7 @@ import ClassRoutineHero from "../features/classRoutine/components/ClassRoutineHe
 import ClassRoutineTimeline from "../features/classRoutine/components/ClassRoutineTimeline";
 
 const ClassRoutinePage = () => {
-  const [activeDept, setActiveDept] = useState("kitab");
+  const [activeDept, setActiveDept] = useState("");
   const [viewMode, setViewMode] = useState("routine"); // "routine" or "timeline"
 
   return (

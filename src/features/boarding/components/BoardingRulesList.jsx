@@ -11,15 +11,6 @@ const toBengaliNumber = (num) => {
   return String(num).replace(/\d/g, (d) => bnDigits[Number(d)]);
 };
 
-const DEFAULT_CATEGORIES = [
-  { id: "all", label: "সকল নীতিমালা" },
-  { id: "general", label: "সাধারণ আচরণ" },
-  { id: "dining", label: "মেস ও খাবার" },
-  { id: "worship", label: "নামাজ ও তাকরার" },
-  { id: "leave", label: "ছুটি ও গেটপাস" },
-  { id: "prohibitions", label: "মোবাইল ও বিধিনিষেধ" },
-];
-
 const ITEMS_PER_PAGE = 8;
 
 const BoardingRulesList = () => {
@@ -54,15 +45,14 @@ const BoardingRulesList = () => {
     return rawList.map((item) => ({
       id: item.rule_number || item.id,
       category: item.category,
-      categoryLabel: item.category_label || "সাধারণ আচরণ",
+      categoryLabel: item.category_label || item.category || "সাধারণ আচরণ",
       rule: item.rule_text,
       importance: item.importance || "বাধ্যতামূলক",
     }));
   }, [apiRules]);
 
-  // Dynamically extract categories if available
+  // Dynamically extract categories from rules
   const categories = useMemo(() => {
-    if (rules.length === 0) return DEFAULT_CATEGORIES;
     const cats = [{ id: "all", label: "সকল নীতিমালা" }];
     const seen = new Set();
     rules.forEach((r) => {
@@ -71,19 +61,22 @@ const BoardingRulesList = () => {
         cats.push({ id: r.category, label: r.categoryLabel || r.category });
       }
     });
-    return cats.length > 1 ? cats : DEFAULT_CATEGORIES;
+    return cats;
   }, [rules]);
 
   const filteredRules = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return rules.filter((item) => {
       const matchCategory =
         activeCategory === "all" || item.category === activeCategory;
-      const matchSearch =
-        !searchQuery.trim() ||
-        item.rule.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.importance.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchCategory && matchSearch;
+      if (!matchCategory) return false;
+      if (!q) return true;
+
+      return (
+        item.rule?.toLowerCase().includes(q) ||
+        item.categoryLabel?.toLowerCase().includes(q) ||
+        item.importance?.toLowerCase().includes(q)
+      );
     });
   }, [rules, activeCategory, searchQuery]);
 
@@ -96,9 +89,16 @@ const BoardingRulesList = () => {
   return (
     <div className="space-y-6">
       {/* Category Pills & Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 scrollbar-none">
+        <div
+          onWheel={(e) => {
+            if (e.deltaY !== 0) {
+              e.currentTarget.scrollLeft += e.deltaY;
+            }
+          }}
+          className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none scroll-smooth"
+        >
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -106,7 +106,7 @@ const BoardingRulesList = () => {
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-primary text-white shadow-xs"
                     : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
@@ -119,14 +119,14 @@ const BoardingRulesList = () => {
         </div>
 
         {/* Search input */}
-        <div className="relative w-full md:w-72">
+        <div className="relative w-full sm:w-64 md:w-72 shrink-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="নীতিমালা খুঁজুন..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
           />
         </div>
       </div>
@@ -183,10 +183,10 @@ const BoardingRulesList = () => {
             return (
               <div
                 key={rule.id || idx}
-                className={`p-4 sm:p-5 rounded-2xl bg-white border transition-all duration-200 shadow-xs hover:shadow-sm ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 shadow-xs hover:shadow-sm ${
                   isStrict
-                    ? "border-red-200/80 hover:border-red-300 bg-red-50/20"
-                    : "border-slate-200/80 hover:border-primary/40"
+                    ? "border-red-200/80 hover:border-red-300 bg-red-50/40"
+                    : "bg-[#f1f3ff] border-slate-200/80 hover:border-primary/40"
                 }`}
               >
                 <div className="flex items-start gap-3 sm:gap-4">
@@ -195,7 +195,7 @@ const BoardingRulesList = () => {
                     className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center shrink-0 font-bold text-xs sm:text-sm font-sans shadow-2xs ${
                       isStrict
                         ? "bg-red-100 text-red-700 border border-red-200"
-                        : "bg-[#f1f3ff] text-primary border border-emerald-100"
+                        : "bg-white text-primary border border-slate-200/80"
                     }`}
                   >
                     {toBengaliNumber(globalIndex)}
@@ -204,14 +204,14 @@ const BoardingRulesList = () => {
                   {/* Rule Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                      <span className="text-[10px] sm:text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                      <span className="text-[10px] sm:text-[11px] font-semibold text-slate-600 bg-white border border-slate-200/70 px-2 py-0.5 rounded-md shadow-2xs">
                         {rule.categoryLabel}
                       </span>
                       <span
-                        className={`text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                        className={`text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-md shadow-2xs ${
                           isStrict
-                            ? "bg-red-100 text-red-700"
-                            : "bg-emerald-100/70 text-emerald-800"
+                            ? "bg-red-100 text-red-700 border border-red-200"
+                            : "bg-white text-emerald-800 border border-emerald-200/80"
                         }`}
                       >
                         {rule.importance}
@@ -228,7 +228,7 @@ const BoardingRulesList = () => {
           })}
         </div>
       ) : (
-        <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
+        <div className="p-8 text-center bg-[#f1f3ff] rounded-2xl border border-slate-200/80 shadow-xs">
           <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
           <p className="text-sm font-semibold text-slate-700">
             কোনো নীতিমালা পাওয়া যায়নি
