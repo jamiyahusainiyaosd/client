@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Search, Calendar, AlertCircle, Quote, RefreshCw } from "lucide-react";
 import holidayService from "../services/holiday.services";
@@ -19,14 +20,51 @@ const HOLIDAY_HADITH = {
 const ITEMS_PER_PAGE = 8;
 
 const HolidayTable = ({ activeYear }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlPage = parseInt(searchParams.get("page") || "1", 10);
+  const currentPage = isNaN(urlPage) || urlPage < 1 ? 1 : urlPage;
+
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
 
-  // Reset pagination on filter change
+  const handlePageChange = (p) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
+
+  const handleCategoryClick = (catId) => {
+    setSelectedCategory(catId);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", "1");
+      return next;
+    });
+  };
+
+  const handleSearchChange = (val) => {
+    setSearchQuery(val);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", "1");
+      return next;
+    });
+  };
+
+  // Reset pagination on external year change
+  const prevYearRef = React.useRef(activeYear);
   useEffect(() => {
-    setCurrentPage(1);
-  }, [activeYear, selectedCategory, searchQuery]);
+    if (prevYearRef.current !== activeYear) {
+      prevYearRef.current = activeYear;
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.set("page", "1");
+        return next;
+      });
+    }
+  }, [activeYear, setSearchParams]);
 
   // Fetch dynamic holidays from DRF API (all holidays for activeYear)
   const {
@@ -98,8 +136,95 @@ const HolidayTable = ({ activeYear }) => {
 
   return (
     <div className="space-y-6">
-      {/* Quick Summary Banner - Dynamic from API */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+      {/* ========================================================================= */}
+      {/* PRINT-ONLY OFFICIAL 1-PAGE HOLIDAY CALENDAR DOCUMENT                      */}
+      {/* ========================================================================= */}
+      <div className="print-only">
+        <div className="border-b-2 border-emerald-900 pb-2 mb-3 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-black text-emerald-950">জামিয়া হুসাইনিয়া মাদরাসা</h1>
+            <p className="text-[11px] text-slate-600">শায়েস্তাগঞ্জ, হবিগঞ্জ • শিক্ষা ও প্রশাসন দফতর</p>
+          </div>
+          <div className="text-right">
+            <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold border border-emerald-800 text-emerald-900 bg-emerald-50">
+              বার্ষিক ছুটির তালিকা ও শিক্ষাপঞ্জিকা
+            </span>
+            <p className="text-[9px] text-slate-500 mt-0.5">
+              শিক্ষাবর্ষ: {activeYear || "২০২৫ — ২০২৬"} • পৃষ্ঠা: {toBengaliNumber(currentPage)}/{toBengaliNumber(Math.ceil(filteredHolidays.length / ITEMS_PER_PAGE) || 1)} • মোট ছুটি: {toBengaliNumber(filteredHolidays.length)}টি
+            </p>
+          </div>
+        </div>
+
+        {paginatedHolidays.length > 0 ? (
+          <table className="w-full print-table text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-100 text-[8.5pt]">
+                <th className="py-1 px-1.5 text-center w-8">ক্র.</th>
+                <th className="py-1 px-3">ছুটির বিবরণ / উপলক্ষ্য</th>
+                <th className="py-1 px-2.5">তারিখ (ইংরেজি)</th>
+                <th className="py-1 px-2">হিজরি তারিখ</th>
+                <th className="py-1 px-2 text-center w-16">দিনসংখ্যা</th>
+                <th className="py-1 px-2.5">মাদরাসা পুনরায় খোলার তারিখ</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-300 text-[8pt]">
+              {paginatedHolidays.map((item, idx) => (
+                <tr key={item.id || idx} className="print-avoid-break">
+                  <td className="py-1 px-1.5 text-center font-bold font-sans">
+                    {toBengaliNumber((currentPage - 1) * ITEMS_PER_PAGE + idx + 1)}
+                  </td>
+                  <td className="py-1 px-3 font-bold text-slate-900">
+                    {item.title}
+                  </td>
+                  <td className="py-1 px-2.5 whitespace-nowrap">
+                    {item.dateRange}
+                  </td>
+                  <td className="py-1 px-2 text-slate-600">
+                    {item.hijriDate || "—"}
+                  </td>
+                  <td className="py-1 px-2 text-center font-semibold text-emerald-900 font-mono">
+                    {item.days}
+                  </td>
+                  <td className="py-1 px-2.5 font-medium whitespace-nowrap text-slate-800">
+                    {item.reopenDate}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="py-8 text-center text-xs text-slate-500">কোনো ছুটির রেকর্ড নেই</div>
+        )}
+
+        {/* Official Signatures */}
+        <div className="mt-4 pt-3 border-t border-slate-300 flex justify-between items-end text-[8.5pt] text-slate-700 print-avoid-break">
+          <div className="text-center flex flex-col items-center">
+            <div className="h-10"></div>
+            <div className="w-32 border-t border-slate-500 mb-1"></div>
+            <p className="font-semibold text-slate-800">নাজেমে তালিমাত</p>
+            <p className="text-[7.5pt] text-slate-500">শিক্ষা সচিব</p>
+          </div>
+          <div className="text-center flex flex-col items-center">
+            <div className="h-10 flex items-end justify-center mb-0.5">
+              <img
+                src="/signature_transparent.webp"
+                alt="মুহতামিমের স্বাক্ষর"
+                className="h-9 w-auto object-contain"
+              />
+            </div>
+            <div className="w-32 border-t border-slate-500 mb-1"></div>
+            <p className="font-bold text-slate-900">মুহতামিম</p>
+            <p className="text-[7.5pt] text-slate-500">জামিয়া হুসাইনিয়া মাদরাসা</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* SCREEN-ONLY INTERACTIVE UI                                                */}
+      {/* ========================================================================= */}
+      <div className="screen-only space-y-6">
+        {/* Quick Summary Banner - Dynamic from API */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
         <div className="bg-[#f1f3ff] rounded-2xl p-4 border border-emerald-100">
           <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
             মোট ছুটির পর্ব
@@ -154,7 +279,7 @@ const HolidayTable = ({ activeYear }) => {
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => handleCategoryClick(cat.id)}
                 className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-primary text-white shadow-xs"
@@ -173,7 +298,7 @@ const HolidayTable = ({ activeYear }) => {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="ছুটি বা তারিখ খুঁজুন..."
             className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
           />
@@ -327,7 +452,7 @@ const HolidayTable = ({ activeYear }) => {
               currentPage={currentPage}
               totalCount={filteredHolidays.length}
               pageSize={ITEMS_PER_PAGE}
-              onPageChange={setCurrentPage}
+              onPageChange={handlePageChange}
               useBengaliDigits={true}
             />
           )}
@@ -350,6 +475,7 @@ const HolidayTable = ({ activeYear }) => {
         <p className="text-xs font-semibold text-emerald-700 mt-1">
           {HOLIDAY_HADITH.source}
         </p>
+      </div>
       </div>
     </div>
   );

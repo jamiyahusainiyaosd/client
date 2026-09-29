@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Search, Clock, MapPin, User, CheckCircle2, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
 import coCurricularService from "../services/coCurricular.services";
@@ -8,9 +9,38 @@ import Pagination from "../../../components/Pagination";
 const ITEMS_PER_PAGE = 6;
 
 const CoCurricularCards = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlPage = parseInt(searchParams.get("page") || "1", 10);
+  const currentPage = isNaN(urlPage) || urlPage < 1 ? 1 : urlPage;
+
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (p) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(p));
+      return next;
+    });
+  };
+
+  const handleCategoryClick = (catId) => {
+    setSelectedCategory(catId);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", "1");
+      return next;
+    });
+  };
+
+  const handleSearchChange = (val) => {
+    setSearchQuery(val);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", "1");
+      return next;
+    });
+  };
 
   // Fetch all activities once to derive categories dynamically
   const { data: apiAllActivities } = useQuery({
@@ -31,11 +61,6 @@ const CoCurricularCards = () => {
     });
     return cats;
   }, [apiAllActivities]);
-
-  // Reset page when category or search changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedCategory, searchQuery]);
 
   // Fetch dynamic activities from DRF API
   const {
@@ -118,7 +143,7 @@ const CoCurricularCards = () => {
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => handleCategoryClick(cat.id)}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-primary text-white shadow-xs"
@@ -137,7 +162,7 @@ const CoCurricularCards = () => {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="কার্যক্রম বা উস্তাদের নাম..."
             className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
           />
@@ -232,7 +257,7 @@ const CoCurricularCards = () => {
               currentPage={currentPage}
               totalCount={filteredActivities.length}
               pageSize={ITEMS_PER_PAGE}
-              onPageChange={setCurrentPage}
+              onPageChange={handlePageChange}
               useBengaliDigits={true}
             />
           )}

@@ -197,8 +197,128 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
 
   return (
     <div className="space-y-6">
-      {/* If viewMode is "timeline", render the full 24-hour Sunnah Daily Schedule */}
-      {viewMode === "timeline" ? (
+      {/* ========================================================================= */}
+      {/* PRINT-ONLY OFFICIAL 1-PAGE DOCUMENT                                       */}
+      {/* ========================================================================= */}
+      <div className="print-only">
+        <div className="border-b-2 border-emerald-900 pb-2 mb-3 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-black text-emerald-950">জামিয়া হুসাইনিয়া মাদরাসা</h1>
+            <p className="text-[11px] text-slate-600">শায়েস্তাগঞ্জ, হবিগঞ্জ • শিক্ষা ও পাঠদান দফতর</p>
+          </div>
+          <div className="text-right">
+            <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold border border-emerald-800 text-emerald-900 bg-emerald-50">
+              {viewMode === "timeline" ? "২৪ ঘণ্টার সুন্নতি রুটিন" : "শ্রেণি পাঠদান রুটিন"}
+            </span>
+            <p className="text-[9px] text-slate-500 mt-0.5">
+              বিভাগ: {activeDeptObj?.name || "কিতাব বিভাগ"} {viewMode === "routine" && `• জামাত: ${activeJamatObj?.name || ""}`}
+            </p>
+          </div>
+        </div>
+
+        {viewMode === "timeline" ? (
+          dailyTimeline.length > 0 ? (
+            <table className="w-full print-table text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-100 text-[8.5pt]">
+                  <th className="py-1 px-2 w-28">সময়সূচি</th>
+                  <th className="py-1 px-2">আমল ও কর্মসূচি</th>
+                  <th className="py-1 px-3">বিস্তারিত বিবরণ</th>
+                  <th className="py-1 px-2 text-center w-24">বিভাগ / ধরন</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-300 text-[8pt]">
+                {dailyTimeline.map((item, idx) => (
+                  <tr key={item.id || idx} className="print-avoid-break">
+                    <td className="py-1 px-2 whitespace-nowrap font-bold text-emerald-900 font-mono">
+                      {item.time}
+                    </td>
+                    <td className="py-1 px-2 font-bold text-slate-900">
+                      {item.title}
+                    </td>
+                    <td className="py-1 px-3 text-slate-700">
+                      {item.desc || "—"}
+                    </td>
+                    <td className="py-1 px-2 text-center">
+                      <span className="inline-block px-1.5 py-0.2 rounded text-[7.5pt] bg-slate-100 border border-slate-300">
+                        {item.badge || "দৈনিক আমল"}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="py-8 text-center text-xs text-slate-500">কোনো সময়সূচি নেই</div>
+          )
+        ) : (
+          currentJamatSchedule.length > 0 ? (
+            <table className="w-full print-table text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-100 text-[8.5pt]">
+                  <th className="py-1 px-2 w-24">পিরিয়ড</th>
+                  <th className="py-1 px-2 w-28">সময়</th>
+                  <th className="py-1 px-3">বিষয় / কিতাবের নাম</th>
+                  <th className="py-1 px-3">পাঠদানকারী ওস্তাদ</th>
+                  <th className="py-1 px-2 text-center w-20">কক্ষ নম্বর</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-300 text-[8pt]">
+                {currentJamatSchedule.map((row) => (
+                  <tr key={row.id} className="print-avoid-break">
+                    <td className="py-1 px-2 font-semibold">
+                      {row.period}
+                    </td>
+                    <td className="py-1 px-2 whitespace-nowrap font-mono text-emerald-900">
+                      {row.time}
+                    </td>
+                    <td className="py-1 px-3 font-bold text-slate-900">
+                      {row.subject}
+                    </td>
+                    <td className="py-1 px-3 text-slate-700">
+                      {row.teacher}
+                    </td>
+                    <td className="py-1 px-2 text-center font-mono">
+                      {row.room}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="py-8 text-center text-xs text-slate-500">কোনো ক্লাস রুটিন নেই</div>
+          )
+        )}
+
+        {/* Official Signatures */}
+        <div className="mt-4 pt-3 border-t border-slate-300 flex justify-between items-end text-[8.5pt] text-slate-700 print-avoid-break">
+          <div className="text-center flex flex-col items-center">
+            <div className="h-10"></div>
+            <div className="w-32 border-t border-slate-500 mb-1"></div>
+            <p className="font-semibold text-slate-800">নাজেমে তালিমাত</p>
+            <p className="text-[7.5pt] text-slate-500">শিক্ষা সচিব</p>
+          </div>
+          <div className="text-center flex flex-col items-center">
+            <div className="h-10 flex items-end justify-center mb-0.5">
+              <img
+                src="/signature_transparent.webp"
+                alt="মুহতামিমের স্বাক্ষর"
+                className="h-9 w-auto object-contain"
+              />
+            </div>
+            <div className="w-32 border-t border-slate-500 mb-1"></div>
+            <p className="font-bold text-slate-900">মুহতামিম</p>
+            <p className="text-[7.5pt] text-slate-500">জামিয়া হুসাইনিয়া মাদরাসা</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* SCREEN-ONLY INTERACTIVE UI                                                */}
+      {/* ========================================================================= */}
+      <div className="screen-only space-y-6">
+        {/* If viewMode is "timeline", render the full 24-hour Sunnah Daily Schedule */}
+        {viewMode === "timeline" ? (
         <div className="space-y-4">
           <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 flex items-center justify-between gap-3">
             <div>
@@ -506,15 +626,16 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
         </div>
       )}
 
-      {/* Routine Note */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 flex items-start gap-3 text-xs text-slate-600 shadow-xs">
-        <Sparkles className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-        <p className="leading-relaxed">
-          <strong className="text-slate-800">রুটিন পালন সংক্রান্ত নির্দেশনা:</strong>{" "}
-          সকল ছাত্রকে পিরিয়ড শুরুর অন্তত ২ মিনিট পূর্বে কিতাব ও খাতা প্রস্তুত করে
-          শ্রেণিকক্ষে আসন গ্রহণ করতে হবে। বিনা অনুমতিতে কোনো পিরিয়ডে অনুপস্থিতি
-          শাস্তিযোগ্য অপরাধ বলে গণ্য হবে।
-        </p>
+        {/* Routine Note */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 flex items-start gap-3 text-xs text-slate-600 shadow-xs">
+          <Sparkles className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+          <p className="leading-relaxed">
+            <strong className="text-slate-800">রুটিন পালন সংক্রান্ত নির্দেশনা:</strong>{" "}
+            সকল ছাত্রকে পিরিয়ড শুরুর অন্তত ২ মিনিট পূর্বে কিতাব ও খাতা প্রস্তুত করে
+            শ্রেণিকক্ষে আসন গ্রহণ করতে হবে। বিনা অনুমতিতে কোনো পিরিয়ডে অনুপস্থিতি
+            শাস্তিযোগ্য অপরাধ বলে গণ্য হবে।
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const toBengaliNumber = (num) => {
@@ -23,8 +24,11 @@ const Pagination = ({
   className = "",
   showDetails = true,
   extraNote = "",
+  syncUrl = true,
 }) => {
-  const activePage = Math.max(1, Number(page ?? currentPage ?? 1));
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlPage = parseInt(searchParams.get("page") || "", 10);
+  const activePage = Math.max(1, Number(page ?? currentPage ?? (isNaN(urlPage) ? 1 : urlPage)));
   const changeHandler = onPageChange ?? setCurrentPage;
 
   const count = totalCount ?? totalItems ?? 0;
@@ -45,6 +49,13 @@ const Pagination = ({
     if (p < 1 || p > calculatedTotalPages || p === activePage) return;
     if (changeHandler) {
       changeHandler(p);
+    }
+    if (syncUrl && searchParams.get("page") !== String(p)) {
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.set("page", String(p));
+        return next;
+      });
     }
   };
 
