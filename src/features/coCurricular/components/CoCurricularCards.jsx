@@ -147,7 +147,7 @@ const CoCurricularCards = () => {
                   onClick={() => handleCategoryClick(cat.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                     isActive
-                      ? "bg-primary text-white shadow-xs"
+                      ? "bg-slate-900 text-white shadow-xs font-bold"
                       : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
                   }`}
                 >

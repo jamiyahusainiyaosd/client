@@ -218,8 +218,8 @@ const BoardingRulesList = () => {
                   onClick={() => handleCategoryClick(cat.id)}
                   className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                     isActive
-                      ? "bg-primary text-white shadow-xs"
-                      : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
+                      ? "bg-slate-900 text-white shadow-xs font-bold"
+                      : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70 border border-slate-200/60"
                   }`}
                 >
                   {cat.label}
@@ -305,7 +305,7 @@ const BoardingRulesList = () => {
                       className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center shrink-0 font-bold text-xs sm:text-sm font-sans shadow-2xs ${
                         isStrict
                           ? "bg-red-100 text-red-700 border border-red-200"
-                          : "bg-white text-primary border border-slate-200/80"
+                          : "bg-white text-slate-900 border border-slate-200/80"
                       }`}
                     >
                       {toBengaliNumber(globalIndex)}
@@ -321,7 +321,7 @@ const BoardingRulesList = () => {
                           className={`text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-md shadow-2xs ${
                             isStrict
                               ? "bg-red-100 text-red-700 border border-red-200"
-                              : "bg-white text-emerald-800 border border-emerald-200/80"
+                              : "bg-white text-slate-800 border border-slate-200/80"
                           }`}
                         >
                           {rule.importance}

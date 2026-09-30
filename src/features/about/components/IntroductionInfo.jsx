@@ -3,7 +3,7 @@ import { aboutData } from "../../../constants/aboutData";
  
 const IntroductionInfo = () => {
   return (
-    <article className="h-full rounded-xl bg-indigo-50/60 p-5">
+    <article className="h-full rounded-2xl bg-[#f1f3ff] border border-slate-200/80 p-5 sm:p-6 shadow-xs">
       <span className="mb-2 grid h-10 w-10 place-items-center rounded-lg bg-emerald-50 text-emerald-700"><Building2 size={20} /></span>
       <span className="text-[11px] font-bold text-emerald-700">ভূমিকা ও প্রেক্ষাপট</span>
       <h3 className="mt-1 text-lg font-bold text-slate-900">প্রতিষ্ঠার ঐতিহাসিক পটভূমি ও উদ্দেশ্য</h3>

@@ -45,7 +45,7 @@ const TopAchieverModal = ({ student, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Decorative Banner with Achievement Title */}
-        <div className="relative p-5 sm:p-6 bg-gradient-to-br from-emerald-800 via-primary to-emerald-950 text-white shrink-0 border-b border-emerald-900/40">
+        <div className="relative p-5 sm:p-6 bg-slate-950 text-white shrink-0 border-b border-slate-800">
           {/* Close button with high-contrast positioning */}
           <button
             type="button"

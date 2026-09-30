@@ -283,7 +283,7 @@ const HolidayTable = ({ activeYear }) => {
                   onClick={() => handleCategoryClick(cat.id)}
                   className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                     isActive
-                      ? "bg-primary text-white shadow-xs"
+                      ? "bg-slate-900 text-white shadow-xs font-bold"
                       : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
                   }`}
                 >
@@ -330,17 +330,17 @@ const HolidayTable = ({ activeYear }) => {
       ) : paginatedHolidays.length > 0 ? (
         <>
           {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-[#f1f3ff]">
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-white">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-emerald-900 text-white text-xs font-bold uppercase tracking-wider">
-                  <th className="py-3.5 px-4 text-center w-14">ক্র. নং</th>
-                  <th className="py-3.5 px-5">ছুটির বিবরণ / উপলক্ষ</th>
-                  <th className="py-3.5 px-4">তারিখ (ইংরেজি ও হিজরী)</th>
-                  <th className="py-3.5 px-3">বার</th>
-                  <th className="py-3.5 px-3 text-center">দিনের সংখ্যা</th>
-                  <th className="py-3.5 px-4">মাদরাসা খোলার তারিখ</th>
-                  <th className="py-3.5 px-4">মন্তব্য</th>
+                <tr className="bg-[#f1f3ff] text-slate-900 border-b border-slate-200/90 text-xs font-bold uppercase tracking-wider">
+                  <th className="py-3.5 px-4 text-center w-14 text-slate-800">ক্র. নং</th>
+                  <th className="py-3.5 px-5 text-slate-800">ছুটির বিবরণ / উপলক্ষ</th>
+                  <th className="py-3.5 px-4 text-slate-800">তারিখ (ইংরেজি ও হিজরী)</th>
+                  <th className="py-3.5 px-3 text-slate-800">বার</th>
+                  <th className="py-3.5 px-3 text-center text-slate-800">দিনের সংখ্যা</th>
+                  <th className="py-3.5 px-4 text-slate-800">মাদরাসা খোলার তারিখ</th>
+                  <th className="py-3.5 px-4 text-slate-800">মন্তব্য</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200/70 text-xs sm:text-sm">
@@ -359,7 +359,7 @@ const HolidayTable = ({ activeYear }) => {
                       </td>
                       <td className="py-3.5 px-5">
                         <p className="font-bold text-main">{item.title}</p>
-                        <span className="inline-block mt-0.5 text-[10px] font-semibold text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-200/80 shadow-2xs">
+                        <span className="inline-block mt-0.5 text-[10px] font-semibold text-slate-800 bg-white px-2 py-0.5 rounded border border-slate-200/80 shadow-2xs">
                           {item.category}
                         </span>
                       </td>
@@ -469,12 +469,12 @@ const HolidayTable = ({ activeYear }) => {
       )}
 
       {/* Bottom Hadith Banner */}
-      <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-emerald-50 via-[#f1f3ff] to-emerald-50 border border-emerald-200/80 text-center shadow-2xs">
-        <Quote className="w-6 h-6 text-primary mx-auto mb-2 opacity-80" />
-        <p className="text-base sm:text-lg font-bold text-emerald-950 font-serif leading-relaxed">
+      <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 text-center shadow-2xs">
+        <Quote className="w-6 h-6 text-slate-700 mx-auto mb-2 opacity-80" />
+        <p className="text-base sm:text-lg font-bold text-slate-900 font-serif leading-relaxed">
           {HOLIDAY_HADITH.bangla}
         </p>
-        <p className="text-xs font-semibold text-emerald-700 mt-1">
+        <p className="text-xs font-semibold text-slate-600 mt-1">
           {HOLIDAY_HADITH.source}
         </p>
       </div>

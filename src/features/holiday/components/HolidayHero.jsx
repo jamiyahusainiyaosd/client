@@ -61,7 +61,7 @@ const HolidayHero = ({ activeYear, onSelectYear, totalHolidays = 0 }) => {
                   onClick={() => onSelectYear(yr.id)}
                   className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                     activeYear === yr.id
-                      ? "bg-primary text-white shadow-2xs"
+                      ? "bg-slate-900 text-white shadow-2xs"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >

@@ -6,7 +6,7 @@ const icons = [MapPin, Eye, Languages, Landmark];
 const titles = ["মনোরম ভৌগোলিক অবস্থান", "সার্বক্ষণিক নিবিড় তত্ত্বাবধান", "বহুভাষিক ও যুগোপযোগী জ্ঞানচর্চা", "আমল ও আদর্শের বাস্তব অনুশীলন"];
 
 const CharacteristicsInfo = () => (
-  <section className="bg-indigo-50/70 py-8 sm:py-10">
+  <section className="bg-[#f1f3ff] py-8 sm:py-10 border-y border-slate-200/80">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <AboutSectionHeading eyebrow="আমাদের স্বাতন্ত্র্য" title="আমাদের বৈশিষ্ট্যসমূহ" description="অন্যান্য দ্বীনি প্রতিষ্ঠানের তুলনায় জামিয়ার অনন্য বৈশিষ্ট্য ও অবস্থান" />
       <div className="grid gap-3 md:grid-cols-2">

@@ -423,12 +423,11 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                   onMouseMove={handleMouseMove}
                   onMouseUp={stopDragging}
                   onMouseLeave={stopDragging}
-                  className={`flex items-center gap-2 overflow-x-auto pb-1.5 scroll-smooth w-full select-none ${
+                  className={`flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none scroll-smooth w-full select-none ${
                     isDragging ? "cursor-grabbing" : "cursor-grab"
                   }`}
                   style={{
-                    scrollbarWidth: "thin",
-                    scrollbarColor: "#cbd5e1 transparent",
+                    scrollbarWidth: "none",
                   }}
                 >
                   {currentJamats.map((jamat) => {
@@ -440,7 +439,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                         onClick={() => setActiveJamat(jamat.id)}
                         className={`shrink-0 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                           isActive
-                            ? "bg-primary text-white shadow-xs font-bold"
+                            ? "bg-slate-900 text-white shadow-xs font-bold"
                             : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
                         }`}
                       >
@@ -503,15 +502,15 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
           ) : currentJamatSchedule.length > 0 ? (
             <>
               {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-              <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-[#f1f3ff]">
+              <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-white">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-emerald-900 text-white text-xs font-bold uppercase tracking-wider">
-                      <th className="py-3.5 px-4 text-center w-24">ঘণ্টা</th>
-                      <th className="py-3.5 px-4">সময়কাল</th>
-                      <th className="py-3.5 px-5">বিষয় / কিতাবের নাম</th>
-                      <th className="py-3.5 px-5">পাঠদানকারী সম্মানিত উস্তাদ</th>
-                      <th className="py-3.5 px-4">কক্ষ / হল</th>
+                    <tr className="bg-[#f1f3ff] text-slate-900 border-b border-slate-200/90 text-xs font-bold uppercase tracking-wider">
+                      <th className="py-3.5 px-4 text-center w-24 text-slate-800">ঘণ্টা</th>
+                      <th className="py-3.5 px-4 text-slate-800">সময়কাল</th>
+                      <th className="py-3.5 px-5 text-slate-800">বিষয় / কিতাবের নাম</th>
+                      <th className="py-3.5 px-5 text-slate-800">পাঠদানকারী সম্মানিত উস্তাদ</th>
+                      <th className="py-3.5 px-4 text-slate-800">কক্ষ / হল</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200/70 text-xs sm:text-sm">
@@ -533,7 +532,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                               className={`inline-block px-2.5 py-1 rounded-md text-xs ${
                                 isBreak
                                   ? "bg-amber-100 text-amber-900 font-bold"
-                                  : "bg-white text-primary border border-slate-200/80 shadow-2xs"
+                                  : "bg-white text-slate-900 font-bold border border-slate-200/80 shadow-2xs"
                               }`}
                             >
                               {row.period}
@@ -548,7 +547,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                           <td className="py-3.5 px-5 text-slate-800">
                             {row.teacher && row.teacher !== "—" ? (
                               <div className="flex items-center gap-1.5">
-                                <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                                <User className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                                 <span className="font-medium">{row.teacher}</span>
                               </div>
                             ) : (
@@ -557,7 +556,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                           </td>
                           <td className="py-3.5 px-4 text-slate-700 whitespace-nowrap">
                             <div className="flex items-center gap-1 text-slate-600">
-                              <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                              <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                               <span>{row.room}</span>
                             </div>
                           </td>

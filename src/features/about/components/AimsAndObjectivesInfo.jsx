@@ -10,7 +10,7 @@ const AimsAndObjectivesInfo = () => (
     <div className="grid gap-4 md:grid-cols-3">
       {aboutData.goals.map((goal, index) => {
         const Icon = icons[index];
-        return <article className="flex min-h-48 flex-col rounded-xl bg-indigo-50/70 p-4" key={goal}>
+        return <article className="flex min-h-48 flex-col rounded-2xl bg-[#f1f3ff] border border-slate-200/80 p-5 shadow-xs" key={goal}>
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-emerald-700 shadow-sm"><Icon size={20} /></span>
           <span className="mt-3 text-[10px] font-bold text-emerald-700">স্তম্ভ {index + 1}</span>
           <h3 className="mt-1 text-lg font-bold text-slate-900">{goal.replace(/^✅\s*/, "").split("।")[0]}</h3>

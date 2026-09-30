@@ -412,12 +412,11 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
               onMouseMove={handleMouseMove}
               onMouseUp={stopDragging}
               onMouseLeave={stopDragging}
-              className={`flex items-center gap-2 overflow-x-auto pb-1.5 lg:pb-0 scroll-smooth w-full select-none ${
+              className={`flex items-center gap-2 overflow-x-auto pb-1.5 lg:pb-0 scrollbar-none scroll-smooth w-full select-none ${
                 isDragging ? "cursor-grabbing" : "cursor-grab"
               }`}
               style={{
-                scrollbarWidth: "thin",
-                scrollbarColor: "#cbd5e1 transparent",
+                scrollbarWidth: "none",
               }}
             >
               {jamats.map((jamat) => {
@@ -429,7 +428,7 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
                     onClick={() => handleJamatClick(jamat.id)}
                     className={`shrink-0 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                       isActive
-                        ? "bg-primary text-white shadow-xs font-bold"
+                        ? "bg-slate-900 text-white shadow-xs font-bold"
                         : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
                     }`}
                   >
@@ -502,17 +501,17 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
       ) : paginatedSchedules.length > 0 ? (
         <>
           {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-[#f1f3ff]">
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-white">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-emerald-900 text-white text-xs font-bold uppercase tracking-wider">
-                  <th className="py-3.5 px-4 text-center w-14">ক্র. নং</th>
-                  <th className="py-3.5 px-4">তারিখ ও বার</th>
-                  <th className="py-3.5 px-5">বিষয় / কিতাবের নাম</th>
-                  <th className="py-3.5 px-3">বিষয় কোড</th>
-                  <th className="py-3.5 px-4">পরীক্ষার সময়</th>
-                  <th className="py-3.5 px-4">পরীক্ষার হল / কক্ষ</th>
-                  <th className="py-3.5 px-3 text-center">পূর্ণমান</th>
+                <tr className="bg-[#f1f3ff] text-slate-900 border-b border-slate-200/90 text-xs font-bold uppercase tracking-wider">
+                  <th className="py-3.5 px-4 text-center w-14 text-slate-800">ক্র. নং</th>
+                  <th className="py-3.5 px-4 text-slate-800">তারিখ ও বার</th>
+                  <th className="py-3.5 px-5 text-slate-800">বিষয় / কিতাবের নাম</th>
+                  <th className="py-3.5 px-3 text-slate-800">বিষয় কোড</th>
+                  <th className="py-3.5 px-4 text-slate-800">পরীক্ষার সময়</th>
+                  <th className="py-3.5 px-4 text-slate-800">পরীক্ষার হল / কক্ষ</th>
+                  <th className="py-3.5 px-3 text-center text-slate-800">পূর্ণমান</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200/70 text-xs sm:text-sm">
@@ -540,12 +539,12 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
                       <td className="py-3.5 px-3 font-mono text-xs text-slate-600">
                         {item.code || "—"}
                       </td>
-                      <td className="py-3.5 px-4 font-semibold text-emerald-800 whitespace-nowrap">
+                      <td className="py-3.5 px-4 font-semibold text-slate-800 whitespace-nowrap">
                         {item.time}
                       </td>
                       <td className="py-3.5 px-4 text-slate-700">
                         <span className="inline-flex items-center gap-1 text-slate-700 font-medium">
-                          <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                          <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                           {item.hall}
                         </span>
                       </td>
@@ -568,18 +567,18 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
               return (
                 <div
                   key={item.id || idx}
-                  className="p-4 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 shadow-xs hover:border-primary/40 space-y-2.5 transition-all"
+                  className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-2.5 transition-all"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-lg bg-white border border-slate-200/80 text-primary text-xs font-bold flex items-center justify-center shrink-0 shadow-2xs">
+                      <span className="w-6 h-6 rounded-lg bg-[#f1f3ff] border border-slate-200/80 text-slate-800 text-xs font-bold flex items-center justify-center shrink-0 shadow-2xs">
                         {toBengaliNumber(globalIdx)}
                       </span>
                       <span className="font-semibold text-xs text-slate-700">
                         {item.date} ({item.day})
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-md font-bold text-[11px] bg-white border border-slate-200/80 text-slate-800 shrink-0 shadow-2xs">
+                    <span className="px-2 py-0.5 rounded-md font-bold text-[11px] bg-[#f1f3ff] border border-slate-200/80 text-slate-800 shrink-0 shadow-2xs">
                       পূর্ণমান: {item.marks}
                     </span>
                   </div>
@@ -588,13 +587,13 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
                     {item.subject}
                   </h4>
 
-                  <div className="bg-white rounded-xl p-2.5 border border-slate-200/70 grid grid-cols-2 gap-2 text-xs shadow-2xs">
-                    <div className="flex items-center gap-1.5 text-emerald-800 font-semibold">
-                      <Clock className="w-3.5 h-3.5 shrink-0 text-emerald-600" />
+                  <div className="bg-[#f1f3ff] rounded-xl p-2.5 border border-slate-200/70 grid grid-cols-2 gap-2 text-xs shadow-2xs">
+                    <div className="flex items-center gap-1.5 text-slate-800 font-semibold">
+                      <Clock className="w-3.5 h-3.5 shrink-0 text-slate-600" />
                       <span className="truncate">{item.time}</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-slate-700">
-                      <MapPin className="w-3.5 h-3.5 shrink-0 text-emerald-600" />
+                      <MapPin className="w-3.5 h-3.5 shrink-0 text-slate-600" />
                       <span className="truncate">{item.hall}</span>
                     </div>
                   </div>
@@ -615,7 +614,7 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
           )}
         </>
       ) : (
-        <div className="p-8 sm:p-12 text-center bg-[#f1f3ff] rounded-2xl border border-dashed border-slate-200/80 shadow-xs space-y-2">
+        <div className="p-8 sm:p-12 text-center bg-white rounded-2xl border border-dashed border-slate-200/80 shadow-xs space-y-2">
           <AlertCircle className="w-10 h-10 text-slate-400 mx-auto mb-1 opacity-70" />
           <h3 className="text-sm sm:text-base font-bold text-slate-800">
             {searchQuery
@@ -634,15 +633,15 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
 
       {/* Exam Rules & Guidelines Accordion / Box */}
       {examInstructions.length > 0 && (
-        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-[#f1f3ff] border border-slate-200/80 space-y-3 shadow-xs">
+        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 space-y-3 shadow-xs">
           <div className="flex items-center gap-2 text-main font-bold text-sm sm:text-base">
-            <FileText className="w-4 h-4 text-emerald-600 shrink-0" />
+            <FileText className="w-4 h-4 text-slate-700 shrink-0" />
             <span>পরীক্ষার্থীদের জন্য বিশেষ নির্দেশনাবলী</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1 text-xs text-slate-700">
             {examInstructions.map((rule, idx) => (
-              <div key={idx} className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-slate-200/70 shadow-2xs">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+              <div key={idx} className="flex items-start gap-2 bg-[#f1f3ff] p-2.5 rounded-xl border border-slate-200/70 shadow-2xs">
+                <CheckCircle2 className="w-3.5 h-3.5 text-slate-700 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{rule}</span>
               </div>
             ))}

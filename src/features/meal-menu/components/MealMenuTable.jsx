@@ -96,7 +96,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
             onClick={() => setSelectedDay("all")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 cursor-pointer ${
               selectedDay === "all"
-                ? "bg-primary text-white shadow-xs font-bold"
+                ? "bg-slate-900 text-white shadow-xs font-bold"
                 : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
             }`}
           >
@@ -111,15 +111,15 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                 onClick={() => setSelectedDay(m.day_key)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                   isSelected
-                    ? "bg-primary text-white shadow-xs font-bold"
+                    ? "bg-slate-900 text-white shadow-xs font-bold"
                     : isToday
-                    ? "bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold"
+                    ? "bg-[#f1f3ff] text-slate-900 border border-slate-300 font-bold"
                     : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
                 }`}
               >
                 {m.day_name}
                 {isToday && (
-                  <span className="ml-1 px-1 py-0.2 rounded text-[10px] bg-primary text-white font-normal">
+                  <span className="ml-1 px-1 py-0.2 rounded text-[10px] bg-slate-900 text-white font-normal">
                     আজ
                   </span>
                 )}
@@ -191,11 +191,11 @@ const MealMenuTable = ({ mealMenus = [] }) => {
 
                 {/* Lunch */}
                 <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                  <div className="w-6 h-6 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5 text-emerald-700">
+                  <div className="w-6 h-6 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 mt-0.5 text-slate-700">
                     <Sun className="w-3.5 h-3.5" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-[10px] font-bold text-emerald-900 uppercase tracking-wide block mb-0.5">
+                    <span className="text-[10px] font-bold text-slate-800 uppercase tracking-wide block mb-0.5">
                       দুপুরের আহার (প্রধান)
                     </span>
                     <p className="text-slate-950 font-bold text-xs sm:text-sm leading-relaxed">
@@ -206,11 +206,11 @@ const MealMenuTable = ({ mealMenus = [] }) => {
 
                 {/* Dinner */}
                 <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                  <div className="w-6 h-6 rounded-lg bg-sky-100 flex items-center justify-center shrink-0 mt-0.5 text-sky-700">
+                  <div className="w-6 h-6 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 mt-0.5 text-slate-700">
                     <Moon className="w-3.5 h-3.5" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-[10px] font-bold text-sky-900 uppercase tracking-wide block mb-0.5">
+                    <span className="text-[10px] font-bold text-slate-800 uppercase tracking-wide block mb-0.5">
                       রাতের খাবার
                     </span>
                     <p className="text-slate-900 font-semibold text-xs leading-relaxed">
@@ -230,7 +230,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
       <div
         className={`${
           mobileView === "table" ? "block" : "hidden md:block"
-        } overflow-hidden rounded-2xl border border-slate-200/80 bg-[#f1f3ff] shadow-xs`}
+        } overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xs`}
       >
         {/* Mobile Horizontal Scroll Hint */}
         <div className="md:hidden bg-slate-100/90 px-3 py-1.5 text-center text-[11px] font-medium text-slate-600 border-b border-slate-200">
@@ -241,28 +241,28 @@ const MealMenuTable = ({ mealMenus = [] }) => {
           <table className="w-full min-w-[650px] text-left border-collapse">
             {/* Table Header */}
             <thead>
-              <tr className="bg-slate-900 text-white text-xs sm:text-sm">
-                <th className="py-3.5 px-4 sm:px-6 font-bold w-36 sm:w-44 text-emerald-300">
+              <tr className="bg-[#f1f3ff] text-slate-900 border-b border-slate-200/90 text-xs sm:text-sm">
+                <th className="py-3.5 px-4 sm:px-6 font-bold w-36 sm:w-44 text-slate-800">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-emerald-400" />
+                    <Calendar className="w-4 h-4 text-slate-600" />
                     <span>বার</span>
                   </div>
                 </th>
-                <th className="py-3.5 px-4 sm:px-6 font-bold w-[28%] text-amber-300">
+                <th className="py-3.5 px-4 sm:px-6 font-bold w-[28%] text-slate-800">
                   <div className="flex items-center gap-2">
-                    <Sunrise className="w-4 h-4 text-amber-400" />
+                    <Sunrise className="w-4 h-4 text-amber-600" />
                     <span>সকাল (নাস্তা)</span>
                   </div>
                 </th>
-                <th className="py-3.5 px-4 sm:px-6 font-bold w-[36%] text-emerald-300">
+                <th className="py-3.5 px-4 sm:px-6 font-bold w-[36%] text-slate-800">
                   <div className="flex items-center gap-2">
-                    <Sun className="w-4 h-4 text-emerald-400" />
+                    <Sun className="w-4 h-4 text-amber-600" />
                     <span>দুপুর (আহার)</span>
                   </div>
                 </th>
-                <th className="py-3.5 px-4 sm:px-6 font-bold w-[28%] text-sky-300">
+                <th className="py-3.5 px-4 sm:px-6 font-bold w-[28%] text-slate-800">
                   <div className="flex items-center gap-2">
-                    <Moon className="w-4 h-4 text-sky-400" />
+                    <Moon className="w-4 h-4 text-slate-600" />
                     <span>রাত (নৈশভোজ)</span>
                   </div>
                 </th>
@@ -278,7 +278,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                     key={row.id || row.day_key}
                     className={`transition-colors ${
                       isToday
-                        ? "bg-emerald-50/80 font-medium hover:bg-emerald-100/60"
+                        ? "bg-slate-100 font-medium hover:bg-slate-200/60"
                         : index % 2 === 0
                         ? "bg-white hover:bg-slate-50"
                         : "bg-[#f1f3ff] hover:bg-slate-100/70"
@@ -287,21 +287,17 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                     {/* Day Column */}
                     <td className="py-4 px-4 sm:px-6 align-top">
                       <div className="flex items-center gap-2">
-                        <span
-                          className={`font-bold text-sm sm:text-base whitespace-nowrap ${
-                            isToday ? "text-primary" : "text-slate-900"
-                          }`}
-                        >
+                        <span className="font-bold text-sm sm:text-base whitespace-nowrap text-slate-900">
                           {row.day_name}
                         </span>
                         {isToday && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-white shrink-0">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-white shrink-0">
                             আজ
                           </span>
                         )}
                       </div>
                       {row.day_key === "fri" && (
-                        <span className="inline-block mt-1 text-[10px] text-emerald-700 bg-emerald-100/80 px-1.5 py-0.5 rounded font-semibold whitespace-nowrap">
+                        <span className="inline-block mt-1 text-[10px] text-slate-700 bg-white border border-slate-200 px-1.5 py-0.5 rounded font-semibold whitespace-nowrap">
                           জুমার বিশেষ মেনু
                         </span>
                       )}
@@ -320,7 +316,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                     {/* Lunch */}
                     <td className="py-4 px-4 sm:px-6 align-top text-slate-900">
                       <div className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-700 mt-1.5 shrink-0" />
                         <span className="leading-relaxed font-bold text-slate-900">
                           {row.lunch}
                         </span>
@@ -330,7 +326,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                     {/* Dinner */}
                     <td className="py-4 px-4 sm:px-6 align-top text-slate-800">
                       <div className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-700 mt-1.5 shrink-0" />
                         <span className="leading-relaxed font-medium">
                           {row.dinner}
                         </span>
@@ -344,15 +340,15 @@ const MealMenuTable = ({ mealMenus = [] }) => {
         </div>
 
         {/* Note Footer (Directly matching Madrasah Circled Screenshot) */}
-        <div className="p-4 sm:p-5 bg-emerald-50/80 border-t border-emerald-100 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0">
+        <div className="p-4 sm:p-5 bg-[#f1f3ff] border-t border-slate-200/80 flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shrink-0">
             <Info className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-xs sm:text-sm font-bold text-emerald-950">
+            <p className="text-xs sm:text-sm font-bold text-slate-900">
               বি. দ্র. : প্রতি বেলা তরকারীর সাথে পর্যাপ্ত ও সুস্বাদু মুসুরীর ডাল থাকবে।
             </p>
-            <p className="text-[11px] text-emerald-800/90 mt-0.5">
+            <p className="text-[11px] text-slate-600 mt-0.5">
               বাজারের মৌসুম ও পুষ্টিমান বিবেচনায় প্রয়োজনে মেন্যুতে সামান্য পরিবর্তন হতে পারে।
             </p>
           </div>

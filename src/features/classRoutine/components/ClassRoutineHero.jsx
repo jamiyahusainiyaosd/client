@@ -61,7 +61,7 @@ const ClassRoutineHero = ({
                 onClick={() => onSelectViewMode("routine")}
                 className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                   viewMode === "routine"
-                    ? "bg-primary text-white shadow-2xs"
+                    ? "bg-slate-900 text-white shadow-2xs"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -73,7 +73,7 @@ const ClassRoutineHero = ({
                 onClick={() => onSelectViewMode("timeline")}
                 className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                   viewMode === "timeline"
-                    ? "bg-primary text-white shadow-2xs"
+                    ? "bg-slate-900 text-white shadow-2xs"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >

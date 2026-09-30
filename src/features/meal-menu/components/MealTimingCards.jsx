@@ -8,13 +8,13 @@ const getIcon = (iconName, index) => {
   if (index === 1 || iconName === "lunch_dining" || iconName?.includes("lunch")) {
     return <Utensils className="w-5 h-5 text-emerald-600" />;
   }
-  return <MoonStar className="w-5 h-5 text-indigo-600" />;
+  return <MoonStar className="w-5 h-5 text-emerald-600" />;
 };
 
 const getBadgeStyle = (index) => {
   if (index === 0) return "bg-amber-50 text-amber-700 border-amber-200/80";
   if (index === 1) return "bg-emerald-50 text-emerald-700 border-emerald-200/80";
-  return "bg-indigo-50 text-indigo-700 border-indigo-200/80";
+  return "bg-emerald-50 text-emerald-700 border-emerald-200/80";
 };
 
 const MealTimingCards = ({ timings = [] }) => {
