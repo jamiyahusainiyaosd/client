@@ -8,6 +8,7 @@ import TopAchieversFilter from "../features/topAchievers/components/TopAchievers
 import TopAchieversCard from "../features/topAchievers/components/TopAchieversCard";
 import TopAchieverModal from "../features/topAchievers/components/TopAchieverModal";
 import Pagination from "../components/Pagination";
+import Loader from "../components/Loader";
 import { Trophy, SearchX } from "lucide-react";
 
 // Exactly 9 items per page (3 cards x 3 rows on desktop)
@@ -152,22 +153,8 @@ const TopAchieversPage = () => {
               totalCount={filteredStudents.length}
             />
 
-            {/* Loading Skeletons: 3 items per row on desktop */}
-            {isLoading && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div
-                    key={i}
-                    className="bg-[#f1f3ff] rounded-2xl border border-slate-200/80 p-5 h-96 animate-pulse flex flex-col items-center justify-center"
-                  >
-                    <div className="w-32 h-36 rounded-2xl bg-slate-200 mb-4" />
-                    <div className="w-44 h-4 rounded bg-slate-200 mb-2" />
-                    <div className="w-28 h-3 rounded bg-slate-100 mb-3" />
-                    <div className="w-full h-12 rounded-xl bg-slate-50" />
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* Loading */}
+            {isLoading && <Loader />}
 
             {/* Empty State */}
             {!isLoading && filteredStudents.length === 0 && (

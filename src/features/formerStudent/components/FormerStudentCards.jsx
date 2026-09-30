@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { toBengaliDigits } from "../utils/bengaliUtils";
 import StudentAvatar from "./StudentAvatar";
+import Loader from "../../../components/Loader";
 
 const FormerStudentCards = ({
   students = [],
@@ -9,29 +10,7 @@ const FormerStudentCards = ({
   isLoading = false,
 }) => {
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 animate-pulse">
-        {[1, 2, 3, 4, 5, 6].map((n) => (
-          <div
-            key={n}
-            className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs h-64 flex flex-col justify-between"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-[52px] h-[52px] rounded-2xl bg-slate-200 shrink-0" />
-              <div className="space-y-2 flex-1">
-                <div className="h-4 bg-slate-200 rounded w-2/3" />
-                <div className="h-3 bg-slate-200 rounded w-1/2" />
-              </div>
-            </div>
-            <div className="space-y-2 bg-[#f1f3ff]/50 p-3 rounded-xl">
-              <div className="h-3 bg-slate-200 rounded w-4/5" />
-              <div className="h-3 bg-slate-200 rounded w-3/5" />
-            </div>
-            <div className="h-10 bg-slate-200 rounded-xl" />
-          </div>
-        ))}
-      </div>
-    );
+    return <Loader message="প্রাক্তন শিক্ষার্থীদের তথ্য লোড হচ্ছে..." />;
   }
 
   if (students.length === 0) {

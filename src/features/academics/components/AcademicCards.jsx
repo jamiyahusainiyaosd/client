@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { toBengaliDigits, getIconForClass, getCategoryForClass } from "../utils/academicUtils";
+import Loader from "../../../components/Loader";
 
 const AcademicCards = ({
   classes = [],
@@ -8,16 +9,7 @@ const AcademicCards = ({
   isLoading = false,
 }) => {
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-6">
-        {[1, 2, 3, 4, 5, 6].map((n) => (
-          <div
-            key={n}
-            className="bg-[#f1f3ff] rounded-2xl p-5 sm:p-6 h-64 border border-slate-200/80 animate-pulse"
-          />
-        ))}
-      </div>
-    );
+    return <Loader message="ক্লাস ও পাঠ্যক্রমের তথ্য লোড হচ্ছে..." />;
   }
 
   if (classes.length === 0) {

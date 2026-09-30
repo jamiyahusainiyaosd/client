@@ -1,18 +1,10 @@
 import PropTypes from "prop-types";
 import TeacherCard from "./TeacherCard";
+import Loader from "../../../components/Loader";
 
 const TeacherCards = ({ teachers = [], isLoading = false }) => {
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 my-6">
-        {[1, 2, 3, 4, 5, 6].map((n) => (
-          <div
-            key={n}
-            className="bg-[#f1f3ff] rounded-2xl p-5 sm:p-6 h-64 border border-slate-200/80 animate-pulse"
-          />
-        ))}
-      </div>
-    );
+    return <Loader message="শিক্ষকমণ্ডলীর তথ্য লোড হচ্ছে..." />;
   }
 
   if (!teachers || teachers.length === 0) {

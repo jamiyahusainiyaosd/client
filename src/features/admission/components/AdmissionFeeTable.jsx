@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../../../components/Pagination";
+import Loader from "../../../components/Loader";
 import { toBengaliDigits, formatFee } from "../utils/admissionUtils";
 import { useContactSettings } from "../../contactus/hooks/useContactSettings";
 
@@ -178,16 +179,9 @@ const AdmissionFeeTable = ({ feeRecords = [], isLoading = false }) => {
         </div>
       </div>
 
-      {/* Loading Skeleton */}
+      {/* Loading */}
       {isLoading ? (
-        <div className="space-y-3 py-6">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <div
-              key={n}
-              className="w-full h-14 bg-white/70 rounded-xl border border-slate-200/60 animate-pulse"
-            />
-          ))}
-        </div>
+        <Loader message="ভর্তি ফি ও পাঠ্যক্রমের তথ্য লোড হচ্ছে..." />
       ) : paginatedRecords.length === 0 ? (
         <div className="text-center py-12 bg-white rounded-xl border border-slate-200/80 p-6 shadow-xs">
           <span className="material-symbols-outlined text-slate-400 text-[48px] mb-2">

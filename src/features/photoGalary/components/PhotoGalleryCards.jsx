@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import Loader from "../../../components/Loader";
 
 const PhotoGalleryCards = ({
   items = [],
@@ -7,17 +8,7 @@ const PhotoGalleryCards = ({
   isLoading = false
 }) => {
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
-          <div key={n} className="bg-white rounded-2xl border border-slate-200/60 p-3 shadow-xs flex flex-col gap-3">
-            <div className="bg-slate-200/70 rounded-xl aspect-[4/3] w-full" />
-            <div className="h-5 bg-slate-200/70 rounded-md w-3/4" />
-            <div className="h-4 bg-slate-200/50 rounded-md w-1/2" />
-          </div>
-        ))}
-      </div>
-    );
+    return <Loader message="ফটোগ্যালারি লোড হচ্ছে..." />;
   }
 
   if (items.length === 0) {

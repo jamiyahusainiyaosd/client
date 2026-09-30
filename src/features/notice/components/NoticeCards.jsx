@@ -1,18 +1,10 @@
 import PropTypes from "prop-types";
 import NoticeCard from "./NoticeCard";
+import Loader from "../../../components/Loader";
 
 const NoticeCards = ({ notices = [], isLoading = false }) => {
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 my-6">
-        {[1, 2, 3, 4, 5, 6].map((n) => (
-          <div
-            key={n}
-            className="bg-[#f1f3ff] rounded-2xl p-5 sm:p-6 h-56 border border-slate-200/80 animate-pulse"
-          />
-        ))}
-      </div>
-    );
+    return <Loader message="নোটিশ লোড হচ্ছে..." />;
   }
 
   if (!notices || notices.length === 0) {

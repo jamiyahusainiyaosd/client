@@ -7,6 +7,7 @@ import DonorCard from "./DonorCard";
 import DonorParticipationCard from "./DonorParticipationCard";
 import DonorAppealBanner from "./DonorAppealBanner";
 import Pagination from "../../../components/Pagination";
+import Loader from "../../../components/Loader";
 import { getDonorCountry } from "../utils/donorUtils";
 
 const ITEMS_PER_PAGE = 8;
@@ -144,29 +145,9 @@ const AllDonors = () => {
             countryList={countryList}
           />
 
-          {/* Loading Skeleton */}
+          {/* Loading */}
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
-              {[1, 2, 3, 4, 5, 6].map((n) => (
-                <div
-                  key={n}
-                  className="bg-[#f1f3ff] rounded-2xl p-6 border border-slate-200/80 h-72 flex flex-col justify-between"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 bg-slate-200 rounded-2xl shrink-0" />
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-slate-200 rounded w-20" />
-                      <div className="h-5 bg-slate-200 rounded w-36" />
-                      <div className="h-3 bg-slate-200 rounded w-24" />
-                    </div>
-                  </div>
-                  <div className="bg-white rounded-xl p-3 space-y-2">
-                    <div className="h-3 bg-slate-200 rounded w-full" />
-                    <div className="h-3 bg-slate-200 rounded w-3/4" />
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Loader message="প্রবাসী অনুদানকারীদের তালিকা লোড হচ্ছে..." />
           ) : (
             <>
               {/* Donor Cards Grid with Participation Bento Card */}

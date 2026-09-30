@@ -1,4 +1,5 @@
 import VideoThumbnail from "./VideoThumbnail";
+import Loader from "../../../components/Loader";
 
 const VideoGalleryCards = ({
   videos = [],
@@ -8,17 +9,7 @@ const VideoGalleryCards = ({
   isLoading = false
 }) => {
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-pulse">
-        {[1, 2, 3, 4].map((n) => (
-          <div key={n} className="bg-white rounded-2xl border border-slate-200/60 p-3 shadow-xs flex flex-col gap-3">
-            <div className="bg-slate-200/70 rounded-xl aspect-video w-full" />
-            <div className="h-5 bg-slate-200/70 rounded-md w-3/4" />
-            <div className="h-4 bg-slate-200/50 rounded-md w-1/2" />
-          </div>
-        ))}
-      </div>
-    );
+    return <Loader message="ভিডিও লোড হচ্ছে..." />;
   }
 
   if (videos.length === 0) {

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Award, Trophy, Sparkles, ArrowRight, User } from "lucide-react";
 import topAchieverService from "../../results/services/topAchiever.services";
 import TopAchieverModal from "../../topAchievers/components/TopAchieverModal";
+import Loader from "../../../components/Loader";
 
 const TopAchieversCarousel = () => {
   const scrollRef = useRef(null);
@@ -117,21 +118,8 @@ const TopAchieversCarousel = () => {
         </div>
       </div>
 
-      {/* Loading Skeleton */}
-      {isLoading && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="site-card-alt rounded-2xl border border-slate-200/80 p-5 h-80 animate-pulse flex flex-col items-center justify-center"
-            >
-              <div className="w-28 h-28 rounded-2xl bg-white/70 mb-4" />
-              <div className="w-36 h-4 rounded bg-white/70 mb-2" />
-              <div className="w-24 h-3 rounded bg-white/50" />
-            </div>
-          ))}
-        </div>
-      )}
+      {/* Loading */}
+      {isLoading && <Loader />}
 
       {/* Carousel Track with Floating Left / Right Navigation */}
       {!isLoading && (
