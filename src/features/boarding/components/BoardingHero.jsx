@@ -16,9 +16,13 @@ const BoardingHero = ({ totalRules = 26 }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb / Top Badge */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-primary text-xs font-semibold">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            দারুল ইক্বামাহ ও ছাত্রাবাস শৃঙ্খলা
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              আবাসিক নীতিমালা
+            </span>
+            <span className="text-secondary text-xs">•</span>
+            <span className="text-secondary text-xs font-medium">দারুল ইক্বামাহ ও ছাত্রাবাস শৃঙ্খলা</span>
           </div>
 
           <button
@@ -33,8 +37,8 @@ const BoardingHero = ({ totalRules = 26 }) => {
 
         {/* Heading & Intro */}
         <div className="max-w-3xl">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-main tracking-tight leading-snug">
-            আবাসিক নীতিমালা ও আচরণবিধি
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
+            আবাসিক নীতিমালা ও <span className="text-primary">আচরণবিধি</span>
           </h1>
           <p className="mt-3 text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed">
             সুন্নতি ইলম, আমল ও তাকওয়ার নিবিড় পরিবেশে ইলমে ওহীর শিক্ষার্থী গড়ে তুলতে
@@ -46,8 +50,6 @@ const BoardingHero = ({ totalRules = 26 }) => {
               <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
               মোট বিধিমালা: <strong className="text-main font-bold">{toBengaliNumber(totalRules)}টি</strong>
             </span>
-            <span className="hidden sm:inline text-slate-300">•</span>
-            <span>সর্বশেষ সংস্করণ: শিক্ষাবর্ষ ২০২৫ — ২০২৬</span>
           </div>
         </div>
       </div>

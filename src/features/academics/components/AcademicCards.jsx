@@ -134,7 +134,7 @@ const AcademicCards = ({
 
               {/* Description snippet */}
               {item.class_description && (
-                <p className="text-[11px] sm:text-xs text-slate-500 mt-2 line-clamp-2 bg-white/60 p-2 rounded-lg border border-slate-200/60">
+                <p className="text-[11px] sm:text-xs text-slate-500 mt-2 line-clamp-2 bg-white p-2 rounded-lg border border-slate-200/60">
                   {item.class_description}
                 </p>
               )}

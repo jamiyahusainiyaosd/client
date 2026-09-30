@@ -40,9 +40,13 @@ const ExamRoutineHero = ({ activeSession, onSelectSession }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top bar with Session pill & Print button */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-primary text-xs font-semibold">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            পরীক্ষা নিয়ন্ত্রণ দফতর • জামিয়া হুসাইনিয়া
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              পরীক্ষার সময়সূচি
+            </span>
+            <span className="text-secondary text-xs">•</span>
+            <span className="text-secondary text-xs font-medium">পরীক্ষা নিয়ন্ত্রণ দফতর • জামিয়া হুসাইনিয়া</span>
           </div>
 
           <button
@@ -57,8 +61,8 @@ const ExamRoutineHero = ({ activeSession, onSelectSession }) => {
 
         {/* Heading & Intro */}
         <div className="max-w-3xl">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-main tracking-tight leading-snug">
-            পরীক্ষার রুটিন ও সময়সূচি
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
+            পরীক্ষার রুটিন ও <span className="text-primary">সময়সূচি</span>
           </h1>
           <p className="mt-3 text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed">
             হিফজুল কুরআন, নূরানী-মক্তব এবং কিতাব বিভাগের ১ম সাময়িক, ২য় সাময়িক ও বার্ষিক

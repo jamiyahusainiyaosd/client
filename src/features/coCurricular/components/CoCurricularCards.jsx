@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Search, Clock, MapPin, User, CheckCircle2, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
@@ -127,45 +127,47 @@ const CoCurricularCards = () => {
   return (
     <div className="space-y-6">
       {/* Category Pills & Search */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
-        {/* Category Pills */}
-        <div
-          onWheel={(e) => {
-            if (e.deltaY !== 0) {
-              e.currentTarget.scrollLeft += e.deltaY;
-            }
-          }}
-          className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none scroll-smooth"
-        >
-          {categories.map((cat) => {
-            const isActive = selectedCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => handleCategoryClick(cat.id)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
-                  isActive
-                    ? "bg-primary text-white shadow-xs"
-                    : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
+      <div className="bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-3.5 sm:p-4 shadow-xs mb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
+          {/* Category Pills */}
+          <div
+            onWheel={(e) => {
+              if (e.deltaY !== 0) {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }
+            }}
+            className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none scroll-smooth"
+          >
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleCategoryClick(cat.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
+                    isActive
+                      ? "bg-primary text-white shadow-xs"
+                      : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Search Input */}
-        <div className="relative w-full sm:w-64 md:w-72 shrink-0">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            placeholder="কার্যক্রম বা উস্তাদের নাম..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
-          />
+          {/* Search Input */}
+          <div className="relative w-full sm:w-64 md:w-72 shrink-0">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              placeholder="কার্যক্রম বা উস্তাদের নাম..."
+              className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
+            />
+          </div>
         </div>
       </div>
 

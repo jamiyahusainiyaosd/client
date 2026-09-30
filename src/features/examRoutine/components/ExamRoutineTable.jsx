@@ -502,7 +502,7 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
       ) : paginatedSchedules.length > 0 ? (
         <>
           {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-white">
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-[#f1f3ff]">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-emerald-900 text-white text-xs font-bold uppercase tracking-wider">
@@ -515,14 +515,14 @@ const ExamRoutineTable = ({ activeSession = "" }) => {
                   <th className="py-3.5 px-3 text-center">পূর্ণমান</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tbody className="divide-y divide-slate-200/70 text-xs sm:text-sm">
                 {paginatedSchedules.map((item, idx) => {
                   const globalIdx = (currentPage - 1) * ITEMS_PER_PAGE + idx + 1;
                   return (
                     <tr
                       key={item.id || idx}
-                      className={`hover:bg-emerald-50/40 transition-colors duration-150 ${
-                        idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"
+                      className={`transition-colors duration-150 ${
+                        idx % 2 === 0 ? "bg-white hover:bg-slate-50" : "bg-[#f1f3ff] hover:bg-slate-100/70"
                       }`}
                     >
                       <td className="py-3.5 px-4 text-center font-bold text-slate-500 font-sans">

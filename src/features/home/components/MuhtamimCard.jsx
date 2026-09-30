@@ -9,10 +9,10 @@ const MuhtamimCard = () => {
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <h2 className="text-sm font-bold text-slate-900 tracking-wide">
-            মুহতামিম মহোদয়
+            মুহতামিম <span className="text-primary">মহোদয়</span>
           </h2>
         </div>
-        <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">
+        <span className="inline-flex items-center text-[11px] font-semibold px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed shadow-2xs">
           প্রশাসন ও নেতৃত্ব
         </span>
       </div>

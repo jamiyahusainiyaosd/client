@@ -30,9 +30,9 @@ const AdmissionHero = ({
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 w-full">
             <div>
               {/* Section Title */}
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
                 মাদ্রাসার{" "}
-                <span className="text-[#0d6e48]">
+                <span className="text-primary">
                   ভর্তি সংক্রান্ত নির্দেশনা
                 </span>{" "}
                 ও ফি তালিকা

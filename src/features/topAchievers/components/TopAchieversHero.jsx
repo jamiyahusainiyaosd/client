@@ -22,12 +22,16 @@ const TopAchieversHero = ({ totalCount = 0 }) => {
         {/* Hero Content */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light border border-primary-border/60 text-primary text-xs font-semibold mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-primary" />
-              <span>ইলম ও মেধার শীর্ষ গৌরব</span>
+            <div className="flex flex-wrap items-center gap-2 mb-3.5 sm:mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                এ বছরের সেরা
+              </span>
+              <span className="text-secondary text-xs">•</span>
+              <span className="text-secondary text-xs font-medium">ইলম ও মেধার শীর্ষ গৌরব</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-main tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
               এ বছরের <span className="text-primary">সেরা কৃতি শিক্ষার্থী</span>
             </h1>
 

@@ -11,17 +11,19 @@ const CoCurricularHero = ({ totalActivities = 10 }) => {
     <section className="w-full bg-[#f1f3ff] border-b border-slate-200/60 pt-6 sm:pt-10 pb-8 sm:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Badge */}
-        <div className="flex items-center gap-2 mb-4 sm:mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-primary text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-2 mb-4 sm:mb-6">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            মেধা বিকাশ ও সুন্নতি তারবিয়াত
-          </div>
+            সহ-পাঠ্যক্রম
+          </span>
+          <span className="text-secondary text-xs">•</span>
+          <span className="text-secondary text-xs font-medium">মেধা বিকাশ ও সুন্নতি তারবিয়াত</span>
         </div>
 
         {/* Heading & Intro */}
         <div className="max-w-3xl">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-main tracking-tight leading-snug">
-            সহ-পাঠ্যক্রমিক কার্যক্রম
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
+            সহ-পাঠ্যক্রমিক <span className="text-primary">কার্যক্রম</span>
           </h1>
           <p className="mt-3 text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed font-normal">
             শিক্ষাদানের ক্ষেত্রে নির্ধারিত পাঠ্যক্রমের পাশাপাশি ছাত্রদের বহুমুখী মেধা,

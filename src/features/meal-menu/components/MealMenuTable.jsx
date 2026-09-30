@@ -45,7 +45,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Table Header & Controls */}
-      <div className="flex flex-col gap-3 sm:gap-4">
+      <div className="bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
@@ -62,13 +62,13 @@ const MealMenuTable = ({ mealMenus = [] }) => {
           </div>
 
           {/* View Toggle on Mobile (Card vs Table) */}
-          <div className="flex md:hidden items-center self-start sm:self-auto bg-slate-100 p-0.5 rounded-xl border border-slate-200">
+          <div className="flex md:hidden items-center self-start sm:self-auto bg-white p-1 rounded-xl border border-slate-200/80 shadow-2xs">
             <button
               type="button"
               onClick={() => setMobileView("card")}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 mobileView === "card"
-                  ? "bg-white text-primary shadow-xs"
+                  ? "bg-primary text-white shadow-xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
@@ -78,9 +78,9 @@ const MealMenuTable = ({ mealMenus = [] }) => {
             <button
               type="button"
               onClick={() => setMobileView("table")}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 mobileView === "table"
-                  ? "bg-white text-primary shadow-xs"
+                  ? "bg-primary text-white shadow-xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
@@ -96,8 +96,8 @@ const MealMenuTable = ({ mealMenus = [] }) => {
             onClick={() => setSelectedDay("all")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 cursor-pointer ${
               selectedDay === "all"
-                ? "bg-primary text-white shadow-xs"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                ? "bg-primary text-white shadow-xs font-bold"
+                : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
             }`}
           >
             সব দিন
@@ -111,10 +111,10 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                 onClick={() => setSelectedDay(m.day_key)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                   isSelected
-                    ? "bg-primary text-white shadow-xs"
+                    ? "bg-primary text-white shadow-xs font-bold"
                     : isToday
                     ? "bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
                 }`}
               >
                 {m.day_name}
@@ -144,8 +144,8 @@ const MealMenuTable = ({ mealMenus = [] }) => {
               key={`card-${row.id || row.day_key}`}
               className={`rounded-2xl border transition-all p-4 shadow-xs ${
                 isToday
-                  ? "bg-emerald-50/60 border-emerald-300 ring-1 ring-emerald-300"
-                  : "bg-white border-slate-200/90"
+                  ? "bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-300"
+                  : "bg-[#f1f3ff] border-slate-200/80"
               }`}
             >
               {/* Day Header */}
@@ -166,7 +166,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                   )}
                 </div>
                 {row.day_key === "fri" && (
-                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
+                  <span className="text-[10px] font-bold text-emerald-800 bg-white border border-emerald-200 px-2 py-0.5 rounded-md shadow-2xs">
                     জুমার বিশেষ মেনু
                   </span>
                 )}
@@ -175,7 +175,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
               {/* 3 Meals in Clean, Readable Rows */}
               <div className="space-y-2.5 text-xs">
                 {/* Breakfast */}
-                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-amber-50/60 border border-amber-100/80">
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
                   <div className="w-6 h-6 rounded-lg bg-amber-100 flex items-center justify-center shrink-0 mt-0.5 text-amber-700">
                     <Sunrise className="w-3.5 h-3.5" />
                   </div>
@@ -190,7 +190,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                 </div>
 
                 {/* Lunch */}
-                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200/70">
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
                   <div className="w-6 h-6 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5 text-emerald-700">
                     <Sun className="w-3.5 h-3.5" />
                   </div>
@@ -205,7 +205,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                 </div>
 
                 {/* Dinner */}
-                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-sky-50/60 border border-sky-100/80">
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
                   <div className="w-6 h-6 rounded-lg bg-sky-100 flex items-center justify-center shrink-0 mt-0.5 text-sky-700">
                     <Moon className="w-3.5 h-3.5" />
                   </div>
@@ -230,7 +230,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
       <div
         className={`${
           mobileView === "table" ? "block" : "hidden md:block"
-        } overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-xs`}
+        } overflow-hidden rounded-2xl border border-slate-200/80 bg-[#f1f3ff] shadow-xs`}
       >
         {/* Mobile Horizontal Scroll Hint */}
         <div className="md:hidden bg-slate-100/90 px-3 py-1.5 text-center text-[11px] font-medium text-slate-600 border-b border-slate-200">
@@ -270,7 +270,7 @@ const MealMenuTable = ({ mealMenus = [] }) => {
             </thead>
 
             {/* Table Body */}
-            <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
+            <tbody className="divide-y divide-slate-200/70 text-xs sm:text-sm">
               {filteredMenus.map((row, index) => {
                 const isToday = row.day_key === todayKey;
                 return (
@@ -278,10 +278,10 @@ const MealMenuTable = ({ mealMenus = [] }) => {
                     key={row.id || row.day_key}
                     className={`transition-colors ${
                       isToday
-                        ? "bg-emerald-50/70 font-medium hover:bg-emerald-50"
+                        ? "bg-emerald-50/80 font-medium hover:bg-emerald-100/60"
                         : index % 2 === 0
-                        ? "bg-white hover:bg-slate-50/80"
-                        : "bg-slate-50/40 hover:bg-slate-50/80"
+                        ? "bg-white hover:bg-slate-50"
+                        : "bg-[#f1f3ff] hover:bg-slate-100/70"
                     }`}
                   >
                     {/* Day Column */}

@@ -9,15 +9,17 @@ const MealMenuHero = ({ onPrint }) => {
           {/* Left Text */}
           <div className="max-w-3xl">
             {/* Top Badge */}
-            <div className="flex items-center gap-2 mb-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-primary text-xs font-semibold">
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                আবাসিক ডাইনিং ও পুষ্টি ব্যবস্থাপনা
-              </div>
+                খাবার তালিকা
+              </span>
+              <span className="text-secondary text-xs">•</span>
+              <span className="text-secondary text-xs font-medium">আবাসিক ডাইনিং ও পুষ্টি ব্যবস্থাপনা</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-main tracking-tight leading-snug">
-              আবাসিক শিক্ষার্থীদের দৈনিক খাবার তালিকা
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
+              আবাসিক শিক্ষার্থীদের <span className="text-primary">দৈনিক খাবার তালিকা</span>
             </h1>
             <p className="mt-3 text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed font-normal">
               জামিয়া হুসাইনিয়া মাদ্রাসার আবাসিক শিক্ষার্থীদের শারীরিক সুস্থতা, পরিচ্ছন্নতা

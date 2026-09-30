@@ -263,45 +263,47 @@ const HolidayTable = ({ activeYear }) => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
-        {/* Category Pills */}
-        <div
-          onWheel={(e) => {
-            if (e.deltaY !== 0) {
-              e.currentTarget.scrollLeft += e.deltaY;
-            }
-          }}
-          className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none scroll-smooth"
-        >
-          {categories.map((cat) => {
-            const isActive = selectedCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => handleCategoryClick(cat.id)}
-                className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
-                  isActive
-                    ? "bg-primary text-white shadow-xs"
-                    : "bg-[#f1f3ff] text-slate-700 hover:bg-slate-200/70"
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
+      <div className="bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-3.5 sm:p-4 shadow-xs mb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
+          {/* Category Pills */}
+          <div
+            onWheel={(e) => {
+              if (e.deltaY !== 0) {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }
+            }}
+            className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none scroll-smooth"
+          >
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleCategoryClick(cat.id)}
+                  className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
+                    isActive
+                      ? "bg-primary text-white shadow-xs"
+                      : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Search Input */}
-        <div className="relative w-full sm:w-64 md:w-72 shrink-0">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            placeholder="ছুটি বা তারিখ খুঁজুন..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
-          />
+          {/* Search Input */}
+          <div className="relative w-full sm:w-64 md:w-72 shrink-0">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              placeholder="ছুটি বা তারিখ খুঁজুন..."
+              className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200/80 bg-white placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-2xs"
+            />
+          </div>
         </div>
       </div>
 
@@ -328,7 +330,7 @@ const HolidayTable = ({ activeYear }) => {
       ) : paginatedHolidays.length > 0 ? (
         <>
           {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-white">
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-[#f1f3ff]">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-emerald-900 text-white text-xs font-bold uppercase tracking-wider">
@@ -341,15 +343,15 @@ const HolidayTable = ({ activeYear }) => {
                   <th className="py-3.5 px-4">মন্তব্য</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tbody className="divide-y divide-slate-200/70 text-xs sm:text-sm">
                 {paginatedHolidays.map((item, idx) => {
                   const globalIdx =
                     (currentPage - 1) * ITEMS_PER_PAGE + idx + 1;
                   return (
                     <tr
                       key={item.id || idx}
-                      className={`hover:bg-emerald-50/40 transition-colors duration-150 ${
-                        idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"
+                      className={`transition-colors duration-150 ${
+                        idx % 2 === 0 ? "bg-white hover:bg-slate-50" : "bg-[#f1f3ff] hover:bg-slate-100/70"
                       }`}
                     >
                       <td className="py-3.5 px-4 text-center font-bold text-slate-500 font-sans">
@@ -357,7 +359,7 @@ const HolidayTable = ({ activeYear }) => {
                       </td>
                       <td className="py-3.5 px-5">
                         <p className="font-bold text-main">{item.title}</p>
-                        <span className="inline-block mt-0.5 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">
+                        <span className="inline-block mt-0.5 text-[10px] font-semibold text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-200/80 shadow-2xs">
                           {item.category}
                         </span>
                       </td>

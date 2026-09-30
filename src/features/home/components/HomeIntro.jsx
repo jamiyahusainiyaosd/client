@@ -158,8 +158,8 @@ const HomeIntro = () => {
             <span className="material-symbols-outlined text-[26px]">mosque</span>
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-main">
-              জামিয়া হুসাইনিয়া মাদ্রাসা
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+              জামিয়া হুসাইনিয়া <span className="text-primary">মাদ্রাসা</span>
             </h2>
             <p className="text-xs sm:text-sm text-muted font-medium mt-0.5">
               হবিগঞ্জ জেলার ঐতিহ্যবাহী কওমি দ্বীনি শিক্ষা প্রতিষ্ঠান

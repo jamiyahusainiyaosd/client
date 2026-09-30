@@ -23,9 +23,9 @@ const ContactHero = () => {
           </div>
 
           {/* Section Title */}
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
             আপনার জিজ্ঞাসা ও মতামত{" "}
-            <span className="text-[#0d6e48]">আমাদের কাছে অত্যন্ত মূল্যবান</span>
+            <span className="text-primary">আমাদের কাছে অত্যন্ত মূল্যবান</span>
           </h1>
 
           {/* Subheading Description */}

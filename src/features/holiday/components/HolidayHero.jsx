@@ -43,9 +43,13 @@ const HolidayHero = ({ activeYear, onSelectYear, totalHolidays = 0 }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top bar with Session pill & Print button */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-primary text-xs font-semibold">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            শিক্ষাবর্ষ ক্যালেণ্ডার ও অবকাশ তালিকা
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              ছুটির তালিকা
+            </span>
+            <span className="text-secondary text-xs">•</span>
+            <span className="text-secondary text-xs font-medium">শিক্ষাবর্ষ ক্যালেণ্ডার ও অবকাশ তালিকা</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -79,8 +83,8 @@ const HolidayHero = ({ activeYear, onSelectYear, totalHolidays = 0 }) => {
 
         {/* Heading & Intro */}
         <div className="max-w-3xl">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-main tracking-tight leading-snug">
-            বার্ষিক ছুটির তালিকা ও শিক্ষাপঞ্জিকা
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] lg:leading-[1.3] font-bold text-slate-900 tracking-tight leading-snug">
+            বার্ষিক ছুটির তালিকা ও <span className="text-primary">শিক্ষাপঞ্জিকা</span>
           </h1>
           <p className="mt-3 text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed">
             জামিয়া হুসাইনিয়া মাদ্রাসার নূরানী, হিফজুল কুরআন ও কিতাব বিভাগের ২০২৫ — ২০২৬
@@ -93,10 +97,6 @@ const HolidayHero = ({ activeYear, onSelectYear, totalHolidays = 0 }) => {
               সর্বমোট ছুটির পর্ব: <strong className="text-main font-bold">{toBengaliNumber(totalHolidays)}টি</strong>
             </span>
             <span className="hidden sm:inline text-slate-300">•</span>
-            <span className="inline-flex items-center gap-1 text-emerald-700 font-medium bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
-              <Sparkles className="w-3 h-3" />
-              অনুমোদিত শিক্ষাবর্ষ ২০২৫ — ২০২৬
-            </span>
           </div>
         </div>
       </div>

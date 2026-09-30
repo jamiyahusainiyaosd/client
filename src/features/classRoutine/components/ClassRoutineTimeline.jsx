@@ -400,66 +400,68 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
         <div className="space-y-6">
           {/* Jamat Switcher Pills Slider with Scroll Buttons & Drag */}
           {currentJamats.length > 0 && (
-            <div className="relative w-full flex items-center">
-              {/* Left Arrow Button */}
-              {canScrollLeft && (
-                <button
-                  type="button"
-                  onClick={() => handleScrollBy(-220)}
-                  aria-label="Scroll left"
-                  className="absolute -left-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[18px]">chevron_left</span>
-                </button>
-              )}
+            <div className="bg-[#f1f3ff] border border-slate-200/80 rounded-2xl p-3.5 sm:p-4 shadow-xs">
+              <div className="relative w-full flex items-center">
+                {/* Left Arrow Button */}
+                {canScrollLeft && (
+                  <button
+                    type="button"
+                    onClick={() => handleScrollBy(-220)}
+                    aria-label="Scroll left"
+                    className="absolute -left-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">chevron_left</span>
+                  </button>
+                )}
 
-              {/* Scrollable Pills Container */}
-              <div
-                ref={scrollContainerRef}
-                onScroll={checkScroll}
-                onWheel={handleWheel}
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={stopDragging}
-                onMouseLeave={stopDragging}
-                className={`flex items-center gap-2 overflow-x-auto pb-1.5 scroll-smooth w-full select-none ${
-                  isDragging ? "cursor-grabbing" : "cursor-grab"
-                }`}
-                style={{
-                  scrollbarWidth: "thin",
-                  scrollbarColor: "#cbd5e1 transparent",
-                }}
-              >
-                {currentJamats.map((jamat) => {
-                  const isActive = String(activeJamat) === String(jamat.id);
-                  return (
-                    <button
-                      key={jamat.id}
-                      type="button"
-                      onClick={() => setActiveJamat(jamat.id)}
-                      className={`shrink-0 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                        isActive
-                          ? "bg-primary text-white shadow-xs font-bold"
-                          : "bg-[#f1f3ff] text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-200/70"
-                      }`}
-                    >
-                      {jamat.name}
-                    </button>
-                  );
-                })}
+                {/* Scrollable Pills Container */}
+                <div
+                  ref={scrollContainerRef}
+                  onScroll={checkScroll}
+                  onWheel={handleWheel}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={stopDragging}
+                  onMouseLeave={stopDragging}
+                  className={`flex items-center gap-2 overflow-x-auto pb-1.5 scroll-smooth w-full select-none ${
+                    isDragging ? "cursor-grabbing" : "cursor-grab"
+                  }`}
+                  style={{
+                    scrollbarWidth: "thin",
+                    scrollbarColor: "#cbd5e1 transparent",
+                  }}
+                >
+                  {currentJamats.map((jamat) => {
+                    const isActive = String(activeJamat) === String(jamat.id);
+                    return (
+                      <button
+                        key={jamat.id}
+                        type="button"
+                        onClick={() => setActiveJamat(jamat.id)}
+                        className={`shrink-0 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                          isActive
+                            ? "bg-primary text-white shadow-xs font-bold"
+                            : "bg-white text-slate-700 hover:text-main border border-slate-200/80 hover:bg-slate-50"
+                        }`}
+                      >
+                        {jamat.name}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Right Arrow Button */}
+                {canScrollRight && (
+                  <button
+                    type="button"
+                    onClick={() => handleScrollBy(220)}
+                    aria-label="Scroll right"
+                    className="absolute -right-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+                  </button>
+                )}
               </div>
-
-              {/* Right Arrow Button */}
-              {canScrollRight && (
-                <button
-                  type="button"
-                  onClick={() => handleScrollBy(220)}
-                  aria-label="Scroll right"
-                  className="absolute -right-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-primary hover:bg-slate-50 transition-all cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[18px]">chevron_right</span>
-                </button>
-              )}
             </div>
           )}
 
@@ -473,7 +475,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                 সকাল ৮:০০ হতে প্রাতিষ্ঠানিক ঘণ্টাওয়ারি ক্লাস ও উস্তাদদের দায়িত্ব
               </p>
             </div>
-            <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200/60 hidden sm:inline-block">
+            <span className="text-xs font-semibold text-primary bg-[#f1f3ff] px-2.5 py-1 rounded-lg border border-slate-200/80 hidden sm:inline-block">
               {currentJamatSchedule.length}টি অধিবেশন
             </span>
           </div>
@@ -501,7 +503,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
           ) : currentJamatSchedule.length > 0 ? (
             <>
               {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-              <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-white">
+              <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/80 shadow-xs bg-[#f1f3ff]">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="bg-emerald-900 text-white text-xs font-bold uppercase tracking-wider">
@@ -512,7 +514,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                       <th className="py-3.5 px-4">কক্ষ / হল</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
+                  <tbody className="divide-y divide-slate-200/70 text-xs sm:text-sm">
                     {currentJamatSchedule.map((row, idx) => {
                       const isBreak = row.isBreak || row.period?.includes("বিরতি");
                       return (
@@ -520,10 +522,10 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                           key={row.id || idx}
                           className={`transition-colors duration-150 ${
                             isBreak
-                              ? "bg-amber-50/60 text-amber-900 font-semibold"
+                              ? "bg-amber-50/90 text-amber-900 font-semibold"
                               : idx % 2 === 0
-                              ? "bg-white hover:bg-emerald-50/40"
-                              : "bg-slate-50/60 hover:bg-emerald-50/40"
+                              ? "bg-white hover:bg-slate-50"
+                              : "bg-[#f1f3ff] hover:bg-slate-100/70"
                           }`}
                         >
                           <td className="py-3.5 px-4 text-center font-bold text-slate-700 whitespace-nowrap">
@@ -531,7 +533,7 @@ const ClassRoutineTimeline = ({ activeDept = "", viewMode = "routine" }) => {
                               className={`inline-block px-2.5 py-1 rounded-md text-xs ${
                                 isBreak
                                   ? "bg-amber-100 text-amber-900 font-bold"
-                                  : "bg-[#f1f3ff] text-primary"
+                                  : "bg-white text-primary border border-slate-200/80 shadow-2xs"
                               }`}
                             >
                               {row.period}

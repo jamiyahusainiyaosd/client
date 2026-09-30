@@ -10,7 +10,7 @@ const quickServices = [
     icon: "how_to_reg",
     path: "/admission",
     badge: "চলমান",
-    badgeColor: "bg-primary-light text-primary border border-primary-border/60",
+    badgeColor: "bg-primary-fixed text-on-primary-fixed shadow-2xs",
   },
   {
     title: "একাডেমিক বিভাগ",
@@ -61,8 +61,8 @@ const HomeQuickServices = () => {
       <div className="flex items-center justify-between gap-3 mb-4 sm:mb-5">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
-          <h2 className="text-base sm:text-lg font-bold text-main tracking-tight">
-            প্রয়োজনীয় সেবা ও দ্রুত নেভিগেশন
+          <h2 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+            প্রয়োজনীয় সেবা ও <span className="text-primary">দ্রুত নেভিগেশন</span>
           </h2>
         </div>
         <span className="text-xs text-muted hidden sm:inline-block">
@@ -82,7 +82,7 @@ const HomeQuickServices = () => {
               badgeColor = "bg-amber-100 text-amber-800 border border-amber-200/60";
             } else {
               badgeText = admissionStatus.badge_text_open || "চলমান";
-              badgeColor = "bg-primary-light text-primary border border-primary-border/60";
+              badgeColor = "bg-primary-fixed text-on-primary-fixed shadow-2xs";
             }
           }
 

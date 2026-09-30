@@ -110,15 +110,15 @@ const AcademicCalendarCard = () => {
             </span>
           </div>
           <div>
-            <h3 className="text-sm font-bold text-main leading-snug">
-              একাডেমিক ক্যালেন্ডার (হিজরি সন)
+            <h3 className="text-sm font-bold text-slate-900 leading-snug">
+              একাডেমিক <span className="text-primary">ক্যালেন্ডার</span> (হিজরি সন)
             </h3>
             <p className="text-[11px] text-muted font-medium line-clamp-1">
               কওমি মাদরাসা শিক্ষা বর্ষপঞ্জি • التقويم الأكاديمي
             </p>
           </div>
         </div>
-        <span className="hidden sm:inline-flex items-center gap-1 bg-primary-light text-primary text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-primary-border/60">
+        <span className="hidden sm:inline-flex items-center gap-1.5 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold px-2.5 py-1 rounded-full shadow-2xs">
           <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
           <span>{todayHijri.hYearBn} হিজরি ({todayHijri.hYearAr} هـ)</span>
         </span>

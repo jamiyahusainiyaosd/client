@@ -32,15 +32,15 @@ const PrayerTimesCard = () => {
             <span className="material-symbols-outlined text-[20px]">mosque</span>
           </div>
           <div>
-            <h3 className="text-sm font-bold text-main leading-snug">
-              {prayerData?.title || "দৈনিক জামা'আতের সময়সূচি"}
+            <h3 className="text-sm font-bold text-slate-900 leading-snug">
+              দৈনিক জামা'আতের <span className="text-primary">সময়সূচি</span>
             </h3>
             <p className="text-[11px] text-muted font-medium line-clamp-1">
               {prayerData?.sub_title || "জামিয়া হুসাইনিয়া কেন্দ্রীয় মসজিদ"}
             </p>
           </div>
         </div>
-        <span className="hidden sm:inline-flex items-center gap-1 bg-primary-light text-primary text-[10px] font-bold px-2 py-0.5 rounded-full border border-primary-border/60">
+        <span className="hidden sm:inline-flex items-center gap-1.5 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold px-2.5 py-1 rounded-full shadow-2xs">
           <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
           <span>জামা'আত</span>
         </span>

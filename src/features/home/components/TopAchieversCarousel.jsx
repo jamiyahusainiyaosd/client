@@ -89,17 +89,16 @@ const TopAchieversCarousel = () => {
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="brand-pill">
-              <Sparkles className="w-3.5 h-3.5 text-primary" />
-              <span>শীর্ষ মেধা ও গৌরব</span>
+          <div className="flex flex-wrap items-center gap-2 mb-2.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              এ বছরের সেরা
             </span>
+            <span className="text-secondary text-xs">•</span>
+            <span className="text-secondary text-xs font-medium">শীর্ষ মেধা ও গৌরব</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-main tracking-tight flex items-center gap-2.5">
-            <span>এ বছরের সেরা</span>
-            <span className="text-xs sm:text-sm font-medium px-2.5 py-0.5 rounded-full bg-primary-light text-primary border border-primary-border/60">
-              কৃতি শিক্ষার্থী
-            </span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+            এ বছরের <span className="text-primary">সেরা কৃতি শিক্ষার্থী</span>
           </h2>
           <p className="text-xs sm:text-sm text-muted mt-1 max-w-2xl">
             কেন্দ্রীয় বোর্ড পরীক্ষা ও বার্ষিক ইমতিহানে শীর্ষস্থান অর্জনকারী শিক্ষার্থীদের গৌরবোজ্জ্বল সাফল্য।

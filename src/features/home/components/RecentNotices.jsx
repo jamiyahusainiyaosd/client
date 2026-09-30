@@ -18,14 +18,16 @@ const RecentNotices = () => {
     <section>
       {/* Section Header */}
       <div className="mb-5">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="brand-pill">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            <span>লাইভ আপডেট</span>
+        <div className="flex flex-wrap items-center gap-2 mb-2.5">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-semibold tracking-wide shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            লাইভ আপডেট
           </span>
+          <span className="text-secondary text-xs">•</span>
+          <span className="text-secondary text-xs font-medium">বিজ্ঞপ্তি ও এলান</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-main tracking-tight">
-          সাম্প্রতিক নোটিশ
+        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+          সাম্প্রতিক <span className="text-primary">নোটিশ</span>
         </h2>
         <p className="text-sm text-muted mt-1">
           মাদ্রাসার সর্বশেষ নোটিশ ও গুরুত্বপূর্ণ ঘোষণা
